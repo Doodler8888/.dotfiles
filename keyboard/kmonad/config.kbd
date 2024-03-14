@@ -1,0 +1,30 @@
+(defcfg
+  ;; For Linux
+  input  (device-file "/dev/input/by-id/usb-Keychron_Keychron_V1-if02-event-kbd")
+  output (uinput-sink "My KMonad output")
+  fallthrough true
+)
+
+(defsrc
+  esc 1 2 3 4 5 6 7 8 9 0 - =
+  tab q w e r t y u i o p [ ] \
+  caps a s d f g h j k l ; ' ret
+  lsft z x c v b n m , . / rsft
+  lctl lmet lalt spc ralt rmet rctl
+)
+
+(deflayer colemak
+  caps 1 2 3 4 5 6 7 8 9 0 - =
+  tab q w f p g j l u y ; [ ] \
+  lctl a r s t d h n e i o ' ret
+  lsft z x c v b k m , . / rsft
+  esc lmet lalt space ralt rmet rctl
+)
+
+;; (deflayer ru
+;;   caps 1 2 3 4 5 6 7 8 9 0 - =
+;;   tab й ц у к е н г ш щ з х ё \
+;;   esc ф ы в а п р о л д ж э ret
+;;   lsft я ч с м и т ь б ю . rsft
+;;   spc lmet lalt lctl ralt rmet rctl
+;; )

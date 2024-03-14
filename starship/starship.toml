@@ -1,0 +1,62 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+[line_break]
+disabled = true
+
+[character] 
+success_symbol = "[>](#D08770 bold)" 
+error_symbol = "[>](#D08770 bold)"
+vimcmd_symbol = "[>](#D08770 bold)"
+
+[package]
+disabled = true
+
+[directory]
+style = "#81A1C1"
+truncation_length = 1
+
+# [directory.substitutions]
+# '.dotfiles/' = '/dot' # This will add 'dot' to all child directory names. If i add slash at the end of dot, it will disable the effect.
+# '.dotfiles' = 'dot' # This will rename the .dotfiles directory to 'dot'.
+
+[git_status]
+disabled = true
+
+[git_branch]
+disabled = true
+
+[cmd_duration]
+disabled = true
+
+[golang]
+disabled = true
+
+[lua]
+disabled = true
+
+[python]
+# disabled = true
+format = "[$version( \\($virtualenv\\) )]($style)"
+
+[nodejs]
+disabled = true
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true
+
+[haskell]
+disabled = true
+
+[terraform]
+disabled = true
+
+[perl]
+disabled = true
+
+[raku]
+disabled = true

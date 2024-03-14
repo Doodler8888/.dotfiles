@@ -1,0 +1,290 @@
+_G.current_session_name = nil
+
+-- Define the directory for storing session files
+local sessions_dir = vim.fn.stdpath('cache') .. '/sessions'
+
+
+if not vim.fn.isdirectory(sessions_dir) == 1 then
+    print("The sessions directory does not exist: " .. sessions_dir)
+    vim.fn.mkdir(sessions_dir, "p")
+end
+
+
+function _G.load_session(session_name)
+  _G.current_session_name = session_name -- Ensure this line is present and correctly sets the global variable
+  _G.session_loaded = true
+  if not session_name or session_name == "" then
+    print("Session name is required")
+    return
+  end
+  local session_path = sessions_dir .. '/' .. session_name
+  if vim.fn.filereadable(session_path) == 1 then
+    vim.cmd('source ' .. vim.fn.fnameescape(session_path), {mods = {silent = true}})
+    -- Set a global variable to indicate a session has been loaded
+    _G.session_loaded = true
+  else
+    print("Session not found: " .. session_path)
+  end
+end
+
+
+function _G.save_session(session_name)
+    -- Ensure the sessions directory exists, if not, create it
+    if not vim.fn.isdirectory(sessions_dir) then
+        vim.fn.mkdir(sessions_dir, "p")
+    end
+
+    -- Use the current session name if one is loaded, otherwise prompt for a name
+    local name_to_use = _G.current_session_name
+    if not name_to_use then
+        if not session_name or session_name == "" then
+            name_to_use = vim.fn.input('Session Name: ')
+            if name_to_use == "" then
+                print("Session name is required")
+                return
+            end
+	    print("\n")
+        else
+            name_to_use = session_name
+        end
+    end
+
+    local session_path = sessions_dir .. '/' .. name_to_use
+    vim.cmd('mksession! ' .. vim.fn.fnameescape(session_path))
+    print("Session saved: " .. session_path)
+    _G.current_session_name = name_to_use -- Update the global variable to the new session name
+end
+
+
+
+-- Command to save a session
+vim.api.nvim_create_user_command('SaveSession', function(params)
+  save_session(params.args)
+end, {nargs = 1})
+
+-- Command to load a session
+vim.api.nvim_create_user_command('LoadSession', function(params)
+  load_session(params.args)
+end, {nargs = 1})
+
+function _G.choose_session_to_load()
+  local sessions = vim.fn.split(vim.fn.globpath(sessions_dir, '*'), "\n")
+  if #sessions == 0 then
+    print("No sessions found.")
+    return
+  end
+  local session_names = {}
+  for i, session_file in ipairs(sessions) do
+    table.insert(session_names, string.format("%d: %s", i, vim.fn.fnamemodify(session_file, ':t:r')))
+  end
+  local choice = vim.fn.inputlist(session_names)
+  if choice < 1 or choice > #sessions then
+    print("Invalid session choice.")
+    return
+  end
+  load_session(vim.fn.fnamemodify(sessions[choice], ':t:r'))
+end
+
+vim.api.nvim_create_user_command('SaveSession', function(input)
+  save_session(input.args)
+end, {nargs = 1})
+
+vim.api.nvim_create_user_command('LoadSession', function(input)
+  load_session(input.args)
+end, {nargs = 1})
+
+vim.api.nvim_create_user_command('ChooseSession', choose_session_to_load, {})
+
+-- Binding for 'leader' followed by 'ss'
+vim.api.nvim_set_keymap('n', '<leader>ss', '<cmd>lua save_session()<CR>', { noremap = true, silent = true })
+
+-- -- Binding for 'leader' followed by 'sl'
+-- vim.api.nvim_set_keymap('n', '<leader>sl',
+--   "<cmd>lua choose_session_to_load()<CR>",
+--   { noremap = true, silent = true })
+
+
+function _G.rename_session(old_name, new_name)
+    local old_session_path = sessions_dir .. '/' .. old_name
+    local new_session_path = sessions_dir .. '/' .. new_name
+
+    if not vim.fn.filereadable(old_session_path) then
+        print("Session not found: " .. old_session_path)
+        return
+    end
+
+    local rename_result = vim.fn.rename(old_session_path, new_session_path)
+    if rename_result == 0 then
+        print("Session renamed from " .. old_name .. " to " .. new_name)
+        if _G.current_session_name == old_name then
+            _G.current_session_name = new_name
+        end
+    else
+        print("Failed to rename session")
+    end
+end
+
+function _G.rename_session_interactive()
+    if not _G.current_session_name or _G.current_session_name == "" then
+        print("No current session to rename.")
+        return
+    end
+
+    local new_name = vim.fn.input('New session name: ')
+    if new_name == "" then
+        print("New session name is required.")
+        return
+    end
+
+    -- Call the original rename function with the current session name and the new name
+    _G.rename_session(_G.current_session_name, new_name)
+end
+
+vim.api.nvim_create_user_command('RenameSessionInteractive', rename_session_interactive, {})
+
+
+vim.api.nvim_create_user_command('RenameSession', function(input)
+    local old_new_names = vim.split(input.args, " ")
+    if #old_new_names ~= 2 then
+        print("Usage: RenameSession <old_name> <new_name>")
+        return
+    end
+    rename_session(old_new_names[1], old_new_names[2])
+end, {nargs = "*"})
+
+
+function _G.choose_and_delete_session()
+    local sessions = vim.fn.split(vim.fn.globpath(sessions_dir, '*'), "\n")
+    if #sessions == 0 then
+        print("No sessions found.")
+        return
+    end
+    local session_names = {}
+    for i, session_file in ipairs(sessions) do
+        table.insert(session_names, string.format("%d: %s", i, vim.fn.fnamemodify(session_file, ':t')))
+    end
+    local choice = vim.fn.inputlist(session_names)
+    if choice < 1 or choice > #sessions then
+        print("Invalid session choice.")
+        return
+    end
+    local selected_session_name = vim.fn.fnamemodify(sessions[choice], ':t')
+
+    -- Now delete the selected session
+    _G.delete_session(selected_session_name)
+end
+
+function _G.delete_session(session_name)
+    local session_path = sessions_dir .. '/' .. session_name
+
+    if not vim.fn.filereadable(session_path) then
+        print("Session not found: " .. session_path)
+        return
+    end
+
+    local delete_result = vim.fn.delete(session_path)
+    if delete_result == 0 then
+        print("\nSession deleted: " .. session_name)
+        if _G.current_session_name == session_name then
+            _G.current_session_name = nil
+            _G.session_loaded = false
+        end
+    else
+        print("Failed to delete session")
+    end
+end
+
+vim.api.nvim_create_user_command('DeleteSession', choose_and_delete_session, {})
+
+-- Binding for 'leader' followed by 'sr' to rename the current session
+vim.api.nvim_set_keymap('n', '<leader>sr', '<cmd>RenameSessionInteractive<CR>', { noremap = true, silent = true })
+
+-- Binding for 'leader' followed by 'sd' to delete the current session
+vim.api.nvim_set_keymap('n', '<leader>sd', '<cmd>DeleteSession<CR>', { noremap = true, silent = true })
+
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    -- Check if a session has been loaded
+    if _G.session_loaded then
+      -- Use the global variable to check the name of the loaded session
+      if _G.current_session_name then
+        -- Save the session using the loaded session's name
+        _G.save_session(_G.current_session_name)
+        print("Session autosaved: " .. _G.current_session_name)
+      end
+    end
+  end,
+})
+
+
+-- Import Telescope components
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local conf = require('telescope.config').values
+
+-- Assuming your session management code is already defined above
+
+-- Function to list all session files
+local function list_sessions()
+ local sessions = vim.fn.split(vim.fn.globpath(sessions_dir, '*'), "\n")
+ local session_names = {}
+ for _, session_file in ipairs(sessions) do
+    table.insert(session_names, vim.fn.fnamemodify(session_file, ':t:r'))
+ end
+ return session_names
+end
+
+-- Custom Telescope picker for sessions with a smaller layout
+_G.session_picker = function(opts)
+ opts = opts or {}
+ local sessions = list_sessions()
+ if #sessions == 0 then
+    print("No sessions found.")
+    return
+ end
+
+ -- Custom layout configuration
+ local layout_config = {
+    width = 0.5, -- Width of the Telescope window as a fraction of the total width
+    height = 0.5, -- Height of the Telescope window as a fraction of the total height
+    mirror = false, -- Whether to mirror the layout
+    strategy = "center", -- Use the center strategy to automatically center the window
+ }
+
+ pickers.new(opts, {
+    prompt_title = 'Load Session',
+    finder = finders.new_table {
+      results = sessions,
+      entry_maker = function(entry)
+        return {
+          value = entry,
+          display = entry,
+          ordinal = entry,
+        }
+      end,
+    },
+    sorter = conf.generic_sorter(opts),
+    attach_mappings = function(prompt_bufnr, map)
+      local function load_selected_session()
+        local selection = action_state.get_selected_entry(prompt_bufnr)
+        actions.close(prompt_bufnr)
+        load_session(selection.value)
+      end
+
+      map('i', '<CR>', load_selected_session)
+      map('i', '<C-y>', load_selected_session)
+
+      return true
+    end,
+    layout_config = layout_config, -- Apply the custom layout configuration
+ }):find()
+end
+
+-- Command to open the session picker
+vim.api.nvim_create_user_command('LoadSessionPicker', _G.session_picker, {})
+
+-- Keybinding to open the session picker
+vim.api.nvim_set_keymap('n', '<leader>sl', '<cmd>lua session_picker()<CR>', { noremap = true, silent = true })

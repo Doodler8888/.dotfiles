@@ -1,0 +1,9 @@
+-- configs.nulsp = {
+--     default_config = {
+--         cmd = { "nu", "--lsp" },
+--         filetypes = { "nu" },
+--         root_dir = function(fname)
+--             ...
+--         end
+--     },
+-- }

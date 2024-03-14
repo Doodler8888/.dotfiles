@@ -1,0 +1,45 @@
+- name: Install neovim from source
+  hosts: localhost
+  vars:
+    user_home: "{{ ansible_env.HOME }}"  # Capture the initiating user's home directory
+  tasks:
+    - name: Ensure local source directory exists
+      ansible.builtin.file:
+        path: "{{ user_home }}/.source"
+        state: directory
+        mode: '0755'
+
+    - name: Install Neovim build dependencies
+      become: true
+      community.general.pacman:
+        name:
+          - git
+          - ninja
+          - cmake
+          - unzip
+        state: latest # Probably mimics '-Syu'.
+
+    - name: Clone Neovim repository
+      ansible.builtin.git:
+        repo: 'https://github.com/neovim/neovim.git'
+        dest: "{{ user_home }}/.source/neovim"
+        version: master
+
+    - name: Compile Neovim from source
+      ansible.builtin.command:
+        cmd: make CMAKE_BUILD_TYPE=Release
+        chdir: "{{ user_home }}/.source/neovim"
+        creates: "{{ user_home }}/.source/neovim/build/bin/nvim"
+
+    - name: Check if Neovim is already installed
+      ansible.builtin.stat:
+        path: "/usr/local/bin/nvim"
+      register: nvim_binary
+
+    - name: Install Neovim binary
+      become: true
+      ansible.builtin.command:
+        cmd: make install
+        chdir: "{{ user_home }}/.source/neovim"
+      changed_when: true
+      when: not nvim_binary.stat.exists # The 'when' condition is for the whole block, not for

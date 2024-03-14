@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+
+my $command = "psql -U postgres -c 'SELECT 1' --no-password";
+my $result = shell("$command 2>&1", :out);
+
+if $result ~~ /'could not connect to server'|'password authentication failed'/ {
+    say "Failed to connect as 'postgres' user. A password may be required or the server is not accessible.";
+} else {
+    say "Connected successfully as 'postgres' user without a password.";
+}

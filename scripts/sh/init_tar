@@ -1,0 +1,86 @@
+#!/bin/bash
+
+echo -e "\nChoose an action:\n"
+echo "1 - Extract a file"
+echo "2 - Compress a file"
+printf "\n=> "
+read -r action_choice
+
+tar_flags=""
+file_path=""
+
+if [ "$action_choice" -eq 1 ]; then
+    echo -e "\n(-x)"
+    tar_flags="-x" # Start with extract flag
+
+    # Request input for the file to extract
+    echo -e "\nEnter the path of the tar file to extract:"
+    printf "\n=> "
+    read -r file_path
+    file_path="${file_path/#~/$HOME}" # Expand tilde to home directory
+
+    # Ask for the extraction directory
+    echo -e "\nEnter the directory where you want to extract the file:"
+    printf "\n=> "
+    read -r extraction_path
+    extraction_path="${extraction_path/#~/$HOME}" # Expand tilde to home directory
+    
+    # Check if the directory exists. If not, create it.
+    if [ ! -d "$extraction_path" ]; then
+        echo -e "\nDirectory does not exist. Creating it now."
+        mkdir -p "$extraction_path"
+    fi
+
+    # Set the directory as the target for extraction
+    tar_flags+="f" # Add file flag
+    echo -e "\n-f"
+    tar_command="tar ${tar_flags} ${file_path} -C ${extraction_path}"
+elif [ "$action_choice" -eq 2 ]; then
+    echo -e "\n(-c)"
+    tar_flags="-c" # Start with create flag
+
+    echo -e "\nBy itself tar only combines files into a single file (an archive)
+without reducing the size of the files.
+    \nUse gzip compression?\n"
+    echo "1 - Yes"
+    echo "2 - No"
+    printf "\n=> "
+    read -r gzip_choice
+
+    case $gzip_choice in
+        1)
+            tar_flags+="z" # Add gzip flag
+	    echo -e "\n(-z)"
+            ;;
+        2)
+            ;;
+        *)
+            echo "Invalid choice"
+            exit 1
+            ;;
+    esac
+
+    # Request input for the file or directory to compress
+    echo -e "\nEnter the path of the file/directory to compress:"
+    printf "\n=> "
+    read -r file_path
+    file_path="${file_path/#~/$HOME}" # Expand tilde to home directory
+
+    # For compression, ask for the output file name or path
+    echo -e "\nEnter the name or path for the output file (e.g., archive.tar.gz or /path/to/archive.tar.gz):"
+    printf "=> "
+    read -r output_file
+    tar_flags+="f" # Add file flag
+    echo -e "\n-f"
+    tar_command="tar ${tar_flags} ${output_file} ${file_path}"
+else
+    echo "Invalid choice"
+    exit 1
+fi
+
+# Execute the tar command
+echo -e "\nExecuting: $tar_command"
+eval "$tar_command"
+
+echo -e "\nDone.\n"
+

@@ -1,0 +1,30 @@
+#!/usr/bin/env raku
+
+use v6.e.PREVIEW;
+
+
+sub get_abs_path($path is copy) {
+    $path ~~ s/^ '~' | '~/'/%*ENV<HOME>/;
+    return $path if $path ~~ /^ \/ /;   
+    return "{$*CWD}/{$path}";
+}
+
+#| Create symlinks for any number of targets with /usr/local/bin as a default destination
+sub MAIN(*@files, Str :d(:$destination)="/usr/local/bin") {
+    for @files -> $file {
+        my $abs-file = get_abs_path($file);
+        my $final-link-location = get_abs_path($destination);
+        $final-link-location ~= "/{$abs-file.IO.basename}" if $final-link-location.IO.d;
+
+        mkdir $final-link-location.IO.dirname; 
+        symlink $abs-file, $final-link-location;
+
+        say "Symbolic link created for $abs-file at $final-link-location";
+    }
+}
+
+
+# *@targets - without the *: If you remove the *, making the signature something
+# like sub MAIN(@targets, Str :$link-location), Raku no longer treats @targets
+# as a slurpy array. Instead, it expects exactly one positional argument that
+# must be an array. 

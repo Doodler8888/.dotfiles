@@ -1,0 +1,47 @@
+cabal-version:      3.8
+name:               scripts
+version:            0.1.0.0
+-- synopsis:
+-- description:
+-- license:            Apache-2.0
+-- license-file:       LICENSE
+author:             wurfkreuz
+maintainer:         wurfkreuz@mail.ru
+-- copyright:
+category:           Scripts
+build-type:         Simple
+-- extra-doc-files:    CHANGELOG.md
+-- extra-source-files:
+
+common warnings
+    ghc-options: -Wall
+
+executable dependency-update
+    import:           warnings
+    main-is:          dependency-update.hs
+    -- other-modules:
+    -- other-extensions:
+    build-depends:    base >=4.18.1
+                    , process
+                    , tomland
+                    , bytestring
+                    , text
+                    , regex-posix
+    hs-source-dirs:   exe
+    default-language: GHC2021
+
+executable bak
+    import:           warnings
+    main-is:          bak.hs
+    -- other-modules:
+    -- other-extensions:
+    build-depends:    base >=4.18.1
+                    , turtle >=1.6.2
+                    , foldl >=1.4.15
+		    , Cabal >= 3.2.0.0
+		    , temporary
+		    , process
+		    , directory
+		    , text
+    hs-source-dirs:   exe
+    default-language: GHC2021

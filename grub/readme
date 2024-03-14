@@ -1,0 +1,4 @@
+/etc/default/grub
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg - (i probably have an alias for this
+command)

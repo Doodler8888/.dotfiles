@@ -1,0 +1,31 @@
+- name: Create users and groups
+  hosts: localhost
+  become: true
+  vars:
+    username: ""
+    groupname: ""
+
+  tasks:
+    - name: "Create group: {{ username }}"
+      ansible.builtin.group:
+        name: "{{ username }}"
+        state: present
+
+    - name: User creation
+      ansible.builtin.user:
+        name: "{{ username }}"
+        group: "{{ username }}"
+        state: present
+
+    # - name: Check if the group is already appended to wurfkreuz
+    #   ansible.builtin.command: >
+    #     awk -F: '($1 == "{{ groupname }}") && match($4, /wurfkreuz/){print $1}' /etc/group
+    #   register: group
+    #   changed_when: false
+    #
+    # - name: Append the group to wurfkreuz
+    #   ansible.builtin.user:
+    #     name: wurfkreuz
+    #     group: "{{ groupname }}"
+    #     append: true
+    #   when: group.stdout == ""

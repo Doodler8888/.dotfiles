@@ -1,0 +1,30 @@
+# my global config
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+  # - /path/to/aws_rules.yml  # Add your AWS specific rules file here
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Add scrape jobs for your AWS resources here
+  - job_name: 'aws_ec2'
+    # ... your EC2 scrape configuration ...
+  - job_name: 'aws_rds'
+    # ... your RDS scrape configuration ...
+
+# Configure Prometheus to load alert configurations from your aws_notifications.yml file
+alerting:
+  file_sd_configs:
+    - files:
+        - /home/wurfkreuz/.dotfiles/prometheus/aws_notifications.yml

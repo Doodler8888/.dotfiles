@@ -1,0 +1,38 @@
+# /usr/share/X11/xkb/symbols/us
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # /etc/X11/xorg.conf.d/00-keyboard.conf
+#
+# Section "InputClass"
+#     Identifier "system-keyboard"
+#     MatchIsKeyboard "on"
+#     Option "XkbLayout" "us,ru"
+#     Option "XkbVariant" "colemak,"
+#     # Option "XkbOptions" "caps:swapescape,grp:alt_shift_toggle"
+#     Option "XkbOptions" "grp:alt_shift_toggle"
+# EndSection
+#
+#
+# # Also add this into /etc/vconsole.conf to apply settings before login
+#
+# KEYMAP=colemak
+# KEYMAP_OPTIONS="caps:swapescape,grp:alt_shift_toggle"
+# XKBLAYOUT=us
+# XKBMODEL=pc105+inet
+# XKBOPTIONS=terminate:ctrl_alt_bksp
+#
+
+

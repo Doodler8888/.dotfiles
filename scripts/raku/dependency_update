@@ -1,0 +1,68 @@
+#!/usr/bin/env raku
+
+use v6.e.PREVIEW;
+use Config::TOML;
+
+sub MAIN($filename) {
+  my %toml = from-toml({ slurp $filename }());
+
+  %toml<dependencies>:exists && (do {
+      for %toml<dependencies>.kv -> $lib, $version {
+	  my $output = qqx/cargo search $lib/;
+	  my $new-version = ($output.lines ~~ rx/'"'(.+)'"'/)[0].Str;
+
+	  (($version.isa(Hash) ?? $version<version> !! $version) ne $new-version)
+	  && (do {
+	      $version.isa(Hash) 
+	      ?? (%toml<dependencies>{$lib}<version> = $new-version)
+	      !! (%toml<dependencies>{$lib} = $new-version);
+	  })
+	  || say "Latest version for $lib not found or already up to date.";
+      }
+      spurt $filename, to-toml(%toml);
+  })
+  || say "'dependencies' section not found in $filename";
+}
+
+
+
+# rx/'"'(.+)'"'/)[0].Str; - to access the c
+# my $new-version = $output.lines[0].split(' ')[2].trans('"' => '').subst(':', '');
+
+# my $condition = (($version.isa(Hash) ?? $version<version> !! $version) ne $new-version);
+# say "Condition for $lib is $condition";
+
+# By wrapping the && expression in parentheses, you ensure that it is evaluated as
+# a single unit, which then determines whether the subsequent || operator should
+# be considered based on the outcome of the entire && expression.
+
+# use v6.d;
+# use Config::TOML;
+#
+# sub MAIN($filename) {
+#
+#   my %toml = from-toml({ slurp $filename }());
+#
+#   if %toml<dependencies>:exists {
+#     for %toml<dependencies>.kv -> $lib, $version {
+#
+#       my $output = qqx/cargo search $lib/;
+#       my $new-version = ($output.lines ~~ rx/'"'(.+)'"'/)[0].Str;
+#
+#       if $new-version.defined and ($version.isa(Hash) ?? $version<version> !! $version) ne $new-version {
+#         say "Updating $lib: $version -> $new-version";
+#         if $version.isa(Hash) {
+#           %toml<dependencies>{$lib}<version> = $new-version;
+#         } else {
+#           %toml<dependencies>{$lib} = $new-version; 
+#         }
+#       } else {
+#         say "Latest version for $lib not found or already up to date.";
+#       }
+#     }
+#     my $new-toml-content = to-toml(%toml);
+#     spurt $filename, $new-toml-content;
+#   } else {
+#     say "'dependencies' section not found in $filename"; 
+#   }
+# }

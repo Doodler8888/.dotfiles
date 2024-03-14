@@ -1,0 +1,112 @@
+#!/usr/bin/env raku
+
+use v6.e.PREVIEW;
+
+say 
+
+"
+    Postgres operates as a core process (the daemon). To interact with it, this
+    process must be running. A key reason for daemon centric approach is the need to
+    persistently listen for and manage incoming database connection requests of
+    different persistence and manage the existing connections (using its own
+    protocol), including those from localhost. 
+";
+
+say
+
+" 
+Enter a correct number to continue:
+
+1. Enable and start postgres daemon
+2. Next part
+";
+
+
+given prompt("> ") { 
+    when 1 { 
+    say qq{
+    A common situation on arch linux is an error in a procces of launching postgres daemon.
+    Running 'systemctl status postgresql.service' shows an information about how to fix
+    the problem:
+
+      Jul 21 13:20:02 noxethome systemd[1]: Starting PostgreSQL database
+      server...
+      Jul 21 13:20:02 noxethome postgres[3945]: "/var/lib/postgres/data" is
+      missing or empty. Use a command like
+      Jul 21 13:20:02 noxethome postgres[3945]:  su - postgres -c "initdb
+      --locale en_US.UTF-8 -D '/var/lib/postgres/data'" 
+    };
+
+    shell("echo -n 'Press any key to proceed...'; read -n 1 -s;"); say "\n";
+
+    my $dataDir = '/var/lib/postgres/data';
+
+    if $dataDir.IO.e && $dataDir.IO.d && dir($dataDir).elems > 0 {
+    shell("echo -n 'Data directory exists and is not empty. Proceeding to start PostgreSQL service.'; read -n 1 -s"); say "\n";
+    } else {
+    shell("echo -n 'Data directory is missing or empty. Initializing the database...'; read -n 1 -s"); say "\n";
+    shell('rsu - postgres -c "initdb --locale en_US.UTF-8 -D \'/var/lib/postgres/data\'"');
+    }
+    shell("echo -n 'Enabling postgres daemon...'; read -n 1 -s"); say "\n";
+    shell('sudo systemctl enable postgresql.service && sudo systemctl start postgresql.service');
+    shell('sudo systemctl status postgresql.service');
+    }
+    when 2 { 
+        say "\nContinuing...\n"; 
+    }
+    default { say "\nInvalid choice\n"; }
+}
+
+say 
+
+"
+    The postgres user is analogues to a root user of Unix, but for postgresql.
+";
+
+
+my $command = "psql -U postgres -c 'SELECT 1' --no-password";
+my $result = shell("$command 2>&1", :out);
+
+if $result ~~ /'could not connect to server'|'password authentication failed'/ {
+    say "Failed to connect as 'postgres' user. A password may be required or the server is not accessible.";
+} else {
+    say "Connected successfully as 'postgres' user without a password.";
+    say 
+"
+    Oops. It seems like your postgres user doesn't have a password, let's fix that!
+    Enter a password you want to set:
+";
+    my $password = prompt("> ").trim;
+
+    # Ensure the password is not empty
+    if $password.defined && $password.chars > 0 {
+        my $setPasswordCommand = qq[sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$password'"];
+	shell($setPasswordCommand);
+	say "Password for 'postgres' user has been successfully updated.";
+    } else {
+        say "No password entered. Exiting.";
+    }
+}
+
+
+
+
+
+# Placing double qoutes arond text on different levels creates empty line around
+# the text.
+
+# 'prompt' directly returns a string, so i don't need to try to merge with the '$*IN,get'
+# approach.
+
+
+
+# my $proc = run 'bash', '-c', $cmd, :out, :err;
+# if $proc.exitcode == 0 {
+#   say "Command executed successfully.";
+#   # Optionally, print standard output
+#   say $proc.out.slurp(:close);
+# } else {
+#   say "Command execution failed with exit code: {$proc.exitcode}";
+#   say $proc.err.slurp(:close);
+# }
+

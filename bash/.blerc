@@ -1,0 +1,42 @@
+# exec_elapsed_mark
+
+bleopt default_keymap=vi
+bleopt keymap_vi_mode_show:=
+bleopt vi_mode_enabled:=
+bleopt exec_elapsed_mark:=
+bleopt prompt_eol_mark=""
+
+
+# custom styles
+ble-face -s syntax_default fg=7
+ble-face -s syntax_quoted fg=8
+ble-face -s syntax_quotation fg=8
+ble-face -s auto_complete fg=8,bg=none
+ble-face -s filename_directory underline,fg=7
+ble-face -s command_builtin fg=2
+ble-face -s command_file fg=2
+ble-face -s command_function fg=2
+ble-face -s command_alias fg=2
+ble-face -s syntax_error fg=1,bg=none
+ble-face -s argument_option fg=8
+ble-face -s filename_url fg=8
+ble-face -s syntax_delimiter fg=6
+ble-face -s region_insert fg=8,bg=none
+ble-face -s syntax_history_expansion fg=8,bg=none
+# ble-face command_directory=fg=31,underline
+# ble-face cmdinfo_cd_cdpath=fg=31,bg=155
+ble-face syntax_expr=fg=31
+
+ble-bind -m vi_nmap --cursor 2
+ble-bind -m vi_imap --cursor 5
+ble-bind -m vi_omap --cursor 4
+ble-bind -m vi_xmap --cursor 2
+ble-bind -m vi_cmap --cursor 0
+
+
+function ble/prompt/backslash:dir {
+  ble/prompt/print $(basename "$PWD")
+}
+
+# bleopt prompt_rps1='\\dir'
+

@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+if [[ "$#" -eq 1 ]]; then
+    # The image you want to delete
+    IMAGE_NAME="$1"
+
+    # Find all containers (stopped and running) based on the image and remove them
+    docker ps -a --filter "ancestor=$IMAGE_NAME" --format "{{.ID}}" | xargs -r docker rm
+
+    # Finally, remove the image
+    docker rmi "$IMAGE_NAME"
+else
+    echo "Usage: $0 <image_name>"
+    exit 1
+fi
+
+
+# In Bash scripting, "$#" represents the number of positional arguments
+# passed to the script or function.

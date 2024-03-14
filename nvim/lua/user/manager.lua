@@ -52,7 +52,7 @@ local plugins = {
 	  end,
 	},
 	'vim-dadbod-ssh',
-	-- 'stevearc/resession.nvim',
+	'stevearc/resession.nvim',
 	'nvim-neorg/neorg',
 	{
 		"folke/trouble.nvim",

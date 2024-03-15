@@ -73,6 +73,11 @@ require('rose-pine').setup({
 		CurSearch = { link = "Visual" },
 		-- TermCursor = { link = "Visual" },
 		Directory = { fg = 'foam', bold = false },
+		NotificationInfo = { bg = 'none', fg = '#e0def4' },
+		NotificationError = { bg = 'none', fg = '#e0def4' },
+		NotificationWarning = { bg = 'none', fg = '#e0def4' },
+		TelescopeSelection = { fg = 'none', bg = 'highlight_med', blend = 50 },
+
 
 }
 })

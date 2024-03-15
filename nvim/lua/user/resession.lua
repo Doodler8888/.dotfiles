@@ -1,7 +1,7 @@
 local resession = require("resession")
 require("resession").setup({
   autosave = {
-    enabled = true,
+    enabled = false,
     interval = 30,
     notify = false,
   },
@@ -39,15 +39,15 @@ vim.keymap.set("n", "<leader>sd", resession.delete)
     --   end,
     -- })
 
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    require('resession').save()
-  end,
-})
-
-    -- vim.api.nvim_create_autocmd("VimLeavePre", {
-      --   callback = function()
-	--     -- Always save a special session named "last"
-	--     resession.save("last")
-	--   end,
-	-- })
+-- vim.api.nvim_create_autocmd("VimLeavePre", {
+--   callback = function()
+--     require('resession').save()
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("VimLeavePre", {
+--   callback = function()
+--     -- Always save a special session named "last"
+--     resession.save("last")
+--   end,
+-- })

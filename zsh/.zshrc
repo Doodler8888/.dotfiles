@@ -14,6 +14,7 @@ export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
 export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
 export RAKU_MODULE_DEBUG="~/.raku/sources"
 export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
+export LSP_USE_PLISTS=true
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -214,6 +215,6 @@ eval "$(starship init zsh)"
 # SSH_KEY_DIR="$HOME/.ssh/keys"
 # for key in "$SSH_KEY_DIR"/*; do
 #     if [[ -f $key && ! $key =~ \.pub$ ]]; then # The '=~' part is for making a regular expression check. The slash is an escape sequence because a dot has its own meaning for regular expressions.
-#         ssh-add "$key" > /dev/null 2>&1 
+#         ssh-add "$key" > /dev/null 2>&1
 #     fi
 # done

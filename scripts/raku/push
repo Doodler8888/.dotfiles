@@ -30,7 +30,7 @@ multi MAIN(Bool :l(:$list) = False) {
   }
 
   say @messages.join("\n");
-  say "";
+  # say "";
 }
 
 

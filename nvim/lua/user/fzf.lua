@@ -136,4 +136,4 @@ vim.keymap.set("n", "<Leader>dr", _G.fzf_root_dirs)
 vim.keymap.set("n", "<Leader>df", _G.fzf_current_dirs)
 
 
-vim.api.nvim_set_keymap('n', '<leader>nf', ':lua require("fzf-lua").files({ cwd = "~/.secret_dotfiles/notes", hidden = true })<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>fn', ':lua require("fzf-lua").files({ cwd = "~/.secret_dotfiles/notes", hidden = true })<CR>', {noremap = true, silent = true})

@@ -62,9 +62,10 @@ require('rose-pine').setup({
 		NotificationInfo = { bg = 'none', fg = '#e0def4' },
 		NotificationError = { bg = 'none', fg = '#e0def4' },
 		NotificationWarning = { bg = 'none', fg = '#e0def4' },
-		TelescopeSelection = { fg = 'none', bg = 'highlight_med', blend = 50 },
-
-
+		TelescopeSelection = { fg = 'none', bg = 'subtle', blend = 18 },
+		TroubleNormal = { fg = 'none', bg = 'none' },
+		TroubleCount = { fg = 'iris', bg = 'none' },
+		TroubleIndent = { fg = '#1d1f21', bg = 'none' },
 }
 })
 

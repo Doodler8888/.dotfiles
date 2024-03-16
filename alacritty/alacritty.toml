@@ -40,9 +40,9 @@ size = 12
   family = "NotoSansM Nerd Font Mono"
   style = "Medium"
 
-  [font.italic]
-  family = "NotoSansM Nerd Font Mono"
-  style = "Medium"
+  # [font.italic]
+  # family = "NotoSansM Nerd Font Mono"
+  # style = "Medium"
 
 [window.padding]
 y = 1

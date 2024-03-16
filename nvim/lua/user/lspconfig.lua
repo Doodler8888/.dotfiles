@@ -1,3 +1,29 @@
+do
+  local method = "textDocument/publishDiagnostics"
+  local default_handler = vim.lsp.handlers[method]
+
+  vim.lsp.handlers[method] = function(err, result, ctx, config)
+    default_handler(err, result, ctx, config)
+
+    if result and result.diagnostics then
+      for _, v in ipairs(result.diagnostics) do
+        v.bufnr = ctx.bufnr
+        v.lnum = v.range.start.line + 1
+        v.col = v.range.start.character + 1
+        v.text = v.message
+      end
+
+      local qflist = vim.fn.getqflist({ title = 0, id = 0 })
+
+      vim.fn.setqflist({}, qflist.title == "LSP Workspace Diagnostics" and "r" or " ", {
+        title = "LSP Workspace Diagnostics",
+        items = vim.diagnostic.toqflist(result.diagnostics),
+      })
+    end
+  end
+end
+
+
 local lspconfig = require('lspconfig')
 
 
@@ -8,24 +34,24 @@ vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { noremap = true, sile
 -- Lua
 
 lspconfig.lua_ls.setup{
-   cmd = { "lua-language-server" },
-   settings = {
-       Lua = {
-           runtime = {
-               version = 'LuaJIT',
-               path = vim.split(package.path, ';'),
-           },
-           diagnostics = {
-               globals = {'vim', 'opts'},
-           },
-           workspace = {
-               library = {
-                  [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                  [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-               },
-           },
-       },
-   },
+  cmd = { "lua-language-server" },
+  settings = {
+    Lua = {
+      runtime = {
+	version = 'LuaJIT',
+	path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+	globals = {'vim', 'opts'},
+      },
+      workspace = {
+	library = {
+	  [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+	  [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+	},
+      },
+    },
+  },
 }
 
 

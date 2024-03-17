@@ -146,7 +146,7 @@ keybinds clear-defaults=true {
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
     }
     shared_except "locked" {
-        // bind "Alt e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "Alt e" { EditScrollback; SwitchToMode "Normal"; }
         bind "Alt Left" { MovePane "Left"; }
         bind "Alt Down" { MovePane "Down"; }
         bind "Alt Up" { MovePane "Up"; }

@@ -33,11 +33,11 @@ vim.keymap.set("n", "<leader>sd", resession.delete)
 
 vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
-        if require('resession').is_loading() then
+        if require('resession').get_current() ~= nil then
           require('resession').save()
         end
       end,
-    })
+})
 
 -- vim.api.nvim_create_autocmd("VimLeavePre", {
 --   callback = function()

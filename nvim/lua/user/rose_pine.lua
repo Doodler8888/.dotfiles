@@ -75,19 +75,3 @@ require('rose-pine').setup({
 
 -- Set colorscheme after options
 vim.cmd('colorscheme rose-pine')
-
--- vim.api.nvim_create_autocmd("BufEnter", {
---   callback = function()
---     local bold = false
---     local italic = false
---     local filetypes = { "markdown" }
---     if vim.tbl_contains(filetypes, vim.bo.filetype) then
---       bold = true
---       italic = true
---     end
---     require("rose-pine").setup({
---       styles = { bold = bold, italic = italic },
---     })
---     vim.cmd('colorscheme rose-pine')
---   end,
--- })

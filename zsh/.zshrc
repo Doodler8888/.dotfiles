@@ -209,6 +209,9 @@ zstyle ':autocomplete:*' ignored-input '##'
 
 eval "$(starship init zsh)"
 
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+
 # if [ -z "$SSH_AUTH_SOCK" ] ; then
 #     eval "$(ssh-agent -s)" 1> /dev/null # 'ssh-agent -s' start a new ssh agent and print out env variables for it. But because it only prints them out, they have to be evaluated.
 # fi

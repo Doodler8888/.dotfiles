@@ -275,7 +275,6 @@ _G.session_picker = function(opts)
       end
 
       map('i', '<CR>', load_selected_session)
-      map('i', '<C-y>', load_selected_session)
 
       return true
     end,

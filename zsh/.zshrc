@@ -15,6 +15,7 @@ export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
 export RAKU_MODULE_DEBUG="~/.raku/sources"
 export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 export LSP_USE_PLISTS=true
+export LC_ALL=C.UTF-8
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true

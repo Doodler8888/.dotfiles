@@ -4,7 +4,16 @@ set $mod Mod4
 # Your preferred terminal emulator
 set $term alacritty
 
+# Window management
 bindsym $mod+w kill
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+k focus up
+bindsym $mod+j focus down
+
 
 # Application launching
 bindsym $mod+Return exec alacritty
@@ -26,7 +35,7 @@ bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 
 # Config reload
-bindsym $mod+s exec swaymsg reload
+bindsym $mod+y exec swaymsg reload
 
 # Exit Sway
 bindsym $mod+q exec swaymsg exit
@@ -37,11 +46,11 @@ input * {
     xkb_options "caps:escape,grp:ctrl_alt_toggle"
 }
 
-# bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1
-# bindsym alt+2 exec ~/.dotfiles/sway/switch_tab.sh 2
-# bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
-# bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
-# bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
+bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1
+bindsym alt+2 exec ~/.dotfiles/sway/switch_tab.sh 2
+bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
+bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
+bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
 # exec_always swaymsg 'workspace 1; exec alacritty'
 # exec_always swaymsg 'workspace 1; exec alacritty'
@@ -65,10 +74,10 @@ exec_always ~/.dotfiles/sway/launch_alacritty.sh
 # exec_always ~/.dotfiles/sway/launch_browsers.sh
 
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
+# set $left h
+# set $down j
+# set $up k
+# set $right l
 
 # # Your preferred application launcher
 # # Note: pass the final command to swaymsg so that the resulting window can be opened

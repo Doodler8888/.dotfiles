@@ -2,13 +2,52 @@
 
 use v6.e.PREVIEW;
 
-my $current-workspace-id = qqx/swaymsg -t get_workspaces | jq -r '.[] | select(.focused==true).name'/;
-print "This is the current workspace id: $current-workspace-id";
+# Shows id's of workspaces
+# swaymsg -t get_tree | jq '.nodes[1:][] | select(has("nodes")) | .nodes[] | .id'
 
-my $all-tabs = qqx/swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.layout=="tabbed").nodes[].id'/;
-print "All id's:\n$all-tabs";
+# Show tabs of a workspace with a specific id's
+# swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.id == $id_value ) | recurse(.nodes[]) | select(.layout == "tabbed") | .nodes[].id'
 
+my $workspaces_output = qqx/swaymsg -t get_tree | jq '.nodes[1:][] | select(has("nodes")) | .nodes[] | .id'/;
+my @workspaces_ids = $workspaces_output.lines;
+# say "This is list: ", @list;
 
-sub extract-all-workspaces() {
-  my $output = qqx/swaymsg -t get_tree/;
+for @workspaces_ids -> $id {
+  
 }
+
+
+
+
+
+
+
+# Gets id of a current workspace?
+# swaymsg -t get_tree | jq '.nodes[].nodes[] | select(.focused==true or (.nodes[].focused==true)) | .id'
+
+
+
+
+
+
+
+
+# my $current-workspace-id = qqx/swaymsg -t get_workspaces | jq -r '.[] | select(.focused==true).name'/;
+# print "This is the current workspace id: $current-workspace-id";
+
+# my $all-tabs = qqx/swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.layout=="tabbed").nodes[].id'/;
+# print "All id's:\n$all-tabs";
+
+
+# my @workspaces-id = qqx/swaymsg -t get_tree | jq '.nodes[1:][] | \{name: .name, tabs: (.nodes[] | .id)\}'/;
+
+# my $all_tabs_output = qqx/swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.layout=="tabbed").nodes[].id'/;
+# my $process = shell('swaymsg -t get_tree | jq -r ".nodes[].nodes[] | select(.layout=="tabbed").nodes[].id"', :out);
+# my @all_tabs_output = shell('swaymsg -t get_tree | jq -r ".nodes[].nodes[] | select(.layout=="tabbed").nodes[].id"', :out)
+#   .out.slurp(:close).lines.map();
+
+# sub extract-all-workspaces() {
+#   my $output = qqx/swaymsg -t get_tree/;
+# }
+
+# swaymsg -t get_tree | jq '.nodes[1:][] | select(has("nodes")) | .nodes[] | .id' - extracts id's of all non scratch workspaces.

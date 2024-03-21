@@ -198,3 +198,17 @@ lspconfig.rust_analyzer.setup{
         }
     }
 }
+
+
+-- Raku
+
+-- Define the command to start your LSP server
+local cmd = { "node", "/home/wurfkreuz/.source/RakuNavigator/server/out/server.js", "--stdio" }
+
+-- Setup the custom LSP server
+lspconfig.raku_navigator.setup {
+  cmd = cmd,
+  filetypes = { "raku" },
+  root_dir = lspconfig.util.root_pattern(".git", "."),
+  settings = {},
+}

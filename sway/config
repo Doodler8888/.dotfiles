@@ -4,6 +4,8 @@ set $mod Mod4
 # Your preferred terminal emulator
 set $term alacritty
 
+bindsym $mod+w kill
+
 # Application launching
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+b exec opera
@@ -11,6 +13,7 @@ bindsym $mod+b exec vivaldi-stable
 bindsym $mod+m exec dolphin
 bindsym $mod+r exec --no-startup-id wofi --show drun
 bindsym $mod+e exec emacs
+bindsym $mod+t exec telegram-desktop
 
 
 # Workspace management
@@ -29,62 +32,38 @@ bindsym $mod+s exec swaymsg reload
 bindsym $mod+q exec swaymsg exit
 
 input * {
-    xkb_layout "us"
-    xkb_variant "colemak"
-    xkb_options "caps:escape"
+    xkb_layout "us,ru"
+    xkb_variant "colemak,"
+    xkb_options "caps:escape,grp:ctrl_alt_toggle"
 }
 
-exec_always swaymsg 'workspace 1; exec alacritty'
-exec_always swaymsg 'workspace 1; exec alacritty'
-exec_always swaymsg 'workspace 1; exec alacritty'
-exec_always swaymsg 'workspace 1; exec alacritty'
-exec_always swaymsg 'workspace 1; layout tabbed'
+# bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1
+# bindsym alt+2 exec ~/.dotfiles/sway/switch_tab.sh 2
+# bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
+# bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
+# bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
-bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1
-bindsym alt+2 exec ~/.dotfiles/sway/switch_tab.sh 2
-bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
-bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
-bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
-
-# # Switch to specific tabs in a tabbed container
-# bindsym alt+1 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-# bindsym alt+2 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-# bindsym alt+3 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-# bindsym alt+4 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-
-# exec_always swaymsg 'workspace 2; exec opera'
-
-# exec_always swaymsg 'workspace 3; exec emacs'
-
-# Switch to specific tabs in a tabbed container
-# bindsym alt+1 exec swaymsg 'workspace 1; focus child 0'
-# bindsym alt+2 exec swaymsg 'workspace 1; focus child 1'
-# bindsym alt+3 exec swaymsg 'workspace 1; focus child 2'
-# bindsym alt+4 exec swaymsg 'workspace 1; focus child 3'
-
-# Switch to specific tabs in a tabbed container
-# bindsym alt+1 exec swaymsg '[con_mark="tabbed"] focus child 0'
-# bindsym alt+2 exec swaymsg '[con_mark="tabbed"] focus child 1'
-# bindsym alt+3 exec swaymsg '[con_mark="tabbed"] focus child 2'
-# bindsym alt+4 exec swaymsg '[con_mark="tabbed"] focus child 3'
-
-# workspace $ws2 {
-#     layout tabbed
-#     exec emacsclient -c -a "" --eval "(load-desktop-session \"main\")" -F '(name . "project1")'
-#     exec emacsclient -c -a "" --eval "(load-desktop-session \"shelf\")" -F '(name . "project2")'
-# }
-
-# for_window [app_id="emacs" title="project1"] {
-#     exec alacritty --title "terminal-project1"
-# }
-
-# for_window [app_id="emacs" title="project2"] {
-#     exec alacritty --title "terminal-project2"
-# }
-
-# bindsym $mod+t [app_id="emacs"] focus
-# bindsym $mod+Shift+t [title="^terminal-"] focuss
+# exec_always swaymsg 'workspace 1; exec alacritty'
+# exec_always swaymsg 'workspace 1; exec alacritty'
+# exec_always swaymsg 'workspace 1; exec alacritty'
+# exec_always swaymsg 'workspace 1; exec alacritty'
+# exec_always swaymsg 'workspace 1; layout tabbed'
 #
+# exec sleep 1
+#
+# exec_always swaymsg 'workspace 2; exec vivaldi-stable'
+# exec_always swaymsg 'workspace 2; exec opera'
+# exec_always swaymsg 'workspace 2; exec alacritty'
+# exec_always swaymsg 'workspace 2; layout tabbed'
+
+# exec_always waymsg 'workspace 2'
+# exec_always waymsg 'layout tabbed'
+# exec_always waymsg 'exec opera'
+# exec_always waymsg 'exec vivaldi-stable'
+
+exec_always ~/.dotfiles/sway/launch_alacritty.sh
+# exec_always ~/.dotfiles/sway/launch_browsers.sh
+
 # Home row direction keys, like vim
 set $left h
 set $down j

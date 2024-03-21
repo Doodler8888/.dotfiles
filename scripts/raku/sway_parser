@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+
+use v6.e.PREVIEW;
+
+my $current-workspace-id = qqx/swaymsg -t get_workspaces | jq -r '.[] | select(.focused==true).name'/;
+print "This is the current workspace id: $current-workspace-id";
+
+my $all-tabs = qqx/swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.layout=="tabbed").nodes[].id'/;
+print "All id's:\n$all-tabs";
+
+
+sub extract-all-workspaces() {
+  my $output = qqx/swaymsg -t get_tree/;
+}

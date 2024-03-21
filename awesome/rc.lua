@@ -229,7 +229,11 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey }, "s", function() awesome.restart() end,
+	      {description = "reload awesome config", group = "awesome"}),
+    awful.key({ modkey }, "q", awful.quit,
+              {description="quit awesome", group="awesome"}),
+    awful.key({ modkey,           }, "h",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -562,3 +566,38 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+
+
+
+local function launch_alacritty()
+    awful.spawn("alacritty")
+end
+
+local awful = require("awful")
+
+awful.rules.rules = {
+    -- All clients will match this rule.
+    { rule = { class = "Alacritty" },
+      properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
+                     raise = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons,
+                     screen = awful.screen.preferred,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                     size_hints_honor = false }
+    },
+    -- Add a rule to launch Alacritty on the first workspace
+    { rule_any = { class = { "Alacritty" } },
+      properties = { tag = "1" },
+      callback = function(c)
+          if c.screen.tags[1].selected then
+              launch_alacritty()
+              launch_alacritty()
+          end
+      end
+    },
+    -- Other rules...
+}

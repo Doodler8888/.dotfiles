@@ -40,33 +40,27 @@ exec_always swaymsg 'workspace 1; exec alacritty'
 exec_always swaymsg 'workspace 1; exec alacritty'
 exec_always swaymsg 'workspace 1; layout tabbed'
 
-bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1
-bindsym alt+2 exec ~/.dotfiles/sway/switch_tab.sh 2
-bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
-bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
-bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
-
-# # Switch to specific tabs in a tabbed container
-# bindsym alt+1 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-# bindsym alt+2 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-# bindsym alt+3 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-# bindsym alt+4 exec /home/wurfkreuz/.dotfiles/sway/switch_tab.sh
-
 # exec_always swaymsg 'workspace 2; exec opera'
 
 # exec_always swaymsg 'workspace 3; exec emacs'
 
 # Switch to specific tabs in a tabbed container
-# bindsym alt+1 exec swaymsg 'workspace 1; focus child 0'
-# bindsym alt+2 exec swaymsg 'workspace 1; focus child 1'
-# bindsym alt+3 exec swaymsg 'workspace 1; focus child 2'
-# bindsym alt+4 exec swaymsg 'workspace 1; focus child 3'
+# bindsym alt+1 exec swaymsg 'focus child 0'
+# bindsym alt+2 exec swaymsg 'focus child 1'
+# bindsym alt+3 exec swaymsg 'focus child 2'
+# bindsym alt+4 exec swaymsg 'focus child 3'
 
 # Switch to specific tabs in a tabbed container
-# bindsym alt+1 exec swaymsg '[con_mark="tabbed"] focus child 0'
-# bindsym alt+2 exec swaymsg '[con_mark="tabbed"] focus child 1'
-# bindsym alt+3 exec swaymsg '[con_mark="tabbed"] focus child 2'
-# bindsym alt+4 exec swaymsg '[con_mark="tabbed"] focus child 3'
+bindsym alt+1 [con_mark="tabbed"] focus child 0
+bindsym alt+2 [con_mark="tabbed"] focus child 1
+bindsym alt+3 [con_mark="tabbed"] focus child 2
+bindsym alt+4 [con_mark="tabbed"] focus child 3
+
+# Switch to specific tabs in a tabbed container
+bindsym $mod+alt+1 exec swaymsg 'focus child 0'
+bindsym $mod+alt+2 exec swaymsg 'focus child 1'
+bindsym $mod+alt+3 exec swaymsg 'focus child 2'
+bindsym $mod+alt+4 exec swaymsg 'focus child 3'
 
 # workspace $ws2 {
 #     layout tabbed

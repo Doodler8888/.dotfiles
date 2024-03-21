@@ -7,6 +7,7 @@ switch_to_container() {
 }
 
 # Get the ID of the currently focused workspace
+swaymsg "focus parent"
 current_workspace_id=$(swaymsg -t get_tree | jq '.nodes[].nodes[] | select(.focused==true or (.nodes[].focused==true)) | .id')
 
 # Get the list of container IDs (tabs) within the tabbed container of the current workspace
@@ -22,6 +23,7 @@ if [ $# -eq 1 ]; then
         # Get the container ID of the desired tab
         container_id=$(echo "$container_ids" | sed -n "${tab_index}p")
         switch_to_container "$container_id"
+        swaymsg "focus child"
     else
         echo "Invalid tab index. Please provide a number between 1 and $total_containers."
     fi

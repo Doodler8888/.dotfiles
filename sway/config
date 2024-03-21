@@ -70,7 +70,7 @@ bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 # exec_always waymsg 'exec opera'
 # exec_always waymsg 'exec vivaldi-stable'
 
-exec_always ~/.dotfiles/sway/launch_alacritty.sh
+exec_always ~/.dotfiles/sway/launch.sh
 # exec_always ~/.dotfiles/sway/launch_browsers.sh
 
 # Home row direction keys, like vim

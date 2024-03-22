@@ -1,3 +1,5 @@
+output HDMI-A-1 mode 1920x1080@144Hz
+
 # Modifier key
 set $mod Mod4
 
@@ -61,23 +63,9 @@ bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
 bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
 bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
-# exec_always swaymsg 'workspace 1; exec alacritty'
-# exec_always swaymsg 'workspace 1; exec alacritty'
-# exec_always swaymsg 'workspace 1; exec alacritty'
-# exec_always swaymsg 'workspace 1; exec alacritty'
-# exec_always swaymsg 'workspace 1; layout tabbed'
-#
-# exec sleep 1
-#
-# exec_always swaymsg 'workspace 2; exec vivaldi-stable'
-# exec_always swaymsg 'workspace 2; exec opera'
-# exec_always swaymsg 'workspace 2; exec alacritty'
-# exec_always swaymsg 'workspace 2; layout tabbed'
-
-# exec_always waymsg 'workspace 2'
-# exec_always waymsg 'layout tabbed'
-# exec_always waymsg 'exec opera'
-# exec_always waymsg 'exec vivaldi-stable'
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 exec_always ~/.dotfiles/sway/launch.sh
 # exec_always ~/.dotfiles/sway/launch_browsers.sh

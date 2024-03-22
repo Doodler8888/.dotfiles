@@ -7,7 +7,9 @@ set $term alacritty
 # Window management
 bindsym $mod+w kill
 bindsym $mod+v splitv
+bindsym $mod+c splith
 bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
 
 bindsym $mod+h focus left
 bindsym $mod+l focus right
@@ -19,10 +21,10 @@ bindsym $mod+j focus down
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+b exec opera
 bindsym $mod+b exec vivaldi-stable
-bindsym $mod+m exec dolphin
+bindsym $mod+o exec dolphin
 bindsym $mod+r exec --no-startup-id wofi --show drun
 bindsym $mod+e exec emacs
-bindsym $mod+t exec telegram-desktop
+bindsym $mod+i exec telegram-desktop
 
 
 # Workspace management
@@ -34,6 +36,13 @@ bindsym $mod+5 workspace number 5
 bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 
+# Move to workspace
+bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+
 # Config reload
 bindsym $mod+y exec swaymsg reload
 
@@ -43,7 +52,7 @@ bindsym $mod+q exec swaymsg exit
 input * {
     xkb_layout "us,ru"
     xkb_variant "colemak,"
-    xkb_options "caps:escape,grp:ctrl_alt_toggle"
+    xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
 }
 
 bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1

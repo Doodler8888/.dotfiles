@@ -57,11 +57,11 @@ input * {
     xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
 }
 
-bindsym alt+1 exec ~/.dotfiles/sway/switch_tab.sh 1
-bindsym alt+2 exec ~/.dotfiles/sway/switch_tab.sh 2
-bindsym alt+3 exec ~/.dotfiles/sway/switch_tab.sh 3
-bindsym alt+4 exec ~/.dotfiles/sway/switch_tab.sh 4
-bindsym alt+5 exec ~/.dotfiles/sway/switch_tab.sh 5
+bindsym alt+Tab+1 exec ~/.dotfiles/sway/switch_tab.sh 1
+bindsym alt+Tab+2 exec ~/.dotfiles/sway/switch_tab.sh 2
+bindsym alt+Tab+3 exec ~/.dotfiles/sway/switch_tab.sh 3
+bindsym alt+Tab+4 exec ~/.dotfiles/sway/switch_tab.sh 4
+bindsym alt+Tab+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%

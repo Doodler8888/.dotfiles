@@ -18,38 +18,60 @@ swaymsg 'exec vivaldi-stable'
 sleep 2
 
 
-# Move to workspace 3 and set layout to tabbed
+# Workspace 3
 swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
-# Launch the first Emacs instance and load the "main" desktop session
 swaymsg 'exec alacritty'
 
-# Wait for Emacs to launch
+# # Wait for Emacs to launch
 sleep 2
 
-# Split the layout vertically, launch Alacritty, and set layout to stacking
+# # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
 swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
 swaymsg 'layout stacking'
 
-# Wait for Alacritty to launch
 sleep 2
 
-# Focus the parent container (tab) and set layout back to tabbed
 swaymsg 'focus parent'
 swaymsg 'layout tabbed'
 
-# Launch the second Emacs instance and load the "shelf" desktop session
-swaymsg 'exec alacritty'
+swaymsg 'exec alacritty -e zellij attach main'
 
-# Wait for Emacs to launch
-sleep 2
 
-# Split the layout vertically, launch Alacritty, and set layout to stacking
-swaymsg 'splitv'
-swaymsg 'exec emacs --eval "(load-desktop-session \"shelf\")"'
-swaymsg 'layout stacking'
+# # Move to workspace 3 and set layout to tabbed
+# swaymsg 'workspace 3'
+# swaymsg 'layout tabbed'
+
+# # Launch the first Emacs instance and load the "main" desktop session
+# swaymsg 'exec alacritty'
+#
+# # Wait for Emacs to launch
+# sleep 2
+#
+# # Split the layout vertically, launch Alacritty, and set layout to stacking
+# swaymsg 'splitv'
+# swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
+# swaymsg 'layout stacking'
+
+# # Wait for Alacritty to launch
+# sleep 2
+
+# # Focus the parent container (tab) and set layout back to tabbed
+# swaymsg 'focus parent'
+# swaymsg 'layout tabbed'
+
+# # Launch the second Emacs instance and load the "shelf" desktop session
+# swaymsg 'exec alacritty'
+
+# # Wait for Emacs to launch
+# sleep 2
+
+# # Split the layout vertically, launch Alacritty, and set layout to stacking
+# swaymsg 'splitv'
+# swaymsg 'exec emacs --eval "(load-desktop-session \"shelf\")"'
+# swaymsg 'layout stacking'
 
 sleep 2
 

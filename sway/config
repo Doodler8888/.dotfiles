@@ -1,3 +1,5 @@
+font NotoSansM Nerd Font Mono 9
+
 output HDMI-A-1 mode 1920x1080@144Hz
 
 # Modifier key
@@ -262,8 +264,7 @@ output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # # Status Bar:
 # #
 # # Read `man 5 sway-bar` for more information about this section.
-bar {
-    font NotoSansM Nerd Font Mono 12
+# bar {
 
     # position top
 
@@ -276,6 +277,6 @@ bar {
     #     background #323232
     #     inactive_workspace #32323200 #32323200 #5c5c5c
     # }
-}
+# }
 
 # include /etc/sway/config.d/*

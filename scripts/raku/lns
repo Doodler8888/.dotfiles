@@ -3,8 +3,11 @@
 use v6.e.PREVIEW;
 
 
-sub get_abs_path($path is copy) {
-    $path ~~ s/^ '~' | '~/'/%*ENV<HOME>/;
+# sub get_abs_path($path is copy) {
+sub get_abs_path($path_input) {
+    my $path=$path_input;
+    $path ~~ s/^ '~' | '~/'/%*ENV<HOME>\//; # I added '/' at the end because "{$*CWD}/{$path}" doesn't add slash and 'ENV<HOME>' doesn't have slast at the end it looks like.
+    say "This is a path used: $path";
     return $path if $path ~~ /^ \/ /;   
     return "{$*CWD}/{$path}";
 }
@@ -15,6 +18,7 @@ sub MAIN(*@files, Str :d(:$destination)="/usr/local/bin") {
         my $abs-file = get_abs_path($file);
         my $final-link-location = get_abs_path($destination);
         $final-link-location ~= "/{$abs-file.IO.basename}" if $final-link-location.IO.d;
+	say "This is the final path: $final-link-location";
 
         mkdir $final-link-location.IO.dirname; 
         symlink $abs-file, $final-link-location;

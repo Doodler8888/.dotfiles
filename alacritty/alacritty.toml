@@ -36,9 +36,13 @@ background = "0x2E3440"
 [font]
 size = 12
 
-  [font.normal]
-  family = "NotoSansM Nerd Font Mono"
-  style = "Medium"
+[font.normal]
+family = "NotoSansM Nerd Font Mono"
+# family = "OverpassM Nerd Font Propo"
+# family = "LiterationMonoPowerline Nerd Font" # 12.8
+# family = "MesloLGL Nerd Font Mono"
+# family = "IosevkaTerm Nerd Font Mono" # 13
+style = "Medium"
 
   # [font.italic]
   # family = "NotoSansM Nerd Font Mono"
@@ -46,4 +50,4 @@ size = 12
 
 [window.padding]
 y = 1
-x = 5
+x = 2

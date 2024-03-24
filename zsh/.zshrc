@@ -16,6 +16,7 @@ export RAKU_MODULE_DEBUG="~/.raku/sources"
 export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 export LSP_USE_PLISTS=true
 export LC_ALL=C.UTF-8
+export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true

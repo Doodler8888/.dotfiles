@@ -14,15 +14,15 @@ bindsym $mod+v splitv
 bindsym $mod+c splith
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
-bindsym $mod+Shift+t exec swaymsg workspace current layout tabbed
-# bindsym $mod+Shift+t exec swaymsg workspace_layout tabbed
+bindsym $mod+Shift+r move window to the root
+bindsym Mod4+Shift+f move window to workspace current, floating enable
 
 bindsym $mod+h focus left
 bindsym $mod+l focus right
 bindsym $mod+k focus up
 bindsym $mod+j focus down
 
-bindsym $mod+Shift+h move left
+bindsym $mod+Shift+h move        left
 bindsym $mod+Shift+l move right
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+j move down

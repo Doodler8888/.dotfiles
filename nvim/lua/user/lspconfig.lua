@@ -209,6 +209,6 @@ local cmd = { "node", "/home/wurfkreuz/.source/RakuNavigator/server/out/server.j
 lspconfig.raku_navigator.setup {
   cmd = cmd,
   filetypes = { "raku" },
-  root_dir = lspconfig.util.root_pattern(".git", "."),
+  -- root_dir = lspconfig.util.root_pattern(".git", "."),
   settings = {},
 }

@@ -41,7 +41,7 @@ sub get_abs_path($path_input) {
     $path ~~ s/^ '~' | '~/'/%*ENV<HOME>\//; # I added '/' at the end because "{$*CWD}/{$path}" doesn't add slash and 'ENV<HOME>' doesn't have slast at the end it looks like.
     # say "This is a path used: $path";
     return $path if $path ~~ /^ \/ /;   
-    return "{$*CWD}{$path}";
+    return "{$*CWD}/{$path}";
 }
 
 #| Create symlinks for any number of targets with /usr/local/bin as a default destination

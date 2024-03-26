@@ -8,6 +8,8 @@ require("neorg").setup {
     },
     ["core.concealer"] = {}, -- Adds pretty icons to your documents
     ["core.promo"] = {},
+    ["core.itero"] = {},
+    ["core.integrations.treesitter"] = {},
     ["core.dirman"] = { -- Manages Neorg workspaces
       config = {
 	workspaces = {
@@ -18,12 +20,12 @@ require("neorg").setup {
     ["core.keybinds"] = {
       config = {
 	hook = function(keybinds)
-	  -- keybinds.map("norg", "n", "gj", "<cmd>Neorg keybind norg core.norg.manoeuvre.item_down<cr>")
-	  -- keybinds.map("norg", "n", "gk", "<cmd>Neorg keybind norg core.norg.manoeuvre.item_up<cr>")
-	  keybinds.map("norg", "n", "]s", "<cmd>Neorg keybind norg core.integrations.treesitter.next.heading<cr>")
-	  keybinds.map("norg", "n", "[s", "<cmd>Neorg keybind norg core.integrations.treesitter.previous.heading<cr>")
+	  -- keybinds.map("norg", "n", "]s", "<cmd>Neorg keybind norg core.integrations.treesitter.next.heading<cr>")
+	  -- keybinds.map("norg", "n", "[s", "<cmd>Neorg keybind norg core.integrations.treesitter.previous.heading<cr>")
 	  keybinds.map("norg", "n", "]h", "<cmd>Neorg keybind norg core.promo.promote<cr>")
+	  keybinds.map("norg", "v", "]h", "<cmd>Neorg keybind norg core.promo.promote<cr>")
 	  keybinds.map("norg", "n", "[h", "<cmd>Neorg keybind norg core.promo.demote<cr>")
+	  keybinds.map("norg", "v", "[h", "<cmd>Neorg keybind norg core.promo.demote<cr>")
 	end,
       },
     },

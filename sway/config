@@ -1,3 +1,4 @@
+exec swaync
 font NotoSansM Nerd Font Mono 8
 
 output HDMI-A-1 mode 1920x1080@144Hz
@@ -70,11 +71,17 @@ input * {
     xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
 }
 
-bindsym alt+Tab+1 exec ~/.dotfiles/sway/switch_tab.sh 1
-bindsym alt+Tab+2 exec ~/.dotfiles/sway/switch_tab.sh 2
-bindsym alt+Tab+3 exec ~/.dotfiles/sway/switch_tab.sh 3
-bindsym alt+Tab+4 exec ~/.dotfiles/sway/switch_tab.sh 4
-bindsym alt+Tab+5 exec ~/.dotfiles/sway/switch_tab.sh 5
+bindsym alt+o+1 exec ~/.dotfiles/sway/switch_tab.sh 1
+bindsym alt+o+2 exec ~/.dotfiles/sway/switch_tab.sh 2
+bindsym alt+o+3 exec ~/.dotfiles/sway/switch_tab.sh 3
+bindsym alt+o+4 exec ~/.dotfiles/sway/switch_tab.sh 4
+bindsym alt+o+5 exec ~/.dotfiles/sway/switch_tab.sh 5
+
+# bindsym alt+Tab+1 exec ~/.dotfiles/sway/switch_tab.sh 1
+# bindsym alt+Tab+2 exec ~/.dotfiles/sway/switch_tab.sh 2
+# bindsym alt+Tab+3 exec ~/.dotfiles/sway/switch_tab.sh 3
+# bindsym alt+Tab+4 exec ~/.dotfiles/sway/switch_tab.sh 4
+# bindsym alt+Tab+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%

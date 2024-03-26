@@ -25,8 +25,8 @@ end
 -- vim.api.nvim_set_keymap('n', '<Leader>oc', ':lua insert_general_community()<CR>', {noremap = true})
 
 
-vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
-)
+-- vim.keymap.set(
+--     "n",
+--     "<leader>ee",
+--     "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+-- )

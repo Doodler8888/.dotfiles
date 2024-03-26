@@ -209,7 +209,7 @@ zstyle ':autocomplete:*' ignored-input '##'
 #     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
 # fi
 
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"

@@ -62,7 +62,8 @@ end
 
 -- vim.api.nvim_set_keymap('n', '<Leader>ee', ':SudaWrite ', {noremap = true})
 
-vim.api.nvim_set_keymap('n', '<Leader>te', ':Trouble<CR>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<Leader>te', ':TroubleToggle<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-y>', ':TroubleToggle<CR>', {noremap = true})
 
 -- Remove traling spaces
 vim.api.nvim_set_keymap('n', '<leader>rw', [[:%s/\s\+$//e<CR>]], {noremap = true, silent = true})
@@ -71,8 +72,9 @@ vim.api.nvim_set_keymap('n', '<leader>rw', [[:%s/\s\+$//e<CR>]], {noremap = true
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':noh<CR><Esc>', { noremap = true, silent = true })
 
 -- Close a terminal buffer
-vim.api.nvim_set_keymap('t', '<C-c><C-c>', [[<C-\><C-n>:bd!<CR>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-c><C-c>', [[:bd!<CR>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('t', '<C-c><C-t>', [[<C-\><C-n>:bd!<CR>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-c><C-b>', [[:bd!<CR>]], {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-c><C-e>', [[:qa!<CR>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', '<C-w>c', '<C-\\><C-n>:q<CR>', {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('n', '<Leader>uu', ':UndotreeToggle<CR>', {noremap = true, silent = true})
@@ -83,3 +85,6 @@ vim.api.nvim_set_keymap('n', '<Leader>dd', ':DBUIToggle<CR>', {noremap = true, s
 vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { noremap = true, silent = true })
 -- Navigate to the bottom-left split
 -- vim.api.nvim_set_keymap('n', '<C-w>bl', '<Cmd>wincmd b<Bar>wincmd h<CR>', { noremap = true, silent = true })
+
+-- For sway
+vim.keymap.set('n', '<M-o>', '<Nop>', { noremap = true })

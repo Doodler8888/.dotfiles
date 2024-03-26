@@ -3,30 +3,67 @@
 use v6.e.PREVIEW;
 
 
+sub deletion-prompt($filepath) {
+  my $expanded-filepath = get_abs_path($filepath);
+  if $expanded-filepath.IO.e | $expanded-filepath.IO.l { # IO.e doesn't work on links, so i have to add an additonal check specifically for them.
+    say "\nThe $expanded-filepath already exists." if $expanded-filepath.IO.e;
+    say "\nThe $expanded-filepath already exists and it's a link." if $expanded-filepath.IO.l;
+    say "\nDo you want to delete the file in $filepath ?\n\nType y/n\n";
+    given prompt("=> ") {
+      when "y" {
+	if $expanded-filepath.IO.l {
+	  unlink $expanded-filepath;
+	}
+	else {
+	  qqx/rm $expanded-filepath/;
+	# say "Executing file deletion..."
+	}
+     }
+      when "n" {
+        say "\nExiting script by user choice.\n";
+        exit(0);  # Exit the script successfully as per user's choice
+      }
+      default {
+        say "\nInvalid input. No action taken.\n";
+        # Here, you might want to either retry the prompt or exit with an error
+        exit(1);  # Example: exit with an error code for invalid input
+      }
+    }
+  }
+  # else {
+  #   say "This is the filepath argument: $expanded-filepath, does it exists?";
+  # }
+}
+
 # sub get_abs_path($path is copy) {
 sub get_abs_path($path_input) {
-    my $path=$path_input;
+    my $path = $path_input;
     $path ~~ s/^ '~' | '~/'/%*ENV<HOME>\//; # I added '/' at the end because "{$*CWD}/{$path}" doesn't add slash and 'ENV<HOME>' doesn't have slast at the end it looks like.
-    say "This is a path used: $path";
+    # say "This is a path used: $path";
     return $path if $path ~~ /^ \/ /;   
-    return "{$*CWD}/{$path}";
+    return "{$*CWD}{$path}";
 }
 
 #| Create symlinks for any number of targets with /usr/local/bin as a default destination
 sub MAIN(*@files, Str :d(:$destination)="/usr/local/bin") {
     for @files -> $file {
         my $abs-file = get_abs_path($file);
+	my $original-file = "{$destination}{$file}";
+	# say "This is what gets to the deletion-prompt function: $original-file";
+	deletion-prompt($original-file);
         my $final-link-location = get_abs_path($destination);
         $final-link-location ~= "/{$abs-file.IO.basename}" if $final-link-location.IO.d;
-	say "This is the final path: $final-link-location";
+	# say "This is the final path: $final-link-location";
 
         mkdir $final-link-location.IO.dirname; 
         symlink $abs-file, $final-link-location;
 
-        say "Symbolic link created for $abs-file at $final-link-location";
+        say "\nSymbolic link created for $abs-file at $final-link-location";
     }
 }
 
+# 'given' allows to pass implicit variable for 'when'. Otherwise i have to
+# explicitely use "$_" variable.
 
 # *@targets - without the *: If you remove the *, making the signature something
 # like sub MAIN(@targets, Str :$link-location), Raku no longer treats @targets

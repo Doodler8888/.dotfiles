@@ -33,6 +33,10 @@ bindsym $mod+Shift+c focus child
 # bindsym $mod+Shift+m move to mark
 bindsym $mod+p exec ~/.dotfiles/sway/move_to_parent.sh
 
+# Screenshots
+bindsym $mod+F11 exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+F12       exec grim - | wl-copy
+
 # Application launching
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+b exec opera
@@ -71,11 +75,11 @@ input * {
     xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
 }
 
-bindsym alt+o+1 exec ~/.dotfiles/sway/switch_tab.sh 1
-bindsym alt+o+2 exec ~/.dotfiles/sway/switch_tab.sh 2
-bindsym alt+o+3 exec ~/.dotfiles/sway/switch_tab.sh 3
-bindsym alt+o+4 exec ~/.dotfiles/sway/switch_tab.sh 4
-bindsym alt+o+5 exec ~/.dotfiles/sway/switch_tab.sh 5
+bindsym alt+semicolon+1 exec ~/.dotfiles/sway/switch_tab.sh 1
+bindsym alt+semicolon+2 exec ~/.dotfiles/sway/switch_tab.sh 2
+bindsym alt+semicolon+3 exec ~/.dotfiles/sway/switch_tab.sh 3
+bindsym alt+semicolon+4 exec ~/.dotfiles/sway/switch_tab.sh 4
+bindsym alt+semicolon+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
 # bindsym alt+Tab+1 exec ~/.dotfiles/sway/switch_tab.sh 1
 # bindsym alt+Tab+2 exec ~/.dotfiles/sway/switch_tab.sh 2

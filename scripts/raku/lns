@@ -38,8 +38,7 @@ sub deletion-prompt($filepath) {
 # sub get_abs_path($path is copy) {
 sub get_abs_path($path_input) {
     my $path = $path_input;
-    $path ~~ s/^ '~' | '~/'/%*ENV<HOME>\//; # I added '/' at the end because "{$*CWD}/{$path}" doesn't add slash and 'ENV<HOME>' doesn't have slast at the end it looks like.
-    # say "This is a path used: $path";
+    $path ~~ s/^ '~' | '~/'/%*ENV<HOME>\//; # I added '/' at the end because i have a double return logic, and if the first return triggers, then there is no slath at the end of the expansion.
     return $path if $path ~~ /^ \/ /;   
     return "{$*CWD}/{$path}";
 }

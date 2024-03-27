@@ -17,6 +17,7 @@ export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 export LSP_USE_PLISTS=true
 export LC_ALL=C.UTF-8
 export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
+export XDG_CURRENT_DESKTOP="Sway"
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true

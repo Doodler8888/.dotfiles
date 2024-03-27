@@ -87,4 +87,4 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 -- vim.api.nvim_set_keymap('n', '<C-w>bl', '<Cmd>wincmd b<Bar>wincmd h<CR>', { noremap = true, silent = true })
 
 -- For sway
-vim.keymap.set('n', '<M-o>', '<Nop>', { noremap = true })
+-- vim.keymap.set('n', '<M-/>', '<Nop>', { noremap = true })

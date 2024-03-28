@@ -25,8 +25,8 @@ export XDG_CURRENT_DESKTOP="Sway"
 setopt AUTO_CD
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
-HISTSIZE=8000
-SAVEHIST=8000
+HISTSIZE=16000
+SAVEHIST=16000
 # precmd() {}
 
 autoload edit-command-line; zle -N edit-command-line
@@ -224,3 +224,9 @@ eval "$(starship init zsh)"
 #         ssh-add "$key" > /dev/null 2>&1
 #     fi
 # done
+
+PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/wurfkreuz/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/wurfkreuz/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/wurfkreuz/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;

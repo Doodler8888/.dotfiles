@@ -212,3 +212,8 @@ lspconfig.raku_navigator.setup {
   -- root_dir = lspconfig.util.root_pattern(".git", "."),
   settings = {},
 }
+
+
+-- Clojure
+
+lspconfig.clojure_lsp.setup{}

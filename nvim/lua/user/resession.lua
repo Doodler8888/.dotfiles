@@ -24,8 +24,14 @@ require("resession").setup({
       enable_in_tab = true,
       save_buffers = true,
     },
+  tab_extension = {
+    enable_in_tab = true,
+    save_buffers = true,
+   },
   },
 })
+
+-- vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
 
 vim.keymap.set("n", "<leader>ss", resession.save)
 -- vim.keymap.set("n", "<leader>sl", resession.load)
@@ -96,7 +102,6 @@ function Select_and_load_session_telescope(opts)
     layout_config = layout_config, -- Apply the custom layout configuration
   }):find()
 end
-
 
 
 -- Keybinding Example (Neovim Lua configuration)

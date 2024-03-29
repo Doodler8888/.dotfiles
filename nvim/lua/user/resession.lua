@@ -24,10 +24,10 @@ require("resession").setup({
       enable_in_tab = true,
       save_buffers = true,
     },
-  tab_extension = {
-    enable_in_tab = true,
-    save_buffers = true,
-   },
+    folds_extension = {
+      enable_in_tab = true,
+      save_buffers = true,
+    },
   },
 })
 

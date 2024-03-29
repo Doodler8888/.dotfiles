@@ -18,8 +18,8 @@ export LSP_USE_PLISTS=true
 export LC_ALL=C.UTF-8
 export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
 export XDG_CURRENT_DESKTOP="Sway"
-export LUA_BINDIR="/usr/local/bin/"
-export LUA_BINDIR_SET=yes
+# export LUA_BINDIR="/usr/local/bin/"
+# export LUA_BINDIR_SET=yes
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true

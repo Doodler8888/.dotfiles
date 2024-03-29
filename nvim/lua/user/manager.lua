@@ -51,17 +51,16 @@ local plugins = {
 	    vim.g.db_ui_use_nerd_fonts = 1
 	  end,
 	},
-	-- 'Olical/conjure',
 	'stevearc/resession.nvim',
-	{
-	    "vhyrro/luarocks.nvim",
-	    priority = 1000, -- We'd like this plugin to load first out of the rest
-	    config = true, -- This automatically runs `require("luarocks-nvim").setup()`
-	},
-	{
-	    "nvim-neorg/neorg",
-	    dependencies = { "luarocks.nvim" },
-	},
+	-- {
+	--     "vhyrro/luarocks.nvim",
+	--     priority = 1000, -- We'd like this plugin to load first out of the rest
+	--     config = true, -- This automatically runs `require("luarocks-nvim").setup()`
+	-- },
+	-- {
+	--     "nvim-neorg/neorg",
+	--     dependencies = { "luarocks.nvim" },
+	-- },
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },

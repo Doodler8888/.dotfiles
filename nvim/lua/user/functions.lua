@@ -128,3 +128,13 @@ end
 vim.api.nvim_set_keymap('n', 'go', ':lua insert_new_line_below()<CR>', {noremap = true, silent = true})
 -- Map <leader>O to insert a new line above without auto-indentation
 vim.api.nvim_set_keymap('n', 'gO', ':lua insert_new_line_above()<CR>', {noremap = true, silent = true})
+
+
+vim.g.zoxide_custom_action = {
+  Z = {
+    cmd = 'Oil',
+    is_dir_only = true
+  }
+}
+
+

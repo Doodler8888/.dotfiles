@@ -6,18 +6,14 @@ use v6.e.PREVIEW;
 sub deletion-prompt($filepath) {
   my $expanded-filepath = get_abs_path($filepath);
   if $expanded-filepath.IO.e | $expanded-filepath.IO.l { # IO.e doesn't work on links, so i have to add an additonal check specifically for them.
-    say "\nThe $expanded-filepath already exists." if $expanded-filepath.IO.e;
+    say "\nThe $expanded-filepath already exists." if $expanded-filepath.IO.e and not $expanded-filepath.IO.l;
     say "\nThe $expanded-filepath already exists and it's a link." if $expanded-filepath.IO.l;
     say "\nDo you want to delete the file in $filepath ?\n\nType y/n\n";
     given prompt("=> ") {
       when "y" {
-	if $expanded-filepath.IO.l {
-	  unlink $expanded-filepath;
-	}
-	else {
-	  qqx/rm $expanded-filepath/;
-	# say "Executing file deletion..."
-	}
+	($expanded-filepath.IO.l) 
+	  ?? unlink $expanded-filepath
+	  !! qqx/rm $expanded-filepath/;
      }
       when "n" {
         say "\nExiting script by user choice.\n";
@@ -25,14 +21,10 @@ sub deletion-prompt($filepath) {
       }
       default {
         say "\nInvalid input. No action taken.\n";
-        # Here, you might want to either retry the prompt or exit with an error
         exit(1);  # Example: exit with an error code for invalid input
       }
     }
   }
-  # else {
-  #   say "This is the filepath argument: $expanded-filepath, does it exists?";
-  # }
 }
 
 # sub get_abs_path($path is copy) {

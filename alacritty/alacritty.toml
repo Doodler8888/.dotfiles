@@ -26,7 +26,8 @@ green = "0xB1D196"
 yellow = "0xF0D399"
 blue = "0x88C0D0"
 magenta = "0xC895BF"
-cyan = "0x93CCDC"
+# cyan = "0x93CCDC"
+cyan = "0x88C0D0"
 white = "0xE5E9F0"
 
 [colors.selection]

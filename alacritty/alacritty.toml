@@ -39,10 +39,6 @@ size = 12
 
 [font.normal]
 family = "NotoSansM Nerd Font Mono"
-# family = "OverpassM Nerd Font Propo"
-# family = "LiterationMonoPowerline Nerd Font" # 12.8
-# family = "MesloLGL Nerd Font Mono"
-# family = "IosevkaTerm Nerd Font Mono" # 13
 style = "Medium"
 
   # [font.italic]

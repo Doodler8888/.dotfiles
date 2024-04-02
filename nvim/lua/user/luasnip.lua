@@ -3,7 +3,7 @@
 local ls = require "luasnip"
 local s = ls.snippet
 local t = ls.text_node
--- local i = ls.insert_node
+local i = ls.insert_node
 -- local extras = require("luasnip.extras")
 -- local rep = extras.rep
 -- local fmt = require("luasnip.extras.fmt").fmt
@@ -17,8 +17,13 @@ ls.add_snippets("lua", {
         t('print("hello world'),
     }),
     s("<l", {
-        t('SELECT * FROM name LIMIT 100'),
+      t('SELECT * FROM '),
+      i(1, 'name'),
+      t(' LIMIT 100'),
     }),
+    -- s("<l", {
+    --     t('SELECT * FROM name LIMIT 100'),
+    -- }),
 })
 
 --     s("if", {

@@ -43,7 +43,13 @@ cmp.setup.cmdline(':', {
         cmp.complete()
       end
     end, { 'c' }),
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-p>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+	cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+      else
+	fallback() -- Allow default behavior if cmp isn't active
+      end
+    end, { 'c' }),
   },
   sources = cmp.config.sources({
     { name = 'path' },
@@ -53,7 +59,8 @@ cmp.setup.cmdline(':', {
 })
 
 -- Set up manual trigger keybinding
-vim.api.nvim_set_keymap('i', '<C-n>', '<Plug>luasnip-expand-or-jump', { silent = true })
+-- vim.api.nvim_set_keymap('i', '<C-n>', '<Plug>luasnip-expand-or-jump', { silent = true })
+vim.api.nvim_set_keymap('i', '<TAB>', '<Plug>luasnip-expand-or-jump', { silent = true })
 
 -- local cmp = require'cmp'
 --

@@ -22,7 +22,7 @@ sleep 2
 swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
-swaymsg 'exec alacritty'
+swaymsg 'exec alacritty -e zellij attach emacs'
 
 # # Wait for Emacs to launch
 sleep 2

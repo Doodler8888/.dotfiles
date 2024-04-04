@@ -55,18 +55,28 @@ vim.api.nvim_set_keymap('i', '<M-a>', '<Esc>A', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>tn', ':tabnew<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>tx', ':tabclose<CR>', {noremap = true, silent = true})
 
--- Move between tabs with 
-for i = 1, 9 do
-     vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
-end
+-- Tables
+vim.api.nvim_set_keymap('n', '<Leader>te', ':TableModeToggleeCR>', {noremap = true, silent = true})
 
--- Function to switch tabs using Alt + number
--- function SwitchTab(num)
---  vim.cmd('tabnext ' .. num)
--- end
+-- -- Move between tabs with 
 -- for i = 1, 9 do
-  -- vim.api.nvim_set_keymap('n', '<A-' .. i .. '>', ':lua SwitchTab(' .. i .. ')<CR>', {noremap = true, silent = true})
+--      vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
 -- end
+
+function SwitchTab(num)
+ -- Get the current number of tabs
+ local totalTabs = vim.fn.tabpagenr('$')
+ -- Check if the requested tab number is within the range of existing tabs
+ if num <= totalTabs then
+    vim.cmd('tabnext ' .. num)
+ else
+    -- Optionally, you can print a message or do nothing if the tab doesn't exist
+    -- print("Tab " .. num .. " does not exist.")
+ end
+end
+for i = 1, 9 do
+ vim.api.nvim_set_keymap('n', '<A-' .. i .. '>', ':lua SwitchTab(' .. i .. ')<CR>', {noremap = true, silent = true})
+end
 
 -- vim.api.nvim_set_keymap('n', '<Leader>ee', ':SudaWrite ', {noremap = true})
 

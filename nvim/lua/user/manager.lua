@@ -94,6 +94,17 @@ local plugins = {
 	'nat-418/boole.nvim',
 	'mbbill/undotree',
 	'dhruvasagar/vim-table-mode',
+	{
+	  "vhyrro/luarocks.nvim",
+	  priority = 1000,
+	  config = true,
+	},
+	{
+	  "nvim-neorg/neorg",
+	  dependencies = { "luarocks.nvim" },
+	  lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+	  version = "*", -- Pin Neorg to the latest stable release
+	},
 	-- 'Olical/conjure',
 	{
 	  "nvim-treesitter/nvim-treesitter",

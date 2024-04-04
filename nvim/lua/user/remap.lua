@@ -51,14 +51,22 @@ vim.api.nvim_set_keymap('i', '<M-B>', '<Esc> Bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-i>', '<Esc>I', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-a>', '<Esc>A', {noremap = true})
 
--- Create a new tab with 'Alt-T'
+-- Create a new tab
 vim.api.nvim_set_keymap('n', '<Leader>tn', ':tabnew<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>tx', ':tabclose<CR>', {noremap = true, silent = true})
 
 -- Move between tabs with 
 for i = 1, 9 do
-  vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
+     vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
 end
+
+-- Function to switch tabs using Alt + number
+-- function SwitchTab(num)
+--  vim.cmd('tabnext ' .. num)
+-- end
+-- for i = 1, 9 do
+  -- vim.api.nvim_set_keymap('n', '<A-' .. i .. '>', ':lua SwitchTab(' .. i .. ')<CR>', {noremap = true, silent = true})
+-- end
 
 -- vim.api.nvim_set_keymap('n', '<Leader>ee', ':SudaWrite ', {noremap = true})
 

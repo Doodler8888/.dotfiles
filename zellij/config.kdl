@@ -153,7 +153,7 @@ keybinds clear-defaults=true {
         bind "Alt Right" { MovePane "Right"; }
         bind "Alt n" { NewPane; SwitchToMode "Normal"; }
         bind "Alt f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
+        // bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
 	bind "Alt d" { NewPane "Down"; SwitchToMode "Normal"; }
 	bind "Alt r" { NewPane "Right"; SwitchToMode "Normal"; }
         // bind "Ctrl g" { SwitchToMode "Locked"; }

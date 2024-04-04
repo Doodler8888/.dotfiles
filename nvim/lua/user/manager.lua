@@ -93,7 +93,8 @@ local plugins = {
 	},
 	'nat-418/boole.nvim',
 	'mbbill/undotree',
-	'Olical/conjure',
+	'dhruvasagar/vim-table-mode',
+	-- 'Olical/conjure',
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()

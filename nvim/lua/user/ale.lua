@@ -18,6 +18,7 @@ vim.g.ale_linters = {
   terraform = {},
   rust = {},
   python = {},
+  sql = {'sqlfluff'},
   -- python = {'flake8'},
   -- ansible = {''},
 }

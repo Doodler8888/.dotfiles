@@ -10,7 +10,7 @@ cmp.setup {
   sources = {
     { name = 'path', max_item_count = 4 },
     { name = 'nvim_lsp' },
-    { name = 'buffer' },
+    -- { name = 'buffer' },
     { name = 'vim-dadbod-completion' },
     { name = 'luasnip' },
   },
@@ -40,8 +40,11 @@ cmp.setup.cmdline(':', {
       if cmp.visible() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
       else
-        cmp.complete()
+	fallback() -- Allow default behavior if cmp isn't active
       end
+    end, { 'c' }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+        cmp.complete()
     end, { 'c' }),
     ['<C-p>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -60,7 +63,7 @@ cmp.setup.cmdline(':', {
 
 -- Set up manual trigger keybinding
 -- vim.api.nvim_set_keymap('i', '<C-n>', '<Plug>luasnip-expand-or-jump', { silent = true })
-vim.api.nvim_set_keymap('i', '<TAB>', '<Plug>luasnip-expand-or-jump', { silent = true })
+-- vim.api.nvim_set_keymap('i', '<TAB>', '<Plug>luasnip-expand-or-jump', { silent = true })
 
 -- local cmp = require'cmp'
 --

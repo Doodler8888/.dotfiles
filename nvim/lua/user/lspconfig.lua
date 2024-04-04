@@ -217,3 +217,27 @@ lspconfig.raku_navigator.setup {
 -- Clojure
 
 lspconfig.clojure_lsp.setup{}
+
+
+-- SQL
+
+lspconfig.sqls.setup{
+  settings = {
+    sqls = {
+      connections = {
+        {
+          driver = 'postgresql',
+          dataSourceName = string.format(
+            "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+            os.getenv("SHELF_DB_HOST"),
+            os.getenv("SHELF_DB_PORT"),
+            os.getenv("SHELF_DB_USER"),
+            os.getenv("SHELF_DB_PASS"),
+            os.getenv("SHELF_DB_NAME")
+          )
+        },
+      },
+    },
+  },
+}
+

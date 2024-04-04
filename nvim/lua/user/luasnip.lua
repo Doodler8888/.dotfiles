@@ -12,7 +12,7 @@ local i = ls.insert_node
 -- local d = ls.dynamic_node
 -- local sn = ls.snippet_node
 
-ls.add_snippets("lua", {
+ls.add_snippets("", {
     s("hello", {
         t('print("hello world'),
     }),

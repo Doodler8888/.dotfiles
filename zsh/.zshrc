@@ -184,6 +184,16 @@ zle -N insert-last-word-widget
 bindkey -M viins '\e.' insert-last-word-widget
 bindkey -M vicmd '\e.' insert-last-word-widget
 
+function zle-vim-yank() {
+  zle .copy-region-as-kill
+  echo -n $CUTBUFFER | wl-copy
+  zle visual-mode
+}
+
+zle -N zle-vim-yank
+bindkey -M vicmd y zle-vim-yank
+bindkey -M vicmd Y zle-vim-yank
+
 # # Left and right side prompts
 # setopt PROMPT_SUBST
 # # PROMPT='%1~ > '

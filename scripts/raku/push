@@ -14,7 +14,7 @@ sub push-all($dir = ".") {
 
 multi MAIN(Bool :l(:$list) = False) {
   my @messages;
-  my @repos = shell("find ~/ -type d -name '.git' -not -path '*/.source/*' -not -path '*/.antigen/*' -not -path '*/.cargo/*' -not -path '*/elpaca/*' -not -path '*/.cache/*' -not -path '*/.local/*' -not -path '*/.share/*' -not -path '*/.emacs.d/lisp/*' -printf '%p\n' 2>/dev/null", :out)
+  my @repos = shell("find ~/ -type d -name '.git' -not -path '*/.source/*' -not -path '*/.antigen/*' -not -path '*/.cargo/*' -not -path '*/elpaca/*' -not -path '*/straight/*' -not -path '*/.cache/*' -not -path '*/.local/*' -not -path '*/.share/*' -not -path '*/.emacs.d/lisp/*' -printf '%p\n' 2>/dev/null", :out)
   .out.slurp(:close).lines.map(*.chomp); # Apply chomp to each line
   push-all() if $list == False;
 
@@ -35,7 +35,7 @@ multi MAIN(Bool :l(:$list) = False) {
 
 
 multi MAIN(Bool :a(:$all)!) {
-  my @repos = shell("find ~/ -type d -name '.git' -not -path '*/.source/*' -not -path '*/.antigen/*' -not -path '*/.cargo/*' -not -path '*/elpaca/*' -not -path '*/.cache/*' -not -path '*/.local/*' -not -path '*/.emacs.d/lisp/*' -not -path '*/common-lisp/*' -not -path '*/.share/*' -printf '%p\n' 2>/dev/null", :out)
+  my @repos = shell("find ~/ -type d -name '.git' -not -path '*/.source/*' -not -path '*/.antigen/*' -not -path '*/.cargo/*' -not -path '*/straight/*' -not -path '*/elpaca/*' -not -path '*/.cache/*' -not -path '*/.local/*' -not -path '*/.emacs.d/lisp/*' -not -path '*/common-lisp/*' -not -path '*/.share/*' -printf '%p\n' 2>/dev/null", :out)
   .out.slurp(:close).lines.map(*.chomp);
 
   for @repos -> $repo-dir {

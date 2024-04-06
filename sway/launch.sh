@@ -23,6 +23,7 @@ swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
 swaymsg 'exec alacritty -e zellij attach emacs'
+swaymsg 'mark emacs_alacritty_1'
 
 # # Wait for Emacs to launch
 sleep 2
@@ -34,11 +35,29 @@ swaymsg 'layout stacking'
 
 sleep 2
 
+# Workspace 3
 swaymsg 'focus parent'
 swaymsg 'layout tabbed'
+swaymsg 'mark main'
+
+swaymsg 'exec alacritty -e zellij attach cli'
+
+# # Wait for Emacs to launch
+sleep 2
+
+# # Split the layout vertically, launch Alacritty, and set layout to stacking
+swaymsg 'splitv'
+swaymsg 'exec emacs --eval "(load-desktop-session \"cli\")"'
+swaymsg 'layout stacking'
+
+sleep 2
+
+swaymsg 'focus parent'
+swaymsg 'layout tabbed'
+swaymsg 'mark cli'
 
 swaymsg 'exec alacritty -e zellij attach main'
-
+# swaymsg 'mark zellij_main'
 
 # # Move to workspace 3 and set layout to tabbed
 # swaymsg 'workspace 3'

@@ -8,7 +8,9 @@ export CDPATH='.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects'
 export HISTFILE="$HOME/.zsh_history"
 export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
+# export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude ".config/vivaldi" --exclude snap'
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
 export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
 export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
@@ -186,8 +188,9 @@ bindkey -M viins '^L' clear-screen
 # source '/home/wurfkreuz/.source/antigen/antigen.zsh'
 source '/home/wurfkreuz/antigen.zsh'
 
-bindkey '^a' autosuggest-accept
-antigen bundle zsh-users/zsh-autosuggestions
+# bindkey '^a' autosuggest-accept
+# antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle kutsan/zsh-system-clipboard
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 antigen apply &> /dev/null

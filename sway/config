@@ -72,7 +72,8 @@ bindsym $mod+q exec swaymsg exit
 input * {
     xkb_layout "us,ru"
     xkb_variant "colemak,"
-    xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
+    # xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
+    xkb_options "caps:swapescape,grp:shifts_toggle"
 }
 
 bindsym alt+semicolon+1 exec ~/.dotfiles/sway/switch_tab.sh 1

@@ -186,6 +186,8 @@ bindkey -M viins '^L' clear-screen
 # source '/home/wurfkreuz/.source/antigen/antigen.zsh'
 source '/home/wurfkreuz/antigen.zsh'
 
+bindkey '^a' autosuggest-accept
+antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 antigen apply &> /dev/null

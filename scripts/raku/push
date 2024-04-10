@@ -12,7 +12,7 @@ sub push-all($dir = ".") {
 }
 
 
-my $find-git-repos = "find ~/ -type d -name '.git' -not -path '*/.source/*' -not -path '*/.antigen/*' -not -path '*/.cargo/*' -not -path '*/elpaca/*' -not -path '*/straight/*' -not -path '*/.cache/*' -not -path '*/.local/*' -not -path '*/.share/*' -not -path '*/.emacs.d/lisp/*' -printf '%p\n' 2>/dev/null";
+my $find-git-repos = "find ~/ -type d -name '.git' -not -path '*/.source/*' -not -path '*/.antigen/*' -not -path '*/.cargo/*' -not -path '*/elpaca/*' -not -path '*/straight/*' -not -path '*/.cache/*' -not -path '*/.local/*' -not -path '*/common-lisp/*' -not -path '*/.share/*' -not -path '*/.emacs.d/lisp/*' -printf '%p\n' 2>/dev/null";
 
 multi MAIN(Bool :l(:$list) = False) {
   my @messages;

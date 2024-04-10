@@ -1,0 +1,36 @@
+#!/usr/bin/env bb
+
+(ns bak
+  (:require [clojure.string :as str]
+            [babashka.process :refer [shell]]))
+
+(defn is-bak? [file-name]
+  (str/ends-with? file-name ".bak"))
+
+(defn bak [file-name]
+  (if (is-bak? file-name)
+    (subs file-name 0 (- (count file-name) 4))
+    (str file-name ".bak")))
+
+;; what type is filename before i convert it to string?
+(defn absolute-path [filename]
+  (.getAbsolutePath (java.io.File. (str filename))))
+
+(defn rename-file [filename new-filename]
+  (println "Debug: filename:" filename "new-filename:" new-filename)
+  (shell "mv" filename new-filename))
+
+(defn process-file [file-name]
+  (let [absolute-file-name (absolute-path file-name)
+        new-name (bak absolute-file-name)]
+    (println "Processing file:" file-name)
+    (println "Absolute path:" absolute-file-name)
+    (rename-file absolute-file-name new-name)
+    (println "Renamed" absolute-file-name "to" new-name)))
+
+(defn -main [& args]
+  (println "Received arguments:" args)
+  (doseq [arg args]  ; Here, `arg` is each argument in `args`
+    (process-file arg)))  ; Pass `arg` directly to `process-file`
+
+(apply -main *command-line-args*)

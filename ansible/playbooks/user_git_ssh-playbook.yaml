@@ -7,7 +7,7 @@
       register: main_user
       changed_when: false
 
-    - name: Create .ssh directory in the home directory of the main user
+    - name: Create .ss directory in the home directory of the main user
       ansible.builtin.file:
         path: "/home/{{ main_user.stdout }}/.ssh"
         state: directory

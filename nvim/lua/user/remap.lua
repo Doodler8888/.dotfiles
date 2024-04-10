@@ -40,8 +40,8 @@ vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 
 -- Motion shortcuts
-vim.api.nvim_set_keymap('i', '<C-f>', '<Esc>la', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-b>', '<Esc>ha', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-l>', '<Esc>la', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-h>', '<Esc>ha', {noremap = true})
 -- vim.api.nvim_set_keymap('i', '<M-l>', '<Esc>la', {noremap = true})
 -- vim.api.nvim_set_keymap('i', '<M-h>', '<Esc>ha', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-w>', '<Esc> wi', {noremap = true})

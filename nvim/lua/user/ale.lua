@@ -15,6 +15,7 @@ vim.g.ale_linters = {
   nim = {},
   go = {},
   yaml = {'ansible-lint'},
+  clojure = {'kondo-clj'},
   terraform = {},
   rust = {},
   python = {},

@@ -4,6 +4,15 @@
   (:require [clojure.string :as str]
             [babashka.process :refer [shell]]))
 
+
+(def cli-spec
+  {:spec
+   {:copy {:coerce :boolean
+                 :desc "Copy files instead of moving"
+                 :alias :c}}
+   :args->opts (cons :files (repeat :files))
+   :coerce {:files []}})
+
 (defn is-bak? [file-name]
   (str/ends-with? file-name ".bak"))
 
@@ -20,17 +29,20 @@
   (println "Debug: filename:" filename "new-filename:" new-filename)
   (shell "mv" filename new-filename))
 
-(defn process-file [file-name]
+(defn process-file [file-name copy?]
   (let [absolute-file-name (absolute-path file-name)
         new-name (bak absolute-file-name)]
-    (println "Processing file:" file-name)
-    (println "Absolute path:" absolute-file-name)
-    (rename-file absolute-file-name new-name)
-    (println "Renamed" absolute-file-name "to" new-name)))
+    (rename-file absolute-file-name new-name copy?)
+    (println (str "Processed " absolute-file-name " to " new-name (if copy? " (copied)" " (moved)")))))  ;; 'if' works only on 2 conditional parameters.
 
 (defn -main [& args]
-  (println "Received arguments:" args)
-  (doseq [arg args]  ; Here, `arg` is each argument in `args`
-    (process-file arg)))  ; Pass `arg` directly to `process-file`
+; (defn -main [args]
+  (println "Args:" args)
+  (let [{:keys [copy files]} (cli/parse-opts args cli-spec)]
+    (println "Options:" {:copy copy})
+    (println "Files:" files)
+    (println "Type of files:" (type files))
+    (doseq [file-name files]
+      (process-file file-name copy))))
 
 (apply -main *command-line-args*)

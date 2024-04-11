@@ -7,10 +7,11 @@
 
 (def cli-spec
   {:spec
-   {:copy {:coerce :boolean             ; defines the -c/--copy flag as a boolean
-           :desc "Copy files instead of moving"
-           :alias :c}}                  ; adds -c alias for --copy
-   })
+   {:copy {:coerce :boolean
+                 :desc "Copy files instead of moving"
+                 :alias :c}}
+   :args->opts (cons :files (repeat :files))
+   :coerce {:files []}})
 
 (defn is-bak? [file-name]
   (str/ends-with? file-name ".bak"))
@@ -35,16 +36,12 @@
     (rename-file absolute-file-name new-name copy?)
     (println (str "Processed " absolute-file-name " to " new-name (if copy? " (copied)" " (moved)")))))  ;; 'if' works only on 2 conditional parameters.
 
-;; Why use '&' here?
-; (defn -main [& args]
-(defn -main [& args]
-  (let [{:keys [options args]} (cli/parse-opts args cli-spec)
-        copy? (:copy options)]
-    (doseq [file-name args]
-      (process-file file-name copy?))))
+(defn -main [args]
+  (let [{:keys [copy files]} (cli/parse-opts args cli-spec)]
+    (doseq [file-name files]
+      (process-file file-name copy))))
 
-(apply -main *command-line-args*)
-
+(-main *command-line-args*)
 
 ;; '(subs file-name 0 (- (count file-name) 4))'.
 ;; 'subs' is a shorthand for 'substring'. Substring is a smaller string that
@@ -76,3 +73,21 @@
 ;; The option maps contain keys and values for each option recognized and parsed
 ;; by cli/parse-opts. The line copy? (:copy options) looks up the :copy key in the
 ;; options map and binds its value to the local variable copy?
+
+
+;;  ;; :require :false ;; if the option isn't required i don't need to specify it
+;;(def cli-spec
+;;  {:spec
+;;   {:copy {:coerce :boolean  ; defines the -c/--copy flag as a boolean
+;;                 :desc "Copy files instead of moving"
+;;                 :alias :c}}  ; adds -c alias for --copy
+;;   :args->opts (cons :files (repeat :files)) ; This will collect multiple file arguments into :files
+;;   :coerce {:files []}}) ; Ensure :files is treated as a vector
+;;
+;; The :args->opts returns only one parameter (the first one) by default.
+;; The cons function in Clojure takes an element and a sequence, and returns a
+;; new sequence with the element added to the front of the given sequence.
+;; Typically, cons would produce a lazy sequence in Clojure, and while this
+;; might be iterable, the exact behavior and structure of how these arguments
+;; are collected and represented could vary based on the parser's
+;; implementation. That's why i need to use coersion after that.

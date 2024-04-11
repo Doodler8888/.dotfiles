@@ -88,9 +88,9 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.cmd("highlight Identifier guifg=#c4a7e7")
         vim.cmd("highlight @constant.macro guifg=#ebbcba")
-        vim.cmd("highlight @type guifg=#eb6f92")
+        vim.cmd("highlight @type guifg=#31748f")
         vim.cmd("highlight @function guifg=#9ccfd8")
-        vim.cmd("highlight @function.method guifg=#31748f")
+        vim.cmd("highlight @function.method guifg=#9ccfd8")
     end,
 })
 

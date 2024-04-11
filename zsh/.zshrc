@@ -188,8 +188,11 @@ bindkey -M viins '^L' clear-screen
 # source '/home/wurfkreuz/.source/antigen/antigen.zsh'
 source '/home/wurfkreuz/antigen.zsh'
 
+export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+bindkey '^[w' forward-word
 bindkey '^a' autosuggest-accept
 antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
+
 antigen bundle kutsan/zsh-system-clipboard &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null

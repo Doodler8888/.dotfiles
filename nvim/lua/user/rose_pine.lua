@@ -74,5 +74,25 @@ require('rose-pine').setup({
 }
 })
 
+vim.api.nvim_set_hl(0, '@string.special.symbol.clojure', { link = 'Identifier' })
+vim.api.nvim_set_hl(0, '@lsp.type.macro.clojure', { link = '@constant.macro' })
+vim.api.nvim_set_hl(0, '@type.clojure', { link = '@type' })
+vim.api.nvim_set_hl(0, '@function.call.clojure', { link = '@function' })
+vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
+
+-- @function.method.clojure links to @function.method
+
+-- Customize Identifier for Clojure files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "clojure",
+    callback = function()
+        vim.cmd("highlight Identifier guifg=#c4a7e7")
+        vim.cmd("highlight @constant.macro guifg=#ebbcba")
+        vim.cmd("highlight @type guifg=#eb6f92")
+        vim.cmd("highlight @function guifg=#9ccfd8")
+        vim.cmd("highlight @function.method guifg=#31748f")
+    end,
+})
+
 -- Set colorscheme after options
 vim.cmd('colorscheme rose-pine')

@@ -22,13 +22,15 @@ sleep 2
 swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
-swaymsg 'exec alacritty -e zellij attach emacs'
+swaymsg 'exec alacritty -e zellij attach main'
+# swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
 sleep 2
 
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
+# swaymsg 'exec emacs'
 swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
 swaymsg 'layout stacking'
 
@@ -40,6 +42,7 @@ swaymsg 'layout tabbed'
 swaymsg 'mark main'
 
 swaymsg 'exec alacritty -e zellij attach cli'
+# swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
 sleep 2
@@ -47,6 +50,7 @@ sleep 2
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
 swaymsg 'exec emacs --eval "(load-desktop-session \"cli\")"'
+# swaymsg 'exec emacs'
 swaymsg 'layout stacking'
 
 sleep 2
@@ -56,7 +60,8 @@ swaymsg 'focus parent'
 swaymsg 'layout tabbed'
 swaymsg 'mark cli'
 
-swaymsg 'exec alacritty -e zellij attach main'
+swaymsg 'exec alacritty -e zellij attach nvim'
+# swaymsg 'exec alacritty'
 
 sleep 2
 

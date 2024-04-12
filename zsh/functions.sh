@@ -107,8 +107,22 @@ fd-search() {
  zle reset-prompt
 }
 zle -N fd-search
-bindkey '^Y' fd-search
+# bindkey '^Y' fd-search
 
+
+fd-lsearchh() {
+ local file
+ # Use the $HOME environment variable to specify the home directory
+ file=$(fd --hidden . "$HOME" | fzf --height 40% --border)
+
+ if [[ -n $file ]]; then
+   BUFFER="${BUFFER}${file}"
+   zle redisplay
+   zle end-of-line
+ fi
+ zle reset-prompt
+}
+zle -N fd-lsearch
 
 fd-lsearch() {
  local file
@@ -123,8 +137,29 @@ fd-lsearch() {
  zle reset-prompt
 }
 zle -N fd-lsearch
-bindkey '^O' fd-lsearch
+# bindkey '^O' fd-lsearch
 
+
+# Modified function that waits for 'Ctrl-r' or 'Ctrl-c' after 'Ctrl-f' is pressed
+function wait_for_ctrl_r_or_c {
+  local key
+  # Read a single character
+  read -r -sk 1 key
+  # The character code for Ctrl-r is ^R or \x12, and for Ctrl-c is ^C or \x03
+  if [[ "$key" == $'\C-r' ]]; then
+    fd-search # Execute fd-search if Ctrl-r is pressed
+  elif [[ "$key" == $'\C-f' ]]; then
+    fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
+  elif [[ "$key" == $'\C-h' ]]; then
+    fd-lsearchh # Execute fd-lsearch if Ctrl-c is pressed
+  fi
+}
+
+# Create a ZLE widget for the modified function
+zle -N wait_for_ctrl_r_or_c
+
+# Bind 'Ctrl-f' to the new widget
+bindkey '^f' wait_for_ctrl_r_or_c
 
 fzf-nvim() {
     local file

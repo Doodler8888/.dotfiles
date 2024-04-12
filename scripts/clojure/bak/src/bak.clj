@@ -43,5 +43,4 @@
 
 (-main *command-line-args*)
 
-;; Comments
 ;; {file:/home/wurfkreuz/.secret_dotfiles/org/clojure/scripts/bak/bak.org}

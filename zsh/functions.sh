@@ -148,7 +148,7 @@ function wait_for_ctrl_r_or_c {
   # The character code for Ctrl-r is ^R or \x12, and for Ctrl-c is ^C or \x03
   if [[ "$key" == $'\C-r' ]]; then
     fd-search # Execute fd-search if Ctrl-r is pressed
-  elif [[ "$key" == $'\C-f' ]]; then
+  elif [[ "$key" == $'\C-s' ]]; then
     fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
   elif [[ "$key" == $'\C-h' ]]; then
     fd-lsearchh # Execute fd-lsearch if Ctrl-c is pressed
@@ -190,7 +190,6 @@ ss() {
   fi
 }
 zle -N ss
-bindkey '^S' ss
 
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
@@ -222,3 +221,14 @@ d() {
     cd "$1" || return
     exa -la
 }
+
+
+clear-ls-all() {
+  clear
+  exa -al
+  if [[ $WIDGET == zle ]]; then
+    zle reset-prompt
+  fi
+}
+zle -N clear-ls-all
+bindkey '^S' clear-ls-all

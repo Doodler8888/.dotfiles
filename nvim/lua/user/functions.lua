@@ -105,7 +105,7 @@ end
 
 -- You can bind the function to a command in Neovim
 vim.api.nvim_create_user_command('ShowMessages', ShowMessagesInNewBuffer, {})
-vim.api.nvim_set_keymap('n', '<Leader>mm', ':ShowMessages<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-m><C-m>', ':ShowMessages<CR>', {noremap = true, silent = true})
 
 
 -- Function to temporarily disable auto-indentation, insert a new line below, and then re-enable auto-indentation

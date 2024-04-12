@@ -36,6 +36,7 @@ vim.api.nvim_set_keymap("n", "<leader>ff", ":lua vim.cmd('FzfLua files')<CR>", {
 vim.api.nvim_set_keymap("n", "<leader>fh", ":FzfLua files cwd=~/<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>fs", ":FzfLua grep_project<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-s><C-s>", ":FzfLua lgrep_curbuf<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = true })
 
 -- vim.keymap.set({ "i" }, "<C-y>", function()

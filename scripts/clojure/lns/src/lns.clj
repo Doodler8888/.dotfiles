@@ -7,46 +7,45 @@
             [babashka.process :refer [shell]]))
 
 (load-file "/home/wurfkreuz/.dotfiles/scripts/clojure/libs/path_utils.clj")
-(require '[path-utils :refer [absolute-path]])
-
-(def cli-spec
-  {:spec
-   {:link {:coerce :boolean
-                 :desc "Specify link destination"
-                 :alias :l}}
-   :args->opts [:path]})
+(require '[path-utils :refer [get-absolute-path get-filename get-distilled-filename]])
 
 ; (def cli-spec
 ;   {:spec
 ;    {:link {:coerce :boolean
 ;                  :desc "Specify link destination"
 ;                  :alias :l}}
-;    :args->opts (cons :links (repeat :links))
-;    :coerce {:links []}})
+;    :args->opts [:path]})
+
+(def cli-spec
+  {:coerce {:l :string}})
 
 (defn link [filename linkname?]
   ; (let [default-link-path "/usr/local/bin/"
     (let [default-link-path "/home/wurfkreuz/"
-          abs-filename (absolute-path filename)]
-        (println "This is a filename: " filename)
-        (println "This is a linkname: " linkname?)
-        (println "This is a defualt-linkname: " default-link-path)
+          abs-filename (get-absolute-path filename)]
+        ; (println "This is a filename: " filename)
+        ; (println "This is a linkname: " linkname?)
+        ; (println "This is a defualt-linkname: " default-link-path)
       (if linkname?
         (shell "ln -s" abs-filename linkname?)
         (shell "ln -s" abs-filename default-link-path))))
 
-(defn test-parse-opts [args]
-  ; (println "These are the arguments: " args)
-  (let [{:keys [link linkname]} (cli/parse-opts args cli-spec)]
-    (print "These are the arguments: "[link linkname])))
+(defn parse-args-and-link [args]
+  (let [{:keys [args opts]} (cli/parse-args args cli-spec)]  ;; Don't miss that ':keys [args opts]' the part 'args' comes from the parsing, it's not the same main function argument.
+    (if-let [linkname (get opts :l)]
+      ;; If -l is provided, link the files to the specified path
+      (do (println "Linking file to:" linkname)
+          (doseq [filename args] ; Assuming all positional args are filenames
+            (println "doing ln -s to" (get-absolute-path filename) (str linkname "/" (get-distilled-filename filename)))
+            (shell "ln -s" (get-absolute-path filename) (str linkname "/" (get-distilled-filename filename)))))
+      ;; If -l is not provided, handle accordingly
+      (println "No link destination specified, handling files:" args))))
 
-(defn parser [(args)]
-  (let [{:keys}] ))
 (defn -main [args]
   (let [{:keys [files link path]} (cli/parse-opts args cli-spec)]
   (let [filename (first args)
         linkname? (second args)] ; This will be nil if not provided
-    (link filename linkname?)))
+    (link filename linkname?))))
 
 (-main *command-line-args*)
 

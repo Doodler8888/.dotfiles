@@ -3,6 +3,7 @@
 (ns bak
   (:require [clojure.string :as str]
             [babashka.cli :as cli]
+            [clojure.java.io :as io]
             [babashka.process :refer [shell]]))
 
 (def cli-spec
@@ -23,7 +24,7 @@
 
 ;; what type is filename before i convert it to string?
 (defn absolute-path [filename]
-  (.getAbsolutePath (java.io.File. (str filename))))
+  (.getAbsolutePath (io/file (str filename))))
 
 (defn rename-file [filename new-filename copy?]
   (if copy?

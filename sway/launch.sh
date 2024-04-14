@@ -5,7 +5,7 @@
 # Create a tabbed container on workspace 1 and assign Alacritty instances to it
 swaymsg 'workspace 1'
 # swaymsg 'layout tabbed'
-swaymsg 'exec opera'
+# swaymsg 'exec opera'
 
 sleep 2
 
@@ -22,8 +22,8 @@ sleep 2
 swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
-swaymsg 'exec alacritty -e zellij attach main'
-# swaymsg 'exec alacritty'
+# swaymsg 'exec alacritty -e zellij attach main'
+swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
 sleep 2
@@ -41,8 +41,8 @@ swaymsg 'focus parent'
 swaymsg 'layout tabbed'
 swaymsg 'mark main'
 
-swaymsg 'exec alacritty -e zellij attach cli'
-# swaymsg 'exec alacritty'
+# swaymsg 'exec alacritty -e zellij attach cli'
+swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
 sleep 2
@@ -60,8 +60,8 @@ swaymsg 'focus parent'
 swaymsg 'layout tabbed'
 swaymsg 'mark cli'
 
-swaymsg 'exec alacritty -e zellij attach nvim'
-# swaymsg 'exec alacritty'
+# swaymsg 'exec alacritty -e zellij attach nvim'
+swaymsg 'exec alacritty'
 
 sleep 2
 

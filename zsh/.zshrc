@@ -3,13 +3,13 @@ source /usr/local/bin
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$PATH"
-export EDITOR='/usr//local/bin/nvim'
+# export EDITOR='/usr/local/bin/nvim' # !! Causes 'M-.' to not work correctly for some reason
 export CDPATH='.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects'
 export HISTFILE="$HOME/.zsh_history"
 export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
-# export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
-# export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude ".config/vivaldi" --exclude snap'
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
 export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
@@ -34,8 +34,9 @@ SAVEHIST=16000
 # precmd() {}
 
 autoload edit-command-line; zle -N edit-command-line
-bindkey -M vicmd gv edit-command-line
-# bindkey -v
+bindkey -v
+bindkey -M viins '\e.' insert-last-word
+# bindkey -M vicmd gv edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
 
 alias fnc="cd ~/.dotfiles/zsh/ && nvim functions.sh"
@@ -134,7 +135,7 @@ alias dpsa="docker ps -a | head -n 5"
 alias cfg="cd ~/.dotfiles/ansible/ && nvim ansible.cfg"
 alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
-
+alias i3c="nvim ~/.config/i3/config"
 # bindkey '^R' fzf_history_search
 
 # Uncomment the following line to enable command auto-correction.
@@ -187,7 +188,7 @@ bindkey '^[w' forward-word
 bindkey '^a' autosuggest-accept
 antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
 
-antigen bundle kutsan/zsh-system-clipboard &> /dev/null
+# antigen bundle kutsan/zsh-system-clipboard &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 antigen apply &> /dev/null

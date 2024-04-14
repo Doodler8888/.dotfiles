@@ -83,22 +83,22 @@ lspconfig.pyright.setup {
 
 -- Ansible/Yaml
 
-vim.api.nvim_create_augroup("YAMLConfig", { clear = true })
-
-vim.api.nvim_create_autocmd("BufRead", {
-    group = "YAMLConfig",
-    pattern = "*.yaml",
-    callback = function()
-        local filename = vim.fn.expand("%:t")
-        if not string.match(filename, "-playbook.yaml$") then
-            -- Replace 'ansiblels' with the correct name if different
-            vim.cmd("LspStop 1 (ansiblels)")
-        end
-    end,
-})
+-- vim.api.nvim_create_augroup("YAMLConfig", { clear = true })
+--
+-- vim.api.nvim_create_autocmd("BufRead", {
+--     group = "YAMLConfig",
+--     pattern = "*.yaml",
+--     callback = function()
+--         local filename = vim.fn.expand("%:t")
+--         if not string.match(filename, "-playbook.yaml$") then
+--             -- Replace 'ansiblels' with the correct name if different
+--             vim.cmd("LspStop 1 (ansiblels)")
+--         end
+--     end,
+-- })
 
 lspconfig.ansiblels.setup{
-    filetypes = { "yaml" },
+    filetypes = { "yaml.ansible" },
     on_attach = function(client, bufnr)
         local function BufSetOption(...) vim.api.nvim_buf_set_option(bufnr, ...) end
         -- Enable completion triggered by <c-x><c-o>
@@ -119,31 +119,31 @@ lspconfig.yamlls.setup{
         },
     },
 }
-
-function InsertCommentChar()
-  local line = vim.api.nvim_get_current_line()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local col = cursor[2]
-  local is_whitespace_only = line:sub(1, col):match("^%s*$") ~= nil
-
-  if is_whitespace_only then
-    -- If the line up to the cursor is only whitespace, insert `#` at the beginning
-    vim.api.nvim_set_current_line('#' .. line)
-    -- Move the cursor to the right, placing it after the inserted `#`
-    vim.api.nvim_win_set_cursor(0, {cursor[1], col + 1})
-  else
-    -- If the line contains non-whitespace characters, insert `#` with indentation
-    vim.api.nvim_input('i#')
-  end
-end
-
--- Map Ctrl+O to the Lua function in insert mode for YAML files
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "yaml",
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, 'i', '<C-o>', '<Cmd>lua InsertCommentChar()<CR>', { noremap = true, silent = true })
-  end,
-})
+--
+-- function InsertCommentChar()
+--   local line = vim.api.nvim_get_current_line()
+--   local cursor = vim.api.nvim_win_get_cursor(0)
+--   local col = cursor[2]
+--   local is_whitespace_only = line:sub(1, col):match("^%s*$") ~= nil
+--
+--   if is_whitespace_only then
+--     -- If the line up to the cursor is only whitespace, insert `#` at the beginning
+--     vim.api.nvim_set_current_line('#' .. line)
+--     -- Move the cursor to the right, placing it after the inserted `#`
+--     vim.api.nvim_win_set_cursor(0, {cursor[1], col + 1})
+--   else
+--     -- If the line contains non-whitespace characters, insert `#` with indentation
+--     vim.api.nvim_input('i#')
+--   end
+-- end
+--
+-- -- Map Ctrl+O to the Lua function in insert mode for YAML files
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "yaml",
+--   callback = function()
+--     vim.api.nvim_buf_set_keymap(0, 'i', '<C-o>', '<Cmd>lua InsertCommentChar()<CR>', { noremap = true, silent = true })
+--   end,
+-- })
 
 
 -- Disable auto-wrapping on specified file types

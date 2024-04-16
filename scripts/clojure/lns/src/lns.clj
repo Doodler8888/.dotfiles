@@ -1,61 +1,78 @@
 #!/usr/bin/env bb
 
 (ns lns
-  (:require [clojure.string :as str]
-            [babashka.cli :as cli]
-            [clojure.java.io :as io]
-            [babashka.process :refer [shell]]))
+  (:require [babashka.cli :as cli]
+            [babashka.process :refer [shell]]
+            [babashka.fs :as fs]
+            [clojure.string :as str]))
 
 (load-file "/home/wurfkreuz/.dotfiles/scripts/clojure/libs/path_utils.clj")
-(require '[path-utils :refer [get-absolute-path get-filename get-distilled-filename]])
+(require '[path-utils :refer [get-absolute-path get-distilled-filename]])
 
-; (def cli-spec
-;   {:spec
-;    {:link {:coerce :boolean
-;                  :desc "Specify link destination"
-;                  :alias :l}}
-;    :args->opts [:path]})
 
 (def cli-spec
   {:coerce {:l :string}})
 
+; (defn deletion-prompt [filename]
+;   (if file-exists (get-absolute-path filename)
+;     ))
+
+(defn file-is? [path]
+  (let [p (fs/path path)]
+    (cond
+      (not (fs/exists? p)) {:status :does-not-exist}
+      (fs/directory? p) {:status :directory}
+      (fs/sym-link? p) {:status :symbolic-link}
+      (fs/regular-file? p) {:status :regular-file}
+      :else {:status :other})))
+
+(defn deletion-prompt [path]
+  (let [file-status (file-is? path)]
+    (when (not= (:status file-status) :does-not-exist)
+      (println (case (:status file-status)
+                 :symbolic-link (str "\nThe " path " already exists and it's a link.")
+                 :regular-file (str "\nThe " path " already exists.")
+                 :directory (str "\nThe " path " already exists and it's a directory.")
+                 "\nThe path exists but is not a regular file or a symbolic link."))
+      (println "\nDo you want to delete it?\n\nType y/n\n")
+      (let [response (clojure.string/trim (read-line))]
+        (case response
+          "y" (case (:status file-status)
+                    :symbolic-link (do (shell "rm" path)
+                                       (println "Link deleted."))
+                    :regular-file (do (shell "rm" path)
+                                      (println "File deleted."))
+                    :directory (do (shell "rm" "-ri" path)
+                                   (println "Directory deleted.")))
+          "n" (println "\nExiting script by user choice.\n")
+          (println "\nInvalid input. No action taken.\n"))))))
+
 (defn link [filename linkname?]
-  ; (let [default-link-path "/usr/local/bin/"
-    (let [default-link-path "/home/wurfkreuz/"
-          abs-filename (get-absolute-path filename)]
-        ; (println "This is a filename: " filename)
-        ; (println "This is a linkname: " linkname?)
-        ; (println "This is a defualt-linkname: " default-link-path)
-      (if linkname?
-        (shell "ln -s" abs-filename linkname?)
-        (shell "ln -s" abs-filename default-link-path))))
+  (let [default-link-path "/usr/local/bin"
+        abs-filename (get-absolute-path filename)
+        target-link-path (if linkname?
+                           (str linkname? "/" (get-distilled-filename filename))
+                           default-link-path)]
+    (deletion-prompt target-link-path)
+    (println "\nDoing ln -s to" abs-filename "at" target-link-path)
+    (shell "ln -s" abs-filename target-link-path)))
+
+(defn process-files [filenames linkname?]
+  (doseq [filename filenames]
+    (link filename linkname?)))
 
 (defn parse-args-and-link [args]
-  (let [{:keys [args opts]} (cli/parse-args args cli-spec)]  ;; Don't miss that ':keys [args opts]' the part 'args' comes from the parsing, it's not the same main function argument.
-    (if-let [linkname (get opts :l)]
-      ;; If -l is provided, link the files to the specified path
-      (do (println "Linking file to:" linkname)
-          (doseq [filename args] ; Assuming all positional args are filenames
-            (println "doing ln -s to" (get-absolute-path filename) (str linkname "/" (get-distilled-filename filename)))
-            (shell "ln -s" (get-absolute-path filename) (str linkname "/" (get-distilled-filename filename)))))
-      ;; If -l is not provided, handle accordingly
-      (println "No link destination specified, handling files:" args))))
+  (let [{:keys [args opts]} (cli/parse-args args cli-spec)
+        linkname? (get opts :l)]
+    (println (if linkname?
+               (str "Link path is provided, linking file/files to: " linkname?)
+               "Link path isn't provided linking file to: /home/wurfkreuz"))
+    (process-files args (or linkname? "/home/wurfkreuz"))))
 
 (defn -main [args]
-  (let [{:keys [files link path]} (cli/parse-opts args cli-spec)]
-  (let [filename (first args)
-        linkname? (second args)] ; This will be nil if not provided
-    (link filename linkname?))))
+  (parse-args-and-link args))
 
 (-main *command-line-args*)
 
 
-;; I can't pass filename and linkname as parameters directly into the main
-;; function. It's probably comes from the fact that even though i defined the
-;; main function with one parameter, it comes as a list thanks to
-;; *command-line-args*, so i have the ability to destructure it. But if i would
-;; define two parameters, that would mean the main function needs two lists and
-;; passing only one literal parameter in the shell doesn't make possible to
-;; create the second list in conjunction with *command-line-args*.
-;; I don't think that my explanation is technically correct but the essence of
-;; it should.
+;; /home/wurfkreuz/.secret_dotfiles/org/clojure/scripts/lns.org

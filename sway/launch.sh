@@ -5,7 +5,7 @@
 # Create a tabbed container on workspace 1 and assign Alacritty instances to it
 swaymsg 'workspace 1'
 # swaymsg 'layout tabbed'
-# swaymsg 'exec opera'
+swaymsg 'exec opera'
 
 sleep 2
 
@@ -60,8 +60,8 @@ swaymsg 'focus parent'
 swaymsg 'layout tabbed'
 swaymsg 'mark cli'
 
-# swaymsg 'exec alacritty -e zellij attach nvim'
-swaymsg 'exec alacritty -e zellij'
+swaymsg 'exec alacritty -e zellij attach main'
+# swaymsg 'exec alacritty -e zellij'
 
 sleep 2
 

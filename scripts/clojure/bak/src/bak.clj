@@ -10,9 +10,10 @@
 
 (defn show-help [spec]
   (let [usage "Usage: bak [options] <files>\n"
+        general-info "Add or remove '.bak' extension based on the current name of a file\n"
         flags "Flags:\n"
         options-description (cli/format-opts (merge spec {:order (vec (keys (:spec spec)))}))]
-    (str usage flags options-description)))
+    (str usage general-info flags options-description)))
 
 (def cli-spec
   {:spec
@@ -44,7 +45,6 @@
 (defn -main [args]
   (let [opts (cli/parse-opts args cli-spec)]
     (if (or (:help opts) (:h opts))
-      ;; If --help or -h is present, show the help message.
       (println (show-help cli-spec))
       ;; Otherwise, proceed with the script's normal operations.
       (let [{:keys [copy files]} opts]

@@ -25,18 +25,6 @@
               :desc "Specify link path"
               :alias :l}}})
 
-
-; (def cli-spec
-;   {:spec {:link {:coerce str
-;               :desc "Specify link path"
-;               :alias :l}}})
-
-; (def cli-spec
-;   {:spec
-;    {:link {:coerse :string
-;             :desc "Specify link path"
-;             :alias :l}}})
-
 (defn deletion-prompt [path]
   (let [file-status (file-is? path)]
     (when (not= (:status file-status) :does-not-exist)

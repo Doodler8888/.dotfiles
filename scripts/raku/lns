@@ -36,7 +36,8 @@ sub get_abs_path($path_input) {
 }
 
 #| Create symlinks for any number of targets with /usr/local/bin as a default destination
-sub MAIN(*@files, Str :d(:$destination)="/usr/local/bin") {
+# sub MAIN(*@files, Str :d(:$destination)="/usr/local/bin") {
+sub MAIN(*@files, Bool :d, Str :$destination where *.so = "/usr/local/bin") {
     for @files -> $file {
         my $abs-file = get_abs_path($file);
 	my $original-file = "{$destination}{$file}";

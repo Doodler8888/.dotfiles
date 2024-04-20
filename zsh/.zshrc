@@ -8,9 +8,9 @@ export CDPATH='.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects'
 export HISTFILE="$HOME/.zsh_history"
 export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
-export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude ".config/vivaldi" --exclude snap'
+# export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude ".config/vivaldi" --exclude snap'
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
 export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
 export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
@@ -36,7 +36,7 @@ SAVEHIST=16000
 autoload edit-command-line; zle -N edit-command-line
 bindkey -v
 bindkey -M viins '\e.' insert-last-word
-# bindkey -M vicmd gv edit-command-line # edit line using EDITOR
+bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
 
 alias fnc="cd ~/.dotfiles/zsh/ && nvim functions.sh"
@@ -188,7 +188,7 @@ bindkey '^[w' forward-word
 bindkey '^a' autosuggest-accept
 antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
 
-# antigen bundle kutsan/zsh-system-clipboard &> /dev/null
+antigen bundle kutsan/zsh-system-clipboard &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 antigen apply &> /dev/null

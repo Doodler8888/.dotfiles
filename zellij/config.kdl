@@ -153,6 +153,8 @@ keybinds clear-defaults=true {
         bind "Alt Right" { MovePane "Right"; }
         bind "Alt n" { NewPane; SwitchToMode "Normal"; }
         bind "Alt f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+	bind "Alt F1" { MoveTab "Left"; }
+        bind "Alt F2" { MoveTab "Right"; }
         // bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
 	bind "Alt d" { NewPane "Down"; SwitchToMode "Normal"; }
 	bind "Alt r" { NewPane "Right"; SwitchToMode "Normal"; }
@@ -167,15 +169,15 @@ keybinds clear-defaults=true {
         // bind "Alt -" { Resize "Decrease"; }
         // bind "Alt <" { PreviousSwapLayout; }
        // bind "Alt >" { NextSwapLayout; }
-//	bind "Ctrl 1" { GoToTab 1; SwitchToMode "Normal"; }
-//	bind "Ctrl 2" { GoToTab 2; SwitchToMode "Normal"; }
-//	bind "Ctrl 3" { GoToTab 3; SwitchToMode "Normal"; }
-//	bind "Ctrl 4" { GoToTab 4; SwitchToMode "Normal"; }
-//	bind "Ctrl 5" { GoToTab 5; SwitchToMode "Normal"; }
-//	bind "Ctrl 6" { GoToTab 6; SwitchToMode "Normal"; }
-//	bind "Ctrl 7" { GoToTab 7; SwitchToMode "Normal"; }
-//	bind "Ctrl 8" { GoToTab 8; SwitchToMode "Normal"; }
-//	bind "Ctrl 9" { GoToTab 9; SwitchToMode "Normal"; }
+	bind "Alt 1" { GoToTab 1; SwitchToMode "Normal"; }
+	bind "Alt 2" { GoToTab 2; SwitchToMode "Normal"; }
+	bind "Alt 3" { GoToTab 3; SwitchToMode "Normal"; }
+	bind "Alt 4" { GoToTab 4; SwitchToMode "Normal"; }
+	bind "Alt 5" { GoToTab 5; SwitchToMode "Normal"; }
+	bind "Alt 6" { GoToTab 6; SwitchToMode "Normal"; }
+	bind "Alt 7" { GoToTab 7; SwitchToMode "Normal"; }
+	bind "Alt 8" { GoToTab 8; SwitchToMode "Normal"; }
+	bind "Alt 9" { GoToTab 9; SwitchToMode "Normal"; }
 
     }
     shared_except "normal" "locked" {

@@ -92,12 +92,20 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 	},
 	'nat-418/boole.nvim',
+	-- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
 	'dhruvasagar/vim-table-mode',
 	'pearofducks/ansible-vim',
         'fabridamicelli/cronex.nvim',
+	'jvgrootveld/telescope-zoxide',
 	-- 'Olical/conjure',
+	{
+		"yorickpeterse/nvim-tree-pairs",
+		config = function()
+		  require('tree-pairs').setup()
+		end,
+	},
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()

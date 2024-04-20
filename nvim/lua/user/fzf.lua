@@ -32,12 +32,12 @@ require("fzf-lua").setup({
 	},
 })
 
-vim.api.nvim_set_keymap("n", "<leader>ff", ":lua vim.cmd('FzfLua files')<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>fh", ":FzfLua files cwd=~/<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>fs", ":FzfLua grep_project<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-s><C-s>", ":FzfLua lgrep_curbuf<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = true })
+-- vim.api.nvim_set_keymap("n", "<leader>ff", ":lua vim.cmd('FzfLua files')<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>fh", ":FzfLua files cwd=~/<CR>", { noremap = true })
+-- vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
+-- vim.api.nvim_set_keymap("n", "<leader>fs", ":FzfLua grep_project<CR>", { noremap = true })
+-- vim.api.nvim_set_keymap("n", "<C-s><C-s>", ":FzfLua lgrep_curbuf<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = true })
 
 -- vim.keymap.set({ "i" }, "<C-y>", function()
 -- 	require("fzf-lua").complete_path({
@@ -45,7 +45,7 @@ vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = tr
 -- 	})
 -- end, { silent = true, desc = "Fuzzy complete path" })
 
-vim.keymap.set({ "i" }, "<C-l>", function()
+vim.keymap.set({ "i" }, "<C-f><C-i>c", function()
 	-- Get the current line and cursor position
 	local line = vim.api.nvim_get_current_line()
 	local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -63,6 +63,53 @@ vim.keymap.set({ "i" }, "<C-l>", function()
 		cmd = string.format("fd --hidden", vim.fn.shellescape(path_fragment)),
 	})
 end, { silent = true, desc = "Fuzzy complete path" })
+
+
+
+-- vim.keymap.set({ "n" }, "<leader>ih", function()
+-- vim.keymap.set({ "i" }, "<C-f><C-i>h", function()
+--     -- Get the current line and cursor position
+--     local line = vim.api.nvim_get_current_line()
+--     local col = vim.api.nvim_win_get_cursor(0)[2]
+--
+--     -- Get the path fragment to the left of the cursor
+--     -- Ensure only the part of the line up to the cursor is considered
+--     local path_fragment = line:sub(1, col):match("([^%s]+)$")
+--
+--     -- If there's no path fragment found, default to searching from the home directory
+--     if not path_fragment or path_fragment == "" then
+--         path_fragment = "."  -- Search from the base directory without a specific pattern
+--     else
+--         -- Ensure the path fragment does not extend beyond the cursor position
+--         path_fragment = line:sub(1, col):match("([^%s]+)$")
+--     end
+--
+--     -- Run the fd command with the dynamic path fragment from the home directory
+--     require("fzf-lua").complete_path({
+--         cmd = string.format("fd --hidden --base-directory %s %s", vim.fn.shellescape(vim.fn.expand("~")), vim.fn.shellescape(path_fragment)),
+--     })
+-- end, { silent = true, desc = "Fuzzy complete path from home" })
+
+
+vim.keymap.set({ "i" }, "<C-f><C-i>r", function()
+    -- Get the current line and cursor position
+    local line = vim.api.nvim_get_current_line()
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+
+    -- Get the path fragment to the left of the cursor
+    local path_fragment = line:sub(1, col):match("([^%s]+)$")
+
+    -- If there's no path fragment found, default to searching from the root directory
+    if not path_fragment or path_fragment == "" then
+        path_fragment = "."  -- Search from the base directory without a specific pattern
+    end
+
+    -- Run the fd command with the dynamic path fragment from the root directory
+    require("fzf-lua").complete_path({
+        cmd = string.format("fd --hidden --base-directory / %s", vim.fn.shellescape(path_fragment)),
+    })
+end, { silent = true, desc = "Fuzzy complete path from root" })
+
 
 -- vim.g.fzf_colors = {
 --   ["fg"] = {"fg", "Normal"},

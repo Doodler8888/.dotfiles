@@ -23,7 +23,8 @@ swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
 # swaymsg 'exec alacritty -e zellij attach main'
-swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec alacritty -e zellij'
+swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
 sleep 2
@@ -42,7 +43,8 @@ swaymsg 'layout tabbed'
 swaymsg 'mark main'
 
 # swaymsg 'exec alacritty -e zellij attach cli'
-swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec alacritty -e zellij'
+swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
 sleep 2

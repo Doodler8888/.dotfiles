@@ -17,9 +17,6 @@
     (str general-info usage flags options-description)))
 
 
-; (def cli-spec
-;   {:coerce {:l :string}})
-
 (def cli-spec
   {:spec {:link {:coerce str 
               :desc "Specify link path"

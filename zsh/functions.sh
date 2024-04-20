@@ -140,6 +140,14 @@ zle -N fd-lsearch
 # bindkey '^O' fd-lsearch
 
 
+function fzf-zoxide() {
+    local dir
+    dir=$(zoxide query --list | fzf --height 40% --border) && cd "$dir"
+    # Reset the prompt to reflect the change immediately
+    zle reset-prompt
+}
+zle -N fzf-zoxide
+
 # Modified function that waits for 'Ctrl-r' or 'Ctrl-c' after 'Ctrl-f' is pressed
 function wait_for_ctrl_r_or_c {
   local key
@@ -151,7 +159,9 @@ function wait_for_ctrl_r_or_c {
   elif [[ "$key" == $'\C-s' ]]; then
     fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
   elif [[ "$key" == $'\C-h' ]]; then
-    fd-lsearchh # Execute fd-lsearch if Ctrl-c is pressed
+    fd-lsearchh
+  elif [[ "$key" == $'\C-z' ]]; then
+    fzf-zoxide
   fi
 }
 

@@ -87,9 +87,10 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "clojure",
     callback = function()
         vim.cmd("highlight Identifier guifg=#c4a7e7")
-        vim.cmd("highlight @constant.macro guifg=#ebbcba")
-        vim.cmd("highlight @type guifg=#31748f")
-        vim.cmd("highlight @function guifg=#9ccfd8")
+        vim.cmd("highlight Keyword guifg=#9ccfd8")
+        vim.cmd("highlight @constant.macro guifg=#31748f")
+        vim.cmd("highlight @type guifg=#c4a7e7")
+        vim.cmd("highlight @function guifg=#ebbcba")
         vim.cmd("highlight @function.method guifg=#9ccfd8")
     end,
 })

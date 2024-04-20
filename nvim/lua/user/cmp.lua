@@ -40,17 +40,21 @@ cmp.setup.cmdline(':', {
       if cmp.visible() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
       else
-	fallback() -- Allow default behavior if cmp isn't active
+        fallback() -- Allow default behavior if cmp isn't active
       end
     end, { 'c' }),
     ['<Tab>'] = cmp.mapping(function(fallback)
+      if not cmp.visible() then
         cmp.complete()
+      else
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      end
     end, { 'c' }),
     ['<C-p>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-	cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
       else
-	fallback() -- Allow default behavior if cmp isn't active
+        fallback() -- Allow default behavior if cmp isn't active
       end
     end, { 'c' }),
   },

@@ -3,24 +3,27 @@ local z_utils = require("telescope._extensions.zoxide.utils")
 
 require('telescope').setup({
   defaults = {
-    find_command = { "fd", "--hidden", "--exclude=.git", "--exclude=node_modules" },
-    file_ignore_patterns = {
-      "node_modules",
-      "%.git",
-      "target",
-      "build",
-      ".go",
-      ".clojure",
-      ".vagrant",
-      -- ".raku",
-      "perl5",
-      ".local",
-      ".qlot",
-      ".m2",
-      "common-lisp",
-      "snap",
-      ".venv",
-    },
+  -- find_command = { "fd", "--hidden", "--exclude=.git", "--exclude=node_modules", "--exclude=.clj-kondo" },
+  -- file_ignore_patterns = { -- ignoring files make the search slower?
+  --     "node_modules",
+  --     "%.git",
+  --     "target",
+  --     "build",
+  --     ".go",
+  --     ".clojure",
+  --     ".vagrant",
+  --     -- ".raku",
+  --     "perl5",
+  --     ".local",
+  --     ".qlot",
+  --     ".m2",
+  --     "common-lisp",
+  --     "snap",
+  --     ".venv",
+  --     ".lsp",
+  --     "%.clj-kondo/",
+  --     ".cpcache",
+  --   },
     mappings = {
       i = {
 	["<C-g>"] = require('telescope.actions').close
@@ -31,16 +34,47 @@ require('telescope').setup({
     },
   },
   extensions = {
-    fzf = {
-      fuzzy = true, -- false will only do exact matching
-      override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-      -- the default case_mode is "smart_case"
-    },
-    persisted = {
-      layout_config = { width = 0.55, height = 0.55 },
-    },
+        ["zf-native"] = {
+            -- options for sorting file-like items
+            file = {
+                -- override default telescope file sorter
+                enable = true,
+
+                -- highlight matching text in results
+                highlight_results = true,
+
+                -- enable zf filename match priority
+                match_filename = true,
+
+                -- optional function to define a sort order when the query is empty
+                initial_sort = nil,
+            },
+
+            -- options for sorting all other items
+            generic = {
+                -- override default telescope generic item sorter
+                enable = true,
+
+                -- highlight matching text in results
+                highlight_results = true,
+
+                -- disable zf filename match priority
+                match_filename = false,
+
+                -- optional function to define a sort order when the query is empty
+                initial_sort = nil,
+            },
+        },
+    -- fzf = {
+    --   fuzzy = true, -- false will only do exact matching
+    --   override_generic_sorter = true, -- override the generic sorter
+    --   override_file_sorter = true, -- override the file sorter
+    --   case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+    --   -- the default case_mode is "smart_case"
+    -- },
+    -- persisted = {
+    --   layout_config = { width = 0.55, height = 0.55 },
+    -- },
     zoxide = {
       prompt_title = "[ Walking on the shoulders of TJ ]",
       mappings = {
@@ -63,8 +97,8 @@ require('telescope').setup({
 -- vim.api.nvim_set_keymap('n', '<leader>nf', ':lua require("telescope.builtin").find_files({ prompt_title = "Search Notes", cwd = "~/.secret_dotfiles/notes", hidden = true })<CR>', {noremap = true, silent = true})
 
 
--- require("telescope").load_extension("zf-native")
-require("telescope").load_extension("fzf")
+require("telescope").load_extension("zf-native")
+-- require("telescope").load_extension("fzf")
 -- require("telescope").load_extension("ui-select")
 -- -- require("telescope").load_extension("persisted")
 require('telescope').load_extension('zoxide')

@@ -74,26 +74,30 @@ require('rose-pine').setup({
 }
 })
 
-vim.api.nvim_set_hl(0, '@string.special.symbol.clojure', { link = 'Identifier' })
-vim.api.nvim_set_hl(0, '@lsp.type.macro.clojure', { link = '@constant.macro' })
-vim.api.nvim_set_hl(0, '@type.clojure', { link = '@type' })
-vim.api.nvim_set_hl(0, '@function.call.clojure', { link = '@function' })
-vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
+-- vim.api.nvim_set_hl(0, '@string.special.symbol.clojure', { link = 'Identifier' })
+-- vim.api.nvim_set_hl(0, '@lsp.type.macro.clojure', { link = '@constant.macro' })
+-- vim.api.nvim_set_hl(0, '@type.clojure', { link = '@type' })
+-- vim.api.nvim_set_hl(0, '@function.call.clojure', { link = '@function' })
+-- vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
 
--- @function.method.clojure links to @function.method
+vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
+vim.api.nvim_set_hl(0, '@constant.python', { fg = '#eb6f92' })
+vim.api.nvim_set_hl(0, '@variable.parameter.python', { fg = '#908caa' })
 
--- Customize Identifier for Clojure files
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "clojure",
-    callback = function()
-        vim.cmd("highlight Identifier guifg=#c4a7e7")
-        vim.cmd("highlight Keyword guifg=#9ccfd8")
-        vim.cmd("highlight @constant.macro guifg=#31748f")
-        vim.cmd("highlight @type guifg=#c4a7e7")
-        vim.cmd("highlight @function guifg=#ebbcba")
-        vim.cmd("highlight @function.method guifg=#9ccfd8")
-    end,
-})
+
+-- -- Customize Identifier for Clojure files
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "clojure",
+--     callback = function()
+--         vim.cmd("highlight Identifier guifg=#c4a7e7")
+--         vim.cmd("highlight Keyword guifg=#9ccfd8")
+--         vim.cmd("highlight Number guifg=#e0def4")
+--         vim.cmd("highlight @constant.macro guifg=#31748f")
+--         vim.cmd("highlight @type guifg=#c4a7e7")
+--         vim.cmd("highlight @function guifg=#ebbcba")
+--         vim.cmd("highlight @function.method guifg=#9ccfd8")
+--     end,
+-- })
 
 -- Set colorscheme after options
 vim.cmd('colorscheme rose-pine')

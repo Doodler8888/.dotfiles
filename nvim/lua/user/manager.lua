@@ -93,6 +93,7 @@ local plugins = {
 	},
 	'nat-418/boole.nvim',
 	-- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+	'natecraddock/telescope-zf-native.nvim',
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
 	'dhruvasagar/vim-table-mode',

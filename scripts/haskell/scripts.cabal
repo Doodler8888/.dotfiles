@@ -1,4 +1,5 @@
-cabal-version:      3.8
+-- cabal-version:      3.8
+cabal-version:      3.10
 name:               scripts
 version:            0.1.0.0
 -- synopsis:
@@ -21,7 +22,7 @@ executable dependency-update
     main-is:          dependency-update.hs
     -- other-modules:
     -- other-extensions:
-    build-depends:    base >=4.18.1
+    build-depends:    base >=4.18.2
                     , process
                     , tomland
                     , bytestring
@@ -35,7 +36,7 @@ executable bak
     main-is:          bak.hs
     -- other-modules:
     -- other-extensions:
-    build-depends:    base >=4.18.1
+    build-depends:    base >=4.18.2
                     , turtle >=1.6.2
                     , foldl >=1.4.15
 		    , Cabal >= 3.2.0.0

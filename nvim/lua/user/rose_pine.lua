@@ -81,7 +81,7 @@ require('rose-pine').setup({
 -- vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
 
 vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
-vim.api.nvim_set_hl(0, '@constant.python', { fg = '#eb6f92' })
+vim.api.nvim_set_hl(0, '@constant.python', { fg = '#e0def4' })
 vim.api.nvim_set_hl(0, '@variable.parameter.python', { fg = '#908caa' })
 
 

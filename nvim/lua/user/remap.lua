@@ -87,6 +87,9 @@ vim.api.nvim_set_keymap('n', '<M-y>', ':TroubleToggle<CR>', {noremap = true})
 -- Remove traling spaces
 vim.api.nvim_set_keymap('n', '<leader>rw', [[:%s/\s\+$//e<CR>]], {noremap = true, silent = true})
 
+-- Inlay hints
+-- vim.keymap.set('n', '<leader>h', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+
 -- Remove persistent highliting after pattern matching actions
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':noh<CR><Esc>', { noremap = true, silent = true })
 

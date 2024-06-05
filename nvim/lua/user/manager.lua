@@ -82,13 +82,6 @@ local plugins = {
 		},
 	},
 	{
-		"numToStr/Comment.nvim",
-		opts = {
-			-- add any options here
-		},
-		lazy = false,
-	},
-	{
 		"neovim/nvim-lspconfig",
 	},
 	'nat-418/boole.nvim',
@@ -100,7 +93,6 @@ local plugins = {
 	'pearofducks/ansible-vim',
         'fabridamicelli/cronex.nvim',
 	'jvgrootveld/telescope-zoxide',
-	-- 'Olical/conjure',
 	{
 		"yorickpeterse/nvim-tree-pairs",
 		config = function()

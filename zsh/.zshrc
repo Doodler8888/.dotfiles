@@ -3,7 +3,7 @@ source /usr/local/bin
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$PATH"
-# export EDITOR='/usr/local/bin/nvim' # !! Causes 'M-.' to not work correctly for some reason
+export EDITOR='/usr/bin/nvim' # !! Causes 'M-.' to not work correctly for some reason
 export CDPATH='.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects'
 export HISTFILE="$HOME/.zsh_history"
 export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
@@ -22,6 +22,7 @@ export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
 export XDG_CURRENT_DESKTOP="Sway"
 export LUA_BINDIR="/usr/local/bin/"
 export LUA_BINDIR_SET=yes
+export VISUDO_EDITOR=/usr/bin/nvim
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -141,12 +142,12 @@ alias i3c="nvim ~/.config/i3/config"
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# # Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
 
 eval "$(zoxide init zsh)"
 

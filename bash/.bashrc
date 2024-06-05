@@ -1,6 +1,6 @@
 source /home/wurfkreuz/.dotfiles/bash/scripts.sh
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/bin:/home/wurfkreuz/.ghcup/bin:/home/wurfkreuz/.cabal/bin:/home/wufkreuz/.local/share/racket:$PATH"
-export EDITOR=/usr//local/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 # export CDPATH=.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"

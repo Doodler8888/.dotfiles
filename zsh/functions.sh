@@ -236,9 +236,7 @@ d() {
 clear-ls-all() {
   clear
   exa -al
-  if [[ $WIDGET == zle ]]; then
-    zle reset-prompt
-  fi
+  zle reset-prompt
 }
 zle -N clear-ls-all
 bindkey '^S' clear-ls-all

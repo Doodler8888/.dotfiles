@@ -1,5 +1,6 @@
 -- Useful for easily creating commands
 local z_utils = require("telescope._extensions.zoxide.utils")
+local actions = require('telescope.actions')
 
 require('telescope').setup({
   defaults = {
@@ -128,11 +129,47 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
+function _G.rg_current_file()
+  local filename = vim.api.nvim_buf_get_name(0)
+  require('telescope.builtin').grep_string({
+    prompt_title = "Ripgrep Current File",
+    search = "",  -- This can be left empty; user will input the search term interactively
+    search_dirs = { filename },
+    use_regex = true,
+    hidden = true,
+    use_less = false,
+    attach_mappings = function(_, map)
+      map("i", "<CR>", require('telescope.actions').select_default)
+      return true
+    end,
+  })
+end
+
+-- Works on all files in a catalog from where neovim was opened
+function _G.rg_neovim_session()
+  local filename = vim.api.nvim_buf_get_name(0)
+  require('telescope.builtin').live_grep({
+    prompt_title = "Ripgrep Current File",
+    search = "",
+    cwd = vim.fn.fnamemodify(filename, ':p:h'),
+    hidden = true,
+    use_less = false,
+    grep_open_files = false,
+    attach_mappings = function(_, map)
+      map("i", "<CR>", actions.select_default)
+      return true
+    end,
+    extra_search_params = {"--file", filename},
+  })
+end
+
+vim.api.nvim_set_keymap('n', '<leader>rf', ":lua rg_neovim_session()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>rc', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
 
 function Search_and_insert_from_home()
     -- Load the built-in Telescope function and configuration library
     local builtin = require('telescope.builtin')
-    local actions = require('telescope.actions')
+    -- local actions = require('telescope.actions') -- I commented this line out because i already have this viriable defined at the start of the file.
     local action_state = require('telescope.actions.state')
 
     -- Configure the file search

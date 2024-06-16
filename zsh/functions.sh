@@ -240,3 +240,17 @@ clear-ls-all() {
 }
 zle -N clear-ls-all
 bindkey '^S' clear-ls-all
+
+
+freeze() {
+  # Check if VIRTUAL_ENV is set, indicating a virtual environment is active
+  if [ -n "$VIRTUAL_ENV" ]; then
+    echo "Virtual environment is active."
+    # Run pip freeze and save the output to requirements.txt within the virtual environment
+    pip freeze > requirements.txt
+  else
+    echo "No virtual environment detected. Trying to activate it..."
+    source .venv/bin/activate
+    pip freeze > requirements.txt
+  fi
+}

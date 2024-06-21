@@ -19,6 +19,8 @@ vim.keymap.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Buffers
 vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
+-- vim.keymap.set("n", '<C-Tab>', ":b#<CR>") -- Probably doesn't work because it's not supported by my terminal.
+-- vim.api.nvim_set_keymap('n', '<C-Tab>', ':b#<CR>', { noremap = true, silent = true })
 
 -- Disable Control+c  
 vim.api.nvim_set_keymap('n', '<C-c>', '<Nop>', { noremap = true, silent = true })
@@ -110,3 +112,4 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 
 -- For sway
 -- vim.keymap.set('n', '<M-/>', '<Nop>', { noremap = true })
+

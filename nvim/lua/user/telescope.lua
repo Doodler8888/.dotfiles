@@ -131,19 +131,49 @@ vim.api.nvim_set_keymap(
 
 function _G.rg_current_file()
   local filename = vim.api.nvim_buf_get_name(0)
-  require('telescope.builtin').grep_string({
+  local opts = {
     prompt_title = "Ripgrep Current File",
-    search = "",  -- This can be left empty; user will input the search term interactively
     search_dirs = { filename },
-    use_regex = true,
-    hidden = true,
-    use_less = false,
-    attach_mappings = function(_, map)
-      map("i", "<CR>", require('telescope.actions').select_default)
-      return true
+    entry_maker = function(entry)
+      local _, _, line, col, text = string.find(entry, "^.-:(%d+):(%d+):(.*)$")
+      if not line or not col or not text then
+        print("Failed to parse entry: " .. entry)
+        return nil
+      end
+      line = tonumber(line)
+      col = tonumber(col)
+      if not line or not col then
+        print("Failed to convert line or col to number: " .. entry)
+        return nil
+      end
+      return {
+        value = entry,
+        display = string.format("%4d:%2d  %s", line, col, text),
+        ordinal = text,
+        filename = filename,
+        lnum = line,
+        col = col,
+      }
     end,
-  })
+  }
+  require('telescope.builtin').live_grep(opts)
 end
+
+-- function _G.rg_current_file()
+--   local filename = vim.api.nvim_buf_get_name(0)
+--   require('telescope.builtin').grep_string({
+--     prompt_title = "Ripgrep Current File",
+--     search = "",  -- This can be left empty; user will input the search term interactively
+--     search_dirs = { filename },
+--     -- use_regex = true,
+--     -- hidden = true,
+--     use_less = false,
+--     attach_mappings = function(_, map)
+--       map("i", "<CR>", require('telescope.actions').select_default)
+--       return true
+--     end,
+--   })
+-- end
 
 -- Works on all files in a catalog from where neovim was opened
 function _G.rg_neovim_session()
@@ -164,7 +194,8 @@ function _G.rg_neovim_session()
 end
 
 vim.api.nvim_set_keymap('n', '<leader>rf', ":lua rg_neovim_session()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>rc', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<leader>rc', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-s><C-s>', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
 
 function Search_and_insert_from_home()
     -- Load the built-in Telescope function and configuration library

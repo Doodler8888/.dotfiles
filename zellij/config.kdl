@@ -9,7 +9,7 @@ keybinds clear-defaults=true {
         bind "Ctrl g" { SwitchToMode "Normal"; }
     }
     resize {
-        bind "Alt y" { SwitchToMode "Normal"; }
+        bind "Alt r" { SwitchToMode "Normal"; }
         bind "h" "Left" { Resize "Increase Left"; }
         bind "j" "Down" { Resize "Increase Down"; }
         bind "k" "Up" { Resize "Increase Up"; }
@@ -157,7 +157,7 @@ keybinds clear-defaults=true {
         bind "Alt F2" { MoveTab "Right"; }
         // bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
 	bind "Alt d" { NewPane "Down"; SwitchToMode "Normal"; }
-	bind "Alt r" { NewPane "Right"; SwitchToMode "Normal"; }
+	// bind "Alt r" { NewPane "Right"; SwitchToMode "Normal"; }
         // bind "Ctrl g" { SwitchToMode "Locked"; }
         bind "Alt q" { Quit; }
         bind "Alt n" { NewPane; }

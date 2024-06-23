@@ -18,3 +18,10 @@ vim.cmd('command! Dot lcd $HOME/.dotfiles/ | Oil ~/.dotfiles/')
 vim.cmd('command! SDot lcd $HOME/.secret_dotfiles/ | Oil ~/.secret_dotfiles/')
 vim.cmd('command! Alc lcd $HOME/.dotfiles/alacritty/ | edit alacritty.toml')
 vim.cmd('command! H lcd $HOME/ | Oil ~/')
+
+
+-- Current filetype
+vim.api.nvim_create_user_command('FT', function()
+    print(vim.bo.filetype)
+end, {})
+

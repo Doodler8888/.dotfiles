@@ -129,35 +129,35 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
-function _G.rg_current_file()
-  local filename = vim.api.nvim_buf_get_name(0)
-  local opts = {
-    prompt_title = "Ripgrep Current File",
-    search_dirs = { filename },
-    entry_maker = function(entry)
-      local _, _, line, col, text = string.find(entry, "^.-:(%d+):(%d+):(.*)$")
-      if not line or not col or not text then
-        print("Failed to parse entry: " .. entry)
-        return nil
-      end
-      line = tonumber(line)
-      col = tonumber(col)
-      if not line or not col then
-        print("Failed to convert line or col to number: " .. entry)
-        return nil
-      end
-      return {
-        value = entry,
-        display = string.format("%4d:%2d  %s", line, col, text),
-        ordinal = text,
-        filename = filename,
-        lnum = line,
-        col = col,
-      }
-    end,
-  }
-  require('telescope.builtin').live_grep(opts)
-end
+-- function _G.rg_current_file()
+--   local filename = vim.api.nvim_buf_get_name(0)
+--   local opts = {
+--     prompt_title = "Ripgrep Current File",
+--     search_dirs = { filename },
+--     entry_maker = function(entry)
+--       local _, _, line, col, text = string.find(entry, "^.-:(%d+):(%d+):(.*)$")
+--       if not line or not col or not text then
+--         print("Failed to parse entry: " .. entry)
+--         return nil
+--       end
+--       line = tonumber(line)
+--       col = tonumber(col)
+--       if not line or not col then
+--         print("Failed to convert line or col to number: " .. entry)
+--         return nil
+--       end
+--       return {
+--         value = entry,
+--         display = string.format("%4d:%2d  %s", line, col, text),
+--         ordinal = text,
+--         filename = filename,
+--         lnum = line,
+--         col = col,
+--       }
+--     end,
+--   }
+--   require('telescope.builtin').live_grep(opts)
+-- end
 
 -- function _G.rg_current_file()
 --   local filename = vim.api.nvim_buf_get_name(0)
@@ -174,6 +174,40 @@ end
 --     end,
 --   })
 -- end
+
+function _G.rg_current_file()
+  local filename = vim.api.nvim_buf_get_name(0)
+  require('telescope.builtin').grep_string({
+    prompt_title = "Ripgrep Current File",
+    search = "",  -- This can be left empty; user will input the search term interactively
+    search_dirs = { filename },
+    use_less = false,
+    attach_mappings = function(_, map)
+      map("i", "<CR>", require('telescope.actions').select_default)
+      return true
+    end,
+    entry_maker = function(entry)
+      local filename_end = entry:find(":")
+      local line_end = entry:find(":", filename_end + 1)
+      local lnum = tonumber(entry:sub(filename_end + 1, line_end - 1))
+      local display_text = entry:sub(line_end + 1)
+      return {
+        value = entry,
+        ordinal = display_text,
+        display = display_text,
+        filename = filename,
+        lnum = lnum,
+        text = display_text,
+      }
+    end,
+    sorter = require('telescope.config').values.generic_sorter({}),
+    previewer = require('telescope.previewers').vim_buffer_vimgrep.new({
+      get_bufnr = function(_, entry)
+        return vim.fn.bufnr(entry.filename)
+      end,
+    }),
+  })
+end
 
 -- Works on all files in a catalog from where neovim was opened
 function _G.rg_neovim_session()

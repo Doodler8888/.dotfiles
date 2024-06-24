@@ -40,6 +40,8 @@ bindkey -M viins '\e.' insert-last-word
 bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
 
+alias D="cd ~/Downloads"
+alias S="cd ~/.source"
 alias fnc="cd ~/.dotfiles/zsh/ && nvim functions.sh"
 alias j="zellij"
 alias hpr="cd /home/wurfkreuz/.dotfiles/hyprland/ && nvim hyprland.conf"

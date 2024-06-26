@@ -91,7 +91,10 @@ local plugins = {
 	'mfussenegger/nvim-lint',
 	'dhruvasagar/vim-table-mode',
 	'pearofducks/ansible-vim',
-        'fabridamicelli/cronex.nvim',
+	{
+	  'fabridamicelli/cronex.nvim',
+	  opts = {},
+	},
 	'jvgrootveld/telescope-zoxide',
 	{
 		"yorickpeterse/nvim-tree-pairs",

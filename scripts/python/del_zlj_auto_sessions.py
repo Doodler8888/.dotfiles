@@ -23,6 +23,17 @@ for name in names:
     subprocess.run(f"zellij delete-session {name}", shell=True)
     print(f"This is a session name that was killed: {name}")
 
+# The purpose of the pwd library in Python is to provide access to the Unix
+# password database, which contains information about the system's user
+# accounts. This database is typically stored in the /etc/passwd file on
+# Unix-like systems.
+
+# os.geteuid(): This function returns the effective user ID of the current process.
+# pwd.getpwuid(os.geteuid()): This function takes a user ID as an argument and
+# returns a pwd struct containing various information about the user, such as
+# the username, user ID, group ID, home directory, and shell.
+# .pw_name: This attribute of the pwd struct contains the username associated
+# with the given user ID.
 
 # 'shell=True' used because otherwise python executes a command like it is a
 # binary name. I can use the 'shell=True' parameter or i can do something like

@@ -255,3 +255,10 @@ freeze() {
   fi
 }
 
+
+function v() {
+  if [ -d ".venv" ]; then
+    source .venv/bin/activate
+  fi
+  nvim .
+}

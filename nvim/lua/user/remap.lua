@@ -30,7 +30,7 @@ vim.api.nvim_set_keymap('v', '<C-c>', '<Nop>', { noremap = true, silent = true }
 -- vim.api.nvim_set_keymap('n', '<Leader>fd', ':find ', {noremap = true})
 
 -- Quit the terminal mode (but not the terminal emulation)
-vim.api.nvim_set_keymap('t', '<S-Tab>', '<C-\\><C-n>', {noremap = true})
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 
 -- vim.api.nvim_set_keymap('i', '<S-Tab>', [[<C-\><C-o>:normal! 4X<CR>]], { noremap = true, silent = true })
 

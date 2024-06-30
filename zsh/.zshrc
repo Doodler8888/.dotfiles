@@ -34,11 +34,11 @@ HISTSIZE=16000
 SAVEHIST=16000
 # precmd() {}
 
-autoload edit-command-line; zle -N edit-command-line
-bindkey -v
-bindkey -M viins '\e.' insert-last-word
-bindkey -M vicmd ge edit-command-line # edit line using EDITOR
-bindkey "^?" backward-delete-char
+# autoload edit-command-line; zle -N edit-command-line
+# bindkey -v
+# bindkey -M viins '\e.' insert-last-word
+# bindkey -M vicmd ge edit-command-line # edit line using EDITOR
+# bindkey "^?" backward-delete-char
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -55,7 +55,7 @@ alias update_fonts='fc-cache -f -v'
 alias cr='cp -r'
 alias alc='cd ~/.dotfiles/alacritty && nvim ~/.dotfiles/alacritty/alacritty.toml'
 alias qtl='cd ~/.dotfiles/qtile && nvim ~/.dotfiles/qtile/config.py'
-alias v='nvim'
+# alias v='nvim'
 alias v.='nvim .'
 alias zlj='cd ~/.dotfiles/zellij && nvim ~/.dotfiles/zellij/config.kdl'
 alias tmx='cd ~/.dotfiles/tmux && nvim ~/.dotfiles/tmux/.tmux.conf'
@@ -140,7 +140,7 @@ alias cfg="cd ~/.dotfiles/ansible/ && nvim ansible.cfg"
 alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias i3c="nvim ~/.config/i3/config"
-# bindkey '^R' fzf_history_search
+bindkey '^R' fzf_history_search
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -159,6 +159,7 @@ source ~/.dotfiles/zsh/functions.sh
 (nohup gitlab-runner run &> /dev/null &)
 # source $HOME/.dotfiles/zsh/config_variables/flashcards_bot
 
+# This block enables vim mode
 KEYTIMEOUT=1
 function zle-line-init zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]] ;
@@ -169,20 +170,11 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-stty -ixon
-
-bindkey -M viins '^P' up-line-or-history
-bindkey -M viins '^N' down-line-or-history
-bindkey -M viins '^L' clear-screen
-# bindkey -r "^R"
-# bindkey "^R" history-incremental-search-backward
-# bindkey "^S" history-incremental-search-forward
-
-# # Left and right side prompts
-# setopt PROMPT_SUBST
-# # PROMPT='%1~ > '
-# # RPROMPT='%1~'
-# RPROMPT='$(echo $(basename $(dirname $PWD))/$(basename $PWD))'
+# stty -ixon
+#
+# bindkey -M viins '^P' up-line-or-history
+# bindkey -M viins '^N' down-line-or-history
+# bindkey -M viins '^L' clear-screen
 
 # source '/home/wurfkreuz/.source/antigen/antigen.zsh'
 source '/home/wurfkreuz/antigen.zsh'
@@ -199,9 +191,9 @@ antigen apply &> /dev/null
 
 # for the autocomplete plugin
 zstyle ':autocomplete:*' ignored-input '##'
-# bindkey -r "^R"
-# bindkey "^R" history-incremental-pattern-search-backward
-# bindkey '^R' history-incremental-search-backward
+bindkey -r "^R"
+bindkey "^R" history-incremental-pattern-search-backward
+bindkey '^R' history-incremental-search-backward
 
 # if ! pgrep -x "swww-daemon" > /dev/null; then
 #     swww init 2> /dev/null

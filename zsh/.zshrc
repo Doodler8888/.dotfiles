@@ -34,11 +34,11 @@ HISTSIZE=16000
 SAVEHIST=16000
 # precmd() {}
 
-# autoload edit-command-line; zle -N edit-command-line
-# bindkey -v
-# bindkey -M viins '\e.' insert-last-word
-# bindkey -M vicmd ge edit-command-line # edit line using EDITOR
-# bindkey "^?" backward-delete-char
+autoload edit-command-line; zle -N edit-command-line
+bindkey -v
+bindkey -M viins '\e.' insert-last-word
+bindkey -M vicmd ge edit-command-line # edit line using EDITOR
+bindkey "^?" backward-delete-char
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -170,11 +170,11 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# stty -ixon
-#
-# bindkey -M viins '^P' up-line-or-history
-# bindkey -M viins '^N' down-line-or-history
-# bindkey -M viins '^L' clear-screen
+stty -ixon
+
+bindkey -M viins '^P' up-line-or-history
+bindkey -M viins '^N' down-line-or-history
+bindkey -M viins '^L' clear-screen
 
 # source '/home/wurfkreuz/.source/antigen/antigen.zsh'
 source '/home/wurfkreuz/antigen.zsh'
@@ -191,9 +191,9 @@ antigen apply &> /dev/null
 
 # for the autocomplete plugin
 zstyle ':autocomplete:*' ignored-input '##'
-bindkey -r "^R"
-bindkey "^R" history-incremental-pattern-search-backward
-bindkey '^R' history-incremental-search-backward
+# bindkey -r "^R"
+# bindkey "^R" history-incremental-pattern-search-backward
+# bindkey '^R' history-incremental-search-backward
 
 # if ! pgrep -x "swww-daemon" > /dev/null; then
 #     swww init 2> /dev/null

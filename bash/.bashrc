@@ -2,7 +2,7 @@ source /home/wurfkreuz/.dotfiles/bash/scripts.sh
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/bin:/home/wurfkreuz/.ghcup/bin:/home/wurfkreuz/.cabal/bin:/home/wufkreuz/.local/share/racket:$PATH"
 export EDITOR=/usr/local/bin/nvim
 # export CDPATH=.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects
-export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
+# export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
 export PATH="$PATH:/home/wurfkreuz/.cabal/"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude var --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
@@ -126,7 +126,9 @@ if ! pgrep -x "swww-daemon" > /dev/null; then
     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
 fi
 
-eval "$(starship init bash)"
+# if [[ $- == *i* ]] && [[ "$TERM" != "dumb" ]]; then
+#     eval "$(starship init bash)"
+# fi
 
 fzf_history_search() {
     local output=$(history | fzf --tac --tiebreak=index +s --query="$READLINE_LINE")

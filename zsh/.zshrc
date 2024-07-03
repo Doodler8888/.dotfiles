@@ -55,7 +55,7 @@ alias update_fonts='fc-cache -f -v'
 alias cr='cp -r'
 alias alc='cd ~/.dotfiles/alacritty && nvim ~/.dotfiles/alacritty/alacritty.toml'
 alias qtl='cd ~/.dotfiles/qtile && nvim ~/.dotfiles/qtile/config.py'
-# alias v='nvim'
+alias v='nvim'
 alias v.='nvim .'
 alias zlj='cd ~/.dotfiles/zellij && nvim ~/.dotfiles/zellij/config.kdl'
 alias tmx='cd ~/.dotfiles/tmux && nvim ~/.dotfiles/tmux/.tmux.conf'
@@ -200,7 +200,14 @@ zstyle ':autocomplete:*' ignored-input '##'
 #     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
 # fi
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
+
+if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then
+    eval "$(starship init zsh)"
+else
+    # Set a simple prompt for non-interactive or dumb terminals
+    PS1='%1~ > '
+fi
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"

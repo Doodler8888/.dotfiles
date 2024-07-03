@@ -162,6 +162,8 @@ function wait_for_ctrl_r_or_c {
     fd-lsearchh
   elif [[ "$key" == $'\C-z' ]]; then
     fzf-zoxide
+  elif [[ "$key" == $'\C-e' ]]; then
+    fzf-nvim
   fi
 }
 
@@ -189,7 +191,7 @@ fzf-nvim() {
     zle reset-prompt
 }
 zle -N fzf-nvim
-bindkey '^E' fzf-nvim
+# bindkey '^E' fzf-nvim
 
 ss() {
   # set -x - debugging
@@ -256,7 +258,7 @@ freeze() {
 }
 
 
-function v() {
+function v.() {
   if [ -d ".venv" ]; then
     source .venv/bin/activate
   fi

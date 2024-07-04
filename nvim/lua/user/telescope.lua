@@ -123,41 +123,62 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fs",
-	[[<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })<CR>]],
-	{ noremap = true, silent = true }
+    "n",
+    "<leader>fs",
+    [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
+    { noremap = true, silent = true }
 )
 
--- function _G.rg_current_file()
---   local filename = vim.api.nvim_buf_get_name(0)
---   local opts = {
---     prompt_title = "Ripgrep Current File",
---     search_dirs = { filename },
---     entry_maker = function(entry)
---       local _, _, line, col, text = string.find(entry, "^.-:(%d+):(%d+):(.*)$")
---       if not line or not col or not text then
---         print("Failed to parse entry: " .. entry)
---         return nil
---       end
---       line = tonumber(line)
---       col = tonumber(col)
---       if not line or not col then
---         print("Failed to convert line or col to number: " .. entry)
---         return nil
---       end
---       return {
---         value = entry,
---         display = string.format("%4d:%2d  %s", line, col, text),
---         ordinal = text,
---         filename = filename,
---         lnum = line,
---         col = col,
---       }
---     end,
---   }
---   require('telescope.builtin').live_grep(opts)
--- end
+local action_state = require('telescope.actions.state')
+
+_G.telescope_current_buffer_fuzzy_find = function()
+  require('telescope.builtin').current_buffer_fuzzy_find({
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local selection = action_state.get_selected_entry()
+        if selection then
+          -- Get the current input from the Telescope prompt
+          local current_picker = action_state.get_current_picker(prompt_bufnr)
+          local prompt = current_picker:_get_prompt()
+
+          -- Close the Telescope prompt
+          actions.close(prompt_bufnr)
+
+          -- Move the cursor to the selected line
+          vim.api.nvim_win_set_cursor(0, {selection.lnum, 0})
+
+          -- Set the search register with the prompt input
+          vim.fn.setreg('/', vim.fn.escape(prompt, '\\/'))
+
+          -- Disable highlighting
+          vim.o.hlsearch = false
+
+          -- Schedule a function to re-enable 'n' and 'N' functionality
+          vim.schedule(function()
+            -- Create a custom command to toggle search highlighting
+            vim.api.nvim_create_user_command('ToggleSearchHL', function()
+              vim.o.hlsearch = not vim.o.hlsearch
+            end, {})
+
+            -- Remap 'n' and 'N' to move to next/previous match without highlighting
+            vim.keymap.set('n', 'n', function()
+              vim.cmd('normal! n')
+              vim.o.hlsearch = false
+            end, {silent = true})
+
+            vim.keymap.set('n', 'N', function()
+              vim.cmd('normal! N')
+              vim.o.hlsearch = false
+            end, {silent = true})
+          end)
+        end
+      end)
+      return true
+    end
+  })
+end
+
+vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
 
 -- function _G.rg_current_file()
 --   local filename = vim.api.nvim_buf_get_name(0)
@@ -165,49 +186,33 @@ vim.api.nvim_set_keymap(
 --     prompt_title = "Ripgrep Current File",
 --     search = "",  -- This can be left empty; user will input the search term interactively
 --     search_dirs = { filename },
---     -- use_regex = true,
---     -- hidden = true,
 --     use_less = false,
 --     attach_mappings = function(_, map)
 --       map("i", "<CR>", require('telescope.actions').select_default)
 --       return true
 --     end,
+--     entry_maker = function(entry)
+--       local filename_end = entry:find(":")
+--       local line_end = entry:find(":", filename_end + 1)
+--       local lnum = tonumber(entry:sub(filename_end + 1, line_end - 1))
+--       local display_text = entry:sub(line_end + 1)
+--       return {
+--         value = entry,
+--         ordinal = display_text,
+--         display = display_text,
+--         filename = filename,
+--         lnum = lnum,
+--         text = display_text,
+--       }
+--     end,
+--     sorter = require('telescope.config').values.generic_sorter({}),
+--     previewer = require('telescope.previewers').vim_buffer_vimgrep.new({
+--       get_bufnr = function(_, entry)
+--         return vim.fn.bufnr(entry.filename)
+--       end,
+--     }),
 --   })
 -- end
-
-function _G.rg_current_file()
-  local filename = vim.api.nvim_buf_get_name(0)
-  require('telescope.builtin').grep_string({
-    prompt_title = "Ripgrep Current File",
-    search = "",  -- This can be left empty; user will input the search term interactively
-    search_dirs = { filename },
-    use_less = false,
-    attach_mappings = function(_, map)
-      map("i", "<CR>", require('telescope.actions').select_default)
-      return true
-    end,
-    entry_maker = function(entry)
-      local filename_end = entry:find(":")
-      local line_end = entry:find(":", filename_end + 1)
-      local lnum = tonumber(entry:sub(filename_end + 1, line_end - 1))
-      local display_text = entry:sub(line_end + 1)
-      return {
-        value = entry,
-        ordinal = display_text,
-        display = display_text,
-        filename = filename,
-        lnum = lnum,
-        text = display_text,
-      }
-    end,
-    sorter = require('telescope.config').values.generic_sorter({}),
-    previewer = require('telescope.previewers').vim_buffer_vimgrep.new({
-      get_bufnr = function(_, entry)
-        return vim.fn.bufnr(entry.filename)
-      end,
-    }),
-  })
-end
 
 -- Works on all files in a catalog from where neovim was opened
 function _G.rg_neovim_session()
@@ -229,7 +234,7 @@ end
 
 vim.api.nvim_set_keymap('n', '<leader>rf', ":lua rg_neovim_session()<CR>", {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<leader>rc', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-s><C-s>', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<C-s><C-s>', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
 
 function Search_and_insert_from_home()
     -- Load the built-in Telescope function and configuration library
@@ -341,4 +346,3 @@ vim.api.nvim_set_keymap('i', '<C-f><C-i>h', '<cmd>lua Search_and_insert_from_hom
 
 
 -- Function to search within the notes directory
-

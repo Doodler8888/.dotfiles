@@ -1,3 +1,52 @@
+-- -- Initialize toggleterm
+-- require("toggleterm").setup{
+--   -- Other configurations can go here
+--   size = 20,
+--   open_mapping = [[<c-\>]],
+--   hide_numbers = true,
+--   shade_filetypes = {},
+--   shade_terminals = true,
+--   shading_factor = 2,
+--   start_in_insert = true,
+--   insert_mappings = true,
+--   terminal_mappings = true,
+--   persist_size = true,
+--   direction = 'float',
+--   close_on_exit = true,
+--   shell = vim.o.shell,
+--   float_opts = {
+--     border = 'curved',
+--     width = 100,
+--     height = 30,
+--     winblend = 3,
+--   },
+-- }
+--
+-- -- Function to toggle LazyDocker
+-- function _LAZYDOCKER_TOGGLE()
+--   local Terminal = require('toggleterm.terminal').Terminal
+--   local lazydocker = Terminal:new({
+--     cmd = "lazydocker",
+--     direction = "float",
+--     float_opts = {
+--       border = "double",
+--     },
+--     on_open = function(term)
+--       vim.cmd("startinsert!")
+--       -- Add any other settings you want here
+--     end,
+--     on_close = function(term)
+--       vim.cmd("startinsert!")
+--       -- Add any other settings you want here
+--     end,
+--   })
+--   lazydocker:toggle()
+-- end
+--
+-- -- Keymap to toggle LazyDocker
+-- vim.api.nvim_set_keymap("n", "<leader>ld", "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>", {noremap = true, silent = true})
+
+
 _G.terminal_buffers = _G.terminal_buffers or {}
 
 local function find_window_by_bufnr(bufnr)

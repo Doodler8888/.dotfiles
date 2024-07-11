@@ -64,7 +64,7 @@ bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
 
 # Config reload
-bindsym $mod+y exec swaymsg reload
+# bindsym $mod+y exec swaymsg reload
 
 # Exit Sway
 bindsym $mod+q exec swaymsg exit

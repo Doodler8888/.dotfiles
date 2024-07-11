@@ -85,6 +85,7 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 	},
 	'nat-418/boole.nvim',
+	-- 'akinsho/toggleterm.nvim',
 	-- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	'natecraddock/telescope-zf-native.nvim',
 	'mbbill/undotree',

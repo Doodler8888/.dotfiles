@@ -1,7 +1,8 @@
 require('lint').linters_by_ft = {
   -- markdown = {'vale',}
   ['yaml.ansible'] = {'ansible_lint',},
-  dockerfile = {'hadolint',}
+  dockerfile = {'hadolint',},
+  sh = {'shellcheck',},
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {

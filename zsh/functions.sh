@@ -164,6 +164,10 @@ function wait_for_ctrl_r_or_c {
     fzf-zoxide
   elif [[ "$key" == $'\C-e' ]]; then
     fzf-nvim
+  elif [[ "$key" == $'\C-d' ]]; then
+    systemctl-tui
+  elif [[ "$key" == $'\C-p' ]]; then
+    print_current_directory_inline
   fi
 }
 
@@ -264,3 +268,11 @@ function v.() {
   fi
   nvim .
 }
+
+
+print_current_directory_inline() {
+    LBUFFER+=$PWD
+    zle redisplay
+}
+zle -N print_current_directory_inline
+# bindkey '^F^P' print_current_directory_inline

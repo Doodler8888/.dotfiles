@@ -110,24 +110,24 @@ vim.api.nvim_set_keymap(
 	[[<cmd>lua require('telescope.builtin').find_files({ hidden = true, sort = true })<CR>]],
 	{ noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fr",
-	[[<Cmd>lua require('telescope.builtin').find_files({ hidden = true, sort = true, cwd = '/' })<CR>]],
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fh",
-	[[<Cmd>lua require('telescope.builtin').find_files({ hidden = true, sort = true, cwd = '~/' })<CR>]],
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fs",
-    [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
-    { noremap = true, silent = true }
-)
+-- vim.api.nvim_set_keymap(
+-- 	"n",
+-- 	"<leader>fr",
+-- 	[[<Cmd>lua require('telescope.builtin').find_files({ hidden = true, sort = true, cwd = '/' })<CR>]],
+-- 	{ noremap = true, silent = true }
+-- )
+-- vim.api.nvim_set_keymap(
+-- 	"n",
+-- 	"<leader>fh",
+-- 	[[<Cmd>lua require('telescope.builtin').find_files({ hidden = true, sort = true, cwd = '~/' })<CR>]],
+-- 	{ noremap = true, silent = true }
+-- )
+-- vim.api.nvim_set_keymap(
+--     "n",
+--     "<leader>fs",
+--     [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
+--     { noremap = true, silent = true }
+-- )
 
 local action_state = require('telescope.actions.state')
 
@@ -232,7 +232,7 @@ function _G.rg_neovim_session()
   })
 end
 
-vim.api.nvim_set_keymap('n', '<leader>rf', ":lua rg_neovim_session()<CR>", {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<leader>rf', ":lua rg_neovim_session()<CR>", {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<leader>rc', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<C-s><C-s>', ":lua rg_current_file()<CR>", {noremap = true, silent = true})
 

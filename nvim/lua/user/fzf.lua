@@ -1,27 +1,9 @@
 require("fzf-lua").setup({
 	"telescope",
-	-- hls = {
-	--   border = "FloatBorder",
-	--   cursorline = "FloatBorder",
-	--   cursor = "FloatBorder",
-	-- },
-	-- fzf_colors = {
-	--   ["gutter"] = {"bg", "CursorLine"},
-	--   -- ["bg+"] = {"bg", "Normal"},
-	-- },
-	-- fzf_opts = {
-	--   ['--color', 'bg+:#1E1E1E']
-	--   ['--color', 'gutter:#3E3D32']
-	-- }
 	files = {
-		cmd = "fd --type f --hidden --follow --exclude .git --exclude .snapshots --exclude var --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp",
+		cmd = "fd --type f --type d --hidden --follow --exclude .git --exclude .snapshots --exclude var --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp",
 	},
 	winopts = {
-		-- hl = {
-		--   border = "FloatBorder",
-		--   cursorline = "FloatBorder",
-		--   cursor = "FloatBorder",
-		-- },
 		height = 0.55,
 		width = 0.50,
 		border = "rounded", -- or 'double', 'rounded', 'sharp', etc.
@@ -33,11 +15,11 @@ require("fzf-lua").setup({
 })
 
 -- vim.api.nvim_set_keymap("n", "<leader>ff", ":lua vim.cmd('FzfLua files')<CR>", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<leader>fh", ":FzfLua files cwd=~/<CR>", { noremap = true })
--- vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>fh", ":FzfLua files cwd=~/<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<leader>fs", ":FzfLua grep_project<CR>", { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<C-s><C-s>", ":FzfLua lgrep_curbuf<CR>", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = true })
 
 -- vim.keymap.set({ "i" }, "<C-y>", function()
 -- 	require("fzf-lua").complete_path({

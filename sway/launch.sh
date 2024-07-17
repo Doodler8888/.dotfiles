@@ -35,25 +35,25 @@ swaymsg 'splitv'
 swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
 swaymsg 'layout stacking'
 
-# sleep 2
-#
-# # Tab 2
-# swaymsg 'focus parent'
-# swaymsg 'layout tabbed'
-# swaymsg 'mark main'
-#
-# # swaymsg 'exec alacritty -e zellij attach cli'
-# swaymsg 'exec alacritty -e zellij'
-# # swaymsg 'exec alacritty'
-#
-# # # Wait for Emacs to launch
-# sleep 2
-#
-# # # Split the layout vertically, launch Alacritty, and set layout to stacking
-# swaymsg 'splitv'
-# swaymsg 'exec emacs --eval "(load-desktop-session \"devops\")"'
-# # swaymsg 'exec emacs'
-# swaymsg 'layout stacking'
+sleep 2
+
+# Tab 2
+swaymsg 'focus parent'
+swaymsg 'layout tabbed'
+swaymsg 'mark main'
+
+# swaymsg 'exec alacritty -e zellij attach cli'
+swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec alacritty'
+
+# # Wait for Emacs to launch
+sleep 2
+
+# # Split the layout vertically, launch Alacritty, and set layout to stacking
+swaymsg 'splitv'
+swaymsg 'exec emacs --eval "(load-desktop-session \"devops\")"'
+# swaymsg 'exec emacs'
+swaymsg 'layout stacking'
 
 sleep 2
 

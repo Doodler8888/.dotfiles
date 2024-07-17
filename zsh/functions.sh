@@ -262,7 +262,7 @@ freeze() {
 }
 
 
-function v.() {
+v.() {
   if [ -d ".venv" ]; then
     source .venv/bin/activate
   fi

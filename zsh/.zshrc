@@ -23,6 +23,7 @@ export XDG_CURRENT_DESKTOP="Sway"
 export LUA_BINDIR="/usr/local/bin/"
 export LUA_BINDIR_SET=yes
 export VISUDO_EDITOR=/usr/bin/nvim
+export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -56,7 +57,7 @@ alias cr='cp -r'
 alias alc='cd ~/.dotfiles/alacritty && nvim ~/.dotfiles/alacritty/alacritty.toml'
 alias qtl='cd ~/.dotfiles/qtile && nvim ~/.dotfiles/qtile/config.py'
 alias v='nvim'
-alias v.='nvim .'
+# alias v.='nvim .'
 alias zlj='cd ~/.dotfiles/zellij && nvim ~/.dotfiles/zellij/config.kdl'
 alias tmx='cd ~/.dotfiles/tmux && nvim ~/.dotfiles/tmux/.tmux.conf'
 alias di='docker images'

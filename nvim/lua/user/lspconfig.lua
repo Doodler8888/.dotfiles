@@ -238,13 +238,37 @@ lspconfig.clojure_lsp.setup{}
 --       connections = {
 --         {
 --           driver = 'postgresql',
+--           dataSourceName = "host=localhost port=5432 user=wurfkreuz password=1337 dbname=server sslmode=disable"
+--         },
+--       },
+--     },
+--   },
+-- }
+
+-- local dataSourceName = string.format(
+--   "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+--   os.getenv("SERVER_DB_HOST"),
+--   os.getenv("SERVER_DB_PORT"),
+--   os.getenv("SERVER_DB_USER"),
+--   os.getenv("SERVER_DB_PASS"),
+--   os.getenv("SERVER_DB_NAME")
+-- )
+--
+-- print(dataSourceName)
+
+-- lspconfig.sqls.setup{
+--   settings = {
+--     sqls = {
+--       connections = {
+--         {
+--           driver = 'postgresql',
 --           dataSourceName = string.format(
 --             "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
---             os.getenv("SHELF_DB_HOST"),
---             os.getenv("SHELF_DB_PORT"),
---             os.getenv("SHELF_DB_USER"),
---             os.getenv("SHELF_DB_PASS"),
---             os.getenv("SHELF_DB_NAME")
+--             os.getenv("SERVER_DB_HOST"),
+--             os.getenv("SERVER_DB_PORT"),
+--             os.getenv("SERVER_DB_USER"),
+--             os.getenv("SERVER_DB_PASS"),
+--             os.getenv("SERVER_DB_NAME")
 --           )
 --         },
 --       },
@@ -252,3 +276,8 @@ lspconfig.clojure_lsp.setup{}
 --   },
 -- }
 
+-- lspconfig.sqls.setup{
+--   on_attach = function(client, bufnr)
+--     require('sqls').on_attach(client, bufnr)
+--   end
+-- }

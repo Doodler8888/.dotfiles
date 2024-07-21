@@ -10,8 +10,9 @@ cmp.setup {
   sources = {
     { name = 'path', max_item_count = 4 },
     { name = 'nvim_lsp' },
+    -- { name = 'conjure' },
     -- { name = 'buffer' },
-    { name = 'vim-dadbod-completion' },
+    -- { name = 'vim-dadbod-completion' },
     { name = 'luasnip' },
   },
   mapping = {
@@ -69,6 +70,13 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
   matching = { disallow_symbol_nonprefix_matching = false },
+})
+
+cmp.setup.filetype({ "sql" }, {
+  sources = {
+    { name = "vim-dadbod-completion"},
+    { name = "buffer" },
+  },
 })
 
 -- local cmp = require'cmp'

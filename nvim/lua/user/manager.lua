@@ -50,6 +50,7 @@ local plugins = {
 	    vim.g.db_ui_use_nerd_fonts = 1
 	  end,
 	},
+	-- 'Olical/conjure',
 	'stevearc/resession.nvim',
 	{
 		"folke/trouble.nvim",
@@ -143,11 +144,13 @@ local plugins = {
 	    },
 	  },
 	},
+	'Vigemus/iron.nvim',
 	'saadparwaiz1/cmp_luasnip',
 	'hrsh7th/cmp-cmdline',
 	'hrsh7th/cmp-buffer',
 	'hrsh7th/cmp-path',
 	'hrsh7th/cmp-nvim-lsp',
+	-- 'PaterJason/cmp-conjure',
 }
 
 require("lazy").setup(plugins, opts)

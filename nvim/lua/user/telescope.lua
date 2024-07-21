@@ -122,12 +122,12 @@ vim.api.nvim_set_keymap(
 -- 	[[<Cmd>lua require('telescope.builtin').find_files({ hidden = true, sort = true, cwd = '~/' })<CR>]],
 -- 	{ noremap = true, silent = true }
 -- )
--- vim.api.nvim_set_keymap(
---     "n",
---     "<leader>fs",
---     [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
---     { noremap = true, silent = true }
--- )
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>fs",
+    [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
+    { noremap = true, silent = true }
+)
 
 local action_state = require('telescope.actions.state')
 

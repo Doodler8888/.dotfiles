@@ -118,7 +118,7 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
-	"dense-analysis/ale",
+	-- "dense-analysis/ale",
 	'pocco81/auto-save.nvim',
 	-- {
 	--   'Exafunction/codeium.vim',

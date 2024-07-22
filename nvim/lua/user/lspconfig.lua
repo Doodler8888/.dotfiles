@@ -108,28 +108,29 @@ lspconfig.pyright.setup {
 --     end,
 -- })
 
-lspconfig.ansiblels.setup{
-    filetypes = { "yaml.ansible" },
-    on_attach = function(client, bufnr)
-        local function BufSetOption(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-        -- Enable completion triggered by <c-x><c-o>
-        BufSetOption('omnifunc', 'v:lua.vim.lsp.omnifunc')
-    end,
-    flags = {
-        debounce_text_changes = 150,
-    }
-}
+-- lspconfig.ansiblels.setup{
+--     filetypes = { "yaml.ansible" },
+--     on_attach = function(client, bufnr)
+--         local function BufSetOption(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+--         -- Enable completion triggered by <c-x><c-o>
+--         BufSetOption('omnifunc', 'v:lua.vim.lsp.omnifunc')
+--     end,
+--     flags = {
+--         debounce_text_changes = 150,
+--     }
+-- }
 
-lspconfig.yamlls.setup{
-    settings = {
-        yaml = {
-            schemas = {
-                -- kubernetes = "/*.yaml",
-		["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.yaml",
-            },
-        },
-    },
-}
+-- lspconfig.yamlls.setup{
+--     settings = {
+--         yaml = {
+--             schemas = {
+--                 -- kubernetes = "/*.yaml",
+-- 		["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.yaml",
+--             },
+--         },
+--     },
+-- }
+
 --
 -- function InsertCommentChar()
 --   local line = vim.api.nvim_get_current_line()

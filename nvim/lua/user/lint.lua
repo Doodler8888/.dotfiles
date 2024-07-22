@@ -1,6 +1,6 @@
 require('lint').linters_by_ft = {
   -- markdown = {'vale',}
-  ['yaml.ansible'] = {'ansible_lint',},
+  -- ['yaml.ansible'] = {'ansible_lint',},
   dockerfile = {'hadolint',},
   sh = {'shellcheck',},
 }

@@ -53,7 +53,8 @@ keybinds clear-defaults=true {
         bind "l" "Right" "Down" "j" { GoToNextTab; }
         bind "n" { NewTab; SwitchToMode "Normal"; }
         bind "x" { CloseTab; SwitchToMode "Normal"; }
-        bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
+	bind "s" { NextSwapLayout; }
+        // bind "s" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
         bind "b" { BreakPane; SwitchToMode "Normal"; }
         bind "l" { BreakPaneRight; SwitchToMode "Normal"; }
         bind "h" { BreakPaneLeft; SwitchToMode "Normal"; }

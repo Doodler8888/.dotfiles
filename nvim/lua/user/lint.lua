@@ -3,6 +3,7 @@ require('lint').linters_by_ft = {
   -- ['yaml.ansible'] = {'ansible_lint',},
   dockerfile = {'hadolint',},
   sh = {'shellcheck',},
+  yaml = {'kube-linter',},
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {

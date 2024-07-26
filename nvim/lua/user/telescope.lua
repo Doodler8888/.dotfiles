@@ -156,10 +156,10 @@ _G.telescope_current_buffer_fuzzy_find = function()
 
           -- Schedule a function to re-enable 'n' and 'N' functionality
           vim.schedule(function()
-            -- Create a custom command to toggle search highlighting
-            vim.api.nvim_create_user_command('ToggleSearchHL', function()
-              vim.o.hlsearch = not vim.o.hlsearch
-            end, {})
+            -- -- Create a custom command to toggle search highlighting
+            -- vim.api.nvim_create_user_command('ToggleSearchHL', function()
+            --   vim.o.hlsearch = not vim.o.hlsearch
+            -- end, {})
 
             -- Remap 'n' and 'N' to move to next/previous match without highlighting
             vim.keymap.set('n', 'n', function()

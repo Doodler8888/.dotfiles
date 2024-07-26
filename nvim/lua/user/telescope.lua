@@ -25,7 +25,7 @@ require('telescope').setup({
   --     "%.clj-kondo/",
   --     ".cpcache",
   --   },
-    mappings = {
+  mappings = {
       i = {
 	["<C-g>"] = require('telescope.actions').close
       },

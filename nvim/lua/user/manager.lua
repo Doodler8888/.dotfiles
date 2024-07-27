@@ -33,6 +33,7 @@ local plugins = {
 	"stevearc/conform.nvim",
 	-- "tpope/vim-sleuth",
 	'Raku/vim-raku',
+	'h4ckm1n-dev/kube-utils-nvim',
 	{
 	  'kristijanhusak/vim-dadbod-ui',
 	  dependencies = {

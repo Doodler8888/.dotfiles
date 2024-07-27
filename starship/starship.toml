@@ -60,3 +60,6 @@ disabled = true
 
 [raku]
 disabled = true
+
+[aws]
+disabled = true

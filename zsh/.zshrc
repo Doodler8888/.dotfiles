@@ -52,6 +52,7 @@ alias rename='perl-rename'
 alias u='sudo'
 alias key='cd ~/.dotfiles/keyd/ && nvim default.conf'
 alias h='history'
+alias set_minikube='eval $(minikube docker-env)'
 alias update_fonts='fc-cache -f -v'
 alias cr='cp -r'
 alias alc='cd ~/.dotfiles/alacritty && nvim ~/.dotfiles/alacritty/alacritty.toml'
@@ -176,6 +177,7 @@ stty -ixon
 bindkey -M viins '^P' up-line-or-history
 bindkey -M viins '^N' down-line-or-history
 bindkey -M viins '^L' clear-screen
+
 
 # source '/home/wurfkreuz/.source/antigen/antigen.zsh'
 source '/home/wurfkreuz/antigen.zsh'

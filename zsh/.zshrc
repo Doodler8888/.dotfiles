@@ -178,9 +178,8 @@ bindkey -M viins '^P' up-line-or-history
 bindkey -M viins '^N' down-line-or-history
 bindkey -M viins '^L' clear-screen
 
-
-# source '/home/wurfkreuz/.source/antigen/antigen.zsh'
-source '/home/wurfkreuz/antigen.zsh'
+# If i write "source '~/antigen.zsh'", i'll get an error.
+source "$HOME/antigen.zsh"
 
 export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 bindkey '^[w' forward-word

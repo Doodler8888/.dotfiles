@@ -110,30 +110,28 @@ lspconfig.pyright.setup {
 
 -- lspconfig.ansiblels.setup{
 --     filetypes = { "yaml.ansible" },
---     on_attach = function(client, bufnr)
---         local function BufSetOption(...) vim.api.nvim_buf_set_option(bufnr, ...) end
---         -- Enable completion triggered by <c-x><c-o>
---         BufSetOption('omnifunc', 'v:lua.vim.lsp.omnifunc')
---     end,
---     flags = {
---         debounce_text_changes = 150,
---     }
+--     -- on_attach = function(client, bufnr)
+--     --     local function BufSetOption(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+--     --     -- Enable completion triggered by <c-x><c-o>
+--     --     BufSetOption('omnifunc', 'v:lua.vim.lsp.omnifunc')
+--     -- end,
+--     -- flags = {
+--     --     debounce_text_changes = 150,
+--     -- }
 -- }
 
--- LSP Configuration
 require("lspconfig").yamlls.setup {
   settings = {
     yaml = {
       schemas = {
         kubernetes = "k8s-*.yaml",
-        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
-        ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-        ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-        ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
       },
+      -- schemaStore = { enable = false },
+      validate = true,
+      -- Ignore specific schemas
+      ignoreSchemas = {
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json"
+      }
     },
   },
 }

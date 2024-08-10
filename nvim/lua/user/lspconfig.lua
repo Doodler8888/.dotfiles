@@ -125,13 +125,8 @@ require("lspconfig").yamlls.setup {
     yaml = {
       schemas = {
         kubernetes = "k8s-*.yaml",
+	["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = ".gitlab-ci.yml"
       },
-      -- schemaStore = { enable = false },
-      validate = true,
-      -- Ignore specific schemas
-      ignoreSchemas = {
-        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json"
-      }
     },
   },
 }

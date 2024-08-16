@@ -99,12 +99,12 @@ local plugins = {
 	  opts = {},
 	},
 	'jvgrootveld/telescope-zoxide',
-	{
-		"yorickpeterse/nvim-tree-pairs",
-		config = function()
-		  require('tree-pairs').setup()
-		end,
-	},
+	-- {
+	-- 	"yorickpeterse/nvim-tree-pairs", -- It breask how the % binding works
+	-- 	config = function()
+	-- 	  require('tree-pairs').setup()
+	-- 	end,
+	-- },
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()
@@ -145,7 +145,6 @@ local plugins = {
 	    },
 	  },
 	},
-	'Vigemus/iron.nvim',
 	'saadparwaiz1/cmp_luasnip',
 	'hrsh7th/cmp-cmdline',
 	'hrsh7th/cmp-buffer',

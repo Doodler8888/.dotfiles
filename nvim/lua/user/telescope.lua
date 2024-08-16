@@ -1,13 +1,17 @@
 -- Useful for easily creating commands
+local builtin = require('telescope.builtin')
 local z_utils = require("telescope._extensions.zoxide.utils")
 local actions = require('telescope.actions')
+local action_state = require("telescope.actions.state")
 
 require('telescope').setup({
   defaults = {
   -- find_command = { "fd", "--hidden", "--exclude=.git", "--exclude=node_modules", "--exclude=.clj-kondo" },
-  -- file_ignore_patterns = { -- ignoring files make the search slower?
+  file_ignore_patterns = { -- ignoring files make the search slower?
   --     "node_modules",
   --     "%.git",
+      ".git/",
+      ".terraform",
   --     "target",
   --     "build",
   --     ".go",
@@ -20,11 +24,11 @@ require('telescope').setup({
   --     ".m2",
   --     "common-lisp",
   --     "snap",
-  --     ".venv",
+      ".venv",
   --     ".lsp",
   --     "%.clj-kondo/",
   --     ".cpcache",
-  --   },
+    },
   mappings = {
       i = {
 	["<C-g>"] = require('telescope.actions').close
@@ -97,6 +101,31 @@ require('telescope').setup({
 
 -- vim.api.nvim_set_keymap('n', '<leader>nf', ':lua require("telescope.builtin").find_files({ prompt_title = "Search Notes", cwd = "~/.secret_dotfiles/notes", hidden = true })<CR>', {noremap = true, silent = true})
 
+-- -- Helper function to get git root
+-- local function get_git_root()
+--     local git_cmd = io.popen("git rev-parse --show-toplevel 2> /dev/null")
+--     if git_cmd == nil then return nil end
+--     local git_root = git_cmd:read("*l")
+--     git_cmd:close()
+--     return git_root
+-- end
+--
+-- -- Custom picker for project files
+-- local function project_files()
+--     local git_root = get_git_root()
+--     builtin.find_files({
+--         cwd = git_root or vim.loop.cwd(),
+--         hidden = true,
+--         no_ignore = true,
+--         -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+--     })
+-- end
+
+-- -- Create a command to run the project_files picker
+-- vim.api.nvim_create_user_command('ProjectFiles', project_files, {})
+
+-- Optional: Add a keymap
+-- vim.api.nvim_set_keymap('n', '<leader>ff', ':ProjectFiles<CR>', { noremap = true, silent = true })
 
 require("telescope").load_extension("zf-native")
 -- require("telescope").load_extension("fzf")

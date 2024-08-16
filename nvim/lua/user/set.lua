@@ -54,3 +54,8 @@ vim.cmd([[
 
 -- vim.cmd([[ set statusline=%f\ %{winnr()} ]])
 vim.api.nvim_set_option('statusline', '%{winnr()} %f')
+
+vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+
+vim.cmd([[ set wildmode=longest:full ]])
+

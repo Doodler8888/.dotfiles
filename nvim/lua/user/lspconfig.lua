@@ -77,19 +77,8 @@ lspconfig.hls.setup{
 
 -- Python
 
-lspconfig.pyright.setup {
-  settings = {
-      inlayHints = {
-      includeInlayEnumMemberValueHints = true,
-      includeInlayFunctionLikeReturnTypeHints = true,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayParameterNameHints = 'all',
-      includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-      includeInlayPropertyDeclarationTypeHints = true,
-      includeInlayVariableTypeHints = true,
-    },
-  },
-}
+-- lspconfig.pyright.setup {
+-- }
 
 
 -- Ansible/Yaml

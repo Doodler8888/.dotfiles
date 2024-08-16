@@ -209,6 +209,7 @@ _G.telescope_current_buffer_fuzzy_find = function()
 end
 
 vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
 
 function _G.rg_current_file()
   local filename = vim.api.nvim_buf_get_name(0)
@@ -372,7 +373,3 @@ vim.api.nvim_set_keymap('i', '<C-f><C-i>h', '<cmd>lua Search_and_insert_from_hom
 --  	{ noremap = true, silent = true }
 --  )
 
-
-
-
--- Function to search within the notes directory

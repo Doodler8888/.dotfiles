@@ -9,9 +9,9 @@ require('telescope').setup({
   -- find_command = { "fd", "--hidden", "--exclude=.git", "--exclude=node_modules", "--exclude=.clj-kondo" },
   file_ignore_patterns = { -- ignoring files make the search slower?
   --     "node_modules",
-  --     "%.git",
-      ".git/",
-      ".terraform",
+      "%.git",
+      -- ".git/",
+      "%.terraform",
   --     "target",
   --     "build",
   --     ".go",

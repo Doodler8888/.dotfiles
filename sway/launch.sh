@@ -1,5 +1,4 @@
-# #!/bin/bash
-
+#!/bin/bash
 
 # Your existing script to set up workspaces and launch applications
 # Create a tabbed container on workspace 1 and assign Alacritty instances to it
@@ -51,21 +50,21 @@ sleep 2
 
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
-swaymsg 'exec emacs --eval "(load-desktop-session \"python-server\")"'
-# swaymsg 'exec emacs'
+# swaymsg 'exec emacs --eval "(load-desktop-session \"python-server\")"'
+swaymsg 'exec alacritty -e zellij attach main'
 swaymsg 'layout stacking'
 
 sleep 2
 
-# Tab 3
-swaymsg 'focus parent'
-swaymsg 'layout tabbed'
-swaymsg 'mark cli'
-
-swaymsg 'exec alacritty -e zellij attach main'
-# swaymsg 'exec alacritty -e zellij'
-
-sleep 2
+# # Tab 3
+# swaymsg 'focus parent'
+# swaymsg 'layout tabbed'
+# swaymsg 'mark cli'
+#
+# swaymsg 'exec alacritty -e zellij attach main'
+# # swaymsg 'exec alacritty -e zellij'
+#
+# sleep 2
 
 
 swaymsg 'workspace 4'

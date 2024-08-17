@@ -13,7 +13,6 @@
   "flash.nvim": { "branch": "main", "commit": "48817af25f51c0590653bbc290866e4890fe1cbe" },
   "fzf-lua": { "branch": "main", "commit": "344b309421e5222a6199e4b46d01041089b6a2ae" },
   "hydra.nvim": { "branch": "master", "commit": "3ced42c0b6a6c85583ff0f221635a7f4c1ab0dd0" },
-  "iron.nvim": { "branch": "master", "commit": "e6b78ec1bc56eab63b3a9112d348b3d79836b672" },
   "kube-utils-nvim": { "branch": "main", "commit": "ed4a61af9ed26f4e0425baabdbf5c3d3bdcbff3e" },
   "lazy.nvim": { "branch": "main", "commit": "31ddbea7c10b6920c9077b66c97951ca8682d5c8" },
   "neovim": { "branch": "main", "commit": "9cd7d8aad3606a95d733a45d16275eb7a5a836a3" },
@@ -23,7 +22,6 @@
   "nvim-lint": { "branch": "master", "commit": "4055dc856d5ac8f6b85748006fd8fa6457e086e8" },
   "nvim-lspconfig": { "branch": "master", "commit": "b3014f2209503944f2714cf27c95591433a0c7d8" },
   "nvim-surround": { "branch": "main", "commit": "a4e30d33add8a9743b4f518b3a788b3c8e5def71" },
-  "nvim-tree-pairs": { "branch": "main", "commit": "1ac9387d4d36b88a319c661d93b95e8414f73e2f" },
   "nvim-treesitter": { "branch": "master", "commit": "f08a9d97f7a2ac02115a5c1c8e3973b2634d996b" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "6e9bb569a510bdfab6095c217a2f714af7a3d116" },
   "nvim-web-devicons": { "branch": "master", "commit": "6e355632387a085f15a66ad68cf681c1d7374a04" },
@@ -41,8 +39,10 @@
   "vim-dadbod": { "branch": "master", "commit": "960bbb7de11b7282a68d579a64e838b487934493" },
   "vim-dadbod-completion": { "branch": "master", "commit": "c920cb0ba3dff4b1b0ed373e1c0b3007dec696c2" },
   "vim-dadbod-ui": { "branch": "master", "commit": "066922699bdf1c6e14d517b844454b12b93ce25a" },
+  "vim-fugitive": { "branch": "master", "commit": "0444df68cd1cdabc7453d6bd84099458327e5513" },
   "vim-raku": { "branch": "master", "commit": "84a65c415f966c3cd5536fdbc6d70ee8f0d73508" },
   "vim-table-mode": { "branch": "master", "commit": "e4365bde024f73e205eefa2fb78e3029ddb92ea9" },
+  "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" },
   "wrapping-paper.nvim": { "branch": "main", "commit": "fbb0fc777b625225760244beb6b5ae817969d1dd" },
   "zoxide.vim": { "branch": "master", "commit": "b1e70b6fc1682a83929aee63680d2b43456fe9a5" }
 }

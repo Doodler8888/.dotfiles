@@ -94,6 +94,7 @@ local plugins = {
 	'mfussenegger/nvim-lint',
 	'dhruvasagar/vim-table-mode',
 	'pearofducks/ansible-vim',
+	'tpope/vim-fugitive',
 	{
 	  'fabridamicelli/cronex.nvim',
 	  opts = {},

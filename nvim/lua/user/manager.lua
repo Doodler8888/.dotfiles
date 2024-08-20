@@ -122,6 +122,7 @@ local plugins = {
 	},
 	-- "dense-analysis/ale",
 	'pocco81/auto-save.nvim',
+	'ahmedkhalf/project.nvim',
 	-- {
 	--   'Exafunction/codeium.vim',
 	--   config = function ()

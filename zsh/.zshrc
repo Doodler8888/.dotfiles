@@ -157,7 +157,6 @@ eval "$(zoxide init zsh)"
 
 source ~/.dotfiles/zsh/functions.sh
 
-(nohup gitlab-runner run &> /dev/null &)
 # source $HOME/.dotfiles/zsh/config_variables/flashcards_bot
 
 # This block enables vim mode

@@ -1,3 +1,5 @@
+vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
+
 _G.current_session_name = nil
 
 -- Define the directory for storing session files

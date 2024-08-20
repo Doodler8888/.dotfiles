@@ -41,13 +41,11 @@ vim.cmd('command! Column execute "set colorcolumn=" . (&colorcolumn == "" ? "80"
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<C-e>', 'ZQ', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-t>', 'ZQ', { noremap = true, silent = true })
 
 -- Motion shortcuts
 vim.api.nvim_set_keymap('i', '<C-l>', '<Esc>la', {noremap = true})
 vim.api.nvim_set_keymap('i', '<C-h>', '<Esc>ha', {noremap = true})
--- vim.api.nvim_set_keymap('i', '<M-l>', '<Esc>la', {noremap = true})
--- vim.api.nvim_set_keymap('i', '<M-h>', '<Esc>ha', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-w>', '<Esc> wi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-W>', '<Esc> Wi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})

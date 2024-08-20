@@ -156,7 +156,7 @@ function wait_for_ctrl_r_or_c {
   # The character code for Ctrl-r is ^R or \x12, and for Ctrl-c is ^C or \x03
   if [[ "$key" == $'\C-r' ]]; then
     fd-search # Execute fd-search if Ctrl-r is pressed
-  elif [[ "$key" == $'\C-s' ]]; then
+  elif [[ "$key" == $'\C-f' ]]; then
     fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
   elif [[ "$key" == $'\C-h' ]]; then
     fd-lsearchh

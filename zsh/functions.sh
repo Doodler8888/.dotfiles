@@ -276,3 +276,19 @@ print_current_directory_inline() {
 }
 zle -N print_current_directory_inline
 # bindkey '^F^P' print_current_directory_inline
+
+
+# Define the Cp function to copy the current directory path to the clipboard
+Cp() {
+  # Store the current directory path in a variable
+  local current_dir="$(pwd)"
+  if command -v wl-copy &> /dev/null; then
+    echo -n "$current_dir" | wl-copy
+  else
+    echo "Error: No clipboard utility found. Install xclip, wl-copy, or pbcopy."
+    return 1
+  fi
+
+  # Notify the user that the path has been copied
+  echo "Copied current directory path to clipboard: $current_dir"
+}

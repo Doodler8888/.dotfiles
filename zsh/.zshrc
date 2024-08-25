@@ -76,7 +76,7 @@ alias ld='sudo lazydocker'
 # alias rm=''
 alias rf='rm -rf'
 alias md='mkdir -p'
-alias s='source $HOME/.dotfiles/zsh/.zshrc'
+alias s='source ~/.zshrc'
 alias ve='source ./venv/bin/activate && nvim .'
 alias st='tmux source-file'
 alias menv='python3 -m venv ./.venv'
@@ -152,6 +152,8 @@ ENABLE_CORRECTION="true"
 # else
 #   export EDITOR='nvim'
 # fi
+
+zle_highlight=(region:bg=#524f67)
 
 eval "$(zoxide init zsh)"
 

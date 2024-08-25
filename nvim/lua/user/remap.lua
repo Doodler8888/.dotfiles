@@ -84,7 +84,8 @@ end
 -- vim.api.nvim_set_keymap('n', '<Leader>ee', ':SudaWrite ', {noremap = true})
 
 -- vim.api.nvim_set_keymap('n', '<Leader>te', ':TroubleToggle<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<M-y>', ':TroubleToggle<CR>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<M-y>', ':TroubleToggle<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<M-y>', ':TroubleToggle document_diagnostics<CR>', { noremap = true, silent = true })
 
 -- Remove traling spaces
 vim.api.nvim_set_keymap('n', '<leader>rw', [[:%s/\s\+$//e<CR>]], {noremap = true, silent = true})

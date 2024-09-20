@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -17,7 +17,7 @@
   # ];
 
   nixpkgs.config = {
-    packageOverrides = pkgs: rec {
+    packageOverrides = pkgs: {
       unstable = import <nixos-unstable> {};
     };
   };
@@ -88,7 +88,7 @@
     isNormalUser = true;
     description = "Urban Gorn";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
   };
 
   # fonts.fontDir.enable = true;
@@ -119,6 +119,7 @@
     clang
     cl
     zig
+    python3
     cmake
     openssh
     git
@@ -131,19 +132,17 @@
     opera
     vivaldi
     telegram-desktop
-    zsh
     grim
     slurp
     wl-clipboard
     mako
     alacritty
-    zellij
     fzf
     zoxide
-    starship
     eza
     fd
     ripgrep
+    zoxide
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

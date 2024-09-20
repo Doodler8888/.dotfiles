@@ -1,14 +1,7 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: 
+{ config, pkgs, ... }:
 
 let
-  unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
+  inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 
 {
@@ -16,7 +9,13 @@ in
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+      zsh
+      starship
       antigen
+      zellij
+      nil
+      pyright
+      clojure-lsp
       (pkgs.nerdfonts.override {
 	fonts = [
 	  "Noto"
@@ -24,12 +23,20 @@ in
       })
   ]; 
 
+  programs.git = {
+    enable = true;
+    userName = "wurfkreuz";
+    userEmail = "wurfkreuz@mail.ru";
+  };
+
   programs.zsh = {
     enable = true;
     envExtra = ''
       source ${pkgs.antigen}/share/antigen/antigen.zsh
     '';
   };
+
+ programs.starship.enableZshIntegration = true;
 
  # # Manage Zsh
  #  programs.zsh = {
@@ -85,15 +92,23 @@ in
     };
   };
 
-  home = {
-    username = "wurfkreuz";
-    homeDirectory = "/home/wurfkreuz/";
+home = {
+  username = "wurfkreuz";
+  homeDirectory = "/home/wurfkreuz/";
 
-    file.".zshrc".source = "/home/wurfkreuz/.dotfiles/zsh/nix/.zshrc";
-    file.".config/nvim".source = "/home/wurfkreuz/.dotfiles/nvim";
-    file.".config/alacritty/alacritty.toml".source = "/home/wurfkreuz/.dotfiles/alacritty/alacritty.toml";
-    file.".config/zellij/config.kdl".source = "/home/wurfkreuz/.dotfiles/zellij/config.kdl";
+  file.".zshrc" = {
+    source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/zsh/nix/.zshrc";
   };
+  file.".config/nvim" = {
+    source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/nvim";
+  };
+  file.".config/alacritty/alacritty.toml" = {
+    source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/alacritty/alacritty.toml";
+  };
+  file.".config/zellij/config.kdl" = {
+    source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/zellij/config.kdl";
+  };
+};
 
   programs.home-manager.enable = true;
 

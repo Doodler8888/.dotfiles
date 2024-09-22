@@ -16,6 +16,7 @@ in
       nil
       pyright
       clojure-lsp
+      k9s
       (pkgs.nerdfonts.override {
 	fonts = [
 	  "Noto"
@@ -107,6 +108,9 @@ home = {
   };
   file.".config/zellij/config.kdl" = {
     source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/zellij/config.kdl";
+  };
+  file.".config/k9s" = {
+    source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/k9s";
   };
 };
 

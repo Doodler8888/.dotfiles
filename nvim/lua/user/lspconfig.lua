@@ -1,3 +1,5 @@
+vim.lsp.set_log_level("debug")
+
 do
   local method = "textDocument/publishDiagnostics"
   local default_handler = vim.lsp.handlers[method]
@@ -77,8 +79,8 @@ lspconfig.hls.setup{
 
 -- Python
 
--- lspconfig.pyright.setup {
--- }
+lspconfig.pyright.setup {
+}
 
 
 -- Ansible/Yaml
@@ -150,7 +152,7 @@ require("lspconfig").yamlls.setup {
 -- Disable auto-wrapping on specified file types
 
 vim.api.nvim_create_autocmd("FileType", { -- Had an unexpected behavior with the custom nu type, where the autoformatiing was getting triggered on the 80th character.
-  pattern = { "nu", "python", "terraform" },
+  pattern = { "nu", "python", "terraform", "nix" },
   callback = function()
     -- Remove 't' from formatoptions to prevent auto text wrapping while typing
     vim.opt_local.formatoptions:remove("t")
@@ -219,6 +221,9 @@ lspconfig.raku_navigator.setup {
 
 lspconfig.clojure_lsp.setup{}
 
+-- Nix
+
+require'lspconfig'.nil_ls.setup{}
 
 -- SQL
 

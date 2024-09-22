@@ -3,7 +3,7 @@ source /usr/local/bin
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$PATH"
-export EDITOR='/usr/bin/nvim' # !! Causes 'M-.' to not work correctly for some reason
+export EDITOR='/usr/bin/nvim'
 export HISTFILE="$HOME/.zsh_history"
 export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
@@ -99,7 +99,7 @@ alias search='nix-env -qa'
 alias switch='home-manager switch'
 alias e='sudo -e'
 alias home='nvim /home/wurfkreuz/.dotfiles/home-manager/home.nix'
-alias zsh='cd $HOME/.dotfiles/zsh/ && nvim .zshrc'
+alias zsh='cd ~/.dotfiles/zsh/ && nvim .zshrc'
 alias ls='exa'
 alias sl='exa'
 alias la='exa -lah'

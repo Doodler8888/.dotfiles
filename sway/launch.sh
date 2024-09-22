@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Your existing script to set up workspaces and launch applications
 # Create a tabbed container on workspace 1 and assign Alacritty instances to it
@@ -11,7 +11,8 @@ sleep 2
 # Create a tabbed container on workspace 2 and assign browsers to it
 swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
-swaymsg 'exec vivaldi-stable'
+# swaymsg 'exec vivaldi-stable'
+swaymsg 'exec vivaldi' # Just 'vivaldi' on nixos.
 # swaymsg 'exec alacritty'
 
 sleep 2

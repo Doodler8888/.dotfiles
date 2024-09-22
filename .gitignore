@@ -1,2 +1,6 @@
 .session
 /.lisp
+.clj-kondo/
+.lsp/
+.zshrc.zwc
+.zcompdump

@@ -1,6 +1,6 @@
 source /home/wurfkreuz/.dotfiles/bash/scripts.sh
 source /usr/local/bin
-source ~/.secret_dotfiles/zsh/.zshrc
+# source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$PATH"
 export EDITOR='/usr/bin/nvim'
@@ -18,7 +18,7 @@ export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 export LSP_USE_PLISTS=true
 export LC_ALL=C.UTF-8
 export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
-export XDG_CURRENT_DESKTOP="Sway"
+# export XDG_CURRENT_DESKTOP="Sway"
 export LUA_BINDIR="/usr/local/bin/"
 export LUA_BINDIR_SET=yes
 export VISUDO_EDITOR=/usr/bin/nvim

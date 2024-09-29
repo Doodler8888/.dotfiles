@@ -34,6 +34,8 @@ local plugins = {
 	-- "tpope/vim-sleuth",
 	'Raku/vim-raku',
 	'h4ckm1n-dev/kube-utils-nvim',
+	'nvim-lualine/lualine.nvim',
+	'NeogitOrg/neogit',
 	{
 	  'kristijanhusak/vim-dadbod-ui',
 	  dependencies = {

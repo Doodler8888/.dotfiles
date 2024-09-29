@@ -18,11 +18,12 @@ export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 export LSP_USE_PLISTS=true
 export LC_ALL=C.UTF-8
 export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
-# export XDG_CURRENT_DESKTOP="Sway"
+# export XDG_CURRENT_DESKTOP=sway
 export LUA_BINDIR="/usr/local/bin/"
 export LUA_BINDIR_SET=yes
 export VISUDO_EDITOR=/usr/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
+# export XAUTHORITY=$HOME/.Xauthority
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -143,6 +144,12 @@ alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias i3c="nvim ~/.config/i3/config"
 bindkey '^R' fzf_history_search
 
+# # Disables echoing in shell-mode
+# if [[ $INSIDE_EMACS = *comint* ]]; then
+#   unsetopt zle
+#   stty -echo
+# fi
+
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
@@ -187,6 +194,11 @@ bindkey '^a' autosuggest-accept
 antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
 
 antigen bundle kutsan/zsh-system-clipboard &> /dev/null
+# if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
+#     ZSH_SYSTEM_CLIPBOARD_METHOD=xcc
+#     typeset -g ZSH_SYSTEM_CLIPBOARD_METHOD
+# fi
+
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 antigen apply &> /dev/null
@@ -214,15 +226,22 @@ fi
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
-# if [ -z "$SSH_AUTH_SOCK" ] ; then
-#     eval "$(ssh-agent -s)" 1> /dev/null # 'ssh-agent -s' start a new ssh agent and print out env variables for it. But because it only prints them out, they have to be evaluated.
-# fi
-# SSH_KEY_DIR="$HOME/.ssh/keys"
-# for key in "$SSH_KEY_DIR"/*; do
-#     if [[ -f $key && ! $key =~ \.pub$ ]]; then # The '=~' part is for making a regular expression check. The slash is an escape sequence because a dot has its own meaning for regular expressions.
-#         ssh-add "$key" > /dev/null 2>&1
-#     fi
-# done
+
+# Start ssh-agent if it's not already running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    # Check for a running ssh-agent
+    pid=$(pgrep ssh-agent)
+    
+    if [ -n "$pid" ]; then
+        # ssh-agent is running, find the socket
+        export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.\* -uid $(id -u) 2>/dev/null | head -n 1)
+    fi
+    
+    # If socket is not found, start a new ssh-agent
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        eval "$(ssh-agent -s > /dev/null)" 
+    fi
+fi
 
 PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/wurfkreuz/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;

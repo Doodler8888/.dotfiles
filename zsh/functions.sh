@@ -168,6 +168,8 @@ function wait_for_ctrl_r_or_c {
     systemctl-tui
   elif [[ "$key" == $'\C-p' ]]; then
     print_current_directory_inline
+  elif [[ "$key" == $'\C-b' ]]; then
+    switch_branch
   fi
 }
 
@@ -206,19 +208,6 @@ ss() {
   fi
 }
 zle -N ss
-
-
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval "$(ssh-agent -s)" 1> /dev/null
-fi
-
-# SSH_KEY_DIR="$HOME/.ssh/keys"
-
-# for key in "$SSH_KEY_DIR"/*; do
-#     if [[ -f $key && ! $key =~ \.pub$ ]]; then
-#         ssh-add "$key" > /dev/null 2>&1 
-#     fi
-# done
 
 
 # bak() {
@@ -276,6 +265,18 @@ print_current_directory_inline() {
 }
 zle -N print_current_directory_inline
 # bindkey '^F^P' print_current_directory_inline
+
+
+switch_branch() {
+  local branch=$(git branch | fzf --height 40% --reverse --prompt="Switch to branch: " | sed 's/^[* ] //')
+  if [ -n "$branch" ]; then
+    git switch "$branch"
+  else
+    echo "No branch selected"
+  fi
+  zle reset-prompt
+}
+zle -N switch_branch
 
 
 # Define the Cp function to copy the current directory path to the clipboard

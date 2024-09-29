@@ -94,3 +94,5 @@ exec_always ~/.dotfiles/sway/launch.sh
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

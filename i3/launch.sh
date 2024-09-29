@@ -29,8 +29,8 @@ sleep 2
 
 # Split the layout vertically, launch Alacritty, and set layout to stacking
 i3-msg 'splitv'
-# i3-msg 'exec emacs'
-i3-msg 'exec emacs --eval "(load-desktop-session \"main\")"'
+i3-msg 'exec emacs'
+# i3-msg 'exec emacs --eval "(load-desktop-session \"main\")"'
 i3-msg 'layout stacking'
 
 sleep 2
@@ -67,5 +67,7 @@ sleep 2
 
 i3-msg 'workspace 4'
 i3-msg 'exec telegram-desktop'
+
+sleep 1
 
 i3-msg 'workspace 3'

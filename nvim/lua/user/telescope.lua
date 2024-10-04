@@ -1,8 +1,8 @@
 -- Useful for easily creating commands
-local builtin = require('telescope.builtin')
-local z_utils = require("telescope._extensions.zoxide.utils")
+-- local builtin = require('telescope.builtin')
+-- local z_utils = require("telescope._extensions.zoxide.utils")
 local actions = require('telescope.actions')
-local action_state = require("telescope.actions.state")
+-- local action_state = require("telescope.actions.state")
 
 require('telescope').setup({
   defaults = {
@@ -25,6 +25,7 @@ require('telescope').setup({
   --     "common-lisp",
   --     "snap",
       ".venv",
+      "ansible_env_310",
   --     ".lsp",
   --     "%.clj-kondo/",
   --     ".cpcache",

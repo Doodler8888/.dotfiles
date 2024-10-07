@@ -4,6 +4,7 @@
 # Create a tabbed container on workspace 1 and assign Alacritty instances to it
 swaymsg 'workspace 1'
 # swaymsg 'layout tabbed'
+# swaymsg 'exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland'
 swaymsg 'exec opera'
 
 sleep 2
@@ -12,7 +13,8 @@ sleep 2
 swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi-stable'
-swaymsg 'exec vivaldi' # Just 'vivaldi' on nixos.
+swaymsg 'exec vivaldi'
+# swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
 sleep 2
@@ -42,30 +44,19 @@ swaymsg 'focus parent'
 swaymsg 'layout tabbed'
 swaymsg 'mark main'
 
-# swaymsg 'exec alacritty -e zellij attach cli'
-swaymsg 'exec alacritty -e zellij'
 # swaymsg 'exec alacritty'
+swaymsg 'exec alacritty -e zellij'
 
 # # Wait for Emacs to launch
 sleep 2
 
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
-# swaymsg 'exec emacs --eval "(load-desktop-session \"python-server\")"'
 swaymsg 'exec alacritty -e zellij attach main'
+# swaymsg 'exec /usr/bin/alacritty -e /home/wurfkreuz/.cargo/bin/zellij attach main'
 swaymsg 'layout stacking'
 
 sleep 2
-
-# # Tab 3
-# swaymsg 'focus parent'
-# swaymsg 'layout tabbed'
-# swaymsg 'mark cli'
-#
-# swaymsg 'exec alacritty -e zellij attach main'
-# # swaymsg 'exec alacritty -e zellij'
-#
-# sleep 2
 
 swaymsg 'workspace 4'
 swaymsg 'exec telegram-desktop'

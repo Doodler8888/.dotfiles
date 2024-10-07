@@ -2,28 +2,31 @@ source /home/wurfkreuz/.dotfiles/bash/scripts.sh
 source /usr/local/bin
 # source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
-export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$PATH"
+export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:/$HOME/common-lisp/lem:$PATH"
 export EDITOR='/usr/bin/nvim'
 export HISTFILE="$HOME/.zsh_history"
-export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
+# export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
 # export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude ".config/vivaldi" --exclude snap'
-export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
-export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
-export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
-export RAKU_MODULE_DEBUG="~/.raku/sources"
-export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
-export LSP_USE_PLISTS=true
+export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.9.0.1/bin"
+# export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
+# export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
+# export RAKU_MODULE_DEBUG="~/.raku/sources"
+# export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
+# export LSP_USE_PLISTS=true
 export LC_ALL=C.UTF-8
-export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
+# export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
 # export XDG_CURRENT_DESKTOP=sway
-export LUA_BINDIR="/usr/local/bin/"
-export LUA_BINDIR_SET=yes
+# export LUA_BINDIR="/usr/local/bin/"
+# export LUA_BINDIR_SET=yes
 export VISUDO_EDITOR=/usr/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 # export XAUTHORITY=$HOME/.Xauthority
+# export XDG_CONFIG_HOME="$HOME/.config/"
+# export K9S_CONFIG_DIR="~/.config/k9s/"
+# export K9S_SKIN="$HOME/.config/k9s/skins/nord_aurora.yaml"
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -58,7 +61,7 @@ alias cr='cp -r'
 alias alc='cd ~/.dotfiles/alacritty && nvim ~/.dotfiles/alacritty/alacritty.toml'
 alias qtl='cd ~/.dotfiles/qtile && nvim ~/.dotfiles/qtile/config.py'
 alias v='nvim'
-# alias v.='nvim .'
+alias v.='nvim .'
 alias zlj='cd ~/.dotfiles/zellij && nvim ~/.dotfiles/zellij/config.kdl'
 alias tmx='cd ~/.dotfiles/tmux && nvim ~/.dotfiles/tmux/.tmux.conf'
 alias di='docker images'
@@ -190,6 +193,8 @@ bindkey -M viins '^L' clear-screen
 # If i write "source '~/antigen.zsh'", i'll get an error.
 source "$HOME/antigen.zsh"
 
+eval "$(starship init zsh)" # It should be at the very top of my config, otherwise i might get latency on cursor in vim mode.
+
 export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 bindkey '^[w' forward-word
 bindkey '^a' autosuggest-accept
@@ -201,6 +206,7 @@ antigen bundle kutsan/zsh-system-clipboard &> /dev/null
 #     typeset -g ZSH_SYSTEM_CLIPBOARD_METHOD
 # fi
 
+# antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv" &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 antigen apply &> /dev/null
@@ -216,14 +222,13 @@ zstyle ':autocomplete:*' ignored-input '##'
 #     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
 # fi
 
-# eval "$(starship init zsh)"
-
-if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then
-    eval "$(starship init zsh)"
-else
-    # Set a simple prompt for non-interactive or dumb terminals
-    PS1='%1~ > '
-fi
+# It should be at the very top of my config, otherwise i might get latency on cursor in vim mode (not on emacs, i'm about on zsh)
+# if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then
+#     eval "$(starship init zsh)"
+# else
+#     # Set a simple prompt for non-interactive or dumb terminals
+#     PS1='%1~ > '
+# fi
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
@@ -253,3 +258,5 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
 ! { which werf | grep -qsE "^/home/wurfkreuz/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
+
+if [ -e /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

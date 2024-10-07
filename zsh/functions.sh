@@ -230,8 +230,9 @@ d() {
 
 clear-ls-all() {
   clear
-  exa -al
-  zle reset-prompt
+  eza -al
+  echo -n "\033[1A"  # Move cursor up one line
+  zle send-break
 }
 zle -N clear-ls-all
 bindkey '^S' clear-ls-all
@@ -248,14 +249,6 @@ freeze() {
     source .venv/bin/activate
     pip freeze > requirements.txt
   fi
-}
-
-
-v.() {
-  if [ -d ".venv" ]; then
-    source .venv/bin/activate
-  fi
-  nvim .
 }
 
 

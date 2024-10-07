@@ -1,8 +1,10 @@
--- Useful for easily creating commands
--- local builtin = require('telescope.builtin')
--- local z_utils = require("telescope._extensions.zoxide.utils")
+local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
--- local action_state = require("telescope.actions.state")
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+local action_state = require("telescope.actions.state")
+
 
 require('telescope').setup({
   defaults = {
@@ -160,9 +162,12 @@ vim.api.nvim_set_keymap(
     { noremap = true, silent = true }
 )
 
-local action_state = require('telescope.actions.state')
-
 _G.telescope_current_buffer_fuzzy_find = function()
+  -- Check if we're in the command-line window
+  if vim.fn.getcmdwintype() ~= '' then
+    print("Telescope cannot be opened from the command-line window.")
+    return
+  end
   require('telescope.builtin').current_buffer_fuzzy_find({
     attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
@@ -181,15 +186,8 @@ _G.telescope_current_buffer_fuzzy_find = function()
           -- Set the search register with the prompt input
           vim.fn.setreg('/', vim.fn.escape(prompt, '\\/'))
 
-          -- Disable highlighting
-          vim.o.hlsearch = false
-
           -- Schedule a function to re-enable 'n' and 'N' functionality
           vim.schedule(function()
-            -- -- Create a custom command to toggle search highlighting
-            -- vim.api.nvim_create_user_command('ToggleSearchHL', function()
-            --   vim.o.hlsearch = not vim.o.hlsearch
-            -- end, {})
 
             -- Remap 'n' and 'N' to move to next/previous match without highlighting
             vim.keymap.set('n', 'n', function()
@@ -210,41 +208,7 @@ _G.telescope_current_buffer_fuzzy_find = function()
 end
 
 vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
 
-function _G.rg_current_file()
-  local filename = vim.api.nvim_buf_get_name(0)
-  require('telescope.builtin').grep_string({
-    prompt_title = "Ripgrep Current File",
-    search = "",  -- This can be left empty; user will input the search term interactively
-    search_dirs = { filename },
-    use_less = false,
-    attach_mappings = function(_, map)
-      map("i", "<CR>", require('telescope.actions').select_default)
-      return true
-    end,
-    entry_maker = function(entry)
-      local filename_end = entry:find(":")
-      local line_end = entry:find(":", filename_end + 1)
-      local lnum = tonumber(entry:sub(filename_end + 1, line_end - 1))
-      local display_text = entry:sub(line_end + 1)
-      return {
-        value = entry,
-        ordinal = display_text,
-        display = display_text,
-        filename = filename,
-        lnum = lnum,
-        text = display_text,
-      }
-    end,
-    sorter = require('telescope.config').values.generic_sorter({}),
-    previewer = require('telescope.previewers').vim_buffer_vimgrep.new({
-      get_bufnr = function(_, entry)
-        return vim.fn.bufnr(entry.filename)
-      end,
-    }),
-  })
-end
 
 -- Works on all files in a catalog from where neovim was opened
 function _G.rg_neovim_session()
@@ -307,70 +271,94 @@ end
 vim.api.nvim_set_keymap('n', '<leader>ih', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-f><C-i>h', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
 
--- vim.api.nvim_set_keymap('n', '<leader>fp', [[<cmd>Telescope persisted<CR>]], { noremap = true, silent = true })
+local function zoxide_list()
+  local handle = io.popen("zoxide query -l")
+  local result = handle:read("*a")
+  handle:close()
 
--- _G.telescope_home_dirs = function(opts)
--- 	opts = opts or {}
--- 	local action_state = require("telescope.actions.state")
--- 	local actions = require("telescope.actions")
--- 	local home = vim.fn.expand("~") -- Expand the home directory
---
--- 	require("telescope.builtin").find_files({
--- 		prompt_title = "Home Directories",
--- 		cwd = home, -- Use the expanded home directory
--- 		find_command = { "fd", "--type", "d", ".", "--hidden", "--exclude", ".git", home },
--- 		attach_mappings = function(prompt_bufnr)
--- 			actions.select_default:replace(function()
--- 				actions.close(prompt_bufnr) -- Close the Telescope picker
--- 				local selection = action_state.get_selected_entry() -- Get the selected directory
--- 				local path = vim.fn.fnamemodify(selection[1], ":p") -- Get the full path
--- 				-- Change the directory for the current window
--- 				vim.cmd("lcd " .. vim.fn.fnameescape(path))
--- 				-- Open the oil buffer for the chosen directory
--- 				vim.cmd("Oil " .. vim.fn.fnameescape(path))
--- 			end)
--- 			return true
--- 		end,
--- 	})
--- end
---
--- -- You can then map this function to a command or keybinding
--- vim.cmd([[command! TelescopeHomeDirs lua _G.telescope_home_dirs()]])
---  vim.keymap.set("n", "<Leader>tdh", _G.telescope_home_dirs)
---
---  function Find_files_and_change_dir()
---  	require("telescope.builtin").find_files({
---  		hidden = true,
---  		sort = true,
---  		cwd = "~/",
---  		attach_mappings = function(prompt_bufnr, map)
---  			local action_state = require("telescope.actions.state")
---  			local actions = require("telescope.actions")
---
---  			-- Define the action to open the file and change the directory
---  			local open_file_and_change_dir = function()
---  				local selection = action_state.get_selected_entry()
---  				actions.close(prompt_bufnr) -- Close Telescope prompt before opening the file
---  				local dir = vim.fn.fnamemodify(selection.path, ":p:h")
---  				vim.cmd("lcd " .. vim.fn.fnameescape(dir))
---  				vim.cmd("e " .. vim.fn.fnameescape(selection.path)) -- Open the file
---  			end
---
---  			-- Map the custom action to `<CR>` (Enter key)
---  			map("i", "<CR>", open_file_and_change_dir)
---  			map("n", "<CR>", open_file_and_change_dir)
---
---  			-- Return true to keep the rest of the mappings
---  			return true
---  		end,
---  	})
---  end
---
---  -- Bind the new function to a keymapping
---  vim.api.nvim_set_keymap(
---  	"n",
---  	"<leader>fh",
---  	"<Cmd>lua Find_files_and_change_dir()<CR>",
---  	{ noremap = true, silent = true }
---  )
+  local dirs = {}
+  for dir in result:gmatch("[^\r\n]+") do
+    table.insert(dirs, dir)
+  end
+  return dirs
+end
 
+local function zoxide_telescope()
+  local dirs = zoxide_list()
+
+  pickers.new({
+    layout_strategy = "horizontal",
+    layout_config = {
+      width = 0.5,
+      height = 0.5,
+      prompt_position = "bottom"
+    },
+  }, {
+    prompt_title = "Zoxide Directories",
+    finder = finders.new_table {
+      results = dirs
+    },
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        vim.cmd("lcd " .. selection[1])
+	vim.cmd("Oil " .. selection[1])
+        print("Navigated to: " .. selection[1])
+      end)
+      return true
+    end,
+  }):find()
+end
+
+vim.api.nvim_create_user_command("Zoxide", zoxide_telescope, {})
+
+vim.api.nvim_set_keymap('n', 'gz', ':Zoxide<CR>', { noremap = true, silent = true })
+
+
+function Switch_git_branch()
+  local function get_git_branches()
+    local handle = io.popen("git branch --format='%(refname:short)'")
+    local result = handle:read("*a")
+    handle:close()
+    local branches = {}
+    for branch in result:gmatch("[^\r\n]+") do
+      table.insert(branches, branch)
+    end
+    return branches
+  end
+
+  local function switch_branch(prompt_bufnr)
+    local selection = action_state.get_selected_entry()
+    actions.close(prompt_bufnr)
+    if selection then
+      vim.fn.system("git checkout " .. selection[1])
+      print("Switched to branch: " .. selection[1])
+      vim.cmd("e!") -- Refresh the current buffer
+    end
+  end
+
+  pickers.new({
+    layout_strategy = "horizontal",
+    layout_config = {
+      width = 0.5,
+      height = 0.5,
+      prompt_position = "bottom"
+    },
+  }, {
+    prompt_title = "Git Branches",
+    finder = finders.new_table {
+      results = get_git_branches()
+    },
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(_, map)
+      map("i", "<CR>", switch_branch)
+      map("n", "<CR>", switch_branch)
+      return true
+    end,
+  }):find()
+end
+
+-- Add this line to make the function globally accessible
+vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>lua Switch_git_branch()<CR>", {noremap = true, silent = true})

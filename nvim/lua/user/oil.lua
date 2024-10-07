@@ -138,3 +138,61 @@ require("oil").setup({
 
 
 vim.keymap.set("n", "<leader>fe", vim.cmd.Oil)
+
+
+local oil = require("oil")
+
+function symlink_current_item()
+  if vim.bo.filetype ~= 'oil' then
+    print("This command can only be used in an oil buffer.")
+    return
+  end
+
+  local entry = oil.get_cursor_entry()
+  if not entry then
+    print("No item selected")
+    return
+  end
+
+  local current_dir = oil.get_current_dir()
+  local full_path = current_dir .. entry.name
+
+  -- Prompt for sudo
+  vim.ui.select({'No', 'Yes'}, {
+    prompt = 'Use sudo?',
+  }, function(choice)
+    local sudo_prefix = choice == 'Yes' and 'sudo ' or ''
+    
+    -- Prompt for destination path
+    vim.ui.input({
+      prompt = "Enter destination path for symlink: ",
+      completion = "file"
+    }, function(dest_path)
+      if not dest_path or dest_path == "" then
+        print("Symlink creation cancelled")
+        return
+      end
+
+      -- Construct the command
+      local cmd = sudo_prefix .. 'ln -s ' .. vim.fn.shellescape(full_path) .. ' ' .. vim.fn.shellescape(dest_path)
+
+      -- Open a terminal buffer and run the command
+      vim.cmd('botright new')
+      local term_buf = vim.api.nvim_get_current_buf()
+      vim.fn.termopen(cmd, {
+        on_exit = function(job_id, exit_code)
+          if exit_code == 0 then
+            print("Symlink created successfully")
+            vim.api.nvim_buf_delete(term_buf, { force = true })
+            oil.discard_all_changes()
+          else
+            print("Error creating symlink. Check the terminal output.")
+          end
+        end
+      })
+      vim.cmd('startinsert')
+    end)
+  end)
+end
+
+vim.api.nvim_create_user_command('OilSymlink', symlink_current_item, {})

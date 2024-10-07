@@ -68,10 +68,13 @@ require('rose-pine').setup({
 		TroubleNormal = { fg = 'none', bg = 'none' },
 		TroubleCount = { fg = 'iris', bg = 'none' },
 		TroubleIndent = { fg = '#1d1f21', bg = 'none' },
+
+		-- NeogitDiffContextHighlight = { fg = '#e0def4', bg = '#1d1f21' },
+		-- NeogitDiffContextCursor = { fg = '#e0def4', bg = 'none' },
+		-- NeogitHunkHeaderHighlight = { fg = 'iris', bg = '#1d1f21' },
+
 		-- NeogitDiffContext = { fg = '#1d1f21', bg = 'none' },
 		-- Background for diff folds
-		NeogitDiffContextHighlight = { fg = '#e0def4', bg = '#1d1f21' },
-		-- NeogitDiffContextCursor = { fg = '#1d1f21', bg = 'none' },
 		-- NeogitDiffAdd = { fg = '#1d1f21', bg = 'none' },
 		-- NeogitDiffAddHighlight = { fg = '#e0def4', bg = 'foam', blend = 10 },
 		-- NeogitDiffAddCursor = { fg = '#1d1f21', bg = 'none' },
@@ -82,15 +85,23 @@ require('rose-pine').setup({
 		-- NeogitDiffHeaderHighlight = { fg = '#1d1f21', bg = 'none' },
 		-- NeogitDiffHeaderCursor = { fg = '#1d1f21', bg = 'none' },
 		-- NeogitHunkHeader = { fg = '#1d1f21', bg = 'none' },
-		NeogitHunkHeaderHighlight = { fg = 'iris', bg = '#1d1f21' },
 		-- NeogitHunkHeaderCursor = { fg = '#1d1f21', bg = 'none' },
 
-                ['@neorg.markup.italic.norg'] = { italic = true },
-                ['@neorg.markup.bold.norg'] = { bold = true },
-                ['@markup.italic.markdown_inline'] = { italic = true },
-                ['@markup.strong.markdown_inline'] = { bold = true },
-}
-})
+		-- NeogitChangeModified = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeAdded = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeDeleted = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeRenamed = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeUpdated = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeCopied = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeNewFile = { fg = '#e0def4', bg = 'none' },
+		-- NeogitChangeUnmerged = { fg = '#e0def4', bg = 'none' },
+
+		['@neorg.markup.italic.norg'] = { italic = true },
+		['@neorg.markup.bold.norg'] = { bold = true },
+		['@markup.italic.markdown_inline'] = { italic = true },
+		['@markup.strong.markdown_inline'] = { bold = true },
+	      }
+	    })
 
 -- vim.api.nvim_set_hl(0, '@string.special.symbol.clojure', { link = 'Identifier' })
 -- vim.api.nvim_set_hl(0, '@lsp.type.macro.clojure', { link = '@constant.macro' })

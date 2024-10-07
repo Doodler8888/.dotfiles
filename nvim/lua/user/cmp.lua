@@ -8,7 +8,7 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = 'path', max_item_count = 4 },
+    { name = 'path', max_item_count = 10; },
     { name = 'nvim_lsp' },
     -- { name = 'conjure' },
     -- { name = 'buffer' },

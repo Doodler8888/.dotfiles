@@ -21,9 +21,10 @@ truncation_length = 1
 # '.dotfiles/' = '/dot' # This will add 'dot' to all child directory names. If i add slash at the end of dot, it will disable the effect.
 # '.dotfiles' = 'dot' # This will rename the .dotfiles directory to 'dot'.
 
-# [git_status]
-# disabled = true
-#
+# Causes latency
+[git_status]
+disabled = true
+
 # [git_branch]
 # disabled = true
 

@@ -9,7 +9,16 @@ function Copy_full_path()
     print('Copied path: ' .. full_path)
 end
 
+-- New function to copy only the file name
+function Copy_file_name()
+    local file_name = vim.fn.expand('%:t')
+    vim.fn.setreg('+', file_name)
+    print('Copied file name: ' .. file_name)
+end
+
+-- Create commands
 vim.api.nvim_create_user_command('Cp', Copy_full_path, {})
+vim.api.nvim_create_user_command('Cpf', Copy_file_name, {})
 
 
 function TrimWhitespace()

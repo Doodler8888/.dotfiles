@@ -9,7 +9,7 @@ require('flash').setup {
 	enabled = false
       },
       search = {
-	enabled = true
+	enabled = false
       }
     }
 }

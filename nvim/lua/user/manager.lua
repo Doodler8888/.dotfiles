@@ -35,7 +35,13 @@ local plugins = {
 	'Raku/vim-raku',
 	'h4ckm1n-dev/kube-utils-nvim',
 	'nvim-lualine/lualine.nvim',
-	'NeogitOrg/neogit',
+	{
+	  "NeogitOrg/neogit",
+	  dependencies = {
+	    "nvim-lua/plenary.nvim",
+	    "sindrets/diffview.nvim",        -- optional - Diff integration
+	  },
+	},
 	{
 	  'kristijanhusak/vim-dadbod-ui',
 	  dependencies = {
@@ -123,7 +129,7 @@ local plugins = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
 	-- "dense-analysis/ale",
-	'pocco81/auto-save.nvim',
+	-- 'pocco81/auto-save.nvim',
 	'ahmedkhalf/project.nvim',
 	-- {
 	--   'Exafunction/codeium.vim',

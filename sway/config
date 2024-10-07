@@ -1,8 +1,6 @@
 exec swaync
 # exec mako
 
-# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
 font NotoSansM Nerd Font Mono 8
 
 output HDMI-A-1 mode 1920x1080@144Hz
@@ -39,13 +37,15 @@ bindsym $mod+p exec ~/.dotfiles/sway/move_to_parent.sh
 
 # Screenshots
 bindsym $mod+F11 exec grim -g "$(slurp)" - | wl-copy
-bindsym $mod+F12       exec grim - | wl-copy
+bindsym $mod+F12 exec grim - | wl-copy
 
 # Application launching
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+b exec opera
+# bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
-bindsym $mod+b exec vivaldi # Changed to this because of nixos
+bindsym $mod+b exec vivaldi
+# bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
 bindsym $mod+r exec --no-startup-id wofi --show drun
 bindsym $mod+e exec emacs

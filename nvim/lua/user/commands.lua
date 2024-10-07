@@ -22,8 +22,10 @@ vim.cmd('command! Dot lcd $HOME/.dotfiles/ | Oil ~/.dotfiles/')
 vim.cmd('command! SDot lcd $HOME/.secret_dotfiles/ | Oil ~/.secret_dotfiles/')
 vim.cmd('command! Secret lcd $HOME/.secret_dotfiles/ | Oil ~/.secret_dotfiles/')
 vim.cmd('command! Alc lcd $HOME/.dotfiles/alacritty/ | edit alacritty.toml')
-vim.cmd('command! Sway lcd $HOME/.dotfiles/alacritty/ | Oil ~/.dotfiles/sway')
+vim.cmd('command! Sway lcd $HOME/.dotfiles/sway/ | Oil ~/.dotfiles/sway')
 vim.cmd('command! H lcd $HOME/ | Oil ~/')
+vim.cmd('command! D lcd $HOME/Downloads | Oil ~/Downloads')
+vim.cmd('command! Navi lcd $HOME/.dotfiles/navi/ | Oil ~/.dotfiles/navi/cheats/my__cheats/')
 
 
 -- Current filetype

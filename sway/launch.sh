@@ -34,7 +34,8 @@ sleep 2
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
 # swaymsg 'exec emacs'
-swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
+# swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
+swaymsg 'exec emacs'
 swaymsg 'layout stacking'
 
 sleep 2

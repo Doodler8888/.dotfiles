@@ -1,5 +1,0 @@
--- vim.lsp.start({
---   cmd = {"haskell-language-server-wrapper", "--lsp"},
---   filetypes = { "haskell", "lhaskell"  },
---   -- root_dir = vim.fs.dirname(vim.fs.find({ "*.cabal" }, { upward = true })[1]),
--- })

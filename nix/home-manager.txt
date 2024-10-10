@@ -1,0 +1,48 @@
+flakes, non-nixos installation
+
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ mkdir .config/nix
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ vim .config/nix/nix.conf
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ sudo systemctl restart nix-daemon
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ . /etc/profile.d/nix.sh
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ mkdir -p ~/.config/nixpkgs/home-manager
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ vim ~/.config/nixpkgs/home-manager/flake.nix
+
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ cat .config/nix/nix.conf
+experimental-features = nix-command flakes
+wurfkreuz@wurfkreuz-B650M-PG-Riptide:~$ cat ~/.config/nixpkgs/home-manager/flake.nix
+{
+  description = "Home Manager configuration";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+
+
+  outputs = { self, nixpkgs, home-manager, ... }:
+    let
+      system = "x86_64-linux"; # Adjust if needed
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in {
+      homeConfigurations.wurfkreuz = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          ({ config, lib, ... }: {
+            home.username = "wurfkreuz";
+            home.homeDirectory = "/home/wurfkreuz";
+            home.stateVersion = "24.05";
+
+            programs.home-manager.enable = true;
+          })
+        ];
+      };
+    };
+}

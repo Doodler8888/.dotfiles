@@ -1,4 +1,4 @@
-exec swaync
+exec /home/wurfkreuz/.nix-profile/bin/swaync
 # exec mako
 
 font NotoSansM Nerd Font Mono 8
@@ -9,7 +9,8 @@ output HDMI-A-1 mode 1920x1080@144Hz
 set $mod Mod4
 
 # Your preferred terminal emulator
-set $term alacritty
+# set $term alacritty
+set $term /home/wurfkreuz/.cargo/bin/alacritty
 
 # Window management
 bindsym $mod+w kill
@@ -45,11 +46,15 @@ bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
 bindsym $mod+b exec vivaldi
+# bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
-bindsym $mod+r exec --no-startup-id wofi --show drun
-bindsym $mod+e exec emacs
+# bindsym $mod+r exec --no-startup-id wofi --show drun
+bindsym $mod+r exec --no-startup-id /home/wurfkreuz/.nix-profile/bin/wofi --show drun
+# bindsym $mod+e exec emacs
+bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
 bindsym $mod+t exec telegram-desktop
+bindsym $mod+i exec /home/wurfkreuz/Downloads/intellij/idea-IU-242.23339.11/bin/idea
 
 # Workspace management
 bindsym $mod+1 workspace number 1

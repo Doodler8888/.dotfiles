@@ -236,6 +236,7 @@ simplified_ui true
 // Default: $SHELL
 //
 // default_shell "fish"
+ // default_shell "zsh"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //
@@ -358,7 +359,7 @@ mouse_mode true
 // Examples:
 //
 // copy_command "xclip -selection clipboard" // x11
-// copy_command "wl-copy"                    // wayland
+copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
 
 // Choose the destination for copied text
@@ -378,7 +379,7 @@ mouse_mode true
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
 //
-scrollback_editor "/usr/bin/nvim"
+scrollback_editor "nvim"
 
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)

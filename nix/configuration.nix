@@ -9,11 +9,11 @@
       ./hardware-configuration.nix
     ];
 
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      unstable = import <nixos-unstable> {};
-    };
-  };
+  # nixpkgs.config = {
+  #   packageOverrides = pkgs: {
+  #     unstable = import <nixos-unstable> {};
+  #   };
+  # };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -43,11 +43,33 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    # jack.enable = true;
   };
 
+  services.xserver = {
+    enable = true;
+
+    desktopManager = {
+      xterm.enable = false;
+    };
+   
+    # displayManager.ssdm = {
+    #     enable = true;
+    # };
+
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu #application launcher most people use
+        # i3status # gives you the default i3 status bar
+        # i3lock #default i3 screen locker
+        # i3blocks #if you are planning on using i3blocks over i3status
+     ];
+    };
+  };
   # I enabled xserver for a display manager, because with wayland it wasn't displaying some information correctly.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
+
   # services.displayManager.sddm.wayland.enable = true;
 
   services.displayManager.sddm.enable = true;
@@ -58,12 +80,12 @@
     variant = "colemak";
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   wlr.enable = true;
-  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  #   config.common.default = "gtk";
-  # };
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    # config.common.default = "gtk";
+  };
 
   services.gnome.gnome-keyring.enable = true;
 
@@ -108,7 +130,10 @@
     cl
     zig
     python3
+    gnumake
     cmake
+    autoconf
+    libtool
     openssh
     git
     wget
@@ -135,7 +160,12 @@
     zoxide
     obs-studio
     vlc
-    # emacs30
+    imagemagick
+    emacs30-gtk3
+    htop
+    openvpn
+    devbox
+    docker
     # (import /home/wurfkreuz/.dotfiles/nix/emacs.nix { inherit pkgs; })
   ];
 

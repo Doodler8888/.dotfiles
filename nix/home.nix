@@ -13,10 +13,11 @@ in
       starship
       antigen
       zellij
-      nil
+      nil # It's a nix lsp.
       pyright
       clojure-lsp
       k9s
+      lazydocker
       (pkgs.nerdfonts.override {
 	fonts = [
 	  "Noto"
@@ -38,49 +39,6 @@ in
   };
 
  programs.starship.enableZshIntegration = true;
-
- # # Manage Zsh
- #  programs.zsh = {
- #    enable = true;
- #    # shellAliases = {
- #    #   rm = "rm -i";
- #    # };
- #    antigen = {
- #      enable = true;
- #      plugins = [
- # { name = "zsh-users/zsh-syntax-highlighting"; }
- # { name = "zsh-users/zsh-autosuggestions"; }
- # { name = "kutsan/zsh-system-clipboard"; }
- # { name = "marlonrichert/zsh-autocomplete"; }
- #      ];
- #    };
- #    # autosuggestions = {
- #    #   enable = true;
- #    #   strategy = [ "history" ];
- #    # };
- #    # defaultKeymap = "viins"; #emacs, vicmd, or viins
- #    # history = {
- #    #   size = 5000;
- #    #   extended = true;
- #    #   ignoreDups = true;
- #    #   ignoreSpace = true;
- #    #   save =5000;
- #    #   path = "/home/user1/.zsh_history";
- #    # };
- #    # envExtra = ''
- #    #   export PATH=$PATH:/home/user1/bin
- #    #   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
- #    #   bindkey '^[[A' history-substring-search-up
- #    #   bindkey '^[[B' history-substring-search-down
- #    # '';
- #  };
-
-  # xdg.portal = {
-  #   enable = true;
-  #   # wlr.enable = true;
-  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  #   config.common.default = "gtk";
-  # };
 
   nixpkgs = {
   #   overlays = [

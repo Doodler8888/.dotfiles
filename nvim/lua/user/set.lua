@@ -30,6 +30,9 @@ vim.opt.updatetime = 50
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 0
 
+vim.opt.autowrite = true
+vim.opt.autowriteall = true
+
 vim.opt.shada = "'20,<50,s10,h"
 vim.cmd([[
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif

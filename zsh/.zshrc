@@ -65,7 +65,6 @@ alias v='nvim'
 alias v.='nvim .'
 alias zlj='cd ~/.dotfiles/zellij && nvim ~/.dotfiles/zellij/config.kdl'
 alias tmx='cd ~/.dotfiles/tmux && nvim ~/.dotfiles/tmux/.tmux.conf'
-alias di='docker images'
 alias bsh='cd ~/.dotfiles/bash/ && nvim .bashrc'
 alias ble='cd ~/.dotfiles/bash/ && nvim .blerc'
 alias mstart='minikube start'
@@ -108,9 +107,8 @@ alias zsh='cd ~/.dotfiles/zsh/ && nvim .zshrc'
 alias ls='eza'
 alias sl='eza'
 alias la='eza -lah'
-# alias ld='exa -ld'
-alias ls.='exa -a | grep -E "^\."'
-alias tree='exa -Ta --ignore-glob='.git''
+alias ls.='eza -a | grep -E "^\."'
+alias tree='eza -Ta --ignore-glob='.git''
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -124,8 +122,10 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias nvm='cd ~/.dotfiles/nvim/ && nvim .'
-alias install='sudo pacman -Syu'
-alias remove='sudo pacman -R'
+# alias install='sudo pacman -Syu'
+# alias remove='sudo pacman -R'
+alias install='sudo apt install'
+alias remove='sudo apt remove'
 alias orphaned='sudo pacman -Qtdq'
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 alias users="awk -F: '\$3>=1000 && \$1!=\"nobody\" && \$1!~/nixbld/ {print \$1}' /etc/passwd"  # Original: awk: cmd. line:1: >=1000 && !=nobody && !~/nixbld/ {print }
@@ -147,6 +147,13 @@ alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias i3c="nvim ~/.config/i3/config"
 alias mk="minikube"
+alias lazy="lazydocker"
+alias lz="lazydocker"
+alias dit="docker inspect"
+alias dis='docker images'
+alias release="cat /etc/lsb-release"
+alias os="cat /etc/lsb-release"
+alias clone="git clone"
 
 bindkey '^R' fzf_history_search
 

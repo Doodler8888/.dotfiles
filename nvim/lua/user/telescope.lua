@@ -4,6 +4,7 @@ local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local action_state = require("telescope.actions.state")
+local previewers = require 'telescope.previewers'
 
 
 require('telescope').setup({
@@ -362,3 +363,138 @@ end
 
 -- Add this line to make the function globally accessible
 vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>lua Switch_git_branch()<CR>", {noremap = true, silent = true})
+
+
+-- Function to create a new git branch starting from a selected base branch
+local function create_git_branch()
+  local input_opts = {
+    prompt = 'Enter new branch name: ',
+    default = '',
+  }
+
+  -- Prompt for new branch name
+  vim.ui.input(input_opts, function(new_branch_name)
+    if not new_branch_name or new_branch_name == '' then
+      print('Aborting: No branch name provided.')
+      return
+    end
+
+    -- Use Telescope to select the base branch
+    require('telescope.builtin').git_branches({
+      attach_mappings = function(prompt_bufnr, map)
+        local actions = require('telescope.actions')
+        local action_state = require('telescope.actions.state')
+
+        -- Override the default <CR> action
+        local function create_branch_from_selection()
+          local selection = action_state.get_selected_entry()
+          if not selection then
+            print('Aborting: No base branch selected.')
+            actions.close(prompt_bufnr)
+            return
+          end
+          local base_branch_name = selection.value
+          actions.close(prompt_bufnr)
+
+          -- Construct the git command
+          local cmd = { 'git', 'checkout', '-b', new_branch_name, base_branch_name }
+
+          -- Execute the git command
+          local result = vim.fn.systemlist(cmd)
+          local ret = vim.v.shell_error
+
+          if ret ~= 0 then
+            print('Error creating branch:')
+            for _, line in ipairs(result) do
+              print(line)
+            end
+          else
+            print('Branch "' .. new_branch_name .. '" created from "' .. base_branch_name .. '" and checked out.')
+          end
+        end
+
+        -- Map <CR> to create the new branch
+        map('i', '<CR>', create_branch_from_selection)
+        map('n', '<CR>', create_branch_from_selection)
+        return true
+      end
+    })
+  end)
+end
+
+-- Create a command for easy access
+vim.api.nvim_create_user_command('GitCreateBranch', create_git_branch, {})
+
+vim.api.nvim_set_keymap('n', '<leader>cb', ':GitCreateBranch<CR>', { noremap = true, silent = true })
+
+
+local function search_shell_commands()
+  -- Get lines from the current buffer
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  -- Filter lines that start with '> ', and store their line numbers
+  local cmd_lines = {}
+  for idx, line in ipairs(lines) do
+    if line:match('^> ') then
+      table.insert(cmd_lines, 1, { line = line, lnum = idx }) -- Insert at the beginning to reverse order
+    end
+  end
+  -- Check if any command lines are found
+  if #cmd_lines == 0 then
+    print('No command lines starting with "> " found in the current buffer.')
+    return
+  end
+  -- Define the Telescope picker
+  pickers.new({}, {
+    prompt_title = 'Search Shell Commands',
+    finder = finders.new_table {
+      results = cmd_lines,
+      entry_maker = function(entry)
+        return {
+          value = entry,
+          display = entry.line,
+          ordinal = entry.line,
+          lnum = entry.lnum,
+        }
+      end,
+    },
+    sorter = conf.generic_sorter({}),
+    previewer = previewers.new_buffer_previewer({
+      define_preview = function(self, entry, status)
+        local lnum = entry.lnum
+        local preview_height = vim.api.nvim_win_get_height(self.state.winid)
+        local start_line = math.max(lnum - math.floor(preview_height / 2), 1)
+        local end_line = math.min(start_line + preview_height - 1, vim.api.nvim_buf_line_count(bufnr))
+        local preview_lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
+        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, preview_lines)
+        -- Highlight the selected line
+        vim.api.nvim_buf_add_highlight(self.state.bufnr, 0, 'Visual', lnum - start_line, 0, -1)
+      end,
+    }),
+    attach_mappings = function(prompt_bufnr, map)
+      local function on_select()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        if selection then
+          local lnum = selection.lnum
+          -- Move the cursor to the selected line in the buffer
+          vim.api.nvim_win_set_cursor(0, { lnum, 0 })
+          -- Optional: Center the screen on the line
+          vim.cmd('normal! zz')
+        else
+          print('No selection made.')
+        end
+      end
+      -- Map <CR> to our custom action
+      map('i', '<CR>', on_select)
+      map('n', '<CR>', on_select)
+      return true
+    end,
+  }):find()
+end
+
+-- Create a command
+vim.api.nvim_create_user_command('SearchShellCommands', search_shell_commands, {})
+
+-- Set a keybinding (optional)
+vim.api.nvim_set_keymap('n', '<C-s><C-o>', ':SearchShellCommands<CR>', { noremap = true, silent = true })

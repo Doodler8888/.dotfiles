@@ -85,41 +85,32 @@ lspconfig.pyright.setup {
 
 -- Ansible/Yaml
 
--- vim.api.nvim_create_augroup("YAMLConfig", { clear = true })
---
--- vim.api.nvim_create_autocmd("BufRead", {
---     group = "YAMLConfig",
---     pattern = "*.yaml",
---     callback = function()
---         local filename = vim.fn.expand("%:t")
---         if not string.match(filename, "-playbook.yaml$") then
---             -- Replace 'ansiblels' with the correct name if different
---             vim.cmd("LspStop 1 (ansiblels)")
---         end
---     end,
--- })
-
--- lspconfig.ansiblels.setup{
---     filetypes = { "yaml.ansible" },
---     -- on_attach = function(client, bufnr)
---     --     local function BufSetOption(...) vim.api.nvim_buf_set_option(bufnr, ...) end
---     --     -- Enable completion triggered by <c-x><c-o>
---     --     BufSetOption('omnifunc', 'v:lua.vim.lsp.omnifunc')
---     -- end,
---     -- flags = {
---     --     debounce_text_changes = 150,
---     -- }
--- }
+-- Autodetect Ansible playbook files
+vim.filetype.add({
+  pattern = {
+    -- Playbooks
+    [".*playbook.*%.ya?ml"] = "yaml.ansible",
+    -- Roles
+    [".*/roles/.*/tasks/.*%.ya?ml"] = "yaml.ansible",
+    [".*/roles/.*/handlers/.*%.ya?ml"] = "yaml.ansible",
+    [".*/roles/.*/defaults/.*%.ya?ml"] = "yaml.ansible",
+    [".*/roles/.*/vars/.*%.ya?ml"] = "yaml.ansible",
+    [".*/roles/.*/meta/.*%.ya?ml"] = "yaml.ansible",
+    -- Inventory files
+    ["inventory%.ya?ml"] = "yaml.ansible",
+    ["hosts%.ya?ml"] = "yaml.ansible",
+  },
+})
 
 require("lspconfig").yamlls.setup {
-  settings = {
-    yaml = {
-      schemas = {
-        kubernetes = "k8s-*.yaml",
-	["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = ".gitlab-ci.yml"
-      },
-    },
-  },
+	--  settings = {
+	--    yaml = {
+	--      schemas = {
+	--        kubernetes = "k8s-*.yaml",
+	-- ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = ".gitlab-ci.yml"
+	--      },
+	--    },
+	--  },
 }
 
 --

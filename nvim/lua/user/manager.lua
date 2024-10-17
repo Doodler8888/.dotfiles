@@ -27,11 +27,9 @@ local plugins = {
 	"nvim-telescope/telescope-ui-select.nvim",
 	"rose-pine/neovim",
 	"anuvyklack/hydra.nvim",
-	"folke/flash.nvim",
 	"ibhagwan/fzf-lua",
 	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
-	-- "tpope/vim-sleuth",
 	'Raku/vim-raku',
 	'h4ckm1n-dev/kube-utils-nvim',
 	'nvim-lualine/lualine.nvim',
@@ -59,8 +57,14 @@ local plugins = {
 	    vim.g.db_ui_use_nerd_fonts = 1
 	  end,
 	},
-	-- 'Olical/conjure',
 	'stevearc/resession.nvim',
+	{
+	  'smoka7/hop.nvim',
+	  version = "*",
+	  opts = {
+	    keys = 'etovxqpdygfblzhckisuran'
+	  },
+	},
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -94,20 +98,15 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 	},
-	'nat-418/boole.nvim',
-	-- 'akinsho/toggleterm.nvim',
-	-- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+	-- 'nat-418/boole.nvim',
 	'natecraddock/telescope-zf-native.nvim',
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
-	'dhruvasagar/vim-table-mode',
-	'pearofducks/ansible-vim',
 	'tpope/vim-fugitive',
-	{
-	  'fabridamicelli/cronex.nvim',
-	  opts = {},
-	},
 	'jvgrootveld/telescope-zoxide',
+	{
+	  "tris203/precognition.nvim",
+	},
 	-- {
 	-- 	"yorickpeterse/nvim-tree-pairs", -- It breask how the % binding works
 	-- 	config = function()
@@ -128,16 +127,8 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
-	-- "dense-analysis/ale",
-	-- 'pocco81/auto-save.nvim',
+	'pocco81/auto-save.nvim',
 	'ahmedkhalf/project.nvim',
-	-- {
-	--   'Exafunction/codeium.vim',
-	--   config = function ()
-	--     vim.keymap.set('i', '<C-a>', function () return vim.fn['codeium#Accept']() end, { expr = true })
-	--   end
-	-- },
-	"nanotee/zoxide.vim",
 	{
 	  "hrsh7th/nvim-cmp",
 	  dependencies = {

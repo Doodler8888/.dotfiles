@@ -134,6 +134,7 @@ alias cfg="cd ~/.dotfiles/ansible/ && nvim ansible.cfg"
 alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias release="cat /etc/lsb-release"
+alias os="cat /etc/lsb-release"
 
 bindkey '^R' fzf_history_search
 

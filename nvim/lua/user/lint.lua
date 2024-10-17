@@ -1,8 +1,8 @@
 require('lint').linters_by_ft = {
   -- markdown = {'vale',}
-  -- ['yaml.ansible'] = {'ansible_lint',},
+  ['yaml.ansible'] = {'ansible_lint',},
   -- dockerfile = {'hadolint',},
-  -- sh = {'shellcheck',},
+  sh = {'shellcheck',},
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -18,3 +18,30 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
+-- Lint on opening a file
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+
+-- -- Lint after pasting
+-- vim.api.nvim_create_autocmd({ "TextChangedP" }, {
+--   callback = function()
+--     require("lint").try_lint()
+--   end,
+-- })
+--
+-- -- Lint on leaving the insert mode
+-- vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+--   callback = function()
+--     require("lint").try_lint()
+--   end,
+-- })
+--
+-- -- Lint on text change
+-- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+--   callback = function()
+--     require("lint").try_lint()
+--   end,
+-- })

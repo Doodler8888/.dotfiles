@@ -117,26 +117,35 @@ vim.api.nvim_create_user_command('ShowMessages', ShowMessagesInNewBuffer, {})
 vim.api.nvim_set_keymap('n', '<Leader>mm', ':ShowMessages<CR>', {noremap = true, silent = true})
 
 
--- Function to temporarily disable auto-indentation, insert a new line below, and then re-enable auto-indentation
-function _G.insert_new_line_below()
- local auto_indent = vim.api.nvim_buf_get_option(0, 'autoindent')
- vim.api.nvim_buf_set_option(0, 'autoindent', false)
- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('o<Esc>i', true, true, true), 'n', true)
- vim.api.nvim_buf_set_option(0, 'autoindent', auto_indent)
+-- Function to temporarily disable auto-indentation, insert new lines below, and then re-enable auto-indentation
+function _G.insert_new_line_below(count)
+  count = count or 1
+  local auto_indent = vim.api.nvim_buf_get_option(0, 'autoindent')
+  vim.api.nvim_buf_set_option(0, 'autoindent', false)
+  for _ = 1, count do
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('o<Esc>', true, true, true), 'n', true)
+  end
+  vim.api.nvim_buf_set_option(0, 'autoindent', auto_indent)
+  vim.api.nvim_feedkeys('i', 'n', true)
 end
 
--- Function to temporarily disable auto-indentation, insert a new line above, and then re-enable auto-indentation
-function _G.insert_new_line_above()
- local auto_indent = vim.api.nvim_buf_get_option(0, 'autoindent')
- vim.api.nvim_buf_set_option(0, 'autoindent', false)
- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('O<Esc>i', true, true, true), 'n', true)
- vim.api.nvim_buf_set_option(0, 'autoindent', auto_indent)
+-- Function to temporarily disable auto-indentation, insert new lines above, and then re-enable auto-indentation
+function _G.insert_new_line_above(count)
+  count = count or 1
+  local auto_indent = vim.api.nvim_buf_get_option(0, 'autoindent')
+  vim.api.nvim_buf_set_option(0, 'autoindent', false)
+  for _ = 1, count do
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('O<Esc>', true, true, true), 'n', true)
+  end
+  vim.api.nvim_buf_set_option(0, 'autoindent', auto_indent)
+  vim.api.nvim_feedkeys('i', 'n', true)
 end
 
--- Map <leader>o to insert a new line below without auto-indentation
-vim.api.nvim_set_keymap('n', 'go', ':lua insert_new_line_below()<CR>', {noremap = true, silent = true})
--- Map <leader>O to insert a new line above without auto-indentation
-vim.api.nvim_set_keymap('n', 'gO', ':lua insert_new_line_above()<CR>', {noremap = true, silent = true})
+-- Map go to insert new lines below without auto-indentation
+vim.api.nvim_set_keymap('n', 'go', ':<C-u>lua insert_new_line_below(vim.v.count1)<CR>', {noremap = true, silent = true})
+
+-- Map gO to insert new lines above without auto-indentation
+vim.api.nvim_set_keymap('n', 'gO', ':<C-u>lua insert_new_line_above(vim.v.count1)<CR>', {noremap = true, silent = true})
 
 
 vim.g.zoxide_custom_action = {
@@ -147,3 +156,32 @@ vim.g.zoxide_custom_action = {
 }
 
 
+function GitInitCustomBranch()
+  -- Use vim.fn.input() instead of vim.ui.input() for synchronous input
+  local branch_name = vim.fn.input("Enter the name for the initial branch: ")
+
+  -- Clear the command line
+  vim.cmd("redraw")
+
+  if branch_name == nil or branch_name == "" then
+    print("Branch name cannot be empty. Git init aborted.")
+    return
+  end
+
+  -- Execute git init with the custom branch
+  local cmd = string.format("git init -b %s", vim.fn.shellescape(branch_name))
+  local output = vim.fn.system(cmd)
+
+  -- Check if the command was successful
+  if vim.v.shell_error == 0 then
+    print(string.format("Git repository initialized with initial branch: %s", branch_name))
+  else
+    print("Failed to initialize Git repository.")
+    print("Error: " .. output)
+  end
+end
+
+-- Create a user command to call the function
+vim.api.nvim_create_user_command("GitInitCustomBranch", GitInitCustomBranch, {})
+
+vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap = true, silent = true })

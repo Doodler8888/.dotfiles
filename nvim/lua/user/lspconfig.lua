@@ -88,26 +88,33 @@ lspconfig.pyright.setup {
 -- Autodetect Ansible playbook files
 vim.filetype.add({
   pattern = {
-    -- Playbooks
+    -- Ansible Playbooks
     [".*playbook.*%.ya?ml"] = "yaml.ansible",
-    -- Roles
+    -- Ansible Roles
     [".*/roles/.*/tasks/.*%.ya?ml"] = "yaml.ansible",
     [".*/roles/.*/handlers/.*%.ya?ml"] = "yaml.ansible",
     [".*/roles/.*/defaults/.*%.ya?ml"] = "yaml.ansible",
     [".*/roles/.*/vars/.*%.ya?ml"] = "yaml.ansible",
     [".*/roles/.*/meta/.*%.ya?ml"] = "yaml.ansible",
-    -- Inventory files
+    -- Ansible Inventory files
     ["inventory%.ya?ml"] = "yaml.ansible",
     ["hosts%.ya?ml"] = "yaml.ansible",
+    -- Kubernetes templates
+    [".*/templates/.*%.ya?ml"] = "yaml.kubernetes",
+    [".*/templates/.*%.yaml"] = "yaml.kubernetes",
   },
 })
 
 require("lspconfig").yamlls.setup {
-	--  settings = {
-	--    yaml = {
-	--      schemas = {
-	--        kubernetes = "k8s-*.yaml",
-	-- ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = ".gitlab-ci.yml"
+	-- filetypes = { "yaml", "yaml.kubernetes" },
+	filetypes = { "yaml", },
+	-- settings = {
+	--   yaml = {
+	--     schemas = {
+	--       kubernetes = {
+	-- 	"*/templates/*.yaml",
+	-- 	"*/templates/*.yml",
+	-- },
 	--      },
 	--    },
 	--  },

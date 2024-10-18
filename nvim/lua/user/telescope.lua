@@ -12,8 +12,8 @@ require('telescope').setup({
   -- find_command = { "fd", "--hidden", "--exclude=.git", "--exclude=node_modules", "--exclude=.clj-kondo" },
   file_ignore_patterns = { -- ignoring files make the search slower?
   --     "node_modules",
-      "%.git",
-      -- ".git/",
+      -- "%.git",
+      ".git/",
       "%.terraform",
   --     "target",
   --     "build",
@@ -362,7 +362,7 @@ function Switch_git_branch()
 end
 
 -- Add this line to make the function globally accessible
-vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>lua Switch_git_branch()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>gbs", "<cmd>lua Switch_git_branch()<CR>", {noremap = true, silent = true})
 
 
 -- Function to create a new git branch starting from a selected base branch
@@ -425,7 +425,7 @@ end
 -- Create a command for easy access
 vim.api.nvim_create_user_command('GitCreateBranch', create_git_branch, {})
 
-vim.api.nvim_set_keymap('n', '<leader>cb', ':GitCreateBranch<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>gbc', ':GitCreateBranch<CR>', { noremap = true, silent = true })
 
 
 local function search_shell_commands()
@@ -498,3 +498,4 @@ vim.api.nvim_create_user_command('SearchShellCommands', search_shell_commands, {
 
 -- Set a keybinding (optional)
 vim.api.nvim_set_keymap('n', '<C-s><C-o>', ':SearchShellCommands<CR>', { noremap = true, silent = true })
+

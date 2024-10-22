@@ -107,7 +107,7 @@ vim.filetype.add({
 
 require("lspconfig").yamlls.setup {
 	-- filetypes = { "yaml", "yaml.kubernetes" },
-	filetypes = { "yaml", },
+	-- filetypes = { "yaml", },
 	-- settings = {
 	--   yaml = {
 	--     schemas = {

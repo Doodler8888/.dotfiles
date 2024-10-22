@@ -225,10 +225,10 @@ zstyle ':autocomplete:*' ignored-input '##'
 # bindkey "^R" history-incremental-pattern-search-backward
 # bindkey '^R' history-incremental-search-backward
 
-# if ! pgrep -x "swww-daemon" > /dev/null; then
-#     swww init 2> /dev/null
-#     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
-# fi
+if ! pgrep -x "swww-daemon" > /dev/null; then
+    swww-daemon & 2> /dev/null
+    swww img "$HOME/Downloads/images/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
+fi
 
 # It should be at the very top of my config, otherwise i might get latency on cursor in vim mode (not on emacs, i'm about on zsh)
 # if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then
@@ -257,6 +257,11 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
         eval "$(ssh-agent -s > /dev/null)" 
     fi
 fi
+
+# Fzf provides it's own set of commands on the same bindings like 'C-r'. But if
+# you fzf installation is in other directory, you have to change this line
+# accordingly.
+source ~/.fzf/shell/key-bindings.zsh
 
 PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/wurfkreuz/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;

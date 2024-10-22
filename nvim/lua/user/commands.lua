@@ -29,6 +29,8 @@ vim.cmd('command! Alc lcd $HOME/.dotfiles/alacritty/ | edit alacritty.toml')
 vim.cmd('command! Sway lcd $HOME/.dotfiles/sway/ | Oil ~/.dotfiles/sway')
 vim.cmd('command! D lcd $HOME/Downloads | Oil ~/Downloads')
 vim.cmd('command! Navi lcd $HOME/.dotfiles/navi/ | Oil ~/.dotfiles/navi/cheats/my__cheats/')
+vim.cmd('command! Config lcd $HOME/.config | Oil ~/.config')
+vim.cmd('command! C lcd $HOME/.config | Oil ~/.config')
 
 
 -- Current filetype

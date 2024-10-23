@@ -1,3 +1,4 @@
+local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
 local pickers = require("telescope.pickers")
@@ -5,6 +6,7 @@ local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local action_state = require("telescope.actions.state")
 local previewers = require 'telescope.previewers'
+local config = require('telescope.config')
 
 
 require('telescope').setup({
@@ -33,14 +35,14 @@ require('telescope').setup({
   --     "%.clj-kondo/",
   --     ".cpcache",
     },
-  mappings = {
-      i = {
-	["<C-g>"] = require('telescope.actions').close
-      },
-      n = {
-	["<C-g>"] = require('telescope.actions').close
-      },
-    },
+	--  mappings = {
+	--      i = {
+	-- ["<C-g>"] = require('telescope.actions').close
+	--      },
+	--      n = {
+	-- ["<C-g>"] = require('telescope.actions').close
+	--      },
+	--    },
   },
   extensions = {
         ["zf-native"] = {
@@ -499,3 +501,46 @@ vim.api.nvim_create_user_command('SearchShellCommands', search_shell_commands, {
 -- Set a keybinding (optional)
 vim.api.nvim_set_keymap('n', '<C-s><C-o>', ':SearchShellCommands<CR>', { noremap = true, silent = true })
 
+
+vim.api.nvim_set_keymap('n', '<C-s><C-h>', ':Telescope command_history<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<M-x>', ':Telescope commands<CR>', { noremap = true, silent = true })
+
+
+-- Define the custom action
+local function insert_selection_into_cmdline(prompt_bufnr)
+  -- Get the selected entry
+  local entry = action_state.get_selected_entry()
+  local cmd = entry.value
+
+  -- Close the Telescope window
+  actions.close(prompt_bufnr)
+
+  -- Insert the selected item into the command line
+  -- This simulates typing ':' followed by the selected item
+  vim.api.nvim_feedkeys(':' .. cmd, 'n', true)
+end
+
+-- vim.api.nvim_create_user_command('InsertSelectionIntoCmdline', insert_selection_into_cmdline, {})
+
+-- -- Telescope setup with custom mappings
+-- vim.api.nvim_set_keymap('n', '<M-CR>', ':InsertSelectionIntoCmdline<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<M-CR>', ':InsertSelectionIntoCmdline<CR>', { noremap = true, silent = true })
+
+require('telescope').setup{
+  defaults = {
+    mappings = vim.tbl_deep_extend('force', config.values.mappings, {
+      i = {
+        -- Your custom mappings in insert mode
+        -- ["<C-[>"] = insert_selection_into_cmdline,
+        ["<M-CR>"] = insert_selection_into_cmdline,
+        ["<C-g>"] = actions.close,
+      },
+      n = {
+        -- Your custom mappings in normal mode
+        -- ["<C-[>"] = insert_selection_into_cmdline,
+        ["<M-CR>"] = insert_selection_into_cmdline,
+        ["<C-g>"] = actions.close,
+      },
+    }),
+  },
+}

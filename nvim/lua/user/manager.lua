@@ -124,6 +124,20 @@ local plugins = {
 	  },
 	  build = ":TSUpdate",
 	},
+	-- "tpope/vim-repeat",
+	"folke/flash.nvim",
+	{
+	  "chrisgrieser/nvim-rip-substitute",
+	  cmd = "RipSubstitute",
+	  keys = {
+	    {
+	      "<leader>//",
+	      function() require("rip-substitute").sub() end,
+	      mode = { "n", "x" },
+	      desc = " rip substitute",
+	    },
+	  },
+	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},

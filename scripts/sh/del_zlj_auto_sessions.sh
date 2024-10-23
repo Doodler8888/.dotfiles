@@ -5,7 +5,7 @@ current_user=$(whoami)
 echo "Script is being executed by user: $current_user"
 
 # List and filter Zellij sessions
-sessions=$(zellij list-sessions | awk '/EXITED/ && ($1 ~ /-/) {print $1}' | sed -e 's/\x1b\[[0-9;]*m//g')
+sessions=$(zellij list-sessions | awk '/EXITED/ && ($1 ~ /-/ && $1 != "main") {print $1}' | sed -e 's/\x1b\[[0-9;]*m//g')
 
 # Read each session name and delete it
 while IFS= read -r session; do

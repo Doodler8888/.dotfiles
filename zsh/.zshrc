@@ -154,6 +154,7 @@ alias dis='docker images'
 alias release="cat /etc/lsb-release"
 alias os="cat /etc/lsb-release"
 alias clone="git clone"
+alias lg="lazygit"
 
 bindkey '^R' fzf_history_search
 
@@ -225,10 +226,10 @@ zstyle ':autocomplete:*' ignored-input '##'
 # bindkey "^R" history-incremental-pattern-search-backward
 # bindkey '^R' history-incremental-search-backward
 
-if ! pgrep -x "swww-daemon" > /dev/null; then
-    swww-daemon & 2> /dev/null
-    swww img "$HOME/Downloads/images/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
-fi
+# if ! pgrep -x "swww-daemon" > /dev/null; then
+#     swww-daemon > /dev/null 2>/dev/null &
+#     swww img "$HOME/Downloads/images/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif" > /dev/null 2>&1 &
+# fi
 
 # It should be at the very top of my config, otherwise i might get latency on cursor in vim mode (not on emacs, i'm about on zsh)
 # if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then

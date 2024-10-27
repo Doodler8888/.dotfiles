@@ -105,4 +105,7 @@ exec_always ~/.dotfiles/sway/launch.sh
 # it looks like i don't have to reapply it.
 exec_always --no-startup-id /home/wurfkreuz/.dotfiles/sway/swww.sh
 
+# An attempt to enable polkit
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
+
 exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

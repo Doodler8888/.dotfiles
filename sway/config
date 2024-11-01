@@ -45,8 +45,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
-bindsym $mod+b exec vivaldi
-# bindsym $mod+b exec vivaldi.vivaldi-stable
+# bindsym $mod+b exec vivaldi
+bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
 # bindsym $mod+r exec --no-startup-id wofi --show drun
@@ -83,7 +83,12 @@ input * {
     xkb_variant "colemak,"
     # xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
     xkb_options "caps:swapescape,grp:shifts_toggle"
+    accel_profile "flat"
+    pointer_accel 0
 }
+
+bindsym $mod+F1 exec /home/wurfkreuz/.dotfiles/sway/keyboard-switch.sh colemak
+bindsym $mod+F2 exec /home/wurfkreuz/.dotfiles/sway/keyboard-switch.sh qwerty
 
 bindsym alt+semicolon+1 exec ~/.dotfiles/sway/switch_tab.sh 1
 bindsym alt+semicolon+2 exec ~/.dotfiles/sway/switch_tab.sh 2

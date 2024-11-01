@@ -124,16 +124,27 @@ local plugins = {
 	  },
 	  build = ":TSUpdate",
 	},
-	-- "tpope/vim-repeat",
+	"tpope/vim-repeat",
 	"folke/flash.nvim",
+	{
+	  'MagicDuck/grug-far.nvim',
+	  config = function()
+	    require('grug-far').setup({
+	      -- options, see Configuration section below
+	      -- there are no required options atm
+	      -- engine = 'ripgrep' is default, but 'astgrep' can be specified
+	    });
+	  end
+	},
 	{
 	  "chrisgrieser/nvim-rip-substitute",
 	  cmd = "RipSubstitute",
 	  keys = {
 	    {
-	      "<leader>//",
+	      ":",
 	      function() require("rip-substitute").sub() end,
-	      mode = { "n", "x" },
+	      -- mode = { "n", "x" },
+	      mode = { "v" },
 	      desc = " rip substitute",
 	    },
 	  },

@@ -18,12 +18,13 @@ in
       clojure-lsp
       k9s
       lazydocker
+      nixd
       (pkgs.nerdfonts.override {
 	fonts = [
 	  "Noto"
 	];
       })
-  ]; 
+  ];
 
   programs.git = {
     enable = true;

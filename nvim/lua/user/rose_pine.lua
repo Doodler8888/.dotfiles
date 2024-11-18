@@ -100,6 +100,14 @@ require('rose-pine').setup({
 		['@neorg.markup.bold.norg'] = { bold = true },
 		['@markup.italic.markdown_inline'] = { italic = true },
 		['@markup.strong.markdown_inline'] = { bold = true },
+
+		-- I probably don't need all of them. They were added because of url's in comment string had their own color.
+		-- Also, if i try to change the highlighting like i did wit python below, then it will work very slow for some reason.
+		['@comment.lua'] = { fg = 'muted' },
+		['@spell.lua'] = { fg = 'muted' },
+		['@string.special.url.comment'] = { fg = 'muted' },
+		['@nospell.comment'] = { fg = 'muted' },
+		['@lsp.type.comment.lua'] = { fg = 'muted' },
 	      }
 	    })
 
@@ -113,7 +121,6 @@ vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
 vim.api.nvim_set_hl(0, '@boolean.python', { fg = '#908caa' })
 vim.api.nvim_set_hl(0, '@constant.python', { fg = '#e0def4' })
 vim.api.nvim_set_hl(0, '@variable.parameter.python', { fg = '#908caa' })
-
 
 -- -- Customize Identifier for Clojure files
 -- vim.api.nvim_create_autocmd("FileType", {

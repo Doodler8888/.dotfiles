@@ -157,7 +157,21 @@ vim.g.zoxide_custom_action = {
 
 
 function GitInitCustomBranch()
-  -- Use vim.fn.input() instead of vim.ui.input() for synchronous input
+  -- Get the current working directory
+  local cwd = vim.fn.getcwd()
+
+  -- Prompt for confirmation or editing of the path
+  local confirmed_path = vim.fn.input("Initialize Git repository at: ", cwd)
+
+  -- Clear the command line
+  vim.cmd("redraw")
+
+  if confirmed_path == nil or confirmed_path == "" then
+    print("Path cannot be empty. Git init aborted.")
+    return
+  end
+
+  -- Prompt for branch name
   local branch_name = vim.fn.input("Enter the name for the initial branch: ")
 
   -- Clear the command line
@@ -168,18 +182,21 @@ function GitInitCustomBranch()
     return
   end
 
+  -- Construct the command
+  local cmd = string.format("cd %s && git init -b %s", vim.fn.shellescape(confirmed_path), vim.fn.shellescape(branch_name))
+
   -- Execute git init with the custom branch
-  local cmd = string.format("git init -b %s", vim.fn.shellescape(branch_name))
   local output = vim.fn.system(cmd)
 
   -- Check if the command was successful
   if vim.v.shell_error == 0 then
-    print(string.format("Git repository initialized with initial branch: %s", branch_name))
+    print(string.format("Git repository initialized at %s with initial branch: %s", confirmed_path, branch_name))
   else
     print("Failed to initialize Git repository.")
     print("Error: " .. output)
   end
 end
+
 
 -- Create a user command to call the function
 vim.api.nvim_create_user_command("GitInitCustomBranch", GitInitCustomBranch, {})

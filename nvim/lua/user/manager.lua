@@ -118,13 +118,13 @@ local plugins = {
 	  config = function()
 	    -- setup treesitter with config
 	  end,
-	  dependencies = {
-	    -- note: additional parser
-	    { "nushell/tree-sitter-nu" },
-	  },
+	  -- dependencies = {
+	  --   -- note: additional parser
+	  --   { "nushell/tree-sitter-nu" },
+	  -- },
 	  build = ":TSUpdate",
 	},
-	"tpope/vim-repeat",
+	-- "tpope/vim-repeat",
 	"folke/flash.nvim",
 	{
 	  'MagicDuck/grug-far.nvim',

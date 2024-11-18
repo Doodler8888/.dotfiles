@@ -1,5 +1,5 @@
 def get_absolute_path [dir] {
-  if ($dir =~ '^/') { return $dir 
+  if ($dir =~ '^/') { return $dir
 } else { return ((pwd) + '/' + $dir) }
 }
 
@@ -17,5 +17,3 @@ def main [source?, destination?] {
   print "Soft link created for " + $source + "at " + $destination
   }
 }
-
-

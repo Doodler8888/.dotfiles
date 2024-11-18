@@ -139,12 +139,12 @@ require("telescope").load_extension("zf-native")
 -- -- require("telescope").load_extension("persisted")
 require('telescope').load_extension('zoxide')
 
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>ff",
-    [[<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true, sort = true })<CR>]],
-    { noremap = true, silent = true }
-)
+-- vim.api.nvim_set_keymap(
+--     "n",
+--     "<leader>ff",
+--     [[<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true, sort = true })<CR>]],
+--     { noremap = true, silent = true }
+-- )
 
 -- vim.api.nvim_set_keymap(
 -- 	"n",

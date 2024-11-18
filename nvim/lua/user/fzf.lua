@@ -16,7 +16,7 @@ require("fzf-lua").setup({
 
 -- vim.api.nvim_set_keymap("n", "<leader>ff", ":lua vim.cmd('FzfLua files')<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>fh", ":FzfLua files cwd=~/<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
+-- vim.api.nvim_set_keymap("n", "<leader>fr", ":FzfLua files cwd=/<CR>", { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<leader>fs", ":FzfLua grep_project<CR>", { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<C-s><C-s>", ":FzfLua lgrep_curbuf<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>fb", ":FzfLua buffers<CR>", { noremap = true })
@@ -164,6 +164,7 @@ vim.cmd([[command! -nargs=* CurrentDirs lua _G.fzf_current_dirs()]])
 vim.keymap.set("n", "<Leader>dh", _G.fzf_home_dirs)
 vim.keymap.set("n", "<Leader>dr", _G.fzf_root_dirs)
 vim.keymap.set("n", "<Leader>df", _G.fzf_current_dirs)
+vim.keymap.set("n", "<Leader>fd", _G.fzf_current_dirs)
 
 
 vim.api.nvim_set_keymap('n', '<leader>fn', ':lua require("fzf-lua").files({ cwd = "~/.secret_dotfiles/neorg", hidden = true })<CR>', {noremap = true, silent = true})

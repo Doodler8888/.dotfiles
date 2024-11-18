@@ -139,6 +139,7 @@ alias scr="cd ~/.dotfiles/scripts"
 alias nsh="cd ~/.dotfiles/nu && nvim config.nu"
 alias ans="cd ~/.dotfiles/ansible"
 alias dot="cd ~/.dotfiles"
+alias sdot="cd ~/.secret_dotfiles"
 alias dimages="docker images"
 alias dtag="docker tag"
 alias dpsa="docker ps -a | head -n 5"
@@ -220,6 +221,7 @@ antigen bundle kutsan/zsh-system-clipboard &> /dev/null
 # antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv" &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
+# antigen bundle jeffreytse/zsh-vi-mode
 antigen apply &> /dev/null
 
 # for the autocomplete plugin

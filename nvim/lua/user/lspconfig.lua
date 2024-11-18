@@ -150,7 +150,7 @@ require("lspconfig").yamlls.setup {
 -- Disable auto-wrapping on specified file types
 
 vim.api.nvim_create_autocmd("FileType", { -- Had an unexpected behavior with the custom nu type, where the autoformatiing was getting triggered on the 80th character.
-  pattern = { "nu", "python", "terraform", "nix", "yaml" },
+  pattern = { "nu", "python", "terraform", "nix", "yaml", "terraform-vars" },
   callback = function()
     -- Remove 't' from formatoptions to prevent auto text wrapping while typing
     vim.opt_local.formatoptions:remove("t")

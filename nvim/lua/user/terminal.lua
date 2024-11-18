@@ -98,7 +98,7 @@ function _G.open_terminal_in_current_buffer_dir()
 end
 
 vim.api.nvim_create_user_command('OpenTermInBufferDir', _G.open_terminal_in_current_buffer_dir, {})
-vim.api.nvim_set_keymap('n', '<leader>tt', ':lua _G.open_terminal_in_current_buffer_dir()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>tt', ':lua _G.open_terminal_in_current_buffer_dir()<CR>', { noremap = true, silent = true })
 
 
 
@@ -129,3 +129,6 @@ vim.api.nvim_create_user_command('W', function()
 end, {})
 
 -- vim.api.nvim_set_keymap('n', '<C-n><C-n>', [[:W<CR>]], {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap('n', '<leader>tt', '<cmd>OpenTrashBelow<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gt', '<cmd>OpenTrashBelow<CR>', { noremap = true, silent = true })

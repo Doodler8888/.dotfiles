@@ -27,7 +27,7 @@ require("oil").setup({
     concealcursor = "nvic",
   },
   -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-  delete_to_trash = false,
+  delete_to_trash = true,
   -- Skip the confirmation popup for simple operations
   skip_confirm_for_simple_edits = true,
   -- Change this to customize the command used when deleting to trash
@@ -162,7 +162,7 @@ function symlink_current_item()
     prompt = 'Use sudo?',
   }, function(choice)
     local sudo_prefix = choice == 'Yes' and 'sudo ' or ''
-    
+
     -- Prompt for destination path
     vim.ui.input({
       prompt = "Enter destination path for symlink: ",
@@ -196,3 +196,15 @@ function symlink_current_item()
 end
 
 vim.api.nvim_create_user_command('OilSymlink', symlink_current_item, {})
+
+
+
+-- Define the command
+vim.api.nvim_create_user_command('OpenTrashBelow', function()
+    -- Create a new window below the current one
+    vim.cmd('below split')
+    -- Execute the Oil command in the new window
+    vim.cmd('Oil --trash /')
+    -- -- Resize the new window to a reasonable height (optional)
+    -- vim.cmd('resize 15')
+end, {})

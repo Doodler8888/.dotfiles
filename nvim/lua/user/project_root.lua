@@ -70,7 +70,7 @@ local function telescope_from_root()
 end
 
 -- Telescope keybinding
-vim.keymap.set('n', '<leader>ff', telescope_from_root, {
+vim.keymap.set('n', '<leader>fr', telescope_from_root, {
     noremap = true,
     silent = true,
     desc = "Find files from project root"

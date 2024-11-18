@@ -114,3 +114,4 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 -- For sway
 -- vim.keymap.set('n', '<M-/>', '<Nop>', { noremap = true })
 
+

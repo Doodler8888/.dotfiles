@@ -57,7 +57,7 @@ local plugins = {
 	    vim.g.db_ui_use_nerd_fonts = 1
 	  end,
 	},
-	'stevearc/resession.nvim',
+	'Doodler8888/resession.nvim',
 	{
 	  'smoka7/hop.nvim',
 	  version = "*",
@@ -99,7 +99,14 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 	},
 	-- 'nat-418/boole.nvim',
-	'natecraddock/telescope-zf-native.nvim',
+	-- {
+	--  'natecraddock/telescope-zf-native.nvim',
+	--   -- opts = {
+	--   --   rocks = {
+	--   --     enabled = false;
+	--   --   }
+	--   -- },
+	-- },
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
 	'tpope/vim-fugitive',

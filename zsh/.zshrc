@@ -1,6 +1,6 @@
 source /home/wurfkreuz/.dotfiles/bash/scripts.sh
 source /usr/local/bin
-# source ~/.secret_dotfiles/zsh/.zshrc
+source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export PATH="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$PATH"
 # export EDITOR='/usr/bin/nvim'

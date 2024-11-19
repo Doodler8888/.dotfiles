@@ -157,37 +157,37 @@ vim.g.zoxide_custom_action = {
 
 
 function GitInitCustomBranch()
-  -- Get the current working directory
-  local cwd = vim.fn.getcwd()
+  -- Get the current path, handling oil buffers specially
+  local cwd
+  if vim.bo.filetype == "oil" then
+    -- Remove the "oil:///" prefix from the path for oil buffers
+    cwd = vim.fn.expand('%:p'):gsub("^oil:///", "/")
+  else
+    -- For regular buffers, get the absolute path of the current buffer's directory
+    local buffer_dir = vim.fn.expand('%:p:h')
+    cwd = (buffer_dir ~= '') and buffer_dir or vim.fn.getcwd()
+  end
 
   -- Prompt for confirmation or editing of the path
   local confirmed_path = vim.fn.input("Initialize Git repository at: ", cwd)
-
   -- Clear the command line
   vim.cmd("redraw")
-
   if confirmed_path == nil or confirmed_path == "" then
     print("Path cannot be empty. Git init aborted.")
     return
   end
-
   -- Prompt for branch name
   local branch_name = vim.fn.input("Enter the name for the initial branch: ")
-
   -- Clear the command line
   vim.cmd("redraw")
-
   if branch_name == nil or branch_name == "" then
     print("Branch name cannot be empty. Git init aborted.")
     return
   end
-
   -- Construct the command
   local cmd = string.format("cd %s && git init -b %s", vim.fn.shellescape(confirmed_path), vim.fn.shellescape(branch_name))
-
   -- Execute git init with the custom branch
   local output = vim.fn.system(cmd)
-
   -- Check if the command was successful
   if vim.v.shell_error == 0 then
     print(string.format("Git repository initialized at %s with initial branch: %s", confirmed_path, branch_name))
@@ -197,8 +197,6 @@ function GitInitCustomBranch()
   end
 end
 
-
 -- Create a user command to call the function
 vim.api.nvim_create_user_command("GitInitCustomBranch", GitInitCustomBranch, {})
-
 vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap = true, silent = true })

@@ -133,7 +133,7 @@ require('telescope').setup({
 -- Optional: Add a keymap
 -- vim.api.nvim_set_keymap('n', '<leader>ff', ':ProjectFiles<CR>', { noremap = true, silent = true })
 
-require("telescope").load_extension("zf-native")
+-- require("telescope").load_extension("zf-native")
 -- require("telescope").load_extension("fzf")
 -- require("telescope").load_extension("ui-select")
 -- -- require("telescope").load_extension("persisted")

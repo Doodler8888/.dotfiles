@@ -75,7 +75,7 @@ local function change_to_buffer_dir()
   end
 
   -- Change Neovim's current working directory to the buffer's directory
-  vim.cmd('lcd ' .. buftdir)
+  vim.cmd('tcd ' .. buftdir)
 end
 
 -- Create a Neovim command called "CdToBufferDir" that invokes the function

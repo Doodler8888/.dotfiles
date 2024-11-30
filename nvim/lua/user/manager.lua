@@ -98,6 +98,14 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 	},
+	{
+	  "amitds1997/remote-nvim.nvim",
+	  version = "*", -- Pin to GitHub releases
+	  dependencies = {
+	    "MunifTanjim/nui.nvim", -- To build the plugin UI
+	  },
+	  config = true,
+	},
 	-- 'nat-418/boole.nvim',
 	-- {
 	--  'natecraddock/telescope-zf-native.nvim',

@@ -171,6 +171,7 @@ _G.telescope_current_buffer_fuzzy_find = function()
     print("Telescope cannot be opened from the command-line window.")
     return
   end
+
   require('telescope.builtin').current_buffer_fuzzy_find({
     attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
@@ -191,16 +192,25 @@ _G.telescope_current_buffer_fuzzy_find = function()
 
           -- Schedule a function to re-enable 'n' and 'N' functionality
           vim.schedule(function()
-
-            -- Remap 'n' and 'N' to move to next/previous match without highlighting
+            -- Remap 'n' and 'N' to move to next/previous match with error handling
             vim.keymap.set('n', 'n', function()
-              vim.cmd('normal! n')
-              vim.o.hlsearch = false
+              local status, err = pcall(function()
+                vim.cmd('normal! n')
+                vim.o.hlsearch = false
+              end)
+              if not status then
+                vim.notify("Pattern not found: " .. vim.fn.getreg('/'), vim.log.levels.WARN)
+              end
             end, {silent = true})
 
             vim.keymap.set('n', 'N', function()
-              vim.cmd('normal! N')
-              vim.o.hlsearch = false
+              local status, err = pcall(function()
+                vim.cmd('normal! N')
+                vim.o.hlsearch = false
+              end)
+              if not status then
+                vim.notify("Pattern not found: " .. vim.fn.getreg('/'), vim.log.levels.WARN)
+              end
             end, {silent = true})
           end)
         end

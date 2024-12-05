@@ -31,8 +31,6 @@ local plugins = {
 	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
 	'Raku/vim-raku',
-	'h4ckm1n-dev/kube-utils-nvim',
-	'nvim-lualine/lualine.nvim',
 	{
 	  "NeogitOrg/neogit",
 	  dependencies = {
@@ -58,13 +56,6 @@ local plugins = {
 	  end,
 	},
 	'Doodler8888/resession.nvim',
-	{
-	  'smoka7/hop.nvim',
-	  version = "*",
-	  opts = {
-	    keys = 'etovxqpdygfblzhckisuran'
-	  },
-	},
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -142,16 +133,6 @@ local plugins = {
 	-- "tpope/vim-repeat",
 	"folke/flash.nvim",
 	{
-	  'MagicDuck/grug-far.nvim',
-	  config = function()
-	    require('grug-far').setup({
-	      -- options, see Configuration section below
-	      -- there are no required options atm
-	      -- engine = 'ripgrep' is default, but 'astgrep' can be specified
-	    });
-	  end
-	},
-	{
 	  "chrisgrieser/nvim-rip-substitute",
 	  cmd = "RipSubstitute",
 	  keys = {
@@ -168,7 +149,6 @@ local plugins = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
 	'pocco81/auto-save.nvim',
-	'ahmedkhalf/project.nvim',
 	{
 	  "hrsh7th/nvim-cmp",
 	  dependencies = {

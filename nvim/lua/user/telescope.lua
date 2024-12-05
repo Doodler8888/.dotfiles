@@ -441,9 +441,14 @@ vim.api.nvim_set_keymap('n', '<leader>gbc', ':GitCreateBranch<CR>', { noremap = 
 
 
 local function search_shell_commands()
+  -- Store the current mode
+  local mode = vim.api.nvim_get_mode().mode
+  local was_visual = mode:match('^[vV\22]') -- v, V, or <C-v>
+
   -- Get lines from the current buffer
   local bufnr = vim.api.nvim_get_current_buf()
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
   -- Filter lines that start with '> ', and store their line numbers
   local cmd_lines = {}
   for idx, line in ipairs(lines) do
@@ -451,11 +456,13 @@ local function search_shell_commands()
       table.insert(cmd_lines, 1, { line = line, lnum = idx }) -- Insert at the beginning to reverse order
     end
   end
+
   -- Check if any command lines are found
   if #cmd_lines == 0 then
     print('No command lines starting with "> " found in the current buffer.')
     return
   end
+
   -- Define the Telescope picker
   pickers.new({}, {
     prompt_title = 'Search Shell Commands',
@@ -479,7 +486,6 @@ local function search_shell_commands()
         local end_line = math.min(start_line + preview_height - 1, vim.api.nvim_buf_line_count(bufnr))
         local preview_lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
         vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, preview_lines)
-        -- Highlight the selected line
         vim.api.nvim_buf_add_highlight(self.state.bufnr, 0, 'Visual', lnum - start_line, 0, -1)
       end,
     }),
@@ -491,25 +497,45 @@ local function search_shell_commands()
           local lnum = selection.lnum
           -- Move the cursor to the selected line in the buffer
           vim.api.nvim_win_set_cursor(0, { lnum, 0 })
-          -- Optional: Center the screen on the line
+          -- Center the screen on the line
           vim.cmd('normal! zz')
+
+          -- If we were in visual mode, restore it
+          if was_visual then
+            -- Enter visual block mode
+            vim.cmd('normal! <C-v>')
+          end
         else
           print('No selection made.')
         end
       end
-      -- Map <CR> to our custom action
+
+      -- Map both normal mode and visual mode actions
       map('i', '<CR>', on_select)
       map('n', '<CR>', on_select)
+
+      -- Add additional mappings for visual mode
+      map('i', '<C-v>', function()
+        on_select()
+        vim.cmd('normal! <C-v>')
+      end)
+      map('n', '<C-v>', function()
+        on_select()
+        vim.cmd('normal! <C-v>')
+      end)
+
       return true
     end,
   }):find()
 end
 
--- Create a command
-vim.api.nvim_create_user_command('SearchShellCommands', search_shell_commands, {})
+-- Add command that works in both normal and visual mode
+vim.api.nvim_create_user_command('SearchShellCommands', search_shell_commands, { range = true })
+
 
 -- Set a keybinding (optional)
 vim.api.nvim_set_keymap('n', '<C-s><C-o>', ':SearchShellCommands<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-s><C-o>', ':SearchShellCommands<CR>', { noremap = true, silent = true })
 
 
 vim.api.nvim_set_keymap('n', '<C-s><C-h>', ':Telescope command_history<CR>', { noremap = true, silent = true })

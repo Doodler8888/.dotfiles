@@ -1,5 +1,8 @@
 local resession = require("resession")
 require("resession").setup({
+  on_load = function()
+    vim.cmd('redrawtabline')
+  end,
   autosave = {
     enabled = false,
     interval = 30,
@@ -28,6 +31,9 @@ require("resession").setup({
       enable_in_tab = true,
       save_buffers = true,
     },
+    -- tab_rename_extension = {
+    --   save_global = true,
+    -- },
   },
 })
 

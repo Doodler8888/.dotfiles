@@ -1,0 +1,31 @@
+(each [_ module (ipairs [:user.set
+			 :user.set-fnl
+			 :user.conjure
+                         :user.manager
+                         :user.visual
+                         :user.remap
+                         :user.treesitter
+                         :user.rose_pine
+                         :user.commands
+                         :user.lspconfig
+                         :user.hydra
+                         :user.functions
+                         :user.wrapper
+                         :user.fzf
+                         :user.oil
+                         :user.autosave
+                         :user.lint
+                         :user.cmp
+                         :user.conform
+                         :user.resession
+                         :user.flash
+                         :user.telescope
+                         :user.luasnip
+                         :user.commenting
+                         :user.dadbod
+                         :user.surround
+                         :user.fugitive
+                         :user.neogit
+                         :user.project_root
+                         :user.remote])]
+  (require module))

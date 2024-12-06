@@ -31,6 +31,10 @@ local plugins = {
 	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
 	'Raku/vim-raku',
+	-- "Olical/conjure",
+	-- {
+	--   "Olical/nfnl", ft = "fennel"
+	-- },
 	{
 	  "NeogitOrg/neogit",
 	  dependencies = {

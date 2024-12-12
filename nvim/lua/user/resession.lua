@@ -34,6 +34,10 @@ require("resession").setup({
     -- tab_rename_extension = {
     --   save_global = true,
     -- },
+    tabs_extension = {
+      enable_in_tab = true,
+      save_buffers = true,
+    },
   },
 })
 

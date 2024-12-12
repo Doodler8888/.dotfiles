@@ -1,11 +1,10 @@
 local M = {}
 
--- Store tab names in a global table
-_G.custom_tab_names = {}
+-- Initialize custom_tab_names only if it doesn't exist
+_G.custom_tab_names = _G.custom_tab_names or {}
 
--- Function to set a custom name for the current tab
 function M.set_tabname()
-    local tabnr = vim.api.nvim_get_current_tabpage()
+    local tabnr = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage())
     vim.ui.input({ prompt = 'Tab name: ' }, function(name)
         if name then
             _G.custom_tab_names[tabnr] = name
@@ -14,8 +13,8 @@ function M.set_tabname()
     end)
 end
 
--- Function to get custom tab name
-function M.get_tabname(tabnr)
+function M.get_tabname(tab)
+    local tabnr = type(tab) == "number" and tab or vim.api.nvim_tabpage_get_number(tab)
     return _G.custom_tab_names[tabnr]
 end
 
@@ -32,7 +31,7 @@ function M.custom_tabline()
             tabline = tabline .. '%#TabLine#'
         end
 
-        tabline = tabline .. ' ['..vim.api.nvim_tabpage_get_number(tab)..'] '
+        tabline = tabline .. ' '..vim.api.nvim_tabpage_get_number(tab)..' '
 
         local custom_name = M.get_tabname(tab)
         if custom_name then
@@ -53,11 +52,14 @@ function M.custom_tabline()
     return tabline
 end
 
--- Make the custom_tabline function globally available
 _G.custom_tabline = M.custom_tabline
 
-return M
+-- Then set the tabline option
+vim.o.tabline = '%!v:lua.custom_tabline()'
 
+vim.keymap.set('n', '<leader>tr', M.set_tabname, { desc = "Rename tab" })
+
+return M
 
 -- I also probably need to add this into a non-module file like init, into a
 -- non-module file like set.lua or init.lua:

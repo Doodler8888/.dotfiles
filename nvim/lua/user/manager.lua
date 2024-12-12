@@ -152,7 +152,7 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
-	'pocco81/auto-save.nvim',
+	-- 'pocco81/auto-save.nvim',
 	{
 	  "hrsh7th/nvim-cmp",
 	  dependencies = {

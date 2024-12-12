@@ -22,7 +22,8 @@ export LC_ALL=C.UTF-8
 # export XDG_CURRENT_DESKTOP=sway
 # export LUA_BINDIR="/usr/local/bin/"
 # export LUA_BINDIR_SET=yes
-export VISUDO_EDITOR=/usr/bin/nvim
+# export VISUDO_EDITOR=/usr/bin/nvim
+export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 # export XAUTHORITY=$HOME/.Xauthority
 # export XDG_CONFIG_HOME="$HOME/.config/"
@@ -44,6 +45,8 @@ bindkey -v
 bindkey -M viins '\e.' insert-last-word
 bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
+bindkey '^W' backward-kill-word
+bindkey -M vicmd 'Y' vi-yank-eol
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -281,4 +284,4 @@ if [ -e /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/wurfkr
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# something 'aoriset'
+eval "$(direnv hook zsh)"

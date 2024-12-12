@@ -52,9 +52,10 @@ bindsym $mod+b exec vivaldi.vivaldi-stable
 bindsym $mod+o exec dolphin
 # bindsym $mod+r exec --no-startup-id wofi --show drun
 bindsym $mod+r exec --no-startup-id /home/wurfkreuz/.nix-profile/bin/wofi --show drun
-# bindsym $mod+e exec emacs
-bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
-bindsym $mod+t exec telegram-desktop
+bindsym $mod+e exec emacs
+# bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
+# bindsym $mod+t exec telegram-desktop
+bindsym $mod+t exec telegram
 bindsym $mod+i exec /home/wurfkreuz/Downloads/intellij/idea-IU-242.23339.11/bin/idea
 
 # Workspace management

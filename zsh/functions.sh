@@ -110,7 +110,7 @@ zle -N fd-search
 # bindkey '^Y' fd-search
 
 
-fd-lsearchh() {
+zd-lsearchh() {
  local file
  # Use the $HOME environment variable to specify the home directory
  file=$(fd --hidden . "$HOME" | fzf --height 40% --border)
@@ -286,3 +286,4 @@ Cp() {
   # Notify the user that the path has been copied
   echo "Copied current directory path to clipboard: $current_dir"
 }
+

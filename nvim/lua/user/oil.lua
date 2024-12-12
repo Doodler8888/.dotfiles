@@ -208,3 +208,95 @@ vim.api.nvim_create_user_command('OpenTrashBelow', function()
     -- -- Resize the new window to a reasonable height (optional)
     -- vim.cmd('resize 15')
 end, {})
+
+
+-- An attempt to make multimarking for oil
+
+-- local M = {}
+-- local ns_id = vim.api.nvim_create_namespace('my_highlights')
+-- local highlighted_lines = {}
+--
+-- -- Function to set up action mappings
+-- local function setup_action_mappings()
+--     vim.keymap.set('n', 'd', function() M.perform_action("delete") end, {buffer = true})
+--     vim.keymap.set('n', 'y', function() M.perform_action("copy") end, {buffer = true})
+-- end
+--
+-- -- Function to remove action mappings
+-- local function remove_action_mappings()
+--     vim.keymap.del('n', 'd', {buffer = true})
+--     vim.keymap.del('n', 'y', {buffer = true})
+-- end
+--
+-- M.toggle_highlight = function()
+--     local current_line = vim.api.nvim_win_get_cursor(0)[1]
+--     vim.api.nvim_buf_add_highlight(0, ns_id, 'Search', current_line - 1, 0, -1)
+--     highlighted_lines[current_line] = true
+--
+--     -- Set up action mappings when first mark is created
+--     if next(highlighted_lines) then
+--         setup_action_mappings()
+--     end
+--
+--     vim.keymap.set('n', '<Esc>', function()
+--         vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+--         highlighted_lines = {}
+--         vim.cmd('redraw!')
+--         remove_action_mappings()  -- Remove action mappings when marks are cleared
+--         vim.keymap.del('n', '<Esc>', { nowait = true })
+--     end, { nowait = true })
+-- end
+--
+-- local function get_highlighted_lines()
+--     local lines = {}
+--     for line, _ in pairs(highlighted_lines) do
+--         table.insert(lines, line)
+--     end
+--     table.sort(lines)
+--     return lines
+-- end
+--
+-- M.perform_action = function(action)
+--     local lines = get_highlighted_lines()
+--     if #lines == 0 then return end
+--
+--     if action == "delete" then
+--         -- Get the lines content first
+--         local content = {}
+--         for _, lnum in ipairs(lines) do
+--             local line = vim.api.nvim_buf_get_lines(0, lnum-1, lnum, false)[1]
+--             table.insert(content, line)
+--         end
+--
+--         -- Store in register
+--         vim.fn.setreg('"', table.concat(content, '\n'), 'l')
+--
+--         -- Delete lines from buffer
+--         for i = #lines, 1, -1 do  -- Delete from bottom to top
+--             vim.api.nvim_buf_set_lines(0, lines[i]-1, lines[i], false, {})
+--         end
+--     elseif action == "copy" then
+--         -- Get the lines content
+--         local content = {}
+--         for _, lnum in ipairs(lines) do
+--             local line = vim.api.nvim_buf_get_lines(0, lnum-1, lnum, false)[1]
+--             table.insert(content, line)
+--         end
+--
+--         -- Store in register
+--         vim.fn.setreg('"', table.concat(content, '\n'), 'l')
+--     end
+--
+--     vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+--     highlighted_lines = {}
+--     remove_action_mappings()  -- Remove action mappings after action is performed
+-- end
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "oil",
+--     callback = function()
+--         vim.keymap.set('n', 'm', M.toggle_highlight, {buffer = true})
+--     end
+-- })
+--
+-- return M

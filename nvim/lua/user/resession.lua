@@ -31,6 +31,7 @@ require("resession").setup({
       enable_in_tab = true,
       save_buffers = true,
     },
+    -- The extension works without adding it here
     -- tab_rename_extension = {
     --   save_global = true,
     -- },
@@ -41,6 +42,25 @@ require("resession").setup({
   },
 })
 
+
+local function rename_session()
+    local current = resession.get_current()
+    if not current then
+        print("No session currently loaded")
+        return
+    end
+
+    vim.ui.input({ prompt = 'New session name: ' }, function(new_name)
+        if new_name and new_name ~= "" then
+            resession.delete(current)
+            resession.save(new_name)
+            print(string.format("Session renamed from '%s' to '%s'", current, new_name))
+        end
+    end)
+end
+
+vim.keymap.set('n', '<leader>sr', rename_session, { desc = "Rename session" })
+vim.api.nvim_set_keymap('n', '<leader>sl', '<cmd>lua Select_and_load_session_telescope()<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>ss", resession.save)
 -- vim.keymap.set("n", "<leader>sl", resession.load)
 vim.keymap.set("n", "<leader>sd", resession.delete)
@@ -112,8 +132,6 @@ function Select_and_load_session_telescope(opts)
 end
 
 
--- Keybinding Example (Neovim Lua configuration)
-vim.api.nvim_set_keymap('n', '<leader>sl', '<cmd>lua Select_and_load_session_telescope()<CR>', { noremap = true, silent = true })
 
 -- vim.api.nvim_create_autocmd("VimLeavePre", {
 --   callback = function()

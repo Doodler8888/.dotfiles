@@ -44,6 +44,24 @@ require('telescope').setup({
 	--      },
 	--    },
   },
+  pickers = {
+    registers = {
+      mappings = {
+	i = {
+	  ["<CR>"] = function(prompt_bufnr)
+	    local selection = require("telescope.actions.state").get_selected_entry()
+	    require("telescope.actions").close(prompt_bufnr)
+
+	    -- Set all relevant registers
+	    vim.fn.setreg('"', selection.content)  -- unnamed register
+	    vim.fn.setreg('0', selection.content)  -- yank register
+	    vim.fn.setreg('+', selection.content)  -- system clipboard
+	    vim.fn.setreg('*', selection.content)  -- primary selection
+	  end
+	}
+      }
+    }
+  },
   extensions = {
     fzf = {},
         -- ["zf-native"] = {
@@ -137,8 +155,7 @@ require('telescope').setup({
 -- require("telescope").load_extension("zf-native")
 -- require("telescope").load_extension("fzf")
 -- require("telescope").load_extension("ui-select")
--- -- require("telescope").load_extension("persisted")
-require('telescope').load_extension('zoxide')
+-- require('telescope').load_extension('zoxide')
 
 vim.api.nvim_set_keymap(
     "n",
@@ -146,6 +163,8 @@ vim.api.nvim_set_keymap(
     [[<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true, sort = true })<CR>]],
     { noremap = true, silent = true }
 )
+
+vim.keymap.set('n', '<leader>fy', '<cmd>Telescope registers<cr>', { desc = "Find in registers" })
 
 -- vim.api.nvim_set_keymap(
 -- 	"n",
@@ -581,3 +600,11 @@ require('telescope').setup{
     }),
   },
 }
+
+
+-- Add this temporarily to see which register is used when pressing 'p'
+vim.keymap.set('n', 'p', function()
+    print("Current unnamed register:", vim.fn.getreg('"'))
+    print("Register 0:", vim.fn.getreg('0'))
+    return 'p'
+end, { expr = true })

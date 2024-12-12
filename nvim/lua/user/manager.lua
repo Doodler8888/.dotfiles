@@ -134,6 +134,17 @@ local plugins = {
 	  -- },
 	  build = ":TSUpdate",
 	},
+	{
+	  "preservim/vim-markdown",
+	  ft = "markdown",
+	  dependencies = "godlygeek/tabular",  -- required dependency
+	  config = function()
+	    vim.g.vim_markdown_numbered_lists = 1
+	    vim.g.vim_markdown_folding_disabled = 1
+	    vim.g.vim_markdown_auto_insert_bullets = 1
+	    vim.g.vim_markdown_new_list_item_indent = 0
+	  end,
+	},
 	-- "tpope/vim-repeat",
 	"folke/flash.nvim",
 	{
@@ -149,10 +160,11 @@ local plugins = {
 	    },
 	  },
 	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-	},
-	-- 'pocco81/auto-save.nvim',
+	-- {
+	--   "OXY2DEV/markview.nvim",
+	--   lazy = false,      -- Recommended
+	-- },
+	'pocco81/auto-save.nvim',
 	{
 	  "hrsh7th/nvim-cmp",
 	  dependencies = {

@@ -559,7 +559,7 @@ vim.api.nvim_set_keymap('v', '<C-s><C-o>', ':SearchShellCommands<CR>', { noremap
 
 
 vim.api.nvim_set_keymap('n', '<C-s><C-h>', ':Telescope command_history<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<M-x>', ':Telescope commands<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<M-x>', ':Telescope commands<CR>', { noremap = true, silent = true })
 
 
 -- Define the custom action

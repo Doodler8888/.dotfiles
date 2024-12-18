@@ -287,3 +287,12 @@ Cp() {
   echo "Copied current directory path to clipboard: $current_dir"
 }
 
+
+# Create a widget for pasting
+paste-from-clipboard() {
+  LBUFFER+="$(wl-paste 2>/dev/null || echo '')"
+}
+zle -N paste-from-clipboard
+
+# Bind C-y to the paste widget using the octal code
+bindkey '\031' paste-from-clipboard

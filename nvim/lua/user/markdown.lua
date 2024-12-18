@@ -1,57 +1,56 @@
-local function continue_list()
-    -- Get current line and line above
+-- Function to auto-insert a new numbered item
+local function auto_insert_numbered_item()
     local current_line = vim.fn.line('.')
-    local above_text = vim.api.nvim_buf_get_lines(0, current_line - 2, current_line - 1, false)[1]
+    local current_line_text = vim.fn.getline('.')
 
-    -- Check if we're in a numbered list by looking at the line above
-    local number = above_text and above_text:match("^(%d+)%.")
+    -- Check if the current line already has a number
+    local current_num = current_line_text:match("^%s*(%d+)%.")
 
-    if number then
-        -- Convert to number and increment
-        number = tonumber(number) + 1
+    if current_num then
+        -- If current line has a number, increment it
+        local new_num = tonumber(current_num) + 1
+        local new_item = string.format("%d. ", new_num)
 
-        -- Insert new numbered item
-        local new_line = string.format("%d. ", number)
-        vim.api.nvim_set_current_line(new_line)
+        -- Insert the new item on the next line
+        vim.api.nvim_put({new_item}, 'l', true, true)
 
-        -- Move cursor to end of line
-        vim.api.nvim_win_set_cursor(0, {current_line, #new_line})
-
-        -- Enter insert mode
-        vim.cmd('startinsert!')
-
-        -- Reorder the list if needed
-        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-        local start_line = current_line
-        while start_line > 1 and lines[start_line-1]:match("^%d+%.") do
-            start_line = start_line - 1
-        end
-
-        -- Reorder numbers
-        local count = 1
-        for i = start_line, #lines do
-            if lines[i]:match("^%d+%.") then
-                lines[i] = lines[i]:gsub("^%d+%.", count .. ".")
-                count = count + 1
+        -- Move the cursor to the end of the new item
+        vim.api.nvim_win_set_cursor(0, {current_line + 1, #new_item})
+    else
+        -- Search for the previous numbered item
+        local prev_num = nil
+        for i = current_line - 1, 1, -1 do
+            local line = vim.fn.getline(i)
+            local num = line:match("^%s*(%d+)%.")
+            if num then
+                prev_num = tonumber(num)
+                break
             end
         end
 
-        vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+        if prev_num then
+            -- Create the new item
+            local new_num = prev_num + 1
+            local new_item = string.format("%d. ", new_num)
+
+            -- Insert the new item
+            vim.api.nvim_put({new_item}, 'l', true, true)
+
+            -- Move the cursor to the end of the new item
+            vim.api.nvim_win_set_cursor(0, {current_line + 1, #new_item})
+        else
+            -- If no previous number found, just insert a new line
+            vim.api.nvim_put({"", ""}, 'l', true, true)
+        end
     end
+
+    -- Ensure we're in insert mode at the end
+    vim.cmd('startinsert!')
 end
 
+-- Create the user command
+vim.api.nvim_create_user_command('AutoInsertNumberedItem', auto_insert_numbered_item, {})
 
--- M-RET is <M-CR> or <A-CR> in Neovim
-vim.keymap.set('n', '<M-CR>', function()
-    if vim.bo.filetype == 'markdown' then
-        continue_list()
-    end
-end, { desc = "Continue list in markdown" })
+-- Set up the keymapping for Alt+Enter in insert mode
+vim.api.nvim_set_keymap('i', '<M-CR>', '<Esc>:AutoInsertNumberedItem<CR>', {noremap = true, silent = true})
 
--- Also add insert mode mapping
-vim.keymap.set('i', '<M-CR>', function()
-    if vim.bo.filetype == 'markdown' then
-        vim.cmd('stopinsert')  -- exit insert mode temporarily
-        continue_list()
-    end
-end, { desc = "Continue list in markdown" })

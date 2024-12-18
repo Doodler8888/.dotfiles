@@ -47,6 +47,7 @@ bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
 bindkey '^W' backward-kill-word
 bindkey -M vicmd 'Y' vi-yank-eol
+bindkey '^Y' vi-quoted-insert
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"

@@ -31,10 +31,6 @@ local plugins = {
 	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
 	'Raku/vim-raku',
-	-- "Olical/conjure",
-	-- {
-	--   "Olical/nfnl", ft = "fennel"
-	-- },
 	{
 	  "NeogitOrg/neogit",
 	  dependencies = {
@@ -93,30 +89,10 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 	},
-	{
-	  "amitds1997/remote-nvim.nvim",
-	  version = "*", -- Pin to GitHub releases
-	  dependencies = {
-	    "MunifTanjim/nui.nvim", -- To build the plugin UI
-	  },
-	  config = true,
-	},
-	-- 'nat-418/boole.nvim',
-	-- {
-	--  'natecraddock/telescope-zf-native.nvim',
-	--   -- opts = {
-	--   --   rocks = {
-	--   --     enabled = false;
-	--   --   }
-	--   -- },
-	-- },
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
 	'tpope/vim-fugitive',
 	'jvgrootveld/telescope-zoxide',
-	{
-	  "tris203/precognition.nvim",
-	},
 	-- {
 	-- 	"yorickpeterse/nvim-tree-pairs", -- It breask how the % binding works
 	-- 	config = function()
@@ -134,32 +110,20 @@ local plugins = {
 	  -- },
 	  build = ":TSUpdate",
 	},
-	{
-	  "preservim/vim-markdown",
-	  ft = "markdown",
-	  dependencies = "godlygeek/tabular",  -- required dependency
-	  config = function()
-	    vim.g.vim_markdown_numbered_lists = 1
-	    vim.g.vim_markdown_folding_disabled = 1
-	    vim.g.vim_markdown_auto_insert_bullets = 1
-	    vim.g.vim_markdown_new_list_item_indent = 0
-	  end,
-	},
-	-- "tpope/vim-repeat",
+	'nvim-treesitter/nvim-treesitter-textobjects',
+	-- {
+	--   "vhyrro/luarocks.nvim",
+	--   priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+	--   config = true,
+	-- },
 	"folke/flash.nvim",
-	{
-	  "chrisgrieser/nvim-rip-substitute",
-	  cmd = "RipSubstitute",
-	  keys = {
-	    {
-	      ":",
-	      function() require("rip-substitute").sub() end,
-	      -- mode = { "n", "x" },
-	      mode = { "v" },
-	      desc = " rip substitute",
-	    },
-	  },
-	},
+	-- {
+	--   "nvim-neorg/neorg",
+	--   lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+	--   version = "*", -- Pin Neorg to the latest stable release
+	--   config = true,
+	-- },
+	-- ,
 	-- {
 	--   "OXY2DEV/markview.nvim",
 	--   lazy = false,      -- Recommended

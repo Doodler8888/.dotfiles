@@ -117,3 +117,10 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 -- Require the module
 local tabs1 = require('user.tab_rename')
 vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
+
+vim.api.nvim_set_keymap('i', '<C-y>', '<C-r>+', {noremap = true, silent = true})
+
+
+-- Add C-x C-s and s bindings
+vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})

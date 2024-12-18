@@ -89,6 +89,38 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 	},
+	{
+	  "smilhey/ed-cmd.nvim",
+	  config = function()
+	    require("ed-cmd").setup({
+	      -- Those are the default options, you can just call setup({}) if you don't want to change the defaults
+	      cmdline = {
+		keymaps = { edit = "<ESC>", execute = "<CR>", close = "<C-c>" },
+		win_config = function()
+		  return {
+		    relative = "editor",
+		    zindex = 250,
+		    row = vim.o.lines - vim.o.cmdheight,
+		    col = 0,
+		    style = "minimal",
+		    width = vim.o.columns,
+		    height = 1,
+		  }
+		end,
+	      },
+	      pumenu = {
+		win_opts = function()
+		  return {}
+		end,
+	      },
+	      -- You enter normal mode in the cmdline with edit, execute a
+	      -- command from normal mode with execute and close the cmdline in
+	      -- normal mode with close
+	      -- The keymaps fields also accept list of keymaps
+	      -- cmdline = { keymaps = { close = { "<C-C>" , "q" } } },
+	    })
+	  end,
+	},
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
 	'tpope/vim-fugitive',
@@ -117,17 +149,6 @@ local plugins = {
 	--   config = true,
 	-- },
 	"folke/flash.nvim",
-	-- {
-	--   "nvim-neorg/neorg",
-	--   lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-	--   version = "*", -- Pin Neorg to the latest stable release
-	--   config = true,
-	-- },
-	-- ,
-	-- {
-	--   "OXY2DEV/markview.nvim",
-	--   lazy = false,      -- Recommended
-	-- },
 	'pocco81/auto-save.nvim',
 	{
 	  "hrsh7th/nvim-cmp",

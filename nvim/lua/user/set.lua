@@ -55,19 +55,3 @@ vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end
 ]])
 
--- Function to get Git branch using Vim-fugitive
-function GetGitBranch()
-    local branch = vim.fn.FugitiveHead()
-    if branch and #branch > 0 then
-        return '[' .. branch .. ']'
-    end
-    return ''
-end
-
--- Set the statusline
-vim.o.statusline = '%{winnr()} %f %{%v:lua.GetGitBranch()%}'
-
-vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
-
-vim.cmd([[ set wildmode=longest:full ]])
-

@@ -96,11 +96,11 @@ vim.api.nvim_set_keymap('n', '<leader>rw', [[:%s/\s\+$//e<CR>]], {noremap = true
 -- Remove persistent highliting after pattern matching actions
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':noh<CR><Esc>', { noremap = true, silent = true })
 
--- Close a terminal buffer
-vim.api.nvim_set_keymap('t', '<C-c><C-t>', [[<C-\><C-n>:bd!<CR>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-c><C-b>', [[:bd!<CR>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-c><C-e>', [[:qa!<CR>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('t', '<C-w>c', '<C-\\><C-n>:q<CR>', {noremap = true, silent = true})
+-- -- Close a terminal buffer
+-- vim.api.nvim_set_keymap('t', '<C-c><C-t>', [[<C-\><C-n>:bd!<CR>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<C-c><C-b>', [[:bd!<CR>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<C-c><C-e>', [[:qa!<CR>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('t', '<C-w>c', '<C-\\><C-n>:q<CR>', {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('n', '<Leader>uu', ':UndotreeToggle<CR>', {noremap = true, silent = true})
 
@@ -119,8 +119,10 @@ local tabs1 = require('user.tab_rename')
 vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
 
 vim.api.nvim_set_keymap('i', '<C-y>', '<C-r>+', {noremap = true, silent = true})
+vim.cmd([[ cnoremap <C-y> <C-r>+ ]])
 
 
 -- Add C-x C-s and s bindings
 vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-x><C-e>', ':wqa<CR>', {noremap = true, silent = true})

@@ -30,7 +30,6 @@ local plugins = {
 	"ibhagwan/fzf-lua",
 	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
-	'Raku/vim-raku',
 	{
 	  "NeogitOrg/neogit",
 	  dependencies = {
@@ -56,15 +55,15 @@ local plugins = {
 	  end,
 	},
 	'Doodler8888/resession.nvim',
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
+	-- {
+	-- 	"folke/trouble.nvim",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	opts = {
+	-- 		-- your configuration comes here
+	-- 		-- or leave it empty to use the default settings
+	-- 		-- refer to the configuration section below
+	-- 	},
+	-- },
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -88,6 +87,13 @@ local plugins = {
 	},
 	{
 		"neovim/nvim-lspconfig",
+	},
+	{
+	  'stevearc/quicker.nvim',
+	  event = "FileType qf",
+	  ---@module "quicker"
+	  ---@type quicker.SetupOptions
+	  opts = {},
 	},
 	{
 	  "smilhey/ed-cmd.nvim",
@@ -143,13 +149,8 @@ local plugins = {
 	  build = ":TSUpdate",
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
-	-- {
-	--   "vhyrro/luarocks.nvim",
-	--   priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
-	--   config = true,
-	-- },
 	"folke/flash.nvim",
-	'pocco81/auto-save.nvim',
+	-- 'pocco81/auto-save.nvim',
 	{
 	  "hrsh7th/nvim-cmp",
 	  dependencies = {

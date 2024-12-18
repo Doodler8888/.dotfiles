@@ -105,7 +105,7 @@ vim.api.nvim_set_keymap('v', '<leader>sn', ':SortListNumbers<CR>', {noremap = tr
 
 
 local function auto_insert_and_sort_numbered_item()
-    local current_line = vim.fn.line('.')
+    local current_line = vim.fn.line('.')  -- 1-based
     local current_line_text = vim.fn.getline('.')
 
     -- Find the start of the list (search upwards for two consecutive empty lines or start of file)
@@ -131,56 +131,71 @@ local function auto_insert_and_sort_numbered_item()
         end_line = end_line + 1
     end
 
-    local numbers = {}
-    local line_numbers = {}
-
     -- Collect existing numbers
+    local numbers = {}
     for line_num = start_line, end_line do
         local line = vim.fn.getline(line_num)
-        local number = line:match("^%s*(%d+)")
+        local number = line:match("^%s*(%d+)%.")
         if number then
             table.insert(numbers, tonumber(number))
-            table.insert(line_numbers, line_num)
         end
     end
 
-    local new_item_inserted = false
-    local new_item_length = 0
-
-    -- Insert a new item if we're not on a numbered line
-    if not current_line_text:match("^%s*%d+") then
-        local new_num = #numbers + 1
-        local new_item = string.format("%d. ", new_num)
-        vim.api.nvim_put({new_item}, 'l', true, true)
-        table.insert(numbers, new_num)
-        table.insert(line_numbers, current_line)
-        end_line = end_line + 1
-        new_item_inserted = true
-        new_item_length = #new_item
+    -- Determine where to insert the new item
+    local insert_line = current_line
+    local found_numbered_line = false
+    while insert_line >= start_line do
+        local line = vim.fn.getline(insert_line)
+        if line:match("^%s*%d+%.") then
+            found_numbered_line = true
+            break
+        end
+        insert_line = insert_line - 1
     end
 
-    -- Create sorted numbers starting from 1
-    local sorted_numbers = {}
-    for i = 1, #numbers do
-        sorted_numbers[i] = i
+    if found_numbered_line then
+        -- If we found a numbered line, insert after the last line of this item
+        while insert_line < end_line do
+            local next_line = vim.fn.getline(insert_line + 1)
+            if next_line:match("^%s*%d+%.") or next_line:match("^%s*$") then
+                break
+            end
+            insert_line = insert_line + 1
+        end
+        insert_line = insert_line + 1
+    else
+        -- If we didn't find a numbered line, insert at the current line
+        insert_line = current_line
     end
 
-    -- Replace the numbers in the buffer
-    for i, line_num in ipairs(line_numbers) do
+    -- Prepare the new item
+    local new_num = #numbers + 1
+    local new_item = string.format("%d. ", new_num)
+
+    -- Insert the new item
+    vim.api.nvim_buf_set_lines(0, insert_line - 1, insert_line - 1, false, { new_item })
+
+    -- Renumber items
+    local current_num = 1
+    for line_num = start_line, end_line + 1 do
         local line = vim.fn.getline(line_num)
-        local new_line = line:gsub("^(%s*)%d+", "%1" .. sorted_numbers[i])
-        vim.fn.setline(line_num, new_line)
+        local number = line:match("^%s*(%d+)%.")
+        if number then
+            local new_line = line:gsub("^(%s*)%d+%.", "%1" .. current_num .. ".")
+            vim.fn.setline(line_num, new_line)
+            current_num = current_num + 1
+        end
     end
 
-    -- Move the cursor to the end of the new item if one was inserted
-    if new_item_inserted then
-        vim.api.nvim_win_set_cursor(0, {current_line + 1, new_item_length})
-        vim.cmd('startinsert!')
-    end
+    -- Move the cursor and enter insert mode
+    vim.api.nvim_win_set_cursor(0, {insert_line, #new_item})
+    vim.cmd('startinsert!')
 end
+
+
 
 -- Create the user command
 vim.api.nvim_create_user_command('AutoInsertAndSortNumberedItem', auto_insert_and_sort_numbered_item, {})
 
--- Set up the keymapping for Alt+Enter in insert mode
-vim.api.nvim_set_keymap('i', '<M-CR>', '<Esc>:AutoInsertAndSortNumberedItem<CR>', {noremap = true, silent = true})
+-- Keymapping for Alt+Enter in insert mode
+vim.api.nvim_set_keymap('i', '<M-CR>', '<Esc>:AutoInsertAndSortNumberedItem<CR>', { noremap = true, silent = true })

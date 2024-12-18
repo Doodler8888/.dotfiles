@@ -68,6 +68,8 @@ require('rose-pine').setup({
 		TroubleNormal = { fg = 'none', bg = 'none' },
 		TroubleCount = { fg = 'iris', bg = 'none' },
 		TroubleIndent = { fg = '#1d1f21', bg = 'none' },
+		-- QuickFixLine = { fg = '#e0def4', bg = 'subtle', blend = 18 },
+		QuickFixLine = { fg = 'none', bg = 'subtle', blend = 18 },
 
 		-- NeogitDiffContextHighlight = { fg = '#e0def4', bg = '#1d1f21' },
 		-- NeogitDiffContextCursor = { fg = '#e0def4', bg = 'none' },

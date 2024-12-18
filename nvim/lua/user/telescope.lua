@@ -64,98 +64,9 @@ require('telescope').setup({
   },
   extensions = {
     fzf = {},
-        -- ["zf-native"] = {
-        --     -- options for sorting file-like items
-        --     file = {
-        --         -- override default telescope file sorter
-        --         enable = true,
-        --
-        --         -- highlight matching text in results
-        --         highlight_results = true,
-        --
-        --         -- enable zf filename match priority
-        --         match_filename = true,
-        --
-        --         -- optional function to define a sort order when the query is empty
-        --         initial_sort = nil,
-        --     },
-        --
-        --     -- options for sorting all other items
-        --     generic = {
-        --         -- override default telescope generic item sorter
-        --         enable = true,
-        --
-        --         -- highlight matching text in results
-        --         highlight_results = true,
-        --
-        --         -- disable zf filename match priority
-        --         match_filename = false,
-        --
-        --         -- optional function to define a sort order when the query is empty
-        --         initial_sort = nil,
-        --     },
-        -- },
-    -- fzf = {
-    --   fuzzy = true, -- false will only do exact matching
-    --   override_generic_sorter = true, -- override the generic sorter
-    --   override_file_sorter = true, -- override the file sorter
-    --   case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-    --   -- the default case_mode is "smart_case"
-    -- },
-    -- persisted = {
-    --   layout_config = { width = 0.55, height = 0.55 },
-    -- },
-    zoxide = {
-      prompt_title = "[ Walking on the shoulders of TJ ]",
-      mappings = {
-	default = {
-	  after_action = function(selection)
-	    print("Update to (" .. selection.z_score .. ") " .. selection.path)
-	  end
-	},
-	["<leader>fz"] = {
-	  before_action = function(selection) print("before C-s") end,
-	  action = function(selection)
-	    vim.cmd.edit(selection.path)
-	  end
-	},
-      },
-    }
   },
 })
 
--- vim.api.nvim_set_keymap('n', '<leader>nf', ':lua require("telescope.builtin").find_files({ prompt_title = "Search Notes", cwd = "~/.secret_dotfiles/notes", hidden = true })<CR>', {noremap = true, silent = true})
-
--- -- Helper function to get git root
--- local function get_git_root()
---     local git_cmd = io.popen("git rev-parse --show-toplevel 2> /dev/null")
---     if git_cmd == nil then return nil end
---     local git_root = git_cmd:read("*l")
---     git_cmd:close()
---     return git_root
--- end
---
--- -- Custom picker for project files
--- local function project_files()
---     local git_root = get_git_root()
---     builtin.find_files({
---         cwd = git_root or vim.loop.cwd(),
---         hidden = true,
---         no_ignore = true,
---         -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
---     })
--- end
-
--- -- Create a command to run the project_files picker
--- vim.api.nvim_create_user_command('ProjectFiles', project_files, {})
-
--- Optional: Add a keymap
--- vim.api.nvim_set_keymap('n', '<leader>ff', ':ProjectFiles<CR>', { noremap = true, silent = true })
-
--- require("telescope").load_extension("zf-native")
--- require("telescope").load_extension("fzf")
--- require("telescope").load_extension("ui-select")
--- require('telescope').load_extension('zoxide')
 
 vim.api.nvim_set_keymap(
     "n",

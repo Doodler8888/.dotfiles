@@ -1,32 +1,36 @@
-function _G.insert_ansible_builtin()
-  local str = 'ansible.builtin.'
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  -- Insert the text
-  vim.api.nvim_buf_set_text(bufnr, cursor[1]-1, cursor[2], cursor[1]-1, cursor[2], {str})
-  -- Calculate new cursor position: current position + length of inserted string
-  local new_cursor_pos = cursor[2] + #str
-  -- Set the cursor to the new position
-  vim.api.nvim_win_set_cursor(0, {cursor[1], new_cursor_pos})
-end
+-- require("luasnip.loaders.from_snipmate").lazy_load()
 
--- vim.api.nvim_set_keymap('n', '<Leader>oa', ':lua insert_ansible_builtin()<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('i', '<C-a>', '<Cmd>lua insert_ansible_builtin()<CR>', {noremap = true, silent = true})
+local ls = require "luasnip"
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+-- local extras = require("luasnip.extras")
+-- local rep = extras.rep
+-- local fmt = require("luasnip.extras.fmt").fmt
+-- local c = ls.choice_node
+-- local f = ls.function_node
+-- local d = ls.dynamic_node
+-- local sn = ls.snippet_node
 
+ls.add_snippets("", {
+    s("hello", {
+        t('print("hello world'),
+    }),
+    s("<l", {
+      t('SELECT * FROM '),
+      i(1, 'name'),
+      t(' LIMIT 100'),
+    }),
+    -- s("<l", {
+    --     t('SELECT * FROM name LIMIT 100'),
+    -- }),
+})
 
-function _G.insert_general_community()
-  local str = 'general.community.'
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  vim.api.nvim_buf_set_text(bufnr, cursor[1]-1, cursor[2], cursor[1]-1, cursor[2], {str})
-  vim.api.nvim_win_set_cursor(0, cursor)
-end
-
--- vim.api.nvim_set_keymap('n', '<Leader>oc', ':lua insert_general_community()<CR>', {noremap = true})
-
-
--- vim.keymap.set(
---     "n",
---     "<leader>ee",
---     "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
--- )
+--     s("if", {
+--         t('if '),
+--         i(1, "true"),
+--         t(' then '),
+--         i(2),
+--         t(' end')
+--     })
+-- })

@@ -74,8 +74,8 @@ keybinds clear-defaults=true {
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         // bind "Ctrl ?" { ScrollToBottom; SwitchToMode "Normal"; }
-        bind "j" "Down" { ScrollDown; }
-        bind "k" "Up" { ScrollUp; }
+        // bind "j" "Down" { ScrollDown; } // I use these two for the quickfix
+        // bind "k" "Up" { ScrollUp; } // I use these two for the quickfix
         bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
         bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
         bind "d" { HalfPageScrollDown; }
@@ -164,8 +164,8 @@ keybinds clear-defaults=true {
         bind "Alt n" { NewPane; }
         bind "Alt h" { MoveFocusOrTab "Left"; }
         bind "Alt l" { MoveFocusOrTab "Right"; }
-        bind "Alt j" { MoveFocus "Down"; }
-        bind "Alt k" { MoveFocus "Up"; }
+        // bind "Alt j" { MoveFocus "Down"; }
+        // bind "Alt k" { MoveFocus "Up"; }
         // bind "Alt =" { Resize "Increase"; }
         // bind "Alt -" { Resize "Decrease"; }
         // bind "Alt <" { PreviousSwapLayout; }

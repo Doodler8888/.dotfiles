@@ -70,6 +70,10 @@ require('rose-pine').setup({
 		TroubleIndent = { fg = '#1d1f21', bg = 'none' },
 		-- QuickFixLine = { fg = '#e0def4', bg = 'subtle', blend = 18 },
 		QuickFixLine = { fg = 'none', bg = 'subtle', blend = 18 },
+		-- QuickFixLineNr = { fg = '#e0def4', bg = 'none', blend = 18 },
+		-- QuickFixHeaderHard = { fg = '#e0def4', bg = 'none', blend = 18 },
+		-- QuickFixHeaderSoft = { fg = '#e0def4', bg = 'none', blend = 18 },
+
 
 		-- NeogitDiffContextHighlight = { fg = '#e0def4', bg = '#1d1f21' },
 		-- NeogitDiffContextCursor = { fg = '#e0def4', bg = 'none' },

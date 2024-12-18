@@ -125,3 +125,5 @@ vim.cmd([[ cnoremap <C-y> <C-r>+ ]])
 vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<C-x><C-e>', ':wqa<CR>', {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })

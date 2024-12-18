@@ -4,6 +4,7 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
+
 local function show_command_history_telescope()
   -- Retrieve all command history
   local history = vim.fn.execute('history cmd')
@@ -13,11 +14,21 @@ local function show_command_history_telescope()
   table.remove(lines, 1)
   lines = vim.tbl_filter(function(line) return line ~= '' end, lines)
 
-  -- Clean the commands (remove line numbers)
+  -- Commands to filter out
+  local filter_out = {
+    w = true,
+    so = true,
+    wa = true,
+    wqa = true,
+    s = true,
+  }
+
+  -- Clean the commands (remove line numbers), reverse the order, and filter out unwanted commands
   local cleaned_commands = {}
-  for _, line in ipairs(lines) do
+  for i = #lines, 1, -1 do  -- Iterate in reverse order
+    local line = lines[i]
     local _, _, cmd = string.find(line, "%s*%d+%s+(.*)")
-    if cmd then
+    if cmd and not filter_out[cmd] then
       table.insert(cleaned_commands, cmd)
     end
   end
@@ -48,6 +59,8 @@ local function show_command_history_telescope()
     end,
   }):find()
 end
+
+
 
 -- Create the keybinding
 vim.api.nvim_create_autocmd("CmdlineEnter", {

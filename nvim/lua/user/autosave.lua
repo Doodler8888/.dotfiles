@@ -11,8 +11,13 @@ require("auto-save").setup({
             return false
         end
 
-        -- If the buffer's filetype is oil_filetype, do not save
+        -- If the buffer's filetype is oil_filetype or sql_filetype, do not save
         if fn.getbufvar(buf, "&filetype") == oil_filetype or fn.getbufvar(buf, "&filetype") == sql_filetype then
+            return false
+        end
+
+        -- Check if the buffer is a quickfix buffer
+        if fn.getbufvar(buf, "&buftype") == "quickfix" then
             return false
         end
 

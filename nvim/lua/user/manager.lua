@@ -27,7 +27,6 @@ local plugins = {
 	"nvim-telescope/telescope-ui-select.nvim",
 	"rose-pine/neovim",
 	"anuvyklack/hydra.nvim",
-	"ibhagwan/fzf-lua",
 	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
 	{
@@ -150,7 +149,7 @@ local plugins = {
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	"folke/flash.nvim",
-	-- 'pocco81/auto-save.nvim',
+	'pocco81/auto-save.nvim',
 	{
 	  "hrsh7th/nvim-cmp",
 	  dependencies = {

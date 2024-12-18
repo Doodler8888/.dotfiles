@@ -85,3 +85,16 @@ parser_config.hypr = {
 
 -- Treesitter for terraform doesn't provide highlighting for tfvars files.
 vim.treesitter.language.register('terraform', { 'terraform', 'terraform-vars' })
+
+
+-- Jump to start of function
+vim.keymap.set('n', '<C-M-a>', function()
+    print("Jumping to start of function")
+    vim.cmd("TSTextobjectGotoPreviousStart @function.outer")
+end, { noremap = true, silent = false, desc = "Jump to start of function" })
+
+-- Jump to end of function
+vim.keymap.set('n', '<C-M-e>', function()
+    print("Jumping to end of function")
+    vim.cmd("TSTextobjectGotoNextEnd @function.outer")
+end, { noremap = true, silent = false, desc = "Jump to end of function" })

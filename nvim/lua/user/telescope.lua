@@ -1,10 +1,10 @@
-local telescope = require('telescope')
-local builtin = require('telescope.builtin')
-local actions = require('telescope.actions')
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
+local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
+local telescope = require('telescope')
+local builtin = require('telescope.builtin')
 local previewers = require 'telescope.previewers'
 local config = require('telescope.config')
 
@@ -35,19 +35,31 @@ require('telescope').setup({
   --     "%.clj-kondo/",
   --     ".cpcache",
     },
-	--  mappings = {
-	--      i = {
-	-- ["<C-g>"] = require('telescope.actions').close
-	--      },
-	--      n = {
-	-- ["<C-g>"] = require('telescope.actions').close
-	--      },
-	--    },
+	 mappings = {
+	     i = {
+        ["<C-b>"] = function(prompt_bufnr)
+          print("Ctrl-B pressed in default mapping")
+          put_telescope_results_in_buffer(prompt_bufnr)
+        end,
+        ["<C-j>"] = require('telescope.actions').cycle_history_next,
+        ["<C-k>"] = require('telescope.actions').cycle_history_prev,
+	     },
+	     n = {
+        ["<C-b>"] = function(prompt_bufnr)
+          print("Ctrl-B pressed in default mapping")
+          put_telescope_results_in_buffer(prompt_bufnr)
+        end
+	     },
+	   },
   },
   pickers = {
     registers = {
       mappings = {
 	i = {
+	  -- ["<C-b>"] = function(prompt_bufnr)
+	    -- print("Ctrl-B pressed")
+	    -- put_telescope_results_in_buffer(prompt_bufnr)
+	  -- end;
 	  ["<CR>"] = function(prompt_bufnr)
 	    local selection = require("telescope.actions.state").get_selected_entry()
 	    require("telescope.actions").close(prompt_bufnr)
@@ -58,6 +70,12 @@ require('telescope').setup({
 	    vim.fn.setreg('+', selection.content)  -- system clipboard
 	    vim.fn.setreg('*', selection.content)  -- primary selection
 	  end
+	},
+	n = {
+        -- ["<C-b>"] = function(prompt_bufnr)
+        --   print("Ctrl-B pressed")
+        --   put_telescope_results_in_buffer(prompt_bufnr)
+        -- end
 	}
       }
     }
@@ -520,3 +538,202 @@ vim.keymap.set('n', 'p', function()
     print("Register 0:", vim.fn.getreg('0'))
     return 'p'
 end, { expr = true })
+
+
+local function show_highlights_telescope()
+  -- Get all highlight groups
+  local highlights = vim.split(vim.api.nvim_exec("highlight", true), "\n")
+
+  -- Filter out empty lines and parse highlight information
+  local parsed_highlights = {}
+  for _, line in ipairs(highlights) do
+    if line:match("^%S+") then
+      local hl_group, hl_def = line:match("^(%S+)%s+(.*)")
+      if hl_group and hl_def then
+        table.insert(parsed_highlights, {
+          group = hl_group,
+          def = hl_def
+        })
+      end
+    end
+  end
+
+  -- Create a Telescope picker
+  pickers.new({}, {
+    prompt_title = "Highlight Groups",
+    finder = finders.new_table {
+      results = parsed_highlights,
+      entry_maker = function(entry)
+        return {
+          value = entry,
+          display = entry.group .. " " .. entry.def,
+          ordinal = entry.group,
+        }
+      end,
+    },
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        -- Copy the highlight group name to the clipboard
+        vim.fn.setreg("+", selection.value.group)
+        print("Copied highlight group: " .. selection.value.group)
+      end)
+
+      -- Add a mapping to show the highlight in a floating window
+      map("i", "<C-[>", function()
+        local selection = action_state.get_selected_entry()
+        local hl_group = selection.value.group
+        local preview_text = "This is a preview of the " .. hl_group .. " highlight group."
+
+        -- Create a floating window
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, true, {preview_text})
+
+        local width = #preview_text + 4
+        local height = 3
+        local opts = {
+          relative = "cursor",
+          width = width,
+          height = height,
+          col = 0,
+          row = 1,
+          style = "minimal",
+          border = "rounded"
+        }
+
+        local win = vim.api.nvim_open_win(buf, false, opts)
+        vim.api.nvim_win_set_option(win, "winhl", "Normal:" .. hl_group)
+
+        -- Close the window after 2 seconds
+        vim.defer_fn(function()
+          vim.api.nvim_win_close(win, true)
+        end, 2000)
+      end)
+
+      return true
+    end,
+  }):find()
+end
+
+
+vim.keymap.set("n", "<leader>fh", show_highlights_telescope, { noremap = true, silent = true })
+
+
+-- Function to put all current Telescope items into a temporary buffer
+_G.put_telescope_results_in_buffer = function(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  if not picker then
+    print("Error: Unable to get current picker")
+    return
+  end
+
+  local manager = picker.manager
+  if not manager then
+    print("Error: Unable to get picker manager")
+    return
+  end
+
+  -- Create a new buffer
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  -- Get all entries
+  local results = {}
+  for entry in manager:iter() do
+    table.insert(results, entry.display)
+  end
+
+  -- Set the buffer contents
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, results)
+
+  -- Open the buffer in a new window
+  vim.cmd('split')
+  vim.api.nvim_win_set_buf(0, buf)
+
+  -- Set the buffer to be modifiable and scratch
+  vim.api.nvim_buf_set_option(buf, 'modifiable', true)
+  vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
+
+  -- Close Telescope
+  pcall(actions.close, prompt_bufnr)
+end
+
+
+-- Binding for finding buffers
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = true, desc = "Find buffers" })
+
+-- Binding for finding directories
+vim.keymap.set('n', '<leader>fd', function()
+    builtin.find_files({
+        prompt_title = "Find Directories",
+        find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+    })
+end, { noremap = true, silent = true, desc = "Find directories" })
+
+
+vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { noremap = true, silent = true, desc = "Find recent files" })
+
+
+local function parse_ssh_config()
+    local hosts = {}
+    local current_host = nil
+    local home = os.getenv("HOME")
+    local config_file = io.open(home .. "/.ssh/config", "r")
+
+    if not config_file then
+        print("SSH config file not found")
+        return hosts
+    end
+
+    for line in config_file:lines() do
+        local host = line:match("^Host%s+(.+)$")
+        if host then
+            current_host = host
+            hosts[current_host] = {}
+        elseif current_host then
+            local key, value = line:match("%s*(%S+)%s+(.+)")
+            if key and value then
+                hosts[current_host][key:lower()] = value
+            end
+        end
+    end
+
+    config_file:close()
+    return hosts
+end
+
+local function ssh_hosts()
+    local hosts = parse_ssh_config()
+
+    pickers.new({}, {
+        prompt_title = "SSH Hosts",
+        finder = finders.new_table {
+            results = vim.tbl_keys(hosts),
+            entry_maker = function(host)
+                return {
+                    value = host,
+                    display = host,
+                    ordinal = host,
+                }
+            end,
+        },
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                local host = selection.value
+                local cmd = string.format("Oil oil-ssh://%s/", host)
+                vim.cmd(cmd)
+            end)
+            return true
+        end,
+    }):find()
+end
+
+-- Create the user command correctly
+vim.api.nvim_create_user_command('SshHosts', ssh_hosts, {})
+
+-- Set up a keybinding to launch the picker
+vim.keymap.set('n', '<leader>sh', ssh_hosts, { noremap = true, silent = true, desc = "SSH Hosts" })

@@ -1,3 +1,23 @@
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- Set text width to 80 characters
+    vim.opt_local.textwidth = 80
+
+    -- Enable auto-wrapping
+    vim.opt_local.formatoptions:append("t")
+
+    -- Enable auto-wrapping comments using textwidth
+    vim.opt_local.formatoptions:append("c")
+
+    -- Remove comment leader when joining lines
+    vim.opt_local.formatoptions:append("j")
+
+    -- Don't break lines at single spaces that follow periods
+    vim.opt_local.formatoptions:append("q")
+  end
+})
+
 -- Function to auto-insert a new numbered item
 local function auto_insert_numbered_item()
     local current_line = vim.fn.line('.')

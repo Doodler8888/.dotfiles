@@ -1,4 +1,5 @@
 vim.lsp.set_log_level("debug")
+-- local capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
 
 do
   local method = "textDocument/publishDiagnostics"

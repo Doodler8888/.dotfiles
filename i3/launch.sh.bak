@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Function to run a command and wait for the window to appear
+wait_for_window() {
+    i3-msg "exec $1"
+    sleep 2
+}
+
+# Switch to workspace 3
+i3-msg 'workspace 3'
+
+# Tab 1
+i3-msg 'layout tabbed'
+wait_for_window "alacritty -e zellij"
+
+sleep 2
+
+# Split vertically, launch Emacs, and set layout to stacking
+i3-msg 'splitv'
+wait_for_window "emacs"
+i3-msg 'layout stacking'
+
+sleep 2
+
+# Tab 2
+i3-msg 'focus parent'
+i3-msg 'layout tabbed'
+i3-msg 'mark main'
+
+wait_for_window "alacritty -e zellij"
+
+sleep 2
+
+# Split vertically, launch another Alacritty, and set layout to stacking
+i3-msg 'splitv'
+wait_for_window "alacritty -e zellij attach main"
+i3-msg 'layout stacking'
+
+# Switch back to the first workspace (optional)
+i3-msg 'workspace 1'

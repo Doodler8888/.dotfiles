@@ -232,7 +232,7 @@ end
 
 -- Set a keymap to trigger the function (adjust the keymap as needed)
 vim.api.nvim_set_keymap('n', '<leader>ih', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-f><C-i>h', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('i', '<C-f><C-i>h', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
 
 local function zoxide_list()
   local handle = io.popen("zoxide query -l")

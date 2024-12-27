@@ -1,9 +1,21 @@
-exec /home/wurfkreuz/.nix-profile/bin/swaync
-# exec mako
+font pango:NotoSansM Nerd Font Mono 8
 
-font NotoSansM Nerd Font Mono 8
+exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 1920x1080 --rate 144
 
-output HDMI-A-1 mode 1920x1080@144Hz
+# exec_always --no-startup-id setxkbmap us -variant colemak 
+# exec_always setxkbmap -option caps:swapescape
+
+exec_always --no-startup-id "setxkbmap us -variant colemak -option caps:swapescape"
+
+
+exec_always --no-startup-id /home/wurfkreuz/.dotfiles/i3/launch.sh
+
+# Assign applications to specific workspaces
+assign [class="Opera"] workspace 1
+assign [class="Vivaldi-stable"] workspace 2
+assign [class="Emacs"] workspace 3
+assign [class="Alacritty"] workspace 3
+assign [class="TelegramDesktop"] workspace 4
 
 # Modifier key
 set $mod Mod4
@@ -38,16 +50,16 @@ bindsym $mod+Shift+c focus child
 bindsym $mod+p exec ~/.dotfiles/sway/move_to_parent.sh
 
 # Screenshots
-bindsym $mod+F11 exec grim -g "$(slurp)" - | wl-copy
-bindsym $mod+F12 exec grim - | wl-copy
+bindsym $mod+F11 exec maim -s | xclip -selection clipboard -t image/png
+bindsym $mod+F12 exec maim | xclip -selection clipboard -t image/png
 
 # Application launching
 bindsym $mod+Return exec alacritty
 bindsym $mod+g exec ghostty
-bindsym $mod+Shift+b exec opera
+bindsym $mod+Shift+b exec /snap/bin/opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
-bindsym $mod+b exec vivaldi
+bindsym $mod+b exec /usr/bin/vivaldi
 # bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
@@ -76,22 +88,10 @@ bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
 
 # Config reload
-bindsym $mod+c exec swaymsg reload
+bindsym $mod+c reload
 
-# Exit Sway
-bindsym $mod+q exec swaymsg exit
-
-input * {
-    xkb_layout "us,ru"
-    xkb_variant "colemak,"
-    # xkb_options "caps:swapescape,grp:ctrl_alt_toggle"
-    xkb_options "caps:swapescape,grp:shifts_toggle"
-    accel_profile "flat"
-    pointer_accel 0
-}
-
-bindsym $mod+F1 exec /home/wurfkreuz/.dotfiles/sway/keyboard-switch.sh colemak
-bindsym $mod+F2 exec /home/wurfkreuz/.dotfiles/sway/keyboard-switch.sh qwerty
+# Exit i3 (without warning)
+bindsym $mod+q exec i3-msg exit
 
 bindsym alt+semicolon+1 exec ~/.dotfiles/sway/switch_tab.sh 1
 bindsym alt+semicolon+2 exec ~/.dotfiles/sway/switch_tab.sh 2
@@ -102,18 +102,3 @@ bindsym alt+semicolon+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-exec_always ~/.dotfiles/sway/launch.sh
-
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-
-# I also probably need to add a command that applies the gif. I haven't done it
-# here because by the time i wrote this line, i already applied the image, and
-# it looks like i don't have to reapply it.
-exec_always --no-startup-id /home/wurfkreuz/.dotfiles/sway/swww.sh
-
-# An attempt to enable polkit
-exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
-
-exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

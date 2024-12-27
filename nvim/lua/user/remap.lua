@@ -35,7 +35,7 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 -- vim.api.nvim_set_keymap('i', '<S-Tab>', [[<C-\><C-o>:normal! 4X<CR>]], { noremap = true, silent = true })
 
 -- Toggle colorcolumn
-vim.cmd('command! Column execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")')
+      vim.cmd('command! Column execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")')
 
 -- Keep selection and indent left and right in visual mode
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
@@ -44,14 +44,14 @@ vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-t>', 'ZQ', { noremap = true, silent = true })
 
 -- Motion shortcuts
-vim.api.nvim_set_keymap('i', '<C-l>', '<Esc>la', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-h>', '<Esc>ha', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-f>', '<Esc>la', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-b>', '<Esc>ha', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-w>', '<Esc> wi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-W>', '<Esc> Wi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-B>', '<Esc> Bi', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-i>', '<Esc>I', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-a>', '<Esc>A', {noremap = true})
+vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-e>', '<Esc>A', {noremap = true})
 
 -- Create a new tab
 vim.api.nvim_set_keymap('n', '<Leader>tn', ':tabnew<CR>', {noremap = true, silent = true})
@@ -117,7 +117,7 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 local tabs1 = require('user.tab_rename')
 vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
 
-vim.api.nvim_set_keymap('i', '<C-y>', '<C-r>+', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = true})
 vim.cmd([[ cnoremap <C-y> <C-r>+ ]])
 
 

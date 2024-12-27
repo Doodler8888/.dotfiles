@@ -129,13 +129,29 @@ local plugins = {
 	'mbbill/undotree',
 	'mfussenegger/nvim-lint',
 	'tpope/vim-fugitive',
-	'jvgrootveld/telescope-zoxide',
 	-- {
 	-- 	"yorickpeterse/nvim-tree-pairs", -- It breask how the % binding works
 	-- 	config = function()
 	-- 	  require('tree-pairs').setup()
 	-- 	end,
 	-- },
+	{
+	  'saghen/blink.cmp',
+	  dependencies = 'rafamadriz/friendly-snippets',
+
+	  version = 'v0.*',
+
+	  opts = {
+	    keymap = { preset = 'default' },
+
+	    appearance = {
+	      use_nvim_cmp_as_default = true,
+	      nerd_font_variant = 'mono'
+	    },
+
+	    signature = { enabled = true }
+	  },
+	},
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()
@@ -150,28 +166,29 @@ local plugins = {
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	"folke/flash.nvim",
 	'pocco81/auto-save.nvim',
-	{
-	  "hrsh7th/nvim-cmp",
-	  dependencies = {
-	    {
-	      'L3MON4D3/LuaSnip',
-	      build = (function()
-		-- Build Step is needed for regex support in snippets
-		-- This step is not supported in many windows environments
-		-- Remove the below condition to re-enable on windows
-		if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-		  return
-		end
-		return 'make install_jsregexp'
-	      end)(),
-	    },
-	  },
-	},
-	'saadparwaiz1/cmp_luasnip',
-	'hrsh7th/cmp-cmdline',
-	'hrsh7th/cmp-buffer',
-	'hrsh7th/cmp-path',
-	'hrsh7th/cmp-nvim-lsp',
+	'L3MON4D3/LuaSnip'
+	-- {
+	--   "hrsh7th/nvim-cmp",
+	--   dependencies = {
+	--     {
+	--       'L3MON4D3/LuaSnip',
+	--       build = (function()
+	-- 	-- Build Step is needed for regex support in snippets
+	-- 	-- This step is not supported in many windows environments
+	-- 	-- Remove the below condition to re-enable on windows
+	-- 	if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+	-- 	  return
+	-- 	end
+	-- 	return 'make install_jsregexp'
+	--       end)(),
+	--     },
+	--   },
+	-- },
+	-- 'saadparwaiz1/cmp_luasnip',
+	-- 'hrsh7th/cmp-cmdline',
+	-- 'hrsh7th/cmp-buffer',
+	-- 'hrsh7th/cmp-path',
+	-- 'hrsh7th/cmp-nvim-lsp',
 	-- 'PaterJason/cmp-conjure',
 }
 

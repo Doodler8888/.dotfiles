@@ -9,21 +9,8 @@ in
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-      zsh
-      starship
-      antigen
-      zellij
-      nil # It's a nix lsp.
-      pyright
-      clojure-lsp
-      k9s
-      lazydocker
-      nixd
-      (pkgs.nerdfonts.override {
-	fonts = [
-	  "Noto"
-	];
-      })
+    antigen
+    nerd-fonts.noto
   ];
 
   programs.git = {
@@ -36,17 +23,20 @@ in
     enable = true;
     envExtra = ''
       source ${pkgs.antigen}/share/antigen/antigen.zsh
+      source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+      source ${pkgs.fzf}/share/fzf/completion.zsh
+      bindkey '^Y' vi-quoted-insert
+      bindkey '^R' fzf-history-widget
     '';
+    # initExtra = ''
+    #   source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+    #   source ${pkgs.fzf}/share/fzf/completion.zsh
+    # '';
   };
 
  programs.starship.enableZshIntegration = true;
 
   nixpkgs = {
-  #   overlays = [
-  #     outputs.overlays.additions
-  #     outputs.overlays.modifications
-  #     outputs.overlays.unstable-packages
-  #   ];
     config = {
       allowUnfree = true;
     };
@@ -54,7 +44,7 @@ in
 
 home = {
   username = "wurfkreuz";
-  homeDirectory = "/home/wurfkreuz/";
+  homeDirectory = "/home/wurfkreuz";
 
   file.".zshrc" = {
     source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/zsh/nix/.zshrc";
@@ -71,6 +61,9 @@ home = {
   file.".config/k9s" = {
     source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/k9s";
   };
+  file.".config/i3/config" = {
+    source = mkOutOfStoreSymlink "/home/wurfkreuz/.dotfiles/i3/nix/config";
+  };
 };
 
   programs.home-manager.enable = true;
@@ -79,5 +72,5 @@ home = {
   # systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
 }

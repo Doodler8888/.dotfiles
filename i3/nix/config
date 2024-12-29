@@ -5,17 +5,11 @@ exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 1920x1080 --rate 144
 # exec_always --no-startup-id setxkbmap us -variant colemak 
 # exec_always setxkbmap -option caps:swapescape
 
-exec_always --no-startup-id "setxkbmap us -variant colemak -option caps:swapescape"
+# exec_always --no-startup-id "setxkbmap us -variant colemak -option caps:swapescape"
 
 
-exec_always --no-startup-id /home/wurfkreuz/.dotfiles/i3/launch.sh
+exec_always --no-startup-id /home/wurfkreuz/.dotfiles/i3/nix/launch.sh
 
-# Assign applications to specific workspaces
-assign [class="Opera"] workspace 1
-assign [class="Vivaldi-stable"] workspace 2
-assign [class="Emacs"] workspace 3
-assign [class="Alacritty"] workspace 3
-assign [class="TelegramDesktop"] workspace 4
 
 # Modifier key
 set $mod Mod4
@@ -56,10 +50,10 @@ bindsym $mod+F12 exec maim | xclip -selection clipboard -t image/png
 # Application launching
 bindsym $mod+Return exec alacritty
 bindsym $mod+g exec ghostty
-bindsym $mod+Shift+b exec /snap/bin/opera
+bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
-bindsym $mod+b exec /usr/bin/vivaldi
+bindsym $mod+b exec vivaldi
 # bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
@@ -67,8 +61,8 @@ bindsym $mod+o exec dolphin
 bindsym $mod+r exec --no-startup-id /home/wurfkreuz/.nix-profile/bin/wofi --show drun
 bindsym $mod+e exec emacs
 # bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
-# bindsym $mod+t exec telegram-desktop
-bindsym $mod+t exec telegram
+bindsym $mod+t exec telegram-desktop
+# bindsym $mod+t exec telegram
 bindsym $mod+i exec /home/wurfkreuz/Downloads/intellij/idea-IU-242.23339.11/bin/idea
 
 # Workspace management

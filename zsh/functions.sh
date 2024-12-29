@@ -290,9 +290,22 @@ Cp() {
 
 # Create a widget for pasting
 paste-from-clipboard() {
-  LBUFFER+="$(wl-paste 2>/dev/null || echo '')"
+LBUFFER+="$(wl-paste 2>/dev/null  echo '')"
+  if [ -n "$WAYLAND_DISPLAY" ]; then
+      LBUFFER+="$(wl-paste 2>/dev/null  echo '')"
+  else
+      LBUFFER+="$(xclip -selection clipboard -o 2>/dev/null || echo '')"
+  fi
 }
 zle -N paste-from-clipboard
 
 # Bind C-y to the paste widget using the octal code
 bindkey '\031' paste-from-clipboard
+
+
+switch() {
+  sudo nixos-rebuild switch
+  sudo cp /etc/nixos/configuration.nix ~/.dotfiles/nix
+  sudo cp /etc/nixos/home.nix ~/.dotfiles/nix
+  sudo cp /etc/nixos/flake.nix ~/.dotfiles/nix
+}

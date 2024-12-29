@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Function to run a command and wait for the window to appear
+# Simple wait function
 wait_for_window() {
     i3-msg "exec $1"
-    sleep 2
+    sleep 2  # Adjust timing if needed
 }
 
 # Launch Opera in workspace 1
@@ -14,7 +14,7 @@ wait_for_window "opera"
 i3-msg 'workspace 2'
 wait_for_window "vivaldi"
 
-# Set up workspace 3
+# Switch to workspace 3 and set up development environment
 i3-msg 'workspace 3'
 
 # Create the first tab
@@ -34,12 +34,9 @@ i3-msg 'layout stacking'
 # Set the top-level layout to tabbed
 i3-msg 'focus parent; layout tabbed'
 
-# Mark the main container if needed
-i3-msg 'mark main'
-
 # Launch Telegram in workspace 4
 i3-msg 'workspace 4'
-wait_for_window "telegram"
+wait_for_window "telegram-desktop"
 
-# Switch back to the first workspace (optional)
-i3-msg 'workspace 1'
+# Switch back to the first workspace
+i3-msg 'workspace 3'

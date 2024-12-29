@@ -48,6 +48,7 @@ bindkey "^?" backward-delete-char
 bindkey '^W' backward-kill-word
 bindkey -M vicmd 'Y' vi-yank-eol
 bindkey '^Y' vi-quoted-insert
+bindkey '^R' fzf_history_search
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -104,7 +105,7 @@ alias ap='ansible-playbook'
 alias apK='ansible-playbook -K'
 alias channels='nix-channel --update home-manager'
 alias search='nix-env -qa'
-alias switch='home-manager switch'
+# alias switch='home-manager switch' # i use switch as a function
 alias e='sudo -e'
 alias home='nvim /home/wurfkreuz/.dotfiles/home-manager/home.nix'
 alias zsh='cd ~/.dotfiles/zsh/ && nvim .zshrc'
@@ -163,8 +164,6 @@ alias lg="lazygit"
 alias trash="cd /home/wurfkreuz/.local/share/trash"
 
 
-bindkey '^R' fzf_history_search
-
 # # Disables echoing in shell-mode
 # if [[ $INSIDE_EMACS = *comint* ]]; then
 #   unsetopt zle
@@ -217,10 +216,10 @@ bindkey '^a' autosuggest-accept
 antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
 
 antigen bundle kutsan/zsh-system-clipboard &> /dev/null
-# if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
-#     ZSH_SYSTEM_CLIPBOARD_METHOD=xcc
-#     typeset -g ZSH_SYSTEM_CLIPBOARD_METHOD
-# fi
+if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
+    ZSH_SYSTEM_CLIPBOARD_METHOD=xcc
+    typeset -g ZSH_SYSTEM_CLIPBOARD_METHOD
+fi
 
 # antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv" &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null

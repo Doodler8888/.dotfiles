@@ -135,23 +135,42 @@ local plugins = {
 	-- 	  require('tree-pairs').setup()
 	-- 	end,
 	-- },
-	{
-	  'saghen/blink.cmp',
-	  dependencies = 'rafamadriz/friendly-snippets',
-
-	  version = 'v0.*',
-
-	  opts = {
-	    keymap = { preset = 'default' },
-
-	    appearance = {
-	      use_nvim_cmp_as_default = true,
-	      nerd_font_variant = 'mono'
-	    },
-
-	    signature = { enabled = true }
-	  },
-	},
+{
+  'saghen/blink.cmp',
+  dependencies = 'rafamadriz/friendly-snippets',
+  version = 'v0.*',
+  opts = {
+    keymap = {
+      preset = 'default',
+      ['<C-y>'] = {},
+      ['<Tab>'] = {
+        function(cmp)
+          if cmp.is_visible() then
+            return cmp.accept()
+          else
+            cmp.show()
+            return true
+          end
+        end,
+        'fallback'
+      },
+    },
+    appearance = {
+      use_nvim_cmp_as_default = true,
+      nerd_font_variant = 'mono'
+    },
+    signature = { enabled = true },
+    completion = {
+      menu = {
+        auto_show = false
+      },
+      ghost_text = {
+        enabled = true
+      }
+    }
+  },
+}
+,
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()
@@ -165,7 +184,7 @@ local plugins = {
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	"folke/flash.nvim",
-	'pocco81/auto-save.nvim',
+	-- 'pocco81/auto-save.nvim',
 	'L3MON4D3/LuaSnip'
 	-- {
 	--   "hrsh7th/nvim-cmp",

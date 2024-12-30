@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Something was rewriting my keyboard settings. So i fixed it by adding a delay.
+sleep 1
+setxkbmap -rules evdev -model pc105 -layout us,ru -variant colemak, -option caps:swapescape,grp:shifts_toggle
+
 # Function to run a command and wait for the window to appear
 wait_for_window() {
     i3-msg "exec $1"
@@ -42,4 +46,4 @@ i3-msg 'workspace 4'
 wait_for_window "telegram"
 
 # Switch back to the first workspace (optional)
-i3-msg 'workspace 1'
+i3-msg 'workspace 3'

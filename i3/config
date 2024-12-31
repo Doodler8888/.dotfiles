@@ -9,8 +9,8 @@ set $mod Mod4
 
 # Your preferred terminal emulator
 # set $term alacritty
-set $term /home/wurfkreuz/.cargo/bin/alacritty
-set $browser vivaldi.vivaldi-stable
+# set $term /home/wurfkreuz/.cargo/bin/alacritty
+# set $browser vivaldi.vivaldi-stable
 
 # Window management
 bindsym $mod+w kill
@@ -46,7 +46,8 @@ bindsym $mod+g exec ghostty
 bindsym $mod+Shift+b exec /snap/bin/opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
-bindsym $mod+b exec /usr/bin/vivaldi
+# bindsym $mod+b exec /usr/bin/vivaldi
+bindsym $mod+b exec firefox
 # bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin

@@ -165,7 +165,7 @@ local plugins = {
         auto_show = false
       },
       ghost_text = {
-        enabled = true
+        enabled = false
       }
     }
   },

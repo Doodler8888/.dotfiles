@@ -162,7 +162,7 @@ alias os="cat /etc/lsb-release"
 alias clone="git clone"
 alias lg="lazygit"
 alias trash="cd /home/wurfkreuz/.local/share/trash"
-
+alias update="sudo apt update && sudo apt upgrade"
 
 # # Disables echoing in shell-mode
 # if [[ $INSIDE_EMACS = *comint* ]]; then

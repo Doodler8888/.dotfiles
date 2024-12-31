@@ -16,7 +16,7 @@ wait_for_window "opera"
 
 # Launch Vivaldi in workspace 2
 i3-msg 'workspace 2'
-wait_for_window "vivaldi"
+wait_for_window "firefox"
 
 # Set up workspace 3
 i3-msg 'workspace 3'

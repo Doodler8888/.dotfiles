@@ -74,7 +74,6 @@ require('rose-pine').setup({
 		-- QuickFixHeaderHard = { fg = '#e0def4', bg = 'none', blend = 18 },
 		-- QuickFixHeaderSoft = { fg = '#e0def4', bg = 'none', blend = 18 },
 
-
 		-- NeogitDiffContextHighlight = { fg = '#e0def4', bg = '#1d1f21' },
 		-- NeogitDiffContextCursor = { fg = '#e0def4', bg = 'none' },
 		-- NeogitHunkHeaderHighlight = { fg = 'iris', bg = '#1d1f21' },

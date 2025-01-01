@@ -62,21 +62,21 @@ end
 
 
 
--- Create the keybinding
-vim.api.nvim_create_autocmd("CmdlineEnter", {
-  callback = function()
-    vim.keymap.set("c", "<C-f>", function()
-      -- Save the current command-line content
-      local current_cmd = vim.fn.getcmdline()
-      local current_pos = vim.fn.getcmdpos()
-
-      -- Exit command-line mode
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-
-      -- Call the function after a short delay
-      vim.defer_fn(function()
-        show_command_history_telescope()
-      end, 10)
-    end, { buffer = true, silent = true })
-  end
-})
+-- -- Create the keybinding
+-- vim.api.nvim_create_autocmd("CmdlineEnter", {
+--   callback = function()
+--     vim.keymap.set("c", "<C-f>", function()
+--       -- Save the current command-line content
+--       local current_cmd = vim.fn.getcmdline()
+--       local current_pos = vim.fn.getcmdpos()
+--
+--       -- Exit command-line mode
+--       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+--
+--       -- Call the function after a short delay
+--       vim.defer_fn(function()
+--         show_command_history_telescope()
+--       end, 10)
+--     end, { buffer = true, silent = true })
+--   end
+-- })

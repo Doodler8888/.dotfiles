@@ -19,6 +19,7 @@ function M.get_tabname(tab)
 end
 
 -- Function to generate the tabline
+
 function M.custom_tabline()
     local tabline = ''
     local current_tab = vim.api.nvim_get_current_tabpage()
@@ -35,7 +36,8 @@ function M.custom_tabline()
 
         local custom_name = M.get_tabname(tab)
         if custom_name then
-            tabline = tabline .. custom_name
+            -- Convert custom_name to string explicitly
+            tabline = tabline .. tostring(custom_name)
         else
             local wins = vim.api.nvim_tabpage_list_wins(tab)
             if #wins > 0 then
@@ -51,6 +53,7 @@ function M.custom_tabline()
     tabline = tabline .. '%#TabLineFill#'
     return tabline
 end
+
 
 _G.custom_tabline = M.custom_tabline
 

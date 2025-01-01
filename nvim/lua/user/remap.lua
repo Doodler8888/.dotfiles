@@ -18,11 +18,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Buffers
-vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
--- vim.keymap.set("n", '<C-Tab>', ":b#<CR>") -- Probably doesn't work because it's not supported by my terminal.
--- vim.api.nvim_set_keymap('n', '<C-Tab>', ':b#<CR>', { noremap = true, silent = true })
+-- vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
+vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
 
--- Disable Control+c  
+-- Disable Control+c
 vim.api.nvim_set_keymap('n', '<C-c>', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-c>', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-c>', '<Nop>', { noremap = true, silent = true })
@@ -60,7 +59,7 @@ vim.api.nvim_set_keymap('n', '<Leader>tx', ':tabclose<CR>', {noremap = true, sil
 -- Tables
 vim.api.nvim_set_keymap('n', '<Leader>te', ':TableModeToggleeCR>', {noremap = true, silent = true})
 
--- -- Move between tabs with 
+-- -- Move between tabs with
 for i = 1, 9 do
      vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
      -- vim.api.nvim_set_keymap('n', ','..i, i..'gt', {noremap = true, silent = true})

@@ -25,3 +25,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+
+_G.source_and_trim = function()
+    local save_cursor = vim.fn.getpos(".")
+    vim.cmd('silent! noautocmd %s/\\s\\+$//e')
+    vim.fn.setpos(".", save_cursor)
+    vim.cmd('source %')
+    vim.fn.feedkeys(':so\r', 'nt')
+end
+
+vim.cmd([[
+    cabbrev <expr> so getcmdtype() == ':' && getcmdline() == 'so' ? '<Cmd>lua source_and_trim()<CR>' : 'so'
+]])

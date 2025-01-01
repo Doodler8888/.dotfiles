@@ -210,18 +210,6 @@ ss() {
 zle -N ss
 
 
-# bak() {
-#     local filename=$1
-#
-#     if [[ $filename == *.bak ]]; then
-#         local new_filename=${filename%.bak}
-#         mv "$filename" "$new_filename"
-#     else
-#         local new_filename="$filename.bak"
-#         mv "$filename" "$new_filename"
-#     fi
-# }
-
 d() {
     cd "$1" || return
     exa -la
@@ -309,3 +297,71 @@ switch() {
   sudo cp /etc/nixos/home.nix ~/.dotfiles/nix
   sudo cp /etc/nixos/flake.nix ~/.dotfiles/nix
 }
+
+
+sv-down() {
+    if [ -z "$1" ]; then
+        echo "Usage: sv-down service_name"
+        echo "Example: sv-down lightdm"
+        return 1
+    fi
+
+    local SERVICE="$1"
+    echo "Stopping $SERVICE..."
+    sudo sv down "$SERVICE"
+    
+    echo "Removing service link..."
+    sudo rm "/var/service/$SERVICE"
+    
+    echo "Service $SERVICE has been stopped and removed."
+}
+
+# Function to enable a service
+sv-up() {
+    if [ -z "$1" ]; then
+        echo "Usage: sv-up service_name"
+        echo "Example: sv-up sddm"
+        return 1
+    fi
+
+    local SERVICE="$1"
+    
+    if [ ! -d "/etc/sv/$SERVICE" ]; then
+        echo "Error: Service '$SERVICE' not found in /etc/sv/"
+        return 1
+    fi
+
+    echo "Enabling $SERVICE..."
+    sudo ln -s "/etc/sv/$SERVICE" "/var/service/"
+    
+    echo "Service $SERVICE has been enabled."
+}
+
+
+bak() {
+    [ $# -eq 0 ] && { echo "Usage: bak filename"; return 1; }
+    [ ! -e "$1" ] && [ ! -e "${1%.bak}" ] && { echo "Error: File does not exist"; return 1; }
+    if [[ "$1" == *.bak ]]; then
+        mv "$1" "${1%.bak}"
+    else
+        mv "$1" "$1.bak"
+    fi
+}
+
+
+my_fzf_history_widget() {
+    local selected
+    setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+    selected=$(fc -rl 1 | sed 's/^[ ]*[0-9]*[ ]*//' | awk '!seen[$0]++' |
+        FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS} --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS} --query=${(qqq)LBUFFER} +m" fzf)
+    local ret=$?
+    if [ -n "$selected" ]; then
+        BUFFER="${selected}"
+        CURSOR=$#BUFFER
+    fi
+    zle reset-prompt
+    return $ret
+}
+zle -N my_fzf_history_widget
+bindkey '^R' my_fzf_history_widget
+

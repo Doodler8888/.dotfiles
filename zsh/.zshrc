@@ -45,10 +45,12 @@ bindkey -v
 bindkey -M viins '\e.' insert-last-word
 bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
-bindkey '^W' backward-kill-word
+# bindkey '^W' backward-kill-word # the original function for the vi mode is 'vi-backward-kill-word'
+bindkey '^W' vi-backward-kill-word
 bindkey -M vicmd 'Y' vi-yank-eol
 bindkey '^Y' vi-quoted-insert
-bindkey '^R' fzf_history_search
+# bindkey '^R' fzf_history_search
+bindkey '^R' my/fzf-history-widget
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -269,7 +271,9 @@ fi
 # Fzf provides it's own set of commands on the same bindings like 'C-r'. But if
 # you fzf installation is in other directory, you have to change this line
 # accordingly.
-source ~/.fzf/shell/key-bindings.zsh
+# source ~/.fzf/shell/key-bindings.zsh
+# source /usr/share/fzf/key-bindings.zsh
+
 
 PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/wurfkreuz/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;

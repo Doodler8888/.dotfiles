@@ -50,7 +50,7 @@ vim.keymap.set('n', '<M-y>', toggle_quickfix_diagnostics, { noremap = true, sile
 -- vim.keymap.set('v', '<M-y>', toggle_quickfix_diagnostics, { noremap = true, silent = true, desc = "Toggle quickfix with current buffer diagnostics" })
 
 -- Keybindings to navigate quickfix items
-vim.keymap.set('n', '<M-j>', ':cnext<CR>', { noremap = true, silent = true, desc = "Next quickfix item" })
+vim.keymap.set('n', '<C-M-j>', ':cnext<CR>', { noremap = true, silent = true, desc = "Next quickfix item" })
 -- vim.keymap.set('v', '<M-j>', ':cnext<CR>', { noremap = true, silent = true, desc = "Next quickfix item" })
-vim.keymap.set('n', '<M-k>', ':cprev<CR>', { noremap = true, silent = true, desc = "Previous quickfix item" })
+vim.keymap.set('n', '<C-M-k>', ':cprev<CR>', { noremap = true, silent = true, desc = "Previous quickfix item" })
 -- vim.keymap.set('v', '<M-k>', ':cprev<CR>', { noremap = true, silent = true, desc = "Previous quickfix item" })

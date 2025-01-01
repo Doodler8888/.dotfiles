@@ -16,6 +16,7 @@ wait_for_window "opera"
 
 # Launch Vivaldi in workspace 2
 i3-msg 'workspace 2'
+# wait_for_window "vivaldi-stable"
 wait_for_window "firefox"
 
 # Set up workspace 3
@@ -43,7 +44,7 @@ i3-msg 'mark main'
 
 # Launch Telegram in workspace 4
 i3-msg 'workspace 4'
-wait_for_window "telegram"
+wait_for_window "telegram-desktop"
 
 # Switch back to the first workspace (optional)
 i3-msg 'workspace 3'

@@ -46,11 +46,11 @@ bindkey -M viins '\e.' insert-last-word
 bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
 # bindkey '^W' backward-kill-word # the original function for the vi mode is 'vi-backward-kill-word'
-bindkey '^W' vi-backward-kill-word
+# bindkey '^W' vi-backward-kill-word
 bindkey -M vicmd 'Y' vi-yank-eol
 bindkey '^Y' vi-quoted-insert
-# bindkey '^R' fzf_history_search
-bindkey '^R' my/fzf-history-widget
+bindkey '^R' fzf_history_search
+# bindkey '^R' my/fzf-history-widget
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -139,7 +139,9 @@ alias users="awk -F: '\$3>=1000 && \$1!=\"nobody\" && \$1!~/nixbld/ {print \$1}'
 alias books="cd ~/.secret_dotfiles/ansible/playbooks/"
 alias hosts="sudo -e /etc/ansible/hosts"
 alias scr="cd ~/.dotfiles/scripts/"
-alias off="poweroff"
+# alias off="poweroff"
+alias off="loginctl poweroff"
+alias restart="loginctl reboot"
 alias run="cargo run"
 alias build="cargo build"
 alias scr="cd ~/.dotfiles/scripts"
@@ -272,7 +274,7 @@ fi
 # you fzf installation is in other directory, you have to change this line
 # accordingly.
 # source ~/.fzf/shell/key-bindings.zsh
-# source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/key-bindings.zsh
 
 
 PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;

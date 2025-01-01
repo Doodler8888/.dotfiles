@@ -8,6 +8,20 @@ local builtin = require('telescope.builtin')
 local previewers = require 'telescope.previewers'
 local config = require('telescope.config')
 
+local function copy_telescope_selection()
+    local action_state = require('telescope.actions.state')
+
+    return function(prompt_bufnr)
+        local current_picker = action_state.get_current_picker(prompt_bufnr)
+        local selection = current_picker:get_selection()
+
+        -- Copy the filename to system clipboard
+        vim.fn.setreg('+', selection[1])
+
+        -- Optional: show a small notification that it was copied
+        vim.notify("Copied: " .. selection[1], vim.log.levels.INFO)
+    end
+end
 
 require('telescope').setup({
   defaults = {
@@ -37,31 +51,9 @@ require('telescope').setup({
     },
 	 mappings = {
 	     i = {
-        ["<C-b>"] = function(prompt_bufnr)
-          print("Ctrl-B pressed in default mapping")
-          put_telescope_results_in_buffer(prompt_bufnr)
-        end,
         ["<C-j>"] = require('telescope.actions').cycle_history_next,
         ["<C-k>"] = require('telescope.actions').cycle_history_prev,
-        ["<M-w>"] = function(prompt_bufnr)
-          local action_state = require('telescope.actions.state')
-          local picker = action_state.get_current_picker(prompt_bufnr)
-          local selection = picker:get_selection()
-
-          local text_to_copy = ""
-          if type(selection.display) == "string" then
-            text_to_copy = selection.display
-          elseif type(selection.value) == "table" and selection.value.group and selection.value.def then
-            text_to_copy = selection.value.group .. " " .. selection.value.def
-          end
-
-          if text_to_copy ~= "" then
-            vim.fn.setreg('+', text_to_copy)
-            print("Copied: " .. text_to_copy)
-          else
-            print("Nothing to copy")
-          end
-        end,
+	["<M-w>"] = copy_telescope_selection(),
 	     },
 	   },
   },

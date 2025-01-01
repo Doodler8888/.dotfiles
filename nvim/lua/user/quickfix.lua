@@ -37,13 +37,14 @@ local function toggle_quickfix_diagnostics()
         -- Set the quickfix list
         vim.fn.setqflist(qf_items)
 
-        -- Open the quickfix window
-        vim.cmd("copen")
+        -- Open the quickfix window at the bottom of all windows
+        vim.cmd("botright copen")
 
         -- Return focus to the original window
         vim.api.nvim_set_current_win(current_win)
     end
 end
+
 
 -- Keybinding to toggle quickfix with LSP diagnostics
 vim.keymap.set('n', '<M-y>', toggle_quickfix_diagnostics, { noremap = true, silent = true, desc = "Toggle quickfix with current buffer diagnostics" })

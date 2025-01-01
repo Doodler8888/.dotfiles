@@ -47,12 +47,12 @@ bindsym $mod+g exec ghostty
 bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
-bindsym $mod+b exec vivaldi
+bindsym $mod+b exec firefox
 # bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
-# bindsym $mod+r exec --no-startup-id wofi --show drun
-bindsym $mod+r exec --no-startup-id /home/wurfkreuz/.nix-profile/bin/wofi --show drun
+bindsym $mod+r exec --no-startup-id wofi --show drun
+# bindsym $mod+r exec --no-startup-id /home/wurfkreuz/.nix-profile/bin/wofi --show drun
 bindsym $mod+e exec emacs
 # bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
 # bindsym $mod+t exec telegram-desktop

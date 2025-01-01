@@ -22,26 +22,26 @@ require('flash').setup {
 -- vim.api.nvim_set_keymap('o', '/', '<cmd>lua require("flash").jump()<CR>', {noremap = true, silent = true})
 
 
--- local function flash_search()
---     local flash = require("flash")
---
---     -- Create a new state
---     local state = flash.jump({
---         search = {
---             mode = function(pattern)
---                 -- Store the pattern for later use
---                 if pattern and pattern ~= "" then
---                     vim.fn.histadd('/', pattern)
---                     vim.fn.setreg('/', pattern)
---                     vim.v.hlsearch = 1
---                 end
---                 return pattern
---             end
---         }
---     })
--- end
---
--- -- Set up the keymaps
--- vim.keymap.set('n', '/', flash_search, { noremap = true })
--- vim.keymap.set('v', '/', flash_search, { noremap = true })
--- vim.keymap.set('o', '/', flash_search, { noremap = true })
+local function flash_search()
+    local flash = require("flash")
+
+    -- Create a new state
+    local state = flash.jump({
+        search = {
+            mode = function(pattern)
+                -- Store the pattern for later use
+                if pattern and pattern ~= "" then
+                    vim.fn.histadd('/', pattern)
+                    vim.fn.setreg('/', pattern)
+                    vim.v.hlsearch = 1
+                end
+                return pattern
+            end
+        }
+    })
+end
+
+-- Set up the keymaps
+vim.keymap.set('n', '/', flash_search, { noremap = true })
+vim.keymap.set('v', '/', flash_search, { noremap = true })
+vim.keymap.set('o', '/', flash_search, { noremap = true })

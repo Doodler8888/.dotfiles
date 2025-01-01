@@ -351,9 +351,11 @@ bak() {
 
 my_fzf_history_widget() {
     local selected
-    setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-    selected=$(fc -rl 1 | sed 's/^[ ]*[0-9]*[ ]*//' | awk '!seen[$0]++' |
-        FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS} --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS} --query=${(qqq)LBUFFER} +m" fzf)
+    selected=$(history | 
+        sed 's/^[ ]*[0-9]*[ ]*//' | 
+        sed 's/^\*[ ]*//' |
+        awk '!seen[$0]++' |
+        FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS} --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS} --query=${LBUFFER} +m" fzf)
     local ret=$?
     if [ -n "$selected" ]; then
         BUFFER="${selected}"
@@ -363,5 +365,38 @@ my_fzf_history_widget() {
     return $ret
 }
 zle -N my_fzf_history_widget
-bindkey '^R' my_fzf_history_widget
+# bindkey '^R' my_fzf_history_widget
 
+
+delete_word_backward() {
+    local CURSOR_BEFORE=$CURSOR
+    
+    # If there's no slash in the text before cursor, use regular word deletion
+    if [[ ! ${BUFFER:0:$CURSOR} =~ / ]]; then
+        local WORDCHARS=''
+        zle backward-kill-word
+        return
+    fi
+    
+    # If cursor is right after a slash, delete until previous slash
+    if [[ ${BUFFER:$((CURSOR-1)):1} == "/" ]]; then
+        local slash_pos=${BUFFER:0:$((CURSOR-1))}
+        slash_pos=${slash_pos%/*}
+        local slash_length=${#slash_pos}
+        CURSOR=$((slash_length + 1))
+        BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
+    else
+        # Find the previous slash position
+        local slash_pos=${BUFFER:0:$CURSOR}
+        slash_pos=${slash_pos%/*}
+        local slash_length=${#slash_pos}
+        
+        # Delete until but not including the slash
+        if [[ $slash_length -lt $CURSOR_BEFORE ]]; then
+            CURSOR=$((slash_length + 1))
+            BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
+        fi
+    fi
+}
+zle -N delete_word_backward
+bindkey '^W' delete_word_backward

@@ -48,7 +48,7 @@ bindkey "^?" backward-delete-char
 # bindkey '^W' backward-kill-word # the original function for the vi mode is 'vi-backward-kill-word'
 # bindkey '^W' vi-backward-kill-word
 bindkey -M vicmd 'Y' vi-yank-eol
-bindkey '^Y' vi-quoted-insert
+# bindkey '^Y' vi-quoted-insert
 bindkey '^R' fzf_history_search
 # bindkey '^R' my/fzf-history-widget
 
@@ -228,6 +228,7 @@ fi
 # antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv" &> /dev/null
 antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
+# antigen bundle joshskidmore/zsh-fzf-history-search &> /dev/null
 # antigen bundle jeffreytse/zsh-vi-mode
 antigen apply &> /dev/null
 
@@ -274,7 +275,7 @@ fi
 # you fzf installation is in other directory, you have to change this line
 # accordingly.
 # source ~/.fzf/shell/key-bindings.zsh
-source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/key-bindings.zsh
 
 
 PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -286,8 +287,9 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
 ! { which werf | grep -qsE "^/home/wurfkreuz/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
 
-if [ -e /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# if [ -e /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(direnv hook zsh)"
+

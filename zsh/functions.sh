@@ -278,15 +278,13 @@ Cp() {
 
 # Create a widget for pasting
 paste-from-clipboard() {
-LBUFFER+="$(wl-paste 2>/dev/null  echo '')"
-  if [ -n "$WAYLAND_DISPLAY" ]; then
-      LBUFFER+="$(wl-paste 2>/dev/null  echo '')"
-  else
-      LBUFFER+="$(xclip -selection clipboard -o 2>/dev/null || echo '')"
-  fi
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        LBUFFER+="$(wl-paste)"
+    else
+        LBUFFER+="$(xclip -selection clipboard -o)"
+    fi
 }
 zle -N paste-from-clipboard
-
 # Bind C-y to the paste widget using the octal code
 bindkey '\031' paste-from-clipboard
 
@@ -349,23 +347,24 @@ bak() {
 }
 
 
-my_fzf_history_widget() {
+autoload -U my_fzf_history_widget
+function my_fzf_history_widget() {
     local selected
-    selected=$(history | 
-        sed 's/^[ ]*[0-9]*[ ]*//' | 
-        sed 's/^\*[ ]*//' |
+    selected=$(fc -ln 0 | 
         awk '!seen[$0]++' |
         FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS} --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS} --query=${LBUFFER} +m" fzf)
     local ret=$?
     if [ -n "$selected" ]; then
         BUFFER="${selected}"
         CURSOR=$#BUFFER
+        zle vi-fetch-history -n $BUFFER
     fi
     zle reset-prompt
     return $ret
 }
+autoload my_fzf_history_widget
 zle -N my_fzf_history_widget
-# bindkey '^R' my_fzf_history_widget
+bindkey '^R' my_fzf_history_widget
 
 
 delete_word_backward() {

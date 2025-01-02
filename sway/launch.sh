@@ -14,7 +14,7 @@ swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi-stable'
 # swaymsg 'exec vivaldi.vivaldi-stable'
-swaymsg 'exec /usr/bin/vivaldi'
+swaymsg 'exec vivaldi-stable'
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
@@ -62,7 +62,7 @@ swaymsg 'layout stacking'
 sleep 2
 
 swaymsg 'workspace 4'
-# swaymsg 'exec telegram-desktop'
-swaymsg 'exec telegram'
+swaymsg 'exec telegram-desktop'
+# swaymsg 'exec telegram'
 
 swaymsg 'workspace 3'

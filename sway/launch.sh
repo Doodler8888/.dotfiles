@@ -13,8 +13,9 @@ sleep 2
 swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi-stable'
-# swaymsg 'exec vivaldi.vivaldi-stable'
-swaymsg 'exec vivaldi-stable'
+swaymsg 'exec vivaldi.vivaldi-stable'
+# swaymsg 'exec /usr/bin/vivaldi'
+>>>>>>> Stashed changes
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 

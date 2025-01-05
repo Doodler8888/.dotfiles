@@ -1,17 +1,22 @@
+# This is for having pipe and block character depending on the current mode
 set show-mode-in-prompt on
 set vi-cmd-mode-string "\1\e[2 q\2"
 set vi-ins-mode-string "\1\e[6 q\2"
 
 set editing-mode vi
 set keyseq-timeout 10
-# TAB: menu-complete
-# set show-all-if-ambiguous on
+
+# I wasn't able to rebound C-w without this option
+# See https://stackoverflow.com/questions/10980575/how-can-i-unbind-and-remap-c-w-in-bash
+set bind-tty-special-chars off
+
 $if mode=vi
     set keymap vi-insert
     "\C-p": previous-history
     "\C-n": next-history
     "\C-l": clear-screen
     "\e.": yank-last-arg
+    
     set keymap vi-command
     "\C-p": previous-history
     "\C-n": next-history

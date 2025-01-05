@@ -1,6 +1,7 @@
 -- Function to get Git branch using Vim-fugitive
 function GetGitBranch()
-    local branch = vim.fn.FugitiveHead()
+    -- local branch = vim.fn.FugitiveHead()
+local branch = vim.trim(vim.fn.system("git branch --format='%(refname:short)' 2>/dev/null | head -n1"))
     if branch and #branch > 0 then
         return '[' .. branch .. ']'
     end

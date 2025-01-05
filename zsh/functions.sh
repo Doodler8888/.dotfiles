@@ -217,13 +217,21 @@ d() {
 
 
 clear-ls-all() {
-  clear
-  eza -al
-  echo -n "\033[1A"  # Move cursor up one line
-  zle send-break
+    clear
+    ls -la --color=auto
 }
-zle -N clear-ls-all
-bindkey '^S' clear-ls-all
+# I try to simulate the same solution for this function as i did it for bash.
+bindkey -s '^S' 'clear-ls-all\n'
+
+
+# clear-ls-all() {
+#   clear
+#   eza -al
+#   echo -n "\033[1A"  # Move cursor up one line
+#   zle send-break
+# }
+# zle -N clear-ls-all
+# bindkey '^S' clear-ls-all
 
 
 freeze() {

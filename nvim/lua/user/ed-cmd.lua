@@ -1,0 +1,34 @@
+-- Lazy config for ed-cmd
+
+-- {
+--   "smilhey/ed-cmd.nvim",
+--   config = function()
+--     require("ed-cmd").setup({
+--       -- Those are the default options, you can just call setup({}) if you don't want to change the defaults
+--       cmdline = {
+-- 	keymaps = { edit = "<ESC>", execute = "<CR>", close = "<C-g>" },
+-- 	win_config = function()
+-- 	  return {
+-- 	    relative = "editor",
+-- 	    zindex = 250,
+-- 	    row = vim.o.lines - vim.o.cmdheight,
+-- 	    col = 0,
+-- 	    style = "minimal",
+-- 	    width = vim.o.columns,
+-- 	    height = 1,
+-- 	  }
+-- 	end,
+--       },
+--       pumenu = {
+-- 	win_opts = function()
+-- 	  return {}
+-- 	end,
+--       },
+--       -- You enter normal mode in the cmdline with edit, execute a
+--       -- command from normal mode with execute and close the cmdline in
+--       -- normal mode with close
+--       -- The keymaps fields also accept list of keymaps
+--       -- cmdline = { keymaps = { close = { "<C-C>" , "q" } } },
+--     })
+--   end,
+-- },

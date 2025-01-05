@@ -1,11 +1,9 @@
-# eval "$(starship init bash)"
 eval "$(fzf --bash)"
-# export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 
 source /home/wurfkreuz/.dotfiles/bash/functions.sh
 # source /home/wurfkreuz/.dotfiles/bash/prompt.sh
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/bin:/home/wurfkreuz/.ghcup/bin:/home/wurfkreuz/.cabal/bin:/home/wufkreuz/.local/share/racket:$PATH"
-export EDITOR=/usr/local/bin/nvim
+export EDITOR=nvim
 # export CDPATH=.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects
 # export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
@@ -16,7 +14,7 @@ export BOT_TOKEN="5907946679:AAExBdsBoE_et6XSF_A7DJIrpoNye7iGk8E"
 # # If not running interactively, don't do anything
 # [[ $- != *i* ]] && return
 
-# shopt -s autocd
+shopt -s autocd
 shopt -s checkjobs
 shopt -s globstar
 
@@ -33,6 +31,9 @@ PS1='\[\033[01;34m\]\w\[\033[38;2;180;142;173m\]$(parse_git_branch)\[\033[00m\]\
 # This executes BEFORE showing the prompt
 PROMPT_COMMAND="history -a; history -c; history -r"
 
+# Colors for gnu ls output
+unset LS_COLORS
+export LS_COLORS="ln=38;2;76;86;106"
 
 stty -ixon
 

@@ -1,36 +1,39 @@
--- in lua/user/blink.lua
-local blink = require('blink-cmp')
+-- THIS IS A CONFIG FOR LAZY
+-- The previous config from this file didn't work, so i had to use lazy for
+-- settings
 
--- More robust keymap with fallback
-vim.keymap.set('i', '<Tab>', function()
-    if blink.is_visible() then
-        blink.accept()
-        return
-    end
-
-    blink.show()
-    if not blink.is_visible() then
-        -- Fallback to regular Tab if completion isn't shown
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', false)
-    end
-end, { expr = false, silent = true })
-
--- Optional: Add Shift-Tab for reverse navigation
-vim.keymap.set('i', '<S-Tab>', function()
-    if blink.is_visible() then
-        blink.select_prev()
-    else
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<S-Tab>', true, true, true), 'n', false)
-    end
-end, { expr = false, silent = true })
-
-blink.setup({
-    completion = {
-        menu = {
-            auto_show = false
-        },
-        ghost_text = {
-            enabled = true
-        }
-    }
-})
+-- {
+--   'saghen/blink.cmp',
+--   dependencies = 'rafamadriz/friendly-snippets',
+--   version = 'v0.*',
+--   opts = {
+--     keymap = {
+--       preset = 'default',
+--       ['<C-y>'] = {},
+--       ['<Tab>'] = {
+--         function(cmp)
+--           if cmp.is_visible() then
+--             return cmp.accept()
+--           else
+--             cmp.show()
+--             return true
+--           end
+--         end,
+--         'fallback'
+--       },
+--     },
+--     appearance = {
+--       use_nvim_cmp_as_default = true,
+--       nerd_font_variant = 'mono'
+--     },
+--     signature = { enabled = true },
+--     completion = {
+--       menu = {
+--         auto_show = false
+--       },
+--       ghost_text = {
+--         enabled = false
+--       }
+--     }
+--   },
+-- }

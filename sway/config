@@ -1,6 +1,10 @@
 exec /home/wurfkreuz/.nix-profile/bin/swaync
 # exec mako
 
+# Uncomment this line only after you've configured pipewire to work
+# Isn't used on systemd distros
+exec --no-startup-id pipewire
+
 font NotoSansM Nerd Font Mono 8
 
 output HDMI-A-1 mode 1920x1080@144Hz
@@ -10,8 +14,7 @@ set $mod Mod4
 
 # Your preferred terminal emulator
 # set $term alacritty
-set $term /home/wurfkreuz/.cargo/bin/alacritty
-set $browser vivaldi.vivaldi-stable
+# set $browser vivaldi-stable
 
 # Window management
 bindsym $mod+w kill
@@ -19,7 +22,8 @@ bindsym $mod+v splitv
 # bindsym $mod+c splith # i use mode+c already for reloading a config file
 bindsym $mod+s layout stacking
 # bindsym $mod+t layout tabbed # use this binding for launching telegram
-bindsym $mod+Shift+t exec swaymsg workspace current layout tabbed
+# bindsym $mod+Shift+t exec swaymsg workspace current layout tabbed
+bindsym $mod+t layout toggle tabbed stacking split
 # bindsym $mod+Shift+t exec swaymsg workspace_layout tabbed
 
 bindsym $mod+h focus left
@@ -46,9 +50,9 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+g exec ghostty
 bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
-# bindsym $mod+b exec vivaldi-stable
-# bindsym $mod+b exec vivaldi
-bindsym $mod+b exec vivaldi.vivaldi-stable
+bindsym $mod+b exec vivaldi-stable
+# bindsym $mod+b exec firefox
+# bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland
 bindsym $mod+o exec dolphin
 bindsym $mod+r exec --no-startup-id wofi --show drun
@@ -56,7 +60,7 @@ bindsym $mod+r exec --no-startup-id wofi --show drun
 bindsym $mod+e exec emacs
 # bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
 # bindsym $mod+t exec telegram-desktop
-bindsym $mod+t exec telegram
+bindsym $mod+shift+t exec telegram
 bindsym $mod+i exec /home/wurfkreuz/Downloads/intellij/idea-IU-242.23339.11/bin/idea
 
 # Workspace management

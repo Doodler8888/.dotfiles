@@ -1,8 +1,7 @@
-source /home/wurfkreuz/.dotfiles/bash/scripts.sh
 source /usr/local/bin
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
-export PATH="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$PATH"
+export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$PATH"
 # export EDITOR='/usr/bin/nvim'
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -129,10 +128,10 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias nvm='cd ~/.dotfiles/nvim/ && nvim .'
-# alias install='sudo pacman -Syu'
-# alias remove='sudo pacman -R'
-alias install='sudo apt install'
+# alias install='sudo apt install'
 alias remove='sudo apt remove'
+alias install='sudo xbps-install -Sy'
+alias remove='sudo xbps-remove -R' # '-R' for recursive removal of dependencies
 alias orphaned='sudo pacman -Qtdq'
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 alias users="awk -F: '\$3>=1000 && \$1!=\"nobody\" && \$1!~/nixbld/ {print \$1}' /etc/passwd"  # Original: awk: cmd. line:1: >=1000 && !=nobody && !~/nixbld/ {print }
@@ -214,10 +213,10 @@ source "$HOME/antigen.zsh"
 
 eval "$(starship init zsh)" # It should be at the very top of my config, otherwise i might get latency on cursor in vim mode.
 
-export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
-bindkey '^[w' forward-word
-bindkey '^a' autosuggest-accept
-antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
+# export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+# bindkey '^[w' forward-word
+# bindkey '^a' autosuggest-accept
+# antigen bundle zsh-users/zsh-autosuggestions &> /dev/null
 
 antigen bundle kutsan/zsh-system-clipboard &> /dev/null
 if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
@@ -226,14 +225,14 @@ if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
 fi
 
 # antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv" &> /dev/null
-antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
+# antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
 antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 # antigen bundle joshskidmore/zsh-fzf-history-search &> /dev/null
 # antigen bundle jeffreytse/zsh-vi-mode
 antigen apply &> /dev/null
 
 # for the autocomplete plugin
-zstyle ':autocomplete:*' ignored-input '##'
+# zstyle ':autocomplete:*' ignored-input '##'
 # bindkey -r "^R"
 # bindkey "^R" history-incremental-pattern-search-backward
 # bindkey '^R' history-incremental-search-backward
@@ -292,4 +291,3 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(direnv hook zsh)"
-

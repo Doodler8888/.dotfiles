@@ -14,14 +14,14 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-
+  
+  nixpkgs.config.allowUnfree = true;
+  
   fonts.fontconfig.enable = true;
   
   home.packages = with pkgs; [
     antigen
+    # corefonts
     nerd-fonts.noto
     noto-fonts-emoji
     noto-fonts-color-emoji

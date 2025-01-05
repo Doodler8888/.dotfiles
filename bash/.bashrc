@@ -1,4 +1,9 @@
-source /home/wurfkreuz/.dotfiles/bash/scripts.sh
+# eval "$(starship init bash)"
+eval "$(fzf --bash)"
+# export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
+
+source /home/wurfkreuz/.dotfiles/bash/functions.sh
+# source /home/wurfkreuz/.dotfiles/bash/prompt.sh
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/bin:/home/wurfkreuz/.ghcup/bin:/home/wurfkreuz/.cabal/bin:/home/wufkreuz/.local/share/racket:$PATH"
 export EDITOR=/usr/local/bin/nvim
 # export CDPATH=.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects
@@ -17,21 +22,26 @@ shopt -s globstar
 
 shopt -s histappend
 # HISTCONTROL=ignoredups:erasedups
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 export HISTSIZE=2000
 
-stty -ixon
+# PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+# PS1='\W > '
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+PS1='\[\033[01;34m\]\w\[\033[38;2;180;142;173m\]$(parse_git_branch)\[\033[00m\]\n\[\033[38;2;208;135;112m\]>\[\033[00m\] '
+# This executes BEFORE showing the prompt
+PROMPT_COMMAND="history -a; history -c; history -r"
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-PS1='\W > '
+
+stty -ixon
 
 # Enable tab completion when starting a command with 'sudo'
 [ "$PS1" ] && complete -cf sudo
 
 # shellcheck disable=SC1090
-complete -C cli-tree cli-tree
-complete -C t t
+# complete -C cli-tree cli-tree
+# complete -C t t
 
 alias keys="e /etc/X11/xorg.conf.d/00-keyboard.conf"
 alias emacsd="/usr/bin/emacs --daemon &"
@@ -94,12 +104,12 @@ alias switch='home-manager switch'
 alias e='sudo -e'
 alias home='nvim /home/wurfkreuz/.dotfiles/home-manager/home.nix'
 alias zsh='cd /home/wurfkreuz/.dotfiles/zsh/ && nvim .zshrc'
-alias ls='exa'
-alias sl='exa'
-alias la='exa -lah'
-alias ld='exa -ld'
-alias ls.='exa -a | grep -E "^\."'
-alias tree='exa -T'
+# alias off="poweroff"
+alias off="loginctl poweroff"
+alias re="loginctl reboot"
+alias ls='ls --color=auto'
+alias la='ls -la --color=auto'
+alias grep='grep --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -119,69 +129,19 @@ alias orphaned='sudo pacman -Qtdq'
 alias hello='echo "Hello"'
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 
-eval "$(zoxide init bash)"
 
 if ! pgrep -x "swww-daemon" > /dev/null; then
     swww init 2> /dev/null
     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
 fi
 
-# if [[ $- == *i* ]] && [[ "$TERM" != "dumb" ]]; then
-#     eval "$(starship init bash)"
-# fi
+eval "$(zoxide init bash)"
 
-fzf_history_search() {
-    local output=$(history | fzf --tac --tiebreak=index +s --query="$READLINE_LINE")
-    READLINE_LINE=$(echo "$output" | sed 's/ *[0-9]* *//')
-    READLINE_POINT=${#READLINE_LINE}
-}
-bind -x '"\C-r": fzf_history_search'
+# Enable fzf keybindings
+source /usr/share/fzf/key-bindings.bash
+# Enable fzf completion
+source /usr/share/fzf/completion.bash
 
-fzf_nvim_with_sudo() {
-    local file
-    file=$(fzf --height 40% --border)
-
-    if [[ -n "$file" ]]; then
-        if [[ ! -w "$file" ]]; then
-            SUDO_EDITOR="nvim" sudoedit "$file"
-        else
-            nvim "$file"
-        fi
-    fi
-}
-bind -x '"\C-e": fzf_nvim_with_sudo'
-
-fzf_insert_path() {
-    local file
-    file=$(fd --type f --hidden . | fzf --height 40% --border)
-    if [[ -n "$file" ]]; then
-        READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$file${READLINE_LINE:$READLINE_POINT}"
-        READLINE_POINT=$(( READLINE_POINT + ${#file} ))
-    fi
-}
-bind -x '"\C-l": fzf_insert_path'
-
-fzf_list_path() {
-    local file
-    file=$(fd --hidden . / | fzf --height 40% --border)
-    if [[ -n "$file" ]]; then
-        READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$file${READLINE_LINE:$READLINE_POINT}"
-        READLINE_POINT=$(( READLINE_POINT + ${#file} ))
-    fi
-}
-bind -x '"\C-y": fzf_list_path'
-
-# attach_zellij_session() {
-#     local session
-#     session=$(zellij list-sessions | fzf --height=10 --layout=reverse --border --ansi) && \
-#     [ -n "$session" ] && zellij attach "$(echo "$session" | awk '{print $1}')"
-# }
-# bind -x '"\C-s": attach_zellij_session'
-
-prepend_sudo() {
-    READLINE_LINE="sudo $READLINE_LINE"
-    READLINE_POINT=$((READLINE_POINT+5))
-}
-bind -x '"\C-o": prepend_sudo'
-
-[ -f "/home/wurfkreuz/.ghcup/env" ] && source "/home/wurfkreuz/.ghcup/env" # ghcup-env
+# Enable ** completion (this is important!)
+# bind -x '"\t": fzf_completion'  # some systems might need this
+# _fzf_setup_completion path vim cd  # setup completion for specific commands

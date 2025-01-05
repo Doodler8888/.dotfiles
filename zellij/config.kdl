@@ -70,7 +70,7 @@ keybinds clear-defaults=true {
         bind "Tab" { ToggleTab; }
     }
     scroll {
-        bind "Alt c" { SwitchToMode "Normal"; }
+        bind "Alt l" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         // bind "Ctrl ?" { ScrollToBottom; SwitchToMode "Normal"; }

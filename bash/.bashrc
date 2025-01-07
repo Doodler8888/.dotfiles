@@ -1,18 +1,16 @@
-eval "$(fzf --bash)"
-
+source /home/wurfkreuz/.dotfiles/scripts/sh/bak.sh
 source /home/wurfkreuz/.dotfiles/bash/functions.sh
-# source /home/wurfkreuz/.dotfiles/bash/prompt.sh
+
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/bin:/home/wurfkreuz/.ghcup/bin:/home/wurfkreuz/.cabal/bin:/home/wufkreuz/.local/share/racket:$PATH"
 export EDITOR=nvim
-# export CDPATH=.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects
-# export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
+export CDPATH=.:~:/usr/local:/etc:~/.dotfiles:~/.config:~/.projects:~/.source
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.4.0.0/bin"
 export PATH="$PATH:/home/wurfkreuz/.cabal/"
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude var --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
-export BOT_TOKEN="5907946679:AAExBdsBoE_et6XSF_A7DJIrpoNye7iGk8E"
 
 # # If not running interactively, don't do anything
 # [[ $- != *i* ]] && return
+
+bind -m vi-command '"ge":edit-and-execute-command'
 
 shopt -s autocd
 shopt -s checkjobs
@@ -119,7 +117,6 @@ alias zd='zellij delete-all-sessions'
 alias g='git'
 alias notes='nvim "$HOME/notes.txt"'
 alias backup='sudo timeshift --create --comments'
-alias ff='rg --files | fzf'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .3='cd ../../..'
@@ -135,14 +132,3 @@ if ! pgrep -x "swww-daemon" > /dev/null; then
     swww init 2> /dev/null
     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
 fi
-
-eval "$(zoxide init bash)"
-
-# Enable fzf keybindings
-source /usr/share/fzf/key-bindings.bash
-# Enable fzf completion
-source /usr/share/fzf/completion.bash
-
-# Enable ** completion (this is important!)
-# bind -x '"\t": fzf_completion'  # some systems might need this
-# _fzf_setup_completion path vim cd  # setup completion for specific commands

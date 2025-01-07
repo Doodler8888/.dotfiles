@@ -55,3 +55,6 @@ vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end
 ]])
 
+-- For tmux <escape> latency
+vim.o.timeoutlen = 1000
+vim.o.ttimeoutlen = 0

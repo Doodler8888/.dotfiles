@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -133,3 +133,6 @@ vim.keymap.set('n', '<C-x><C-f>', function()
     local current_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
     vim.fn.feedkeys(':e ' .. current_path, 'n')
 end, {noremap = true})
+
+
+

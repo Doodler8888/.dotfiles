@@ -20,14 +20,8 @@ local plugins = {
 		-- or                              , branch = '0.1.x',
 		-- dependencies = { 'nvim-lua/plenary.nvim' }
 	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-	},
-	"nvim-telescope/telescope-ui-select.nvim",
 	"rose-pine/neovim",
 	"anuvyklack/hydra.nvim",
-	"stevearc/oil.nvim",
 	"stevearc/conform.nvim",
 	{
 	  'kristijanhusak/vim-dadbod-ui',
@@ -62,9 +56,9 @@ local plugins = {
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
 	},
-	{
-		"neovim/nvim-lspconfig",
-	},
+	-- {
+	-- 	"neovim/nvim-lspconfig",
+	-- },
 	{
 	  'stevearc/quicker.nvim',
 	  event = "FileType qf",
@@ -73,7 +67,6 @@ local plugins = {
 	  opts = {},
 	},
 	'mbbill/undotree',
-	'mfussenegger/nvim-lint',
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()
@@ -87,7 +80,6 @@ local plugins = {
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	"folke/flash.nvim",
-	'L3MON4D3/LuaSnip'
 }
 
 require("lazy").setup(plugins, opts)

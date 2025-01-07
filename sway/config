@@ -18,12 +18,26 @@ set $mod Mod4
 
 # Window management
 bindsym $mod+w kill
-bindsym $mod+v splitv
+# bindsym $mod+v splitv
 # bindsym $mod+c splith # i use mode+c already for reloading a config file
+
+# Making this keybindings through Shift, Alt, Control doesn't work fsr
+# Also i haven't found a way to make horizontal layout. 
+# You have to use 'bindsym $mod+v layout toggle split' until it picks it
+bindsym $mod+v layout toggle split
 bindsym $mod+s layout stacking
-# bindsym $mod+t layout tabbed # use this binding for launching telegram
+bindsym $mod+t layout tabbed
+
+# bindsym $mod+Shift+h layout toggle
+# bindsym $mod+Shift+v layout toggle split
+# bindsym $mod+Shift+s layout toggle stacking
+# bindsym $mod+Shift+t layout toggle tabbed
+
 # bindsym $mod+Shift+t exec swaymsg workspace current layout tabbed
-bindsym $mod+t layout toggle tabbed stacking split
+# bindsym $mod+t layout toggle tabbed stacking split 
+# bindsym $mod+t layout toggle split tabbed stacking splith splitv
+
+# bindsym $mod+t layout toggle all
 # bindsym $mod+Shift+t exec swaymsg workspace_layout tabbed
 
 bindsym $mod+h focus left
@@ -31,10 +45,10 @@ bindsym $mod+l focus right
 bindsym $mod+k focus up
 bindsym $mod+j focus down
 
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+l move right
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+j move down
+bindsym $mod+left move left
+bindsym $mod+right move right
+bindsym $mod+up move up
+bindsym $mod+down move down
 bindsym $mod+Shift+p focus parent
 bindsym $mod+Shift+c focus child
 # bindsym $mod+m mark
@@ -46,7 +60,8 @@ bindsym $mod+F11 exec grim -g "$(slurp)" - | wl-copy
 bindsym $mod+F12 exec grim - | wl-copy
 
 # Application launching
-bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec foot
 bindsym $mod+g exec ghostty
 bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
@@ -60,7 +75,7 @@ bindsym $mod+r exec --no-startup-id wofi --show drun
 bindsym $mod+e exec emacs
 # bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
 # bindsym $mod+t exec telegram-desktop
-bindsym $mod+shift+t exec telegram
+# bindsym $mod+shift+t exec telegram
 bindsym $mod+i exec /home/wurfkreuz/Downloads/intellij/idea-IU-242.23339.11/bin/idea
 
 # Workspace management

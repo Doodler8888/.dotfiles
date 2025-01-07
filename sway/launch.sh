@@ -26,7 +26,9 @@ swaymsg 'workspace 3'
 swaymsg 'layout tabbed'
 
 # swaymsg 'exec alacritty -e zellij attach main'
-swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec alacritty -e zellij'
+swaymsg 'exec foot tmux'
+# swaymsg 'exec foot zellij'
 # swaymsg 'exec alacritty'
 
 # # Wait for Emacs to launch
@@ -48,15 +50,21 @@ swaymsg 'layout tabbed'
 swaymsg 'mark main'
 
 # swaymsg 'exec alacritty'
-swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec alacritty -e zellij'
+swaymsg 'exec foot tmux'
+# swaymsg 'exec foot zellij'
 
 # # Wait for Emacs to launch
 sleep 2
 
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
-swaymsg 'exec alacritty -e zellij attach main'
+# swaymsg 'exec alacritty -e zellij attach main'
+swaymsg 'exec foot tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh" \; attach'
+# swaymsg 'exec foot tmux'
 # swaymsg 'exec /usr/bin/alacritty -e /home/wurfkreuz/.cargo/bin/zellij attach main'
+# swaymsg 'exec foot zellij /home/wurfkreuz/.cargo/bin/zellij attach main'
 swaymsg 'layout stacking'
 
 sleep 2

@@ -127,3 +127,10 @@ bind '"\C-f": nop'
 
 # Then bind our sequence
 bind -x '"\C-f\C-p": print_current_directory_inline'
+
+
+tmux-to-editor () {
+    file=`mktemp`.sh
+    tmux capture-pane -pS -32768 > $file
+    tmux new-window -n:mywindow "nvim '+ normal G $' $file"
+ }

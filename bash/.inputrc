@@ -22,4 +22,6 @@ $if mode=vi
     "\C-n": next-history
     "\C-l": clear-screen
     "\e.": yank-last-arg
+
+    "p": "i\C-u\C-y\e"  # Paste from clipboard in normal mode
 $endif

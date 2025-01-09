@@ -109,7 +109,6 @@ alias search='nix-env -qa'
 # alias switch='home-manager switch' # i use switch as a function
 alias e='sudo -e'
 alias home='nvim /home/wurfkreuz/.dotfiles/home-manager/home.nix'
-alias zsh='cd ~/.dotfiles/zsh/ && nvim .zshrc'
 alias ls='eza'
 alias sl='eza'
 alias la='eza -lah'
@@ -185,7 +184,7 @@ ENABLE_CORRECTION="true"
 
 zle_highlight=(region:bg=#524f67)
 
-eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh)"
 
 source ~/.dotfiles/zsh/functions.sh
 

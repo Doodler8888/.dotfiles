@@ -383,9 +383,7 @@ function my_fzf_history_widget() {
     local selected
     selected=$(fc -ln 0 | 
         awk '!seen[$0]++' |
-        FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS} \
-        --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS} \
-        --query=${LBUFFER} +m" fzf)
+        pick)
     local ret=$?
     if [ -n "$selected" ]; then
         BUFFER="${selected}"

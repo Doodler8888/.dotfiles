@@ -129,8 +129,9 @@ bind '"\C-f": nop'
 bind -x '"\C-f\C-p": print_current_directory_inline'
 
 
-tmux-to-editor () {
-    file=`mktemp`.sh
-    tmux capture-pane -pS -32768 > $file
-    tmux new-window -n:mywindow "nvim '+ normal G $' $file"
- }
+my_self_insert() {
+    self-insert | wl-copy
+}
+
+# bind -m vi-insert -x '"\y": self_insert_to_clipboard'
+bind -m vi-command -x '"\y": my_self_insert'

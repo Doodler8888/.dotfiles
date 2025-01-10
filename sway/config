@@ -65,7 +65,8 @@ bindsym $mod+Return exec foot
 bindsym $mod+g exec ghostty
 bindsym $mod+Shift+b exec opera
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
-bindsym $mod+b exec vivaldi-stable
+# bindsym $mod+b exec vivaldi-stable
+bindsym $mod+b exec librewolf
 # bindsym $mod+b exec firefox
 # bindsym $mod+b exec vivaldi.vivaldi-stable
 # bindsym $mod+b exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland

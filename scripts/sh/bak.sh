@@ -1,7 +1,7 @@
 #!/bin/sh
 
 is_back() {
-    arg=$(echo $1 | sed 's/\/*$//')
+    arg=$(echo "$1" | sed 's/\/*$//')
     case $arg in
         *.bak)
             # echo "is bak"
@@ -22,22 +22,22 @@ unbaked() {
     # is to redirect the debug output to stderr.
     # echo "This is an argument coming to the unbaked function: $1"
     result=$(echo "$1" | sed 's/\/*$//; s/\.bak$//')
-    echo $result
+    echo "$result"
     # if i do the whole part just with "echo "$1" | sed 's/\/$//; s/\.bak$//'",
     # then i just capture the result in the function, but i don't return it
     # anywhere
 }
 
 create_bak() {
-    for arg in $@; do
-        if is_back $arg; then
+    for arg in "$@"; do
+        if is_back "$arg"; then
             echo "this is the current processed parameter: $arg"
             # "'s/\/*$//;" - '*' is added to delete any number of slashes at the end
             arg=$(echo "$arg" | sed 's/\/*$//')
-            unbaked_string=$(unbaked $arg)
+            unbaked_string=$(unbaked "$arg")
             # echo "this is the unbaked_string: $unbaked_string"
             # echo "this is how the move command should look: mv $arg $unbaked_string"
-            mv $arg $unbaked_string
+            mv "$arg" "$unbaked_string"
         else
             arg=$(unbaked "$arg")
             # echo "this is how the move command should look: mv $arg $arg.bak"
@@ -47,10 +47,13 @@ create_bak() {
 }
 
 copy_args() {
-    for arg in $@; do
+    for arg in "$@"; do
         arg=$(echo "$arg" | sed 's/\/*$//; s/\.bak$//')
-        is_back $arg && cp -r $arg $(unbaked "$arg") || cp -r $arg "$arg.bak"
-        bak_name="$arg.bak"
+        if is_back "$arg"; then
+            cp -r "$arg" "$(unbaked "$arg")"
+        else
+            cp -r "$arg" "$arg.bak"
+        fi
     done;
 }
 
@@ -60,11 +63,11 @@ bak() {
             shift
             # echo "c flag is used"
             # echo "coping the file first"
-            copy_args $@
+            copy_args "$@"
             ;;
         *)
             echo "c flag wasn't used"
-            create_bak $@
+            create_bak "$@"
             ;;
     esac
 }

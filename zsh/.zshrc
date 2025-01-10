@@ -1,6 +1,9 @@
+source /home/wurfkreuz/.dotfiles/scripts/sh/bak.sh
+source /home/wurfkreuz/.dotfiles/scripts/sh/help.sh
 source /usr/local/bin
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
+export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$PATH"
 # export EDITOR='/usr/bin/nvim'
 export EDITOR=nvim
@@ -38,6 +41,10 @@ setopt HIST_IGNORE_ALL_DUPS
 HISTSIZE=16000
 SAVEHIST=16000
 # precmd() {}
+
+# Colors for gnu ls output
+unset LS_COLORS
+export LS_COLORS="ln=38;2;76;86;106"
 
 autoload edit-command-line; zle -N edit-command-line
 bindkey -v
@@ -109,14 +116,13 @@ alias search='nix-env -qa'
 # alias switch='home-manager switch' # i use switch as a function
 alias e='sudo -e'
 alias home='nvim /home/wurfkreuz/.dotfiles/home-manager/home.nix'
-alias ls='eza'
-alias sl='eza'
-alias la='eza -lah'
-alias ls.='eza -a | grep -E "^\."'
-alias tree='eza -Ta --ignore-glob='.git''
+# alias tree='eza -Ta --ignore-glob='.git''
+alias ls='ls --color=auto'
+alias la='ls -la --color=auto'
+alias grep='grep --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+alias fgrep='fgrep --color=auto'# alias push='git add . && git commit -m "n" && git push'
 # alias push='git add . && git commit -m "n" && git push'
 alias g='git'
 alias notes='nvim "$HOME/notes.txt"'
@@ -139,7 +145,7 @@ alias hosts="sudo -e /etc/ansible/hosts"
 alias scr="cd ~/.dotfiles/scripts/"
 # alias off="poweroff"
 alias off="loginctl poweroff"
-alias restart="loginctl reboot"
+alias re="loginctl reboot"
 alias run="cargo run"
 alias build="cargo build"
 alias scr="cd ~/.dotfiles/scripts"
@@ -165,6 +171,8 @@ alias clone="git clone"
 alias lg="lazygit"
 alias trash="cd /home/wurfkreuz/.local/share/trash"
 alias update="sudo apt update && sudo apt upgrade"
+alias tmux-source="tmux source-file ~/.tmux.conf"
+
 
 # # Disables echoing in shell-mode
 # if [[ $INSIDE_EMACS = *comint* ]]; then
@@ -210,7 +218,7 @@ bindkey -M viins '^L' clear-screen
 # If i write "source '~/antigen.zsh'", i'll get an error.
 source "$HOME/antigen.zsh"
 
-eval "$(starship init zsh)" # It should be at the very top of my config, otherwise i might get latency on cursor in vim mode.
+# eval "$(starship init zsh)" # It should be at the very top of my config, otherwise i might get latency on cursor in vim mode.
 
 # export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 # bindkey '^[w' forward-word
@@ -225,7 +233,7 @@ fi
 
 # antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv" &> /dev/null
 # antigen bundle marlonrichert/zsh-autocomplete &> /dev/null
-antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
+# antigen bundle zsh-users/zsh-syntax-highlighting &> /dev/null
 # antigen bundle joshskidmore/zsh-fzf-history-search &> /dev/null
 # antigen bundle jeffreytse/zsh-vi-mode
 antigen apply &> /dev/null
@@ -249,9 +257,15 @@ antigen apply &> /dev/null
 #     PS1='%1~ > '
 # fi
 
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
-    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
+setopt PROMPT_SUBST
+setopt PROMPT_SUBST
+PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%{\e[38;2;208;135;112m%}>%{\e[0m%} '
+# PROMPT='%F{4}%~%F{5}$(parse_git_branch)%f
+# %F{11}>%f '
 
 # Start ssh-agent if it's not already running
 if [ -z "$SSH_AUTH_SOCK" ]; then

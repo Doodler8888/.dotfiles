@@ -1,3 +1,0 @@
-1. Launch bare neovim:
-
-   nvim -u NONE

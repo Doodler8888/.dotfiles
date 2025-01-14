@@ -21,6 +21,7 @@ local plugins = {
 		-- dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	"rose-pine/neovim",
+	"itspriddle/vim-shellcheck",
 	"anuvyklack/hydra.nvim",
 	"stevearc/conform.nvim",
 	{
@@ -56,9 +57,9 @@ local plugins = {
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
 	},
-	-- {
-	-- 	"neovim/nvim-lspconfig",
-	-- },
+	{
+		"neovim/nvim-lspconfig",
+	},
 	{
 	  'stevearc/quicker.nvim',
 	  event = "FileType qf",

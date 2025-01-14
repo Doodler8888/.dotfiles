@@ -5,6 +5,7 @@ source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$PATH"
+GTAGSOBJDIRPREFIX=~/.cache/gtags/
 # export EDITOR='/usr/bin/nvim'
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -95,7 +96,6 @@ alias rf='rm -rf'
 alias md='mkdir -p'
 alias s='source ~/.zshrc'
 alias ve='source ./venv/bin/activate && nvim .'
-alias st='tmux source-file'
 alias menv='python3 -m venv ./.venv'
 alias senv='source .venv/bin/activate'
 alias denv='deactivate'
@@ -172,6 +172,8 @@ alias lg="lazygit"
 alias trash="cd /home/wurfkreuz/.local/share/trash"
 alias update="sudo apt update && sudo apt upgrade"
 alias tmux-source="tmux source-file ~/.tmux.conf"
+alias t-s="tmux source-file ~/.tmux.conf"
+alias cm="chmod"
 
 
 # # Disables echoing in shell-mode

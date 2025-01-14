@@ -539,8 +539,8 @@ require('telescope').setup{
 
 -- Add this temporarily to see which register is used when pressing 'p'
 vim.keymap.set('n', 'p', function()
-    print("Current unnamed register:", vim.fn.getreg('"'))
-    print("Register 0:", vim.fn.getreg('0'))
+    -- print("Current unnamed register:", vim.fn.getreg('"'))
+    -- print("Register 0:", vim.fn.getreg('0'))
     return 'p'
 end, { expr = true })
 

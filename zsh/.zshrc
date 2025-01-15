@@ -1,4 +1,5 @@
 source /home/wurfkreuz/.dotfiles/scripts/sh/bak.sh
+source /home/wurfkreuz/.dotfiles/scripts/sh/quick-cd.sh
 source /home/wurfkreuz/.dotfiles/scripts/sh/help.sh
 source /usr/local/bin
 source ~/.secret_dotfiles/zsh/.zshrc
@@ -137,6 +138,7 @@ alias nvm='cd ~/.dotfiles/nvim/ && nvim .'
 alias remove='sudo apt remove'
 alias install='sudo xbps-install -Sy'
 alias remove='sudo xbps-remove -R' # '-R' for recursive removal of dependencies
+alias query='xbps-query -Rs' # '-R' for recursive removal of dependencies
 alias orphaned='sudo pacman -Qtdq'
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 alias users="awk -F: '\$3>=1000 && \$1!=\"nobody\" && \$1!~/nixbld/ {print \$1}' /etc/passwd"  # Original: awk: cmd. line:1: >=1000 && !=nobody && !~/nixbld/ {print }
@@ -174,6 +176,8 @@ alias update="sudo apt update && sudo apt upgrade"
 alias tmux-source="tmux source-file ~/.tmux.conf"
 alias t-s="tmux source-file ~/.tmux.conf"
 alias cm="chmod"
+alias cd-add="cd_add"
+alias c-a="cd_add"
 
 
 # # Disables echoing in shell-mode
@@ -194,7 +198,7 @@ ENABLE_CORRECTION="true"
 
 zle_highlight=(region:bg=#524f67)
 
-# eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 
 source ~/.dotfiles/zsh/functions.sh
 

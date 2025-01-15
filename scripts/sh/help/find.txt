@@ -2,3 +2,4 @@ find . -maxdepth 1 -name 'your_search_pattern*'
 -- When you try to use globbing, you have to put the search pattern into single
 -- quotes, otherwise it will be expanded as a list, so that a list of the found
 -- items is a search pattern.
+

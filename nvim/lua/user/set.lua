@@ -1,6 +1,6 @@
 vim.o.clipboard = "unnamedplus"
 
-vim.opt.nu = true
+vim.opt.nu = true -- 'nu' is probably short for 'number'
 vim.opt.relativenumber = true
 
 vim.opt.smartindent = true
@@ -48,12 +48,6 @@ vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatop
 vim.cmd([[ set viewoptions=folds,cursor ]])
 vim.cmd([[ autocmd BufWinLeave * silent! mkview ]])
 vim.cmd([[ autocmd BufWinEnter * silent! loadview ]])
-
--- vim.g.codeium_no_map_tab = 1
-
-vim.cmd([[
-  command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end
-]])
 
 -- For tmux <escape> latency
 vim.o.timeoutlen = 1000

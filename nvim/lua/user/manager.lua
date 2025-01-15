@@ -21,26 +21,26 @@ local plugins = {
 		-- dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	"rose-pine/neovim",
-	"itspriddle/vim-shellcheck",
-	"anuvyklack/hydra.nvim",
-	"stevearc/conform.nvim",
-	{
-	  'kristijanhusak/vim-dadbod-ui',
-	  dependencies = {
-	    { 'tpope/vim-dadbod', lazy = true },
-	    { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql', 'psql' }, lazy = true },
-	  },
-	  cmd = {
-	    'DBUI',
-	    'DBUIToggle',
-	    'DBUIAddConnection',
-	    'DBUIFindBuffer',
-	  },
-	  init = function()
-	    -- Your DBUI configuration
-	    vim.g.db_ui_use_nerd_fonts = 1
-	  end,
-	},
+	-- "itspriddle/vim-shellcheck",
+	-- "anuvyklack/hydra.nvim",
+	-- "stevearc/conform.nvim",
+	-- {
+	--   'kristijanhusak/vim-dadbod-ui',
+	--   dependencies = {
+	--     { 'tpope/vim-dadbod', lazy = true },
+	--     { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql', 'psql' }, lazy = true },
+	--   },
+	--   cmd = {
+	--     'DBUI',
+	--     'DBUIToggle',
+	--     'DBUIAddConnection',
+	--     'DBUIFindBuffer',
+	--   },
+	--   init = function()
+	--     -- Your DBUI configuration
+	--     vim.g.db_ui_use_nerd_fonts = 1
+	--   end,
+	-- },
 	'Doodler8888/resession.nvim',
 	{
 		"kylechui/nvim-surround",
@@ -57,9 +57,9 @@ local plugins = {
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
 	},
-	{
-		"neovim/nvim-lspconfig",
-	},
+	-- {
+	-- 	"neovim/nvim-lspconfig",
+	-- },
 	{
 	  'stevearc/quicker.nvim',
 	  event = "FileType qf",
@@ -67,7 +67,7 @@ local plugins = {
 	  ---@type quicker.SetupOptions
 	  opts = {},
 	},
-	'mbbill/undotree',
+	-- 'mbbill/undotree',
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()

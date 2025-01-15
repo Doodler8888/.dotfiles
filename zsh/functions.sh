@@ -142,7 +142,9 @@ zle -N fd-lsearch
 
 function fzf-zoxide() {
     local dir
-    dir=$(zoxide query --list | fzf --height 40% --border) && cd "$dir"
+    # dir=$(zoxide query --list | fzf --height 40% --border) && cd "$dir"
+    # dir=$(zoxide query --list | pick) && cd "$dir"
+    dir=$(cat ~/.dirs | pick) && cd "$dir"
     # Reset the prompt to reflect the change immediately
     zle reset-prompt
 }
@@ -411,6 +413,14 @@ delete_word_backward() {
     # If cursor is right after a slash, delete until previous slash
     if [[ ${BUFFER:$((CURSOR-1)):1} == "/" ]]; then
         local slash_pos=${BUFFER:0:$((CURSOR-1))}
+        
+        # If there's no previous slash, delete everything up to cursor
+        if [[ ! $slash_pos =~ / ]]; then
+            BUFFER="${BUFFER:$CURSOR_BEFORE}"
+            CURSOR=0
+            return
+        fi
+        
         slash_pos=${slash_pos%/*}
         local slash_length=${#slash_pos}
         CURSOR=$((slash_length + 1))
@@ -428,5 +438,6 @@ delete_word_backward() {
         fi
     fi
 }
+ 
 zle -N delete_word_backward
 bindkey '^W' delete_word_backward

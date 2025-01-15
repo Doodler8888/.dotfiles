@@ -1,4 +1,0 @@
--- vim.lsp.start({
---
---     cmd = { "node", "/home/wurfkreuz/.source/RakuNavigator/server/out/server.js", "--stdio" },
--- })

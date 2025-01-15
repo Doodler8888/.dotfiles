@@ -36,6 +36,11 @@ vim.cmd('command! Todo lcd $HOME/.secret_dotfiles/nvim/todo/ | edit todo.md')
 vim.cmd('command! Tmux lcd /home/wurfkreuz/.dotfiles/tmux | edit .tmux.conf')
 
 
+vim.cmd([[
+  command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end
+]])
+
+
 -- Current filetype
 vim.api.nvim_create_user_command('FT', function()
     print(vim.bo.filetype)

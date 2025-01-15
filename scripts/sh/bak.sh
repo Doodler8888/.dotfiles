@@ -28,7 +28,7 @@ unbaked() {
     # anywhere
 }
 
-create_bak() {
+uncreate_bak() {
     for arg in "$@"; do
         if is_back "$arg"; then
             echo "this is the current processed parameter: $arg"

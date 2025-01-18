@@ -11,8 +11,8 @@ clean_file() {
 }
 
 cd_add() {
-    if [ ! -f $HOME/.dirs ]; then
-        touch $HOME/.dirs
+    if [ ! -f "$HOME"/.dirs ]; then
+        touch "$HOME"/.dirs
     fi
 
     clean_file
@@ -20,14 +20,18 @@ cd_add() {
     # If i don't give any parameter
     if [ -z "$1" ]; then
         current_path=$(pwd)
-        echo "current_path" >> $HOME/.dirs
+        echo "current_path" >> "$HOME"/.dirs
+    # If i write a full path for some reason with '/home...' or "~/", then i
+    # just insert the given path.
+    elif [ "$(echo "$1" | cut -c -2)" = "/h" ]; then
+        echo "$1" >> "$HOME"/.dirs
     # If the given parameter doesn't exist and the logic implies, that i just
     # gave an unfull path
-    elif [ ! -f $current_path ]; then
+    elif [ ! -f "$current_path" ]; then
         current_path="$(pwd)/$current_path"
-        echo "$current_path" >> $HOME/.dirs
+        echo "$current_path" >> "$HOME"/.dirs
     else
-        echo "$current_path" >> $HOME/.dirs 
+        echo "$current_path" >> "$HOME"/.dirs 
     fi
 }
     

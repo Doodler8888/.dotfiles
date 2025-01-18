@@ -14,7 +14,7 @@ swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi-stable'
 # swaymsg 'exec vivaldi.vivaldi-stable'
-swaymsg 'exec librewolf'
+swaymsg 'exec librewolf-wayland'
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 

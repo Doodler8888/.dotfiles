@@ -1,2 +1,10 @@
-Print out current type of a filesystem:
+Print out current partitions with their fs types:
 df -Th | grep "^/dev"
+
+/proc - system information, process information, provised an ability to define
+system settings.
+
+/var - logs (/var/logs), postgres files (/var/lib/posgres)
+
+/run - 
+

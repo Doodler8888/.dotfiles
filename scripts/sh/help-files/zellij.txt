@@ -1,0 +1,3 @@
+In order to fix the issue with cache, try this:
+
+zellij delete-all-sessions

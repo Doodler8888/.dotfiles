@@ -1,0 +1,11 @@
+How flags formatting i usually done:
+
+Usage: command [OPTIONS] [ARGUMENTS]
+
+Options:
+  -a, --all             Description of the flag or option.
+  -b, --brief           Another description for a short and long flag.
+  -c VALUE, --config VALUE
+                        Description for an option that requires a value.
+  -h, --help            Show this help message and exit.
+  -v, --verbose         Enable verbose output.

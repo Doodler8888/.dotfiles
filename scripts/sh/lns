@@ -1,0 +1,54 @@
+#!/bin/sh
+
+help_function() {
+    echo "Usage: command [OPTIONS] [ARGUMENTS]
+
+Options:
+  -h                    Link to home.
+  -b                    Link to /usr/local/bin.
+  --help                Show this help message and exit.
+"
+}
+
+dest_path=""
+
+make_link() {
+    for arg in "$@"; do
+        if [ "$(echo "$arg" | cut -c -5)" = "/home" ]; then
+            # I use -e because -f doesn't work on directories, but only on regular files
+            [ -e "$arg" ] || { echo "File $arg doesn't exist"; exit 1; }
+            echo "Linking $arg to $dest_path"
+            ln -s "$arg" "$dest_path"
+        else
+            [ -e "$(pwd)/$arg" ] || { echo "File $(pwd)/$arg doesn't exist"; exit 1; }
+            echo "Linking $(pwd)/$arg to $dest_path"
+            ln -s "$(pwd)/$arg" "$dest_path"
+        fi
+    done
+}
+
+main() {
+    case "$1" in
+        --help)
+            help_function
+            ;;
+        -h)
+            dest_path="$HOME"
+            shift
+            make_link "$@"
+            ;;
+        -b)
+            dest_path="/usr/local/bin/"
+            shift
+            make_link "$@"
+            ;;
+        *)
+            dest_path="$HOME/.config/"
+            make_link "$@"
+            ;;
+    esac
+}
+
+case "$(basename "$0")" in
+    lns) main "$@";;
+esac

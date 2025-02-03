@@ -24,13 +24,13 @@ vim.o.relativenumber = true -- and relative line number
 
 vim.o.pumheight = 10        -- max height of completion menu
 
-vim.o.list = true           -- use special characters to represent things like tabs or trailing spaces
-vim.opt.listchars = {       -- NOTE: using `vim.opt` instead of `vim.o` to pass rich object
-    tab = "▏ ",
-    trail = "·",
-    extends = "»",
-    precedes = "«",
-}
+-- vim.o.list = true           -- use special characters to represent things like tabs or trailing spaces
+-- vim.opt.listchars = {       -- NOTE: using `vim.opt` instead of `vim.o` to pass rich object
+--     tab = "▏ ",
+--     trail = "·",
+--     extends = "»",
+--     precedes = "«",
+-- }
 
 vim.opt.diffopt:append("linematch:60") -- second stage diff to align lines
 
@@ -102,6 +102,13 @@ vim.cmd([[ set viewoptions=folds,cursor ]])
 vim.cmd([[ autocmd BufWinLeave * silent! mkview ]])
 vim.cmd([[ autocmd BufWinEnter * silent! loadview ]])
 
--- -- For tmux <escape> latency
--- vim.o.timeoutlen = 1000
--- vim.o.ttimeoutlen = 0
+-- For tmux <escape> latency
+vim.o.timeoutlen = 1000
+vim.o.ttimeoutlen = 0
+
+vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+
+vim.diagnostic.config({
+  signs = false,
+  -- virtual_lines = true  -- Enables lsp diagnostics representation like in helix, but i need to pull from master first.
+})

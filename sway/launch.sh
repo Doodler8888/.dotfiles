@@ -5,7 +5,8 @@
 swaymsg 'workspace 1'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland'
-swaymsg 'exec opera'
+# swaymsg 'exec opera'
+swaymsg 'exec firefox'
 
 sleep 2
 
@@ -52,7 +53,7 @@ swaymsg 'mark main'
 # swaymsg 'exec alacritty'
 # swaymsg 'exec alacritty -e zellij'
 # swaymsg 'exec alacritty -e zellij'
-swaymsg 'exec foot tmux'
+swaymsg 'exec foot tmux new-session -s s2' # I added session name here because i can save a session so that it will use name of a default session. Which means i will have 2 windows using the same tmux session.
 # swaymsg 'exec foot zellij'
 
 # # Wait for Emacs to launch
@@ -61,6 +62,7 @@ sleep 2
 # # Split the layout vertically, launch Alacritty, and set layout to stacking
 swaymsg 'splitv'
 # swaymsg 'exec alacritty -e zellij attach main'
+# swaymsg 'exec foot zellij attach main'
 swaymsg 'exec foot tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh" \; attach'
 # swaymsg 'exec foot tmux'
 # swaymsg 'exec /usr/bin/alacritty -e /home/wurfkreuz/.cargo/bin/zellij attach main'

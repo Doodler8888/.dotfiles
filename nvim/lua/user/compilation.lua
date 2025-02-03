@@ -7,7 +7,8 @@ M.compile_commands = {
     -- sh = "shellcheck -f gcc %",
     -- cpp = "g++ -o %< %",
     -- rust = "cargo build",
-    -- go = "go build",
+    -- go = "go run ./main.go"
+    go = "go run /home/wurfkreuz/.projects/go/main.go",
 }
 
 -- Setup compilation for the current buffer

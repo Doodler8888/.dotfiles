@@ -57,7 +57,7 @@ copy_args() {
     done;
 }
 
-bak() {
+main() {
     case $1 in
         -c)
             shift
@@ -72,3 +72,6 @@ bak() {
     esac
 }
 
+case "$(basename "$0")" in
+    bak) main "$@";;
+esac

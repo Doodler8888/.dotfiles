@@ -4,6 +4,7 @@
 .lsp/
 .zshrc.zwc
 .zcompdump
+quicklisp/
 
 **/scripts/python/.venv/
 .venv/

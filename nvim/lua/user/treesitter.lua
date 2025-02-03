@@ -1,17 +1,17 @@
 require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "terraform", "hcl", "lua", "vim", "vimdoc", "query", "go" },
+    ensure_installed = { "terraform", "hcl", "vim", "vimdoc", "query", "go" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
 
     -- Automatically install missing parsers when entering buffer
     -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
+    auto_install = true, -- I disabled it, because it overcomplicates things.
 
     highlight = {
         enable = true,
-        -- disable = { "terraform" },
+        disable = { "lua" },
         additional_vim_regex_highlighting = false,
     },
     textobjects = {

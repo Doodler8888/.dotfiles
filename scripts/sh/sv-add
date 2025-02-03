@@ -1,0 +1,32 @@
+#!/bin/sh
+
+service_path=""
+
+service_exists() {
+    if [ "$(echo "$1" | cut -c -7)" = "/etc/sv" ] && [ -e "$1" ]; then
+        service_path="$1"
+    elif [ -e "/etc/sv/$1" ]; then
+	service_path="/etc/sv/$1"
+	return 0
+    else
+	echo "Service file doesn't exist"
+        return 1
+    fi
+}
+
+add_service() {
+    ln -s "$service_path" /var/service/
+    echo "Service is added:"
+    ls -la "$service_path"
+}
+
+main() {
+    if ! service_exists "$1"; then
+        exit 1
+    fi
+    add_service
+}
+
+case "$(basename "$0")" in
+    sv-add) main "$@";;
+esac

@@ -20,11 +20,12 @@
   fonts.fontconfig.enable = true;
   
   home.packages = with pkgs; [
-    antigen
+    # antigen
+	  swaynotificationcenter
     # corefonts
-    nerd-fonts.noto
-    noto-fonts-emoji
-    noto-fonts-color-emoji
+    # nerd-fonts.noto
+    # noto-fonts-emoji
+    # noto-fonts-color-emoji
   ];
   
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

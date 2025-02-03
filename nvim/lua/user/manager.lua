@@ -67,7 +67,15 @@ local plugins = {
 	  ---@type quicker.SetupOptions
 	  opts = {},
 	},
-	-- 'mbbill/undotree',
+	{
+  'echasnovski/mini.nvim',
+  config = function()
+    require("mini.ai").setup({
+    })
+  end,
+},
+	'mbbill/undotree',
+	'https://github.com/stevearc/oil.nvim',
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()
@@ -80,7 +88,7 @@ local plugins = {
 	  build = ":TSUpdate",
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
-	"folke/flash.nvim",
+	-- "folke/flash.nvim",
 }
 
 require("lazy").setup(plugins, opts)

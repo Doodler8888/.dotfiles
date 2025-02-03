@@ -383,9 +383,21 @@ bak() {
 autoload -U my_fzf_history_widget
 function my_fzf_history_widget() {
     local selected
-    selected=$(fc -ln 0 | 
-        awk '!seen[$0]++' |
-        pick)
+    # selected=$(fc -ln 0 | awk '!seen[$0]++' | pick)
+    # tac is used to reverse the order in which fzf shors items in its window initially
+    selected=$(fc -ln 0 | awk '!seen[$0]++' | grep -F "$BUFFER" | tac | fzf \
+                                                                      --scheme=history \
+        	                                                      --height "40%" \
+        	                                                      -n2..,.. \
+        	                                                      --tiebreak=index \
+            )
+# 	selected=($(fc -rl 1 | fzf +m \
+# 		--height "40%" \
+# 		-n2..,.. \
+# 		--tiebreak=index \
+# 		--bind=ctrl-r:toggle-sort \
+# 		--query="${LBUFFER}" \
+# 	))
     local ret=$?
     if [ -n "$selected" ]; then
         BUFFER="${selected}"

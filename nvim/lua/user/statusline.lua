@@ -42,6 +42,4 @@ end
 -- Set the statusline
 vim.o.statusline = '%{winnr()} %{%v:lua.FormatFilePath()%} %{%v:lua.GetGitBranch()%}'
 
-vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
-
 vim.cmd([[ set wildmode=longest:full ]])

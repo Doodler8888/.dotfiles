@@ -1,0 +1,5 @@
+Motherboard specs:
+doas dmidecode -t 2
+
+Hardware information for bug reports:
+dmesg

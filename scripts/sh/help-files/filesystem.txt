@@ -1,0 +1,13 @@
+Print out current partitions with their fs types:
+df -Th | grep "^/dev"
+
+/proc - system information, process information, provised an ability to define
+system settings.
+
+/var - logs (/var/logs), postgres files (/var/lib/posgres)
+
+/run - probably i more direct version of /proc (in a sense that it's probably
+easier to extract real time information from it). And maybe it's generally
+related to runtime files. But what exactly they are in this case i don't know.
+
+/sys - information about hardware

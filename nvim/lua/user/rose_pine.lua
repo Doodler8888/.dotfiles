@@ -113,6 +113,18 @@ require('rose-pine').setup({
 		['@string.special.url.comment'] = { fg = 'muted' },
 		['@nospell.comment'] = { fg = 'muted' },
 		['@lsp.type.comment.lua'] = { fg = 'muted' },
+
+		['@function.method.call.go'] = { fg = 'rose' },
+		-- ['@constant.go'] = { fg = '#e0def4' },
+		['@variable.parameter.go'] = { fg = '#e0def4' },
+		['@type.go'] = { fg = 'iris' },
+		['@type.builtin.go'] = { fg = 'iris' },
+		['@number.go'] = { fg = '#908caa' },
+		['@function.builtin.go'] = { fg = 'love' },
+		['@constant.go'] = { fg = 'foam' },
+
+		-- It works on posix shell too (the face is for shebang)
+		['@keyword.directive.bash'] = { fg = 'muted' },
 	      }
 	    })
 

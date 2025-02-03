@@ -1,0 +1,21 @@
+#!/bin/sh
+
+service_path=""
+
+service_active() {
+    # echo "This is what was tried to act on: $1"
+    if [ -e /var/service/"$1" ]; then
+        rm /var/service/"$1"
+    else
+        echo "Service isn't active"
+    fi
+}
+
+main() {
+    service_active "$1"
+}
+
+case "$(basename $0)" in
+    sv-remove) main "$@";;
+esac
+

@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -44,16 +44,17 @@ vim.api.nvim_set_keymap('n', '<C-t>', 'ZQ', { noremap = true, silent = true })
 
 
 -- Motion shortcuts
--- vim.keymap.set('i', '<C-f>', '<Right>', {noremap = true})
-vim.keymap.set('i', '<C-l>', '<Right>', {noremap = true})
--- vim.keymap.set('i', '<C-b>', '<Left>', {noremap = true})
-vim.keymap.set('i', '<C-h>', '<Left>', {noremap = true})
+vim.keymap.set('i', '<C-f>', '<Right>', {noremap = true})
+-- vim.keymap.set('i', '<C-l>', '<Right>', {noremap = true})
+vim.keymap.set('i', '<C-b>', '<Left>', {noremap = true})
+-- vim.keymap.set('i', '<C-h>', '<Left>', {noremap = true})
 -- vim.api.nvim_set_keymap('i', '<M-w>', '<Esc> wi', {noremap = true})
 -- vim.api.nvim_set_keymap('i', '<M-W>', '<Esc> Wi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-B>', '<Esc> Bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
 vim.api.nvim_set_keymap('i', '<C-e>', '<Esc>A', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-a>', '<Esc> 0i', {noremap = true})
 
 -- Create a new tab
 vim.api.nvim_set_keymap('n', '<Leader>tn', ':tabnew<CR>', {noremap = true, silent = true})
@@ -62,9 +63,10 @@ vim.api.nvim_set_keymap('n', '<Leader>tx', ':tabclose<CR>', {noremap = true, sil
 -- Tables
 vim.api.nvim_set_keymap('n', '<Leader>te', ':TableModeToggleeCR>', {noremap = true, silent = true})
 
--- -- Move between tabs with
+-- Move between tabs with
 for i = 1, 9 do
-     vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
+     -- vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
+     vim.api.nvim_set_keymap('n', '<Alt>'..i, i..'gt', {noremap = true, silent = true})
      -- vim.api.nvim_set_keymap('n', ','..i, i..'gt', {noremap = true, silent = true})
 end
 

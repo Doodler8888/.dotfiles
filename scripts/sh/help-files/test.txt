@@ -1,0 +1,5 @@
+"-f" - if given path exists (works only on simple files, but not on directories, symlinks
+and so on)
+"-e" - like '-f', but works on every type of file
+"-z" - if length of a string is zero
+"-n" - if length of a string is non-zero

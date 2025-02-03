@@ -1,0 +1,18 @@
+#!/bin/sh
+
+daemons() {
+    # echo "\$1 is $1"
+    if [ "$1" = "-a" ]; then
+        ls /var/service/
+    else
+        ls /etc/sv/
+    fi
+}
+
+main() {
+    daemons "$1"
+}
+
+case "$(basename $0)" in
+    daemons) main "$1";;
+esac

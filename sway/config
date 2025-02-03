@@ -1,8 +1,19 @@
+# I have 3 options to enable notifications. Dunst is the most straightforward
+# because i don't need to set this 'exec dbus-daemon --session
+# --address=unix:path=$XDG_RUNTIME_DIR/bus' and it's available as a package on
+# void. Mako is also available as a package, but it doesn't work with browser
+# extensions. Swaync isn't available as a package, you need to install it
+# throuhg nix, but it works (though you also need to use the dbus command).
+# I already should have dbus daemon running at this point, but it runs for root
+# only, not for my user. That's why i need to set it for the current user (which
+# means i need this line even outside of the notification daemons context). On
+# systemd this process is managed automatically apparently.
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec /home/wurfkreuz/.nix-profile/bin/swaync
 # exec mako
 
 # Uncomment this line only after you've configured pipewire to work
-# Isn't used on systemd distros
+# Probably isn't used on systemd distros
 exec --no-startup-id pipewire
 
 font NotoSansM Nerd Font Mono 8
@@ -63,7 +74,8 @@ bindsym $mod+F12 exec grim - | wl-copy
 # bindsym $mod+Return exec alacritty
 bindsym $mod+Return exec foot
 bindsym $mod+g exec ghostty
-bindsym $mod+Shift+b exec opera
+# bindsym $mod+Shift+b exec opera
+bindsym $mod+Shift+b exec firefox
 # bindsym $mod+Shift+b exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland
 # bindsym $mod+b exec vivaldi-stable
 bindsym $mod+b exec librewolf-wayland
@@ -95,8 +107,9 @@ bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
 
+# Useless binding in my case
 # Config reload
-bindsym $mod+c exec swaymsg reload
+# bindsym $mod+c exec swaymsg reload
 
 # Exit Sway
 bindsym $mod+q exec swaymsg exit
@@ -126,7 +139,7 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 exec_always ~/.dotfiles/sway/launch.sh
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 # I also probably need to add a command that applies the gif. I haven't done it
 # here because by the time i wrote this line, i already applied the image, and

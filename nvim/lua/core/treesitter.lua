@@ -10,9 +10,12 @@ There are two ways to install tree-sitter parsers
     1. install parser with luarocks (e.g. `tree-sitter-css`)
     2. add installed path to `'runtimepath'`
 
-First way is how `nvim-treesitter`'s `:TSInstall rust` works. `nvim-treesitter` also includes all needed queries for supported languages at this point (09-Jul-2024.)
+First way is how `nvim-treesitter`'s `:TSInstall rust` works. `nvim-treesitter`
+also includes all needed queries for supported languages at this point
+(09-Jul-2024.)
 
-If we do all manually, second way is more convenient because we don't need to manually write all needed queries for each languages.
+If we do all manually, second way is more convenient because we don't need to
+manually write all needed queries for each languages.
 
 ## 1. install parser with luarocks
 

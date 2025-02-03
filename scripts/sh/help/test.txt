@@ -1,3 +1,0 @@
-"-f" - if given path exists
-"-z" - if length of a string is zero
-"-n" - if length of a string is non-zero

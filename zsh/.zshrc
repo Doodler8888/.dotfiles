@@ -4,30 +4,19 @@ export GOPATH=$HOME/go
 export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$PATH"
 GTAGSOBJDIRPREFIX=~/.cache/gtags/
-# export EDITOR='/usr/bin/nvim'
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
-# export ZDOTDIR="/home/wurfkreuz/.dotfiles/zsh/"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
-# export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp . /'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
-# export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude ".config/vivaldi" --exclude snap'
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.9.0.1/bin"
 # export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
 # export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
-# export RAKU_MODULE_DEBUG="~/.raku/sources"
 # export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
-# export LSP_USE_PLISTS=true
-export LC_ALL=C.UTF-8
-# export KITTY_CONFIG_DIRECTORY="~/.dotfiles/kitty"
-# export XDG_CURRENT_DESKTOP=sway
 # export LUA_BINDIR="/usr/local/bin/"
 # export LUA_BINDIR_SET=yes
-# export VISUDO_EDITOR=/usr/bin/nvim
 export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 # export XAUTHORITY=$HOME/.Xauthority
-# export XDG_CONFIG_HOME="$HOME/.config/"
 # export K9S_CONFIG_DIR="~/.config/k9s/"
 # export K9S_SKIN="$HOME/.config/k9s/skins/nord_aurora.yaml"
 
@@ -52,6 +41,28 @@ bindkey -M vicmd ge edit-command-line # edit line using EDITOR
 bindkey "^?" backward-delete-char
 bindkey -M vicmd 'Y' vi-yank-eol
 bindkey '^R' fzf_history_search
+
+# Insert Mode (viins)
+bindkey -M viins '^A' beginning-of-line    # C-a: Move to start of line
+bindkey -M viins '^E' end-of-line          # C-e: Move to end of line
+bindkey -M viins '^K' kill-line            # C-k: Kill to end of line
+bindkey -M viins '^U' backward-kill-line   # C-u: Delete entire line
+bindkey -M viins '^W' backward-kill-word   # C-w: Delete previous word
+bindkey -M viins '^[f' forward-word        # M-f: Move forward one word
+bindkey -M viins '^[b' backward-word       # M-b: Move backward one word
+bindkey -M viins '^B' backward-char        # C-b: Move backward one char
+bindkey -M viins '^F' forward-char         # C-f: Move forward one char
+
+# Normal Mode (vicmd)
+bindkey -M vicmd '^A' beginning-of-line
+bindkey -M vicmd '^E' end-of-line
+bindkey -M vicmd '^K' kill-line
+bindkey -M vicmd '^U' backward-kill-line
+bindkey -M vicmd '^W' backward-kill-word
+bindkey -M vicmd '^[f' forward-word
+bindkey -M vicmd '^[b' backward-word
+bindkey -M vicmd '^B' backward-char
+bindkey -M vicmd '^F' forward-char
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"

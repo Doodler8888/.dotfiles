@@ -1,0 +1,18 @@
+Add a group to a user:
+sudo useradd -aG groupname username
+
+Remove a user from a group:
+(TLDR - just edit /etc/group)
+
+Remove a group:
+sudo groupdel groupname
+
+Void page about groups:
+https://docs.voidlinux.org/config/users-and-groups.html?highlight=groups#default-groups
+
+
+Original list of groups:
+wurfkreuz bin sys wheel daemon floppy audio video cdrom optical kvm xbuilder
+
+But i ended up having only these:
+wurfkreuz wheel audio video

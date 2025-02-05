@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+[ ! -d ~/.source ] && mkdir ~/.source
+
+cd ~/.source
+
+sudo xbps-install -Sy
+
+# Unfinished

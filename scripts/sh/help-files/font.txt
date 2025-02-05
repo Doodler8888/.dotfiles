@@ -1,0 +1,5 @@
+List all installed fonts:
+fc-list
+
+Update font cache:
+fc-cache -fv

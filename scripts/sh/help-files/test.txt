@@ -3,3 +3,4 @@ and so on)
 "-e" - like '-f', but works on every type of file
 "-z" - if length of a string is zero
 "-n" - if length of a string is non-zero
+"-d" - if given path resolves to directory

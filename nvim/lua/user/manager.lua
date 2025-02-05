@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	"nvim-lua/plenary.nvim",
+	-- "nvim-lua/plenary.nvim",
 	"nvim-tree/nvim-web-devicons",
 	{
 		"nvim-telescope/telescope.nvim",
@@ -21,7 +21,6 @@ local plugins = {
 		-- dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	"rose-pine/neovim",
-	-- "itspriddle/vim-shellcheck",
 	-- "anuvyklack/hydra.nvim",
 	-- "stevearc/conform.nvim",
 	-- {
@@ -75,7 +74,7 @@ local plugins = {
   end,
 },
 	'mbbill/undotree',
-	'https://github.com/stevearc/oil.nvim',
+	'stevearc/oil.nvim',
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()
@@ -88,7 +87,6 @@ local plugins = {
 	  build = ":TSUpdate",
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
-	-- "folke/flash.nvim",
 }
 
 require("lazy").setup(plugins, opts)

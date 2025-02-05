@@ -35,6 +35,7 @@ vim.cmd('command! C lcd $HOME/.config | Oil ~/.config')
 vim.cmd('command! Todo lcd $HOME/.secret_dotfiles/nvim/todo/ | edit todo.md')
 vim.cmd('command! Tmux lcd /home/wurfkreuz/.dotfiles/tmux | edit .tmux.conf')
 vim.cmd('command! Sh lcd /home/wurfkreuz/.dotfiles/scripts/sh | Oil ~/.dotfiles/scripts/sh')
+vim.cmd('command! Foot lcd /home/wurfkreuz/.dotfiles/foot/ | edit ~/.dotfiles/foot/foot.ini')
 
 
 vim.cmd([[

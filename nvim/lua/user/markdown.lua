@@ -77,52 +77,52 @@ vim.api.nvim_create_user_command('AutoInsertNumberedItem', auto_insert_numbered_
 
 
 -- Function to extract list numbers, sort them starting from 1, and replace them in the buffer
--- local function sort_list_numbers()
---     -- Get the current visual selection
---     local start_line = vim.fn.line("'<")
---     local end_line = vim.fn.line("'>")
---
---     local original_numbers = {}
---     local line_numbers = {}
---
---     -- Iterate through the selected lines
---     for line_num = start_line, end_line do
---         local line = vim.fn.getline(line_num)
---         -- Match numbers at the beginning of the line, possibly with leading spaces
---         local number = line:match("^%s*(%d+)")
---         if number then
---             table.insert(original_numbers, tonumber(number))
---             table.insert(line_numbers, line_num)
---         end
---     end
---
---     -- Create sorted numbers starting from 1
---     local sorted_numbers = {}
---     for i = 1, #original_numbers do
---         sorted_numbers[i] = i
---     end
---
---     -- Replace the numbers in the buffer
---     for i, line_num in ipairs(line_numbers) do
---         local line = vim.fn.getline(line_num)
---         local new_line = line:gsub("^(%s*)%d+", "%1" .. sorted_numbers[i])
---         vim.fn.setline(line_num, new_line)
---     end
---
---     -- Print the original and sorted numbers
---     print("Original numbers: " .. table.concat(original_numbers, ", "))
---     print("Sorted numbers starting from 1: " .. table.concat(sorted_numbers, ", "))
---
---     -- Return focus to the buffer
---     vim.cmd("normal! gv")
--- end
---
--- -- Create a user command
--- vim.api.nvim_create_user_command('SortListNumbers', sort_list_numbers, {range = true})
---
--- -- Create a keymapping (optional)
--- vim.api.nvim_set_keymap('v', '<leader>sn', ':SortListNumbers<CR>', {noremap = true, silent = true})
---
+local function sort_list_numbers()
+    -- Get the current visual selection
+    local start_line = vim.fn.line("'<")
+    local end_line = vim.fn.line("'>")
+
+    local original_numbers = {}
+    local line_numbers = {}
+
+    -- Iterate through the selected lines
+    for line_num = start_line, end_line do
+        local line = vim.fn.getline(line_num)
+        -- Match numbers at the beginning of the line, possibly with leading spaces
+        local number = line:match("^%s*(%d+)")
+        if number then
+            table.insert(original_numbers, tonumber(number))
+            table.insert(line_numbers, line_num)
+        end
+    end
+
+    -- Create sorted numbers starting from 1
+    local sorted_numbers = {}
+    for i = 1, #original_numbers do
+        sorted_numbers[i] = i
+    end
+
+    -- Replace the numbers in the buffer
+    for i, line_num in ipairs(line_numbers) do
+        local line = vim.fn.getline(line_num)
+        local new_line = line:gsub("^(%s*)%d+", "%1" .. sorted_numbers[i])
+        vim.fn.setline(line_num, new_line)
+    end
+
+    -- Print the original and sorted numbers
+    print("Original numbers: " .. table.concat(original_numbers, ", "))
+    print("Sorted numbers starting from 1: " .. table.concat(sorted_numbers, ", "))
+
+    -- Return focus to the buffer
+    vim.cmd("normal! gv")
+end
+
+-- Create a user command
+vim.api.nvim_create_user_command('SortListNumbers', sort_list_numbers, {range = true})
+
+-- Create a keymapping (optional)
+vim.api.nvim_set_keymap('v', '<leader>sn', ':SortListNumbers<CR>', {noremap = true, silent = true})
+
 
 local function auto_insert_and_sort_numbered_item()
     local current_line = vim.fn.line('.')  -- 1-based

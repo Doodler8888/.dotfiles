@@ -144,8 +144,8 @@ function fzf-zoxide() {
     local dir
     # dir=$(zoxide query --list | fzf --height 40% --border) && cd "$dir"
     # dir=$(zoxide query --list | pick) && cd "$dir"
-    dir=$(cat ~/.dirs | pick) && cd "$dir"
-    # Reset the prompt to reflect the change immediately
+    # dir=$(cat ~/.dirs | pick) && cd "$dir"
+	dir=$(cat ~/.dirs | fzf --height 40% --border) && cd "$dir"
     zle reset-prompt
 }
 zle -N fzf-zoxide
@@ -179,7 +179,7 @@ function wait_for_ctrl_r_or_c {
 zle -N wait_for_ctrl_r_or_c
 
 # Bind 'Ctrl-f' to the new widget
-bindkey '^f' wait_for_ctrl_r_or_c
+bindkey '^h' wait_for_ctrl_r_or_c
 
 fzf-nvim() {
     local file

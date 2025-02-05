@@ -1,3 +1,0 @@
-Recursive:
-
-sudo chown -R <new_owner>:<new_group> /path/to/directory

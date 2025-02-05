@@ -22,6 +22,7 @@
   home.packages = with pkgs; [
     # antigen
 	  swaynotificationcenter
+    glibcLocales
     # corefonts
     # nerd-fonts.noto
     # noto-fonts-emoji

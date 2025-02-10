@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -42,23 +42,40 @@ vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-t>', 'ZQ', { noremap = true, silent = true })
 
-
--- Motion shortcuts
 vim.keymap.set('i', '<C-f>', '<Right>', {noremap = true})
--- vim.keymap.set('i', '<C-l>', '<Right>', {noremap = true})
+vim.keymap.set('i', '<C-n>', '<Down>', {noremap = true})
 vim.keymap.set('i', '<C-b>', '<Left>', {noremap = true})
--- vim.keymap.set('i', '<C-h>', '<Left>', {noremap = true})
--- vim.api.nvim_set_keymap('i', '<M-w>', '<Esc> wi', {noremap = true})
--- vim.api.nvim_set_keymap('i', '<M-W>', '<Esc> Wi', {noremap = true})
+vim.keymap.set('i', '<C-p>', '<Up>', {noremap = true})
+vim.keymap.set('i', '<C-a>', '<Home>', {noremap = true})  -- Start of line
+vim.keymap.set('i', '<C-e>', '<End>', {noremap = true})   -- End of line
+-- vim.keymap.set('i', '<C-k>', '<Esc><Left><Left>Di', {noremap = true})
+vim.api.nvim_set_keymap('i', '<M-f>', '<Esc> ea', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-B>', '<Esc> Bi', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-M-b>', '<Esc> Bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-e>', '<Esc>A', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-a>', '<Esc> 0i', {noremap = true})
+
+local function emacs_kill_line()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local col = cursor[2]
+  local line = vim.api.nvim_get_current_line()
+
+  if col == #line then
+    -- At end of line: join next line without space
+    return vim.api.nvim_replace_termcodes('<Esc>gJa', true, true, true)
+  else
+    -- Delete from cursor to end of line
+    return vim.api.nvim_replace_termcodes('<Esc>lDa', true, true, true)
+  end
+end
+vim.keymap.set('i', '<C-k>', emacs_kill_line, { noremap = true, expr = true })
 
 -- Create a new tab
 vim.api.nvim_set_keymap('n', '<Leader>tn', ':tabnew<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>tx', ':tabclose<CR>', {noremap = true, silent = true})
+
+
+vim.api.nvim_set_keymap('n', '<Leader>cc', ':Cp<CR>', {noremap = true, silent = true})
 
 -- Tables
 vim.api.nvim_set_keymap('n', '<Leader>te', ':TableModeToggleeCR>', {noremap = true, silent = true})

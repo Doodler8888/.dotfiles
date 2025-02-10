@@ -1,7 +1,0 @@
-% python
-
-# Create virtual environment
-python3 -m venv [dir_name]
-
-# Activate virtual environment
-source path/to/venv_dir_name/bin/activate

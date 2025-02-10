@@ -83,6 +83,17 @@ vim.api.nvim_create_user_command('Cd', change_to_buffer_dir, {})
 
 
 function ShowMessagesInNewBuffer()
+  local bufname = "Neovim Messages"
+
+  -- Check if the buffer already exists
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_name(bufnr) == bufname and vim.api.nvim_buf_is_loaded(bufnr) then
+      -- If buffer exists, switch to it
+      vim.api.nvim_set_current_buf(bufnr)
+      return
+    end
+  end
+
   -- Capture the output of the :messages command
   local messages_output = vim.api.nvim_exec('messages', true)
   local lines = {}
@@ -94,19 +105,17 @@ function ShowMessagesInNewBuffer()
   vim.api.nvim_command('enew')
   local bufnr = vim.api.nvim_get_current_buf()
 
-  -- Set buffer options to make it a scratch/temporary buffer
+  -- Set buffer options
   vim.api.nvim_buf_set_option(bufnr, 'buftype', 'nofile')
   vim.api.nvim_buf_set_option(bufnr, 'bufhidden', 'hide')
   vim.api.nvim_buf_set_option(bufnr, 'swapfile', false)
-
-  -- Set a custom filetype
   vim.api.nvim_buf_set_option(bufnr, 'filetype', 'nvim-messages')
 
   -- Make the buffer writable before putting the messages
   vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
 
   -- Insert the captured messages into the buffer
-  vim.api.nvim_put(lines, '', false, true)
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
 
   -- Scroll to the start of the buffer
   vim.api.nvim_command('normal! gg')
@@ -115,10 +124,10 @@ function ShowMessagesInNewBuffer()
   vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
 
   -- Create a buffer-local keybinding for 'q' to close the buffer
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', ':b#<CR>', {noremap = true, silent = true})
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', ':bdelete<CR>', { noremap = true, silent = true })
 
-  -- Optional: Set a buffer name
-  vim.api.nvim_buf_set_name(bufnr, "Neovim Messages")
+  -- Set buffer name
+  vim.api.nvim_buf_set_name(bufnr, bufname)
 end
 
 

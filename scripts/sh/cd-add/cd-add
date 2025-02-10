@@ -10,8 +10,8 @@ clean_file() {
     mv "$temp_file" "$dir_file"
 }
 
-cd_add() {
-    if [ ! -f "$HOME"/.dirs ]; then
+main() {
+    if [ ! -e "$HOME"/.dirs ]; then
         touch "$HOME"/.dirs
     fi
 
@@ -21,27 +21,31 @@ cd_add() {
     if [ -z "$1" ]; then
         current_path=$(pwd)
         echo "$current_path" >> "$HOME"/.dirs
-    # If i write a full path for some reason with '/home...' or "~/", then i
-    # just insert the given path.
+	echo "This is the executed command: $current_path >> $HOME/.dirs"
+        echo "$current_path is added."
+        # If i write a full path for some reason with '/home...' or "~/", then i
+        # just insert the given path.
     elif [ "$(echo "$1" | cut -c -5)" = "/home" ]; then
         echo "$1" >> "$HOME"/.dirs
-    # If the given parameter doesn't exist and the logic implies, that i just
-    # gave an unfull path
+	echo "This is the executed command: $1 >> $HOME/.dirs"
+        echo "$1 is added."
+        # If the given parameter doesn't exist and the logic implies, that i just
+        # gave an unfull path
     elif [ ! -f "$current_path" ]; then
         current_path="$(pwd)/$current_path"
-        echo "$current_path" >> "$HOME"/.dirs
+        echo "$(pwd)/$current_path" >> "$HOME"/.dirs
+	echo "This is the executed command: $(pwd)/$current_path >> $HOME/.dirs"
+        echo "$(pwd)/$current_path is added."
     else
         echo "$current_path" >> "$HOME"/.dirs 
+	echo "This is the executed command: $current_path >> $HOME/.dirs"
+        echo "$current_path is added."
     fi
 }
 
-main() {
-    cd-add $1
-}
-
-case $0 in
+case "$(basename "$0")" in
     cd-add)
-        main
+        main "$1"
         ;;
 esac
 

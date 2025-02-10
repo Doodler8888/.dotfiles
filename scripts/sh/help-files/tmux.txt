@@ -21,3 +21,6 @@ Cycle between splits:
 
 Move to a split:
 <prefix> + <arrow>
+
+Copy mode:
+<prefix> + [

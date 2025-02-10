@@ -1,8 +1,9 @@
 source /usr/local/bin
+source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
-export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$PATH"
+export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/cd-add/:$PATH"
 GTAGSOBJDIRPREFIX=~/.cache/gtags/
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -33,36 +34,6 @@ SAVEHIST=16000
 # Colors for gnu ls output
 unset LS_COLORS
 export LS_COLORS="ln=38;2;76;86;106"
-
-autoload edit-command-line; zle -N edit-command-line
-bindkey -v
-bindkey -M viins '\e.' insert-last-word
-bindkey -M vicmd ge edit-command-line # edit line using EDITOR
-bindkey "^?" backward-delete-char
-bindkey -M vicmd 'Y' vi-yank-eol
-bindkey '^R' fzf_history_search
-
-# Insert Mode (viins)
-bindkey -M viins '^A' beginning-of-line    # C-a: Move to start of line
-bindkey -M viins '^E' end-of-line          # C-e: Move to end of line
-bindkey -M viins '^K' kill-line            # C-k: Kill to end of line
-bindkey -M viins '^U' backward-kill-line   # C-u: Delete entire line
-bindkey -M viins '^W' backward-kill-word   # C-w: Delete previous word
-bindkey -M viins '^[f' forward-word        # M-f: Move forward one word
-bindkey -M viins '^[b' backward-word       # M-b: Move backward one word
-bindkey -M viins '^B' backward-char        # C-b: Move backward one char
-bindkey -M viins '^F' forward-char         # C-f: Move forward one char
-
-# Normal Mode (vicmd)
-bindkey -M vicmd '^A' beginning-of-line
-bindkey -M vicmd '^E' end-of-line
-bindkey -M vicmd '^K' kill-line
-bindkey -M vicmd '^U' backward-kill-line
-bindkey -M vicmd '^W' backward-kill-word
-bindkey -M vicmd '^[f' forward-word
-bindkey -M vicmd '^[b' backward-word
-bindkey -M vicmd '^B' backward-char
-bindkey -M vicmd '^F' forward-char
 
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
@@ -225,21 +196,21 @@ setopt PROMPT_SUBST
 setopt PROMPT_SUBST
 PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%{\e[38;2;208;135;112m%}>%{\e[0m%} '
 
-# Start ssh-agent if it's not already running
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    # Check for a running ssh-agent
-    pid=$(pgrep ssh-agent)
+# # Start ssh-agent if it's not already running
+# if [ -z "$SSH_AUTH_SOCK" ]; then
+#     # Check for a running ssh-agent
+#     pid=$(pgrep ssh-agent)
     
-    if [ -n "$pid" ]; then
-        # ssh-agent is running, find the socket
-        export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.\* -uid $(id -u) 2>/dev/null | head -n 1)
-    fi
+#     if [ -n "$pid" ]; then
+#         # ssh-agent is running, find the socket
+#         export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.\* -uid $(id -u) 2>/dev/null | head -n 1)
+#     fi
     
-    # If socket is not found, start a new ssh-agent
-    if [ -z "$SSH_AUTH_SOCK" ]; then
-        eval "$(ssh-agent -s > /dev/null)" 
-    fi
-fi
+#     # If socket is not found, start a new ssh-agent
+#     if [ -z "$SSH_AUTH_SOCK" ]; then
+#         eval "$(ssh-agent -s > /dev/null)" 
+#     fi
+# fi
 
 
 PATH="/home/wurfkreuz/perl5/bin${PATH:+:${PATH}}"; export PATH;

@@ -346,38 +346,38 @@ sv-up() {
 }
 
 
-bak() {
-    local do_copy=false
+# bak() {
+#     local do_copy=false
     
-    # Parse options
-    while getopts "c" opt; do
-        case $opt in
-            c) do_copy=true ;;
-            *) echo "Usage: bak [-c] filename|directory"; return 1 ;;
-        esac
-    done
-    shift $((OPTIND-1))
+#     # Parse options
+#     while getopts "c" opt; do
+#         case $opt in
+#             c) do_copy=true ;;
+#             *) echo "Usage: bak [-c] filename|directory"; return 1 ;;
+#         esac
+#     done
+#     shift $((OPTIND-1))
 
-    [ $# -eq 0 ] && { echo "Usage: bak [-c] filename|directory"; return 1; }
-    [ ! -e "$1" ] && [ ! -e "${1%.bak}" ] && { echo "Error: File/directory does not exist"; return 1; }
+#     [ $# -eq 0 ] && { echo "Usage: bak [-c] filename|directory"; return 1; }
+#     [ ! -e "$1" ] && [ ! -e "${1%.bak}" ] && { echo "Error: File/directory does not exist"; return 1; }
     
-    # Remove trailing slash if present
-    local target="${1%/}"
+#     # Remove trailing slash if present
+#     local target="${1%/}"
     
-    if [[ "$target" == *.bak ]]; then
-        if $do_copy; then
-            cp -r "$target" "${target%.bak}"
-        else
-            mv "$target" "${target%.bak}"
-        fi
-    else
-        if $do_copy; then
-            cp -r "$target" "$target.bak"
-        else
-            mv "$target" "$target.bak"
-        fi
-    fi
-}
+#     if [[ "$target" == *.bak ]]; then
+#         if $do_copy; then
+#             cp -r "$target" "${target%.bak}"
+#         else
+#             mv "$target" "${target%.bak}"
+#         fi
+#     else
+#         if $do_copy; then
+#             cp -r "$target" "$target.bak"
+#         else
+#             mv "$target" "$target.bak"
+#         fi
+#     fi
+# }
 
 
 autoload -U my_fzf_history_widget

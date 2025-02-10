@@ -1,51 +1,41 @@
 local M = {}
 
+-- Configure compilation based on filetype
 M.compile_commands = {
-    c = "gcc -o %< % && ./%<",
-    go = "go run %",
-    sh = "./%",
-    cpp = "g++ -o %< % && ./%<",
-    rust = "cargo run",
+    c = "gcc -o %< %",
+    sh = "shellcheck -f gcc %",
+    go = "go build %",
 }
 
-function M.float_term(cmd)
-    -- Create terminal buffer
-    local buf = vim.api.nvim_create_buf(false, true)
+-- Setup compilation for the current buffer
+function M.setup_compile()
+    local ft = vim.bo.filetype
+    local compile_cmd = M.compile_commands[ft]
 
-    -- Calculate floating window dimensions (80% of main window)
-    local width = math.floor(vim.o.columns * 0.8)
-    local height = math.floor(vim.o.lines * 0.8)
-
-    -- Create floating window
-    local win = vim.api.nvim_open_win(buf, true, {
-        relative = 'editor',
-        width = width,
-        height = height,
-        col = (vim.o.columns - width) / 2,
-        row = (vim.o.lines - height) / 2 - 1,  -- Center vertically
-        style = 'minimal',
-        border = 'rounded'
-    })
-
-    -- Run command in terminal
-    vim.fn.termopen(cmd)
+    if compile_cmd then
+        vim.o.makeprg = compile_cmd
+    end
 end
 
+-- Run make and open quickfix if there are errors
 function M.compile()
-    vim.cmd('write')  -- Save current file
-    local cmd = vim.fn.expandcmd(vim.o.makeprg)
-    M.float_term(cmd)
+    vim.cmd('write')  -- Save before compiling
+    vim.cmd('make')
+
+    -- Get quickfix list
+    local qf_list = vim.fn.getqflist()
+    if #qf_list > 0 then
+        vim.cmd('copen')
+    end
 end
 
--- Setup filetype-specific commands
+-- Set up keymaps
+vim.keymap.set('n', '<C-x>cl', M.compile, { silent = true })
+
+-- Auto setup compile command when opening supported files
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {"c", "cpp", "rust", "go", "sh"},
-    callback = function()
-        local ft = vim.bo.filetype
-        vim.o.makeprg = M.compile_commands[ft]:gsub("%%", vim.fn.expand("%"))
-    end
+    callback = M.setup_compile
 })
-
-vim.keymap.set('n', '<F5>', M.compile, { silent = true })
 
 return M

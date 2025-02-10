@@ -1,3 +1,2 @@
 Launch lem with sdl:
-
 lem -i sdl2

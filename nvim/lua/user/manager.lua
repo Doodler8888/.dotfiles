@@ -52,6 +52,17 @@ local plugins = {
 		end,
 	},
 	{
+  "NeogitOrg/neogit",
+  dependencies = {
+    "nvim-lua/plenary.nvim",         -- required
+    "sindrets/diffview.nvim",        -- optional - Diff integration
+
+    "nvim-telescope/telescope.nvim", -- optional
+    -- "echasnovski/mini.pick",         -- optional
+  },
+  config = true
+},
+	{
 		"windwp/nvim-autopairs",
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
@@ -67,14 +78,23 @@ local plugins = {
 	  opts = {},
 	},
 	{
-  'echasnovski/mini.nvim',
-  config = function()
-    require("mini.ai").setup({
-    })
-  end,
-},
+		'echasnovski/mini.nvim',
+		config = function()
+			require("mini.ai").setup({
+			})
+		end,
+	},
 	'mbbill/undotree',
-	'stevearc/oil.nvim',
+	-- 'stevearc/oil.nvim',
+	-- {
+	-- 'smilhey/ed-cmd.nvim',
+	-- 	config = function()
+	--  vim.opt.guicursor = "n-v:block,i-ci-c-ve:ver25,r-cr:hor20,o:hor50"
+	-- 		require("ed-cmd").setup({
+	-- 			keymaps = { edit = "<ESC>", execute = "<CR>", close = "<C-g>" },
+	-- 		})
+	-- 	end,
+	-- },
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()

@@ -6,6 +6,8 @@
 .zcompdump
 quicklisp/
 
+lazy-lock.json
+
 **/scripts/python/.venv/
 .venv/
 /.venv/

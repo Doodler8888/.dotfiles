@@ -112,3 +112,6 @@ vim.diagnostic.config({
   signs = false,
   -- virtual_lines = true  -- Enables lsp diagnostics representation like in helix, but i need to pull from master first.
 })
+
+-- Cursor is always a pipe (works correctly with the ed-cmd plugin)
+vim.opt.guicursor = "n-v:block,i-ci-c-ve:ver25,r-cr:hor20,o:hor50"

@@ -2,6 +2,7 @@
 
 is_back() {
     arg=$(echo "$1" | sed 's/\/*$//')
+    # echo "This is a processed arg in is_back $arg"
     case $arg in
         *.bak)
             # echo "is bak"
@@ -16,7 +17,7 @@ is_back() {
     esac
 }
 
-unbaked() {
+unbak() {
     # If i uncomment this line, then the function will return not only the
     # result, but also the debug output, which isn't correct. The possible fix
     # is to redirect the debug output to stderr.
@@ -28,20 +29,24 @@ unbaked() {
     # anywhere
 }
 
-uncreate_bak() {
+create_bak() {
     for arg in "$@"; do
         if is_back "$arg"; then
-            echo "this is the current processed parameter: $arg"
+            # echo "this is the current processed parameter: $arg"
             # "'s/\/*$//;" - '*' is added to delete any number of slashes at the end
             arg=$(echo "$arg" | sed 's/\/*$//')
-            unbaked_string=$(unbaked "$arg")
+            unbaked_string=$(unbak "$arg")
             # echo "this is the unbaked_string: $unbaked_string"
             # echo "this is how the move command should look: mv $arg $unbaked_string"
+            echo "Current files:"
             mv "$arg" "$unbaked_string"
+            ls -a | grep "$unbaked_string"
         else
-            arg=$(unbaked "$arg")
             # echo "this is how the move command should look: mv $arg $arg.bak"
-            # mv $arg $arg".bak"
+            # echo "The else condition is triggered"
+            echo "Current files:"
+            mv $arg $arg".bak"
+            ls -a | grep "$arg"
         fi
     done;
 }
@@ -50,7 +55,7 @@ copy_args() {
     for arg in "$@"; do
         arg=$(echo "$arg" | sed 's/\/*$//; s/\.bak$//')
         if is_back "$arg"; then
-            cp -r "$arg" "$(unbaked "$arg")"
+            cp -r "$arg" "$(unbak "$arg")"
         else
             cp -r "$arg" "$arg.bak"
         fi
@@ -66,7 +71,7 @@ main() {
             copy_args "$@"
             ;;
         *)
-            echo "c flag wasn't used"
+            # echo "c flag wasn't used"
             create_bak "$@"
             ;;
     esac

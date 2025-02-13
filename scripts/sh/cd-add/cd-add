@@ -12,7 +12,9 @@ clean_file() {
 
 main() {
     if [ ! -e "$HOME"/.dirs ]; then
-        touch "$HOME"/.dirs
+		echo "Can't symlink the \"~/.dotfiles/scripts/sh/cd-add/.dirs\". You already have a file or directory with the name '.dirs'."
+    elif [ ! -e "$HOME"/.dirs ]; then
+        ln -s "$HOME"/.dotfiles/scripts/sh/cd-add/.dirs "$HOME"
     fi
 
     clean_file
@@ -21,24 +23,24 @@ main() {
     if [ -z "$1" ]; then
         current_path=$(pwd)
         echo "$current_path" >> "$HOME"/.dirs
-	echo "This is the executed command: $current_path >> $HOME/.dirs"
+		echo "This is the executed command: echo $current_path >> $HOME/.dirs"
         echo "$current_path is added."
         # If i write a full path for some reason with '/home...' or "~/", then i
         # just insert the given path.
     elif [ "$(echo "$1" | cut -c -5)" = "/home" ]; then
         echo "$1" >> "$HOME"/.dirs
-	echo "This is the executed command: $1 >> $HOME/.dirs"
+		echo "This is the executed command: echo $1 >> $HOME/.dirs"
         echo "$1 is added."
         # If the given parameter doesn't exist and the logic implies, that i just
         # gave an unfull path
     elif [ ! -f "$current_path" ]; then
         current_path="$(pwd)/$current_path"
         echo "$(pwd)/$current_path" >> "$HOME"/.dirs
-	echo "This is the executed command: $(pwd)/$current_path >> $HOME/.dirs"
+		echo "This is the executed command: echo $(pwd)/$current_path >> $HOME/.dirs"
         echo "$(pwd)/$current_path is added."
     else
         echo "$current_path" >> "$HOME"/.dirs 
-	echo "This is the executed command: $current_path >> $HOME/.dirs"
+		echo "This is the executed command: echo $current_path >> $HOME/.dirs"
         echo "$current_path is added."
     fi
 }

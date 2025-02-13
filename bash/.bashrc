@@ -11,6 +11,9 @@ export PATH="$PATH:/home/wurfkreuz/.cabal/"
 # [[ $- != *i* ]] && return
 
 bind -m vi-command '"ge":edit-and-execute-command'
+# There is a chance that using this binding can potentially fix insert mode
+# restrictions for C-w
+# bind -m vi-insert "\C-w": unix-word-rubout
 
 shopt -s autocd
 shopt -s checkjobs

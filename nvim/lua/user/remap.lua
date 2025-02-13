@@ -19,7 +19,9 @@ vim.keymap.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Buffers
 -- vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
-vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
+-- vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
+vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
 
 -- Disable Control+c
 vim.api.nvim_set_keymap('n', '<C-c>', '<Nop>', { noremap = true, silent = true })
@@ -55,17 +57,20 @@ vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<C-M-b>', '<Esc> Bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
 
+-- Cmd line bindings
+vim.keymap.set('c', '<C-k>', '<C-\\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<CR>')
+
 local function emacs_kill_line()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local col = cursor[2]
   local line = vim.api.nvim_get_current_line()
 
-  if col == #line then
-    -- At end of line: join next line without space
-    return vim.api.nvim_replace_termcodes('<Esc>gJa', true, true, true)
+  if col >= #line then
+    -- At or past end-of-line: do nothing
+    return ""
   else
-    -- Delete from cursor to end of line
-    return vim.api.nvim_replace_termcodes('<Esc>lDa', true, true, true)
+    -- Delete from the cursor to the end of the line, staying in Insert mode.
+    return vim.api.nvim_replace_termcodes('<C-o>D', true, true, true)
   end
 end
 vim.keymap.set('i', '<C-k>', emacs_kill_line, { noremap = true, expr = true })

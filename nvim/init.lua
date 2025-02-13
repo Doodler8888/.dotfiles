@@ -5,9 +5,7 @@
 
 
 require("core.options")
--- require("core.treesitter")
 require("core.lsp")
--- require("core.statusline")
 require("core.snippet")
 
 require("user")

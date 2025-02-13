@@ -1,0 +1,3 @@
+Bookmarks:
+'C-x r m' - create a bookmark
+'C-x r b' - jump to a bookmark

@@ -6,6 +6,8 @@
 .zcompdump
 quicklisp/
 
+**/.lem/logs/language-client.log
+
 lazy-lock.json
 
 **/scripts/python/.venv/

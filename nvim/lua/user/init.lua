@@ -15,15 +15,15 @@ require("user.telescope")
 -- require("user.snippets")
 require("user.commenting")
 -- require("user.dadbod")
-require("user.surround")
+require("user.surround") -- because i disabled keybindings on C-g
 require("user.project_root")
 require('user.tab_rename')
 require('user.markdown')
 -- require('user.cmd-minibuffer')
 require('user.shell-prompt')
--- require('user.statusline') -- the statusline code probably causes the cursor to dissappear
+require('user.statusline') -- the statusline code probably causes the cursor to dissappear
 require('user.quickfix')
 require('user.autocmd')
 require('user.compilation')
 -- require('user.oil')
-require('user.neogit')
+-- require('user.neogit')

@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
 	-- "nvim-lua/plenary.nvim",
-	"nvim-tree/nvim-web-devicons",
+	-- "nvim-tree/nvim-web-devicons",
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
@@ -51,17 +51,17 @@ local plugins = {
 			})
 		end,
 	},
-	{
-  "NeogitOrg/neogit",
-  dependencies = {
-    "nvim-lua/plenary.nvim",         -- required
-    "sindrets/diffview.nvim",        -- optional - Diff integration
-
-    "nvim-telescope/telescope.nvim", -- optional
-    -- "echasnovski/mini.pick",         -- optional
-  },
-  config = true
-},
+-- 	{
+--   "NeogitOrg/neogit",
+--   dependencies = {
+--     "nvim-lua/plenary.nvim",         -- required
+--     "sindrets/diffview.nvim",        -- optional - Diff integration
+--
+--     "nvim-telescope/telescope.nvim", -- optional
+--     -- "echasnovski/mini.pick",         -- optional
+--   },
+--   config = true
+-- },
 	{
 		"windwp/nvim-autopairs",
 		bvent = "InsertEnter",
@@ -82,6 +82,10 @@ local plugins = {
 		config = function()
 			require("mini.ai").setup({
 			})
+			require("mini.bracketed").setup({
+			})
+			-- require("mini.surround").setup({
+			-- })
 		end,
 	},
 	'mbbill/undotree',

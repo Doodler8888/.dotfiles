@@ -84,14 +84,12 @@ vim.api.nvim_create_user_command('Cd', change_to_buffer_dir, {})
 
 function ShowMessagesInNewBuffer()
   local bufname = "Neovim Messages"
+  local existing_bufnr = vim.fn.bufnr(bufname)
 
-  -- Check if the buffer already exists
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_get_name(bufnr) == bufname and vim.api.nvim_buf_is_loaded(bufnr) then
-      -- If buffer exists, switch to it
-      vim.api.nvim_set_current_buf(bufnr)
-      return
-    end
+  if existing_bufnr ~= -1 then
+    -- Buffer exists: switch to it
+    vim.api.nvim_set_current_buf(existing_bufnr)
+    return
   end
 
   -- Capture the output of the :messages command
@@ -111,7 +109,7 @@ function ShowMessagesInNewBuffer()
   vim.api.nvim_buf_set_option(bufnr, 'swapfile', false)
   vim.api.nvim_buf_set_option(bufnr, 'filetype', 'nvim-messages')
 
-  -- Make the buffer writable before putting the messages
+  -- Make the buffer writable before inserting the messages
   vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
 
   -- Insert the captured messages into the buffer
@@ -126,9 +124,10 @@ function ShowMessagesInNewBuffer()
   -- Create a buffer-local keybinding for 'q' to close the buffer
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', ':bdelete<CR>', { noremap = true, silent = true })
 
-  -- Set buffer name
+  -- Finally, set the buffer name so that future calls can find it
   vim.api.nvim_buf_set_name(bufnr, bufname)
 end
+
 
 
 -- You can bind the function to a command in Neovim

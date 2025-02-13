@@ -1,0 +1,25 @@
+1. ? - Match one character.
+
+   Pattern:
+   cat file?.log
+
+   Matches:
+   file1.log, filea.log, fileX.log, but not file.log or file12.log
+
+
+2. [] - Matches any single character within the brackets.
+
+   Pattern:
+   rm file[abc].txt
+   
+   Matches:
+   filea.txt, fileb.txt, filec.txt
+
+
+3. [!...] or [^...] - Matches any single character NOT within the brackets.
+
+   Pattern:
+   ls file[!0-9].txt or ls file[^0-9].txt
+   
+   Matches:
+   filea.txt, filex.txt, but not file1.txt, file2.txt

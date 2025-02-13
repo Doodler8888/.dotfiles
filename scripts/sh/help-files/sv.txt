@@ -1,0 +1,21 @@
+Launch service:
+doas ln -s /etc/sv/service-name /var/service
+
+Serivec status:
+doas sv status
+
+Pause a service:
+doas sv pause servicename(?)
+
+Launch once and do not restart if it stops (which is probably mean i need the
+service to be in the /var/service already?):
+sv once servicename(?)
+
+
+Breakdown of a status output:
+
+run: sddm: (pid 867) 812s; run: log: (pid 866) 812s
+
+'run: sddm:' and 'run: log:' are needed to be perciveied together. Meaning that
+the first one is about sddm running and the second one (run: log:) is about a
+logging service running for the sddm.

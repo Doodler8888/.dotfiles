@@ -1,0 +1,23 @@
+Structure:
+
+awk '{action}' your_file_name.txt
+or
+awk '/regex pattern/ {action}' your_file_name.txt
+
+
+$1 - first column (defaulted to a whitespace)
+
+
+Printing a specific line number (e.g., the 5th line):
+
+awk 'NR == 5 { print }' file.txt
+
+
+Printing a range of lines (e.g., lines 3 to 7):
+
+awk 'NR >= 3 && NR <= 7 { print }' file.txt
+
+
+Printing the last line:
+
+awk 'END { print }' file.txt

@@ -1,0 +1,2 @@
+To do 'git rm --cached':
+magit-reset (or 'X') -> file -> HEAD

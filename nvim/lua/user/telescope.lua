@@ -51,9 +51,10 @@ require('telescope').setup({
     },
 	 mappings = {
 	     i = {
-        ["<C-j>"] = require('telescope.actions').cycle_history_next,
-        ["<C-k>"] = require('telescope.actions').cycle_history_prev,
-	["<M-w>"] = copy_telescope_selection(),
+			 ["<C-j>"] = require('telescope.actions').cycle_history_next,
+			 ["<C-k>"] = require('telescope.actions').cycle_history_prev,
+			 -- ["<M-w>"] = copy_telescope_selection(),
+			 ["<C-w>"] = copy_telescope_selection(),
 	     },
 	   },
   },

@@ -1,0 +1,2 @@
+-c - filter by name of a process who opened a file (i don't need to specify a
+     file or a file descriptor)

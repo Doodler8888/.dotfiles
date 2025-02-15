@@ -103,11 +103,12 @@ function ShowMessagesInNewBuffer()
   vim.api.nvim_command('enew')
   local bufnr = vim.api.nvim_get_current_buf()
 
-  -- Set buffer options
+  -- Set buffer options (modified section)
   vim.api.nvim_buf_set_option(bufnr, 'buftype', 'nofile')
   vim.api.nvim_buf_set_option(bufnr, 'bufhidden', 'hide')
   vim.api.nvim_buf_set_option(bufnr, 'swapfile', false)
   vim.api.nvim_buf_set_option(bufnr, 'filetype', 'nvim-messages')
+  vim.api.nvim_buf_set_option(bufnr, 'buflisted', false)  -- Keep unlisted but trackable
 
   -- Make the buffer writable before inserting the messages
   vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
@@ -218,3 +219,285 @@ end
 -- Create a user command to call the function
 vim.api.nvim_create_user_command("GitInitCustomBranch", GitInitCustomBranch, {})
 vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap = true, silent = true })
+
+
+-- -- This is the code for mimicking emacs functionality for switching between
+-- -- buffers in history
+-- -- MRU buffer history implementation
+-- -- MRU buffer history implementation
+-- local buf_history = {}
+-- local history_index = 0
+-- local in_navigation = false
+--
+-- -- Prune invalid buffers from history
+-- local function prune_history()
+--     local new_history = {}
+--     for _, buf in ipairs(buf_history) do
+--         if vim.api.nvim_buf_is_valid(buf) then
+--             table.insert(new_history, buf)
+--         end
+--     end
+--     buf_history = new_history
+--     history_index = math.min(math.max(history_index, 1), #buf_history)
+-- end
+--
+-- -- Update history on buffer enter
+-- local function on_buf_enter()
+--     if in_navigation then
+--         in_navigation = false
+--         return
+--     end
+--
+--     local current_buf = vim.api.nvim_get_current_buf()
+--     prune_history()
+--
+--     -- Remove current buffer from history if it exists
+--     for i = #buf_history, 1, -1 do
+--         if buf_history[i] == current_buf then
+--             table.remove(buf_history, i)
+--             if history_index >= i then
+--                 history_index = history_index - 1
+--             end
+--         end
+--     end
+--
+--     -- Add current buffer to end of history
+--     table.insert(buf_history, current_buf)
+--     history_index = #buf_history
+--
+--     vim.notify("History updated: " .. vim.inspect(buf_history), vim.log.levels.DEBUG)
+-- end
+--
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--     pattern = "*",
+--     callback = on_buf_enter,
+-- })
+--
+-- -- Navigate through history
+-- local function navigate_buffer(offset)
+--     prune_history()
+--
+--     if #buf_history == 0 then
+--         vim.notify("No buffer history", vim.log.levels.WARN)
+--         return
+--     end
+--
+--     local new_index = history_index + offset
+--     new_index = math.max(1, math.min(new_index, #buf_history))
+--
+--     if new_index == history_index then
+--         vim.notify("Reached end of history", vim.log.levels.DEBUG)
+--         return
+--     end
+--
+--     history_index = new_index
+--     local target_buf = buf_history[history_index]
+--
+--     if vim.api.nvim_buf_is_valid(target_buf) then
+--         in_navigation = true
+--         vim.api.nvim_set_current_buf(target_buf)
+--     else
+--         vim.notify("Invalid buffer in history: " .. target_buf, vim.log.levels.WARN)
+--     end
+-- end
+--
+-- vim.keymap.set("n", "<C-Tab>", function() navigate_buffer(-1) end, { noremap = true, silent = true })
+-- vim.keymap.set("n", "<S-Tab>", function() navigate_buffer(1) end, { noremap = true, silent = true })
+
+
+
+-- local buf_history = {}
+-- local current_index = 0
+-- local is_navigating = false
+-- local last_history_state = ""
+--
+-- -- Generate a compact string representation of the current history state
+-- local function get_history_state()
+--     local parts = {}
+--     for i, buf in ipairs(buf_history) do
+--         local name = vim.api.nvim_buf_get_name(buf)
+--         local filetype = vim.api.nvim_buf_get_option(buf, 'filetype')
+--
+--         -- Create short, meaningful names
+--         local short_name
+--         if filetype == 'oil' then
+--             local dir = name:match("^oil://(.*)") or name
+--             short_name = "oil:" .. dir:match("([^/]+)/?$") or "[root]"
+--         else
+--             short_name = name:match("([^/]+)$") or "[No name]"
+--         end
+--
+--         -- Mark current position
+--         if i == current_index then
+--             short_name = "*" .. short_name .. "*"
+--         end
+--
+--         table.insert(parts, short_name)
+--     end
+--
+--     return "[" .. table.concat(parts, ", ") .. "]"
+-- end
+--
+-- -- Debug function that only shows changes
+-- local function debug_history()
+--     local current_state = get_history_state()
+--
+--     if current_state ~= last_history_state then
+--         vim.notify("Buffer history: " .. current_state, vim.log.levels.DEBUG)
+--         last_history_state = current_state
+--     end
+-- end
+--
+-- -- Check if a buffer should be tracked
+-- local function is_trackable_buffer(bufnr)
+--     if not vim.api.nvim_buf_is_valid(bufnr) then
+--         return false
+--     end
+--
+--     local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+--     local bufname = vim.api.nvim_buf_get_name(bufnr)
+--     local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+--
+--     -- Special handling for oil.nvim buffers
+--     if filetype == 'oil' then
+--         return true
+--     end
+--
+--     -- Skip special buffer types except regular files and directories
+--     if buftype ~= '' and buftype ~= 'acwrite' and buftype ~= 'nofile' then
+--         return false
+--     end
+--
+--     -- For empty names, only track if it's a modifiable buffer
+--     if bufname == '' then
+--         return vim.api.nvim_buf_get_option(bufnr, 'modifiable')
+--     end
+--
+--     -- Check if it's a real file or directory
+--     return vim.fn.filereadable(bufname) == 1 or vim.fn.isdirectory(bufname) == 1
+-- end
+--
+-- -- The rest of the code remains the same...
+--
+-- -- Remove adjacent duplicates from history
+-- local function deduplicate_adjacent()
+--     if #buf_history <= 1 then return end
+--
+--     local i = 1
+--     while i < #buf_history do
+--         if buf_history[i] == buf_history[i+1] then
+--             table.remove(buf_history, i+1)
+--             if current_index > i then
+--                 current_index = current_index - 1
+--             end
+--         else
+--             i = i + 1
+--         end
+--     end
+-- end
+--
+-- -- Prune invalid buffers from history
+-- local function prune_history()
+--     local new_history = {}
+--     for i, buf in ipairs(buf_history) do
+--         if vim.api.nvim_buf_is_valid(buf) and is_trackable_buffer(buf) then
+--             table.insert(new_history, buf)
+--         else
+--             vim.notify("Removing invalid buffer from history", vim.log.levels.DEBUG)
+--             if i <= current_index then
+--                 current_index = current_index - 1
+--             end
+--         end
+--     end
+--     buf_history = new_history
+--     current_index = math.max(0, math.min(current_index, #buf_history))
+--     deduplicate_adjacent()
+--     debug_history()
+-- end
+--
+-- -- Update history on buffer enter
+-- local function on_buf_enter()
+--     if is_navigating then
+--         is_navigating = false
+--         debug_history()
+--         return
+--     end
+--
+--     local current_buf = vim.api.nvim_get_current_buf()
+--
+--     -- Check if the current buffer should be tracked
+--     if not is_trackable_buffer(current_buf) then
+--         vim.notify("Buffer not trackable, skipping history update", vim.log.levels.DEBUG)
+--         return
+--     end
+--
+--     prune_history()
+--
+--     -- If we're not at the end of history, truncate forward history
+--     if current_index < #buf_history then
+--         buf_history = {unpack(buf_history, 1, current_index)}
+--         vim.notify("Truncated forward history", vim.log.levels.DEBUG)
+--     end
+--
+--     -- Add current buffer to history
+--     table.insert(buf_history, current_buf)
+--     current_index = #buf_history
+--
+--     -- Remove adjacent duplicates
+--     deduplicate_adjacent()
+--     debug_history()
+-- end
+--
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--     pattern = "*",
+--     callback = on_buf_enter,
+-- })
+--
+-- -- Navigate backward in history
+-- local function go_back()
+--     prune_history()
+--
+--     if #buf_history <= 1 or current_index <= 1 then
+--         vim.notify("No previous buffer in history", vim.log.levels.WARN)
+--         return
+--     end
+--
+--     current_index = current_index - 1
+--     local target_buf = buf_history[current_index]
+--
+--     vim.notify("Going back to buffer at index " .. current_index, vim.log.levels.DEBUG)
+--
+--     if vim.api.nvim_buf_is_valid(target_buf) then
+--         is_navigating = true
+--         vim.api.nvim_set_current_buf(target_buf)
+--     else
+--         vim.notify("Cannot navigate to invalid buffer", vim.log.levels.WARN)
+--         prune_history()
+--     end
+-- end
+--
+-- -- Navigate forward in history
+-- local function go_forward()
+--     prune_history()
+--
+--     if #buf_history <= 1 or current_index >= #buf_history then
+--         vim.notify("No next buffer in history", vim.log.levels.WARN)
+--         return
+--     end
+--
+--     current_index = current_index + 1
+--     local target_buf = buf_history[current_index]
+--
+--     vim.notify("Going forward to buffer at index " .. current_index, vim.log.levels.DEBUG)
+--
+--     if vim.api.nvim_buf_is_valid(target_buf) then
+--         is_navigating = true
+--         vim.api.nvim_set_current_buf(target_buf)
+--     else
+--         vim.notify("Cannot navigate to invalid buffer", vim.log.levels.WARN)
+--         prune_history()
+--     end
+-- end
+--
+-- vim.keymap.set("n", "<C-Tab>", go_back, { noremap = true, silent = true })
+-- vim.keymap.set("n", "<S-Tab>", go_forward, { noremap = true, silent = true })

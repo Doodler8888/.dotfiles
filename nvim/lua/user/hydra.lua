@@ -3,7 +3,7 @@ local Hydra = require('hydra')
 Hydra({
     name = 'Resize Window',
     mode = 'n',  -- Normal mode
-    body = '<C-w>',  -- This is your prefix key
+    body = '<M-w>',  -- This is your prefix key
     -- body = '<leader>w',  -- This is your prefix key
     heads = {
         { '+', '3<C-w>+', { desc = 'Increase height' }},

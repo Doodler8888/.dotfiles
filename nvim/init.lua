@@ -1,13 +1,26 @@
--- if vim.fn.has("nvim-1.10") == 0 then
---     vim.notify("NativeVim-stable only supports Neovim 0.10+", vim.log.levels.ERROR)
---     return
--- end
-
-
-require("core.options")
 require("core.lsp")
 require("core.snippet")
 
 require("user")
 
 
+
+local bufhist = require("user.buffer_history")
+vim.keymap.set("n", "<C-Tab>", function() bufhist.jump(-1) end, { noremap = true, silent = true })
+vim.keymap.set("n", "<S-Tab>", function() bufhist.jump(1)  end, { noremap = true, silent = true })
+
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local buf = vim.fn.bufnr()
+    require("user.buffer_history").add(buf)
+  end,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "netrw",
+  callback = function()
+    vim.opt_local.cursorline = false
+  end,
+})

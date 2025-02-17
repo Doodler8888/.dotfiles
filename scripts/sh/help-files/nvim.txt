@@ -1,2 +1,2 @@
 Launch bare nvim:
-nvim -u NONE
+nvim --clean

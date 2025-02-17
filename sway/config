@@ -64,7 +64,6 @@ bindsym $mod+Shift+p focus parent
 bindsym $mod+Shift+c focus child
 # bindsym $mod+m mark
 # bindsym $mod+Shift+m move to mark
-cd .secret_dotfiles/vi
 bindsym $mod+p exec ~/.dotfiles/sway/move_to_parent.sh
 
 # Screenshots

@@ -1,5 +1,8 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>fe", function()
+--   require("mini.files").open(vim.fn.expand('%:p:h'))
+-- end, { noremap = true, silent = true })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -20,8 +23,10 @@ vim.keymap.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 -- Buffers
 -- vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
 -- vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
-vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C-Tab>", ":BufferHistoryBack<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<S-Tab>", ":BufferHistoryForward<CR>", { noremap = true, silent = true })
 
 -- Disable Control+c
 vim.api.nvim_set_keymap('n', '<C-c>', '<Nop>', { noremap = true, silent = true })
@@ -58,7 +63,93 @@ vim.api.nvim_set_keymap('i', '<C-M-b>', '<Esc> Bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
 
 -- Cmd line bindings
+vim.keymap.set('c', '<C-f>', '<Right>')
+vim.keymap.set('c', '<C-b>', '<Left>')
+vim.keymap.set('c', '<C-q>', 'q:<CR>')
 vim.keymap.set('c', '<C-k>', '<C-\\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<CR>')
+vim.keymap.set('c', '<C-y>', '<C-r>+', { noremap = true })
+vim.keymap.set('c', '<C-e>', '<End>', { noremap = true })
+vim.keymap.set('c', '<C-a>', '<Home>', { noremap = true })
+vim.keymap.set('c', '<C-M-f>', '<S-Right>', { noremap = true })
+vim.keymap.set('c', '<C-M-b>', '<S-Left>', { noremap = true })
+
+vim.keymap.set('c', '<C-q>', function()
+    if vim.fn.getcmdtype() == ':' then
+        -- Use feedkeys to trigger native behavior
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes('<C-F>', true, true, true),
+            'n', true
+        )
+        return ''
+    end
+    -- return '<C-g>'  -- Fallback to normal C-g behavior
+end, { expr = true })
+
+vim.keymap.set('c', '<M-f>', function()
+  local cmd = vim.fn.getcmdline()
+  local pos = vim.fn.getcmdpos()
+  local len = #cmd
+  if pos > len then return end
+
+  local function word_end_at(p)
+    local word = cmd:sub(p):match("^[%w_]+")
+    if word then
+      return p + #word - 1
+    else
+      return p
+    end
+  end
+
+  local target = pos
+  if pos <= len and cmd:sub(pos, pos):match("[%w_]") then
+    target = word_end_at(pos) + 1
+  elseif pos > 1 and cmd:sub(pos - 1, pos - 1):match("[%w_]") then
+    local rest = cmd:sub(pos)
+    local nonword = rest:match("^[^%w_]+") or ""
+    local next_word_start = pos + #nonword
+    if next_word_start <= len then
+      target = word_end_at(next_word_start) + 1
+    end
+  else
+    local rest = cmd:sub(pos)
+    local nonword = rest:match("^[^%w_]+") or ""
+    local next_word_start = pos + #nonword
+    if next_word_start <= len then
+      target = word_end_at(next_word_start) + 1
+    end
+  end
+
+  local steps = target - pos
+  if steps > 0 then
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes("<Right>", true, false, true):rep(steps),
+      'n',
+      false
+    )
+  end
+end, { noremap = true, desc = "Move forward to end of word in command mode" })
+
+vim.keymap.set('c', '<M-b>', function()
+    local cmdline = vim.fn.getcmdline()
+    local cmdpos = vim.fn.getcmdpos()
+
+    -- Get text before cursor
+    local before_cursor = cmdline:sub(1, cmdpos - 1)
+
+    -- Find start of current/previous word
+    local pattern = "[%w_]+"
+    local last_word_start = 0
+
+    for word_start in before_cursor:gmatch("()(" .. pattern .. ")") do
+        last_word_start = word_start
+    end
+
+    if last_word_start > 0 and last_word_start <cmdpos then
+        -- Calculate how many positions to move left
+        local move_left = cmdpos - last_word_start
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Left>", true, false, true):rep(move_left), 'n', false)
+    end
+end, { noremap = true, desc = "Move backward by vim-style word in command mode" })
 
 local function emacs_kill_line()
   local cursor = vim.api.nvim_win_get_cursor(0)
@@ -144,7 +235,7 @@ local tabs1 = require('user.tab_rename')
 vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
 
 vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = true})
-vim.cmd([[ cnoremap <C-y> <C-r>+ ]])
+-- vim.cmd([[ cnoremap <C-y> <C-r>+ ]])
 
 
 -- Add C-x C-s and s bindings

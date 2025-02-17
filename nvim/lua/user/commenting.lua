@@ -34,3 +34,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.commentstring = ";; %s"
   end
 })
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dosini",
+  callback = function()
+    vim.bo.commentstring = "# %s"
+  end
+})

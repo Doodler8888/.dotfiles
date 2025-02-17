@@ -30,7 +30,7 @@ unbak() {
 }
 
 create_bak() {
-    for arg in $@; do
+    for arg in "$@"; do
         if is_back "$arg"; then
             # echo "this is the current processed parameter: $arg"
             # "'s/\/*$//;" - '*' is added to delete any number of slashes at the end
@@ -45,7 +45,7 @@ create_bak() {
             # echo "this is how the move command should look: mv $arg $arg.bak"
             # echo "The else condition is triggered"
             echo "Current files:"
-            mv $arg $arg".bak"
+            mv "$arg" "$arg.bak"
             ls -a | grep "$arg"
         fi
     done;
@@ -63,7 +63,7 @@ copy_args() {
 }
 
 main() {
-    case $1 in
+    case "$1" in
         -c)
             shift
             # echo "c flag is used"

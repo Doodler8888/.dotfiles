@@ -9,8 +9,6 @@ local previewers = require 'telescope.previewers'
 local config = require('telescope.config')
 
 local function copy_telescope_selection()
-    local action_state = require('telescope.actions.state')
-
     return function(prompt_bufnr)
         local current_picker = action_state.get_current_picker(prompt_bufnr)
         local selection = current_picker:get_selection()
@@ -53,8 +51,8 @@ require('telescope').setup({
 	     i = {
 			 ["<C-j>"] = require('telescope.actions').cycle_history_next,
 			 ["<C-k>"] = require('telescope.actions').cycle_history_prev,
+			 ["<C-v>"] = copy_telescope_selection(),
 			 -- ["<M-w>"] = copy_telescope_selection(),
-			 ["<C-w>"] = copy_telescope_selection(),
 	     },
 	   },
   },
@@ -175,8 +173,8 @@ _G.telescope_current_buffer_fuzzy_find = function()
   })
 end
 
-vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<C-s><C-s>', '<cmd>lua telescope_current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
 
 
 -- Works on all files in a catalog from where neovim was opened
@@ -546,85 +544,85 @@ vim.keymap.set('n', 'p', function()
 end, { expr = true })
 
 
-local function show_highlights_telescope()
-  -- Get all highlight groups
-  local highlights = vim.split(vim.api.nvim_exec("highlight", true), "\n")
+-- local function show_highlights_telescope()
+--   -- Get all highlight groups
+--   local highlights = vim.split(vim.api.nvim_exec("highlight", true), "\n")
+--
+--   -- Filter out empty lines and parse highlight information
+--   local parsed_highlights = {}
+--   for _, line in ipairs(highlights) do
+--     if line:match("^%S+") then
+--       local hl_group, hl_def = line:match("^(%S+)%s+(.*)")
+--       if hl_group and hl_def then
+--         table.insert(parsed_highlights, {
+--           group = hl_group,
+--           def = hl_def
+--         })
+--       end
+--     end
+--   end
+--
+--   -- Create a Telescope picker
+--   pickers.new({}, {
+--     prompt_title = "Highlight Groups",
+--     finder = finders.new_table {
+--       results = parsed_highlights,
+--       entry_maker = function(entry)
+--         return {
+--           value = entry,
+--           display = entry.group .. " " .. entry.def,
+--           ordinal = entry.group,
+--         }
+--       end,
+--     },
+--     sorter = conf.generic_sorter({}),
+--     attach_mappings = function(prompt_bufnr, map)
+--       actions.select_default:replace(function()
+--         actions.close(prompt_bufnr)
+--         local selection = action_state.get_selected_entry()
+--         -- Copy the highlight group name to the clipboard
+--         vim.fn.setreg("+", selection.value.group)
+--         print("Copied highlight group: " .. selection.value.group)
+--       end)
+--
+--       -- Add a mapping to show the highlight in a floating window
+--       map("i", "<C-[>", function()
+--         local selection = action_state.get_selected_entry()
+--         local hl_group = selection.value.group
+--         local preview_text = "This is a preview of the " .. hl_group .. " highlight group."
+--
+--         -- Create a floating window
+--         local buf = vim.api.nvim_create_buf(false, true)
+--         vim.api.nvim_buf_set_lines(buf, 0, -1, true, {preview_text})
+--
+--         local width = #preview_text + 4
+--         local height = 3
+--         local opts = {
+--           relative = "cursor",
+--           width = width,
+--           height = height,
+--           col = 0,
+--           row = 1,
+--           style = "minimal",
+--           border = "rounded"
+--         }
+--
+--         local win = vim.api.nvim_open_win(buf, false, opts)
+--         vim.api.nvim_win_set_option(win, "winhl", "Normal:" .. hl_group)
+--
+--         -- Close the window after 2 seconds
+--         vim.defer_fn(function()
+--           vim.api.nvim_win_close(win, true)
+--         end, 2000)
+--       end)
+--
+--       return true
+--     end,
+--   }):find()
+-- end
 
-  -- Filter out empty lines and parse highlight information
-  local parsed_highlights = {}
-  for _, line in ipairs(highlights) do
-    if line:match("^%S+") then
-      local hl_group, hl_def = line:match("^(%S+)%s+(.*)")
-      if hl_group and hl_def then
-        table.insert(parsed_highlights, {
-          group = hl_group,
-          def = hl_def
-        })
-      end
-    end
-  end
 
-  -- Create a Telescope picker
-  pickers.new({}, {
-    prompt_title = "Highlight Groups",
-    finder = finders.new_table {
-      results = parsed_highlights,
-      entry_maker = function(entry)
-        return {
-          value = entry,
-          display = entry.group .. " " .. entry.def,
-          ordinal = entry.group,
-        }
-      end,
-    },
-    sorter = conf.generic_sorter({}),
-    attach_mappings = function(prompt_bufnr, map)
-      actions.select_default:replace(function()
-        actions.close(prompt_bufnr)
-        local selection = action_state.get_selected_entry()
-        -- Copy the highlight group name to the clipboard
-        vim.fn.setreg("+", selection.value.group)
-        print("Copied highlight group: " .. selection.value.group)
-      end)
-
-      -- Add a mapping to show the highlight in a floating window
-      map("i", "<C-[>", function()
-        local selection = action_state.get_selected_entry()
-        local hl_group = selection.value.group
-        local preview_text = "This is a preview of the " .. hl_group .. " highlight group."
-
-        -- Create a floating window
-        local buf = vim.api.nvim_create_buf(false, true)
-        vim.api.nvim_buf_set_lines(buf, 0, -1, true, {preview_text})
-
-        local width = #preview_text + 4
-        local height = 3
-        local opts = {
-          relative = "cursor",
-          width = width,
-          height = height,
-          col = 0,
-          row = 1,
-          style = "minimal",
-          border = "rounded"
-        }
-
-        local win = vim.api.nvim_open_win(buf, false, opts)
-        vim.api.nvim_win_set_option(win, "winhl", "Normal:" .. hl_group)
-
-        -- Close the window after 2 seconds
-        vim.defer_fn(function()
-          vim.api.nvim_win_close(win, true)
-        end, 2000)
-      end)
-
-      return true
-    end,
-  }):find()
-end
-
-
-vim.keymap.set("n", "<leader>fh", show_highlights_telescope, { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>fh", show_highlights_telescope, { noremap = true, silent = true })
 
 
 -- Function to put all current Telescope items into a temporary buffer
@@ -673,7 +671,8 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = tr
 vim.keymap.set('n', '<leader>fd', function()
     builtin.find_files({
         prompt_title = "Find Directories",
-        find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+        -- find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+        find_command = { "find", ".", "--type", "d", "--hidden", "--exclude", ".git" },
     })
 end, { noremap = true, silent = true, desc = "Find directories" })
 

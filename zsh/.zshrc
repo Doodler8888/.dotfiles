@@ -45,7 +45,6 @@ alias scripts='cd /home/wurfkreuz/.dotfiles/bash/ && nvim scripts.sh'
 alias rename='perl-rename'
 alias u='sudo'
 alias key='cd ~/.dotfiles/keyd/ && nvim default.conf'
-alias h='history'
 alias set_minikube='eval $(minikube docker-env)'
 alias update_fonts='fc-cache -f -v'
 alias cr='cp -r'
@@ -224,6 +223,6 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 
 # if [ -e /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/wurfkreuz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(direnv hook zsh)"

@@ -1,6 +1,9 @@
 Source config:
 tmux-source /path/to/config/file
 
+Cmd line:
+<prefix> + :
+
 Create a new tab:
 <prefix> + c
 

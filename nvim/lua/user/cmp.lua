@@ -20,21 +20,27 @@
 
 
 local cmp = require'cmp'
-local luasnip = require'luasnip'
+-- local luasnip = require'luasnip'
 
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
+  -- snippet = {
+  --   expand = function(args)
+  --     luasnip.lsp_expand(args.body)
+  --   end,
+  -- },
   sources = {
-    { name = 'path', max_item_count = 10; },
+    { name = 'path',
+	  max_item_count = 10;
+	  options = {
+        -- get_cwd = function() return vim.fn.getcwd() end,
+        -- trailing_slash = true
+	  }
+    },
     { name = 'nvim_lsp' },
     -- { name = 'conjure' },
     -- { name = 'buffer' },
     -- { name = 'vim-dadbod-completion' },
-    { name = 'luasnip' },
+    -- { name = 'luasnip' },
   },
   mapping = {
     ['<Tab>'] = cmp.mapping(function(fallback)
@@ -98,4 +104,20 @@ cmp.setup.filetype({ "sql" }, {
     { name = "vim-dadbod-completion"},
     { name = "buffer" },
   },
+})
+
+
+-- Allows to have autocompletion for file paths
+vim.api.nvim_create_autocmd("TextChangedI", {
+  callback = function()
+    local col = vim.fn.col('.') - 1
+    if col <= 0 then
+      return
+    end
+    local line = vim.fn.getline('.')
+    local char = line:sub(col, col)
+    if char == '/' or char == '~' then
+      require("cmp").complete()
+    end
+  end,
 })

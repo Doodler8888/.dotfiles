@@ -21,6 +21,7 @@ local plugins = {
 		-- dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	"rose-pine/neovim",
+	-- 'dhruvasagar/vim-buffer-history',
 	-- "anuvyklack/hydra.nvim",
 	-- "stevearc/conform.nvim",
 	-- {
@@ -67,6 +68,8 @@ local plugins = {
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
 	},
+	'tpope/vim-fugitive',
+	-- 'stevearc/oil.nvim',
 	-- {
 	-- 	"neovim/nvim-lspconfig",
 	-- },
@@ -84,12 +87,30 @@ local plugins = {
 			})
 			require("mini.bracketed").setup({
 			})
+  -- 	require("mini.files").setup({
+  -- -- Module mappings created only inside explorer.
+  -- -- Use `''` (empty string) to not create one.
+  -- mappings = {
+  --  close       = 'q',
+  --  go_in       = 'L',
+  --  go_in_plus  = '<CR>',
+  --  go_out      = '-',
+  --  go_out_plus = 'H',
+  --  mark_goto   = "'",
+  --  mark_set    = 'm',
+  --  reset       = '<BS>',
+  --  reveal_cwd  = '@',
+  --  show_help   = 'g?',
+  --  synchronize = '=',
+  --  trim_left   = '<',
+  --  trim_right  = '>',
+  -- },
+			-- })
 			-- require("mini.surround").setup({
 			-- })
 		end,
 	},
 	'mbbill/undotree',
-	-- 'stevearc/oil.nvim',
 	-- {
 	-- 'smilhey/ed-cmd.nvim',
 	-- 	config = function()
@@ -111,6 +132,46 @@ local plugins = {
 	  build = ":TSUpdate",
 	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
+	'hrsh7th/cmp-nvim-lsp',
+	'hrsh7th/cmp-buffer',
+	'hrsh7th/cmp-path',
+	'hrsh7th/cmp-cmdline',
+	'hrsh7th/nvim-cmp',
+	-- {
+	-- 	'saghen/blink.cmp',
+	-- 	dependencies = 'rafamadriz/friendly-snippets',
+	-- 	version = 'v0.*',
+	-- 	opts = {
+	-- 		keymap = {
+	-- 			preset = 'default',
+	-- 			-- ['<C-y>'] = {},
+	-- 			['<Tab>'] = {
+	-- 				function(cmp)
+	-- 					if cmp.is_visible() then
+	-- 						return cmp.accept()
+	-- 					else
+	-- 						cmp.show()
+	-- 						return true
+	-- 					end
+	-- 				end,
+	-- 				'fallback'
+	-- 			},
+	-- 		},
+	-- 		appearance = {
+	-- 			use_nvim_cmp_as_default = true,
+	-- 			nerd_font_variant = 'mono'
+	-- 		},
+	-- 		signature = { enabled = true },
+	-- 		completion = {
+	-- 			menu = {
+	-- 				auto_show = false
+	-- 			},
+	-- 			ghost_text = {
+	-- 				enabled = false
+	-- 			}
+	-- 		}
+	-- 	},
+	-- },
 }
 
 require("lazy").setup(plugins, opts)

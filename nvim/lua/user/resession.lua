@@ -31,13 +31,9 @@ require("resession").setup({
       enable_in_tab = true,
       save_buffers = true,
     },
-    folds_extension = {
-      enable_in_tab = true,
-      save_buffers = true,
-    },
-    -- The extension works without adding it here
-    -- tab_rename_extension = {
-    --   save_global = true,
+    -- folds_extension = {
+    --   enable_in_tab = true,
+    --   save_buffers = true,
     -- },
     tabs_extension = {
       enable_in_tab = true,

@@ -87,14 +87,14 @@ parser_config.hypr = {
 vim.treesitter.language.register('terraform', { 'terraform', 'terraform-vars' })
 
 
--- Jump to start of function (normal and visual modes)
-vim.keymap.set({'n', 'v'}, '<C-M-a>', function()
+-- Jump to start of function (normal, visual, and operator-pending modes)
+vim.keymap.set({'n', 'v', 'o'}, '<C-M-a>', function()
     print("Jumping to start of function")
     vim.cmd("TSTextobjectGotoPreviousStart @function.outer")
 end, { noremap = true, silent = false, desc = "Jump to start of function" })
 
--- Jump to end of function (normal and visual modes)
-vim.keymap.set({'n', 'v'}, '<C-M-e>', function()
+-- Jump to end of function (normal, visual, and operator-pending modes)
+vim.keymap.set({'n', 'v', 'o'}, '<C-M-e>', function()
     print("Jumping to end of function")
     vim.cmd("TSTextobjectGotoNextEnd @function.outer")
 end, { noremap = true, silent = false, desc = "Jump to end of function" })

@@ -65,41 +65,13 @@ require('rose-pine').setup({
 		TelescopeNormal = { fg = '#e0def4', bg = 'none' },
 		TelescopeSelection = { fg = 'none', bg = 'subtle', blend = 18 },
 		TelescopeMatching = { fg = 'none', bg = 'subtle', blend = 60 },
-		TroubleNormal = { fg = 'none', bg = 'none' },
-		TroubleCount = { fg = 'iris', bg = 'none' },
-		TroubleIndent = { fg = '#1d1f21', bg = 'none' },
+		-- TroubleNormal = { fg = 'none', bg = 'none' },
+		-- TroubleCount = { fg = 'iris', bg = 'none' },
+		-- TroubleIndent = { fg = '#1d1f21', bg = 'none' },
 		-- QuickFixLine = { fg = '#e0def4', bg = 'subtle', blend = 18 },
 		QuickFixLine = { fg = 'none', bg = 'subtle', blend = 18 },
-		-- QuickFixLineNr = { fg = '#e0def4', bg = 'none', blend = 18 },
-		-- QuickFixHeaderHard = { fg = '#e0def4', bg = 'none', blend = 18 },
-		-- QuickFixHeaderSoft = { fg = '#e0def4', bg = 'none', blend = 18 },
-
-		-- NeogitDiffContextHighlight = { fg = '#e0def4', bg = '#1d1f21' },
-		-- NeogitDiffContextCursor = { fg = '#e0def4', bg = 'none' },
-		-- NeogitHunkHeaderHighlight = { fg = 'iris', bg = '#1d1f21' },
-
-		-- NeogitDiffContext = { fg = '#1d1f21', bg = 'none' },
-		-- Background for diff folds
-		-- NeogitDiffAdd = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffAddHighlight = { fg = '#e0def4', bg = 'foam', blend = 10 },
-		-- NeogitDiffAddCursor = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffDelete = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffDeleteHighlight = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffDeleteCursor = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffHeader = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffHeaderHighlight = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitDiffHeaderCursor = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitHunkHeader = { fg = '#1d1f21', bg = 'none' },
-		-- NeogitHunkHeaderCursor = { fg = '#1d1f21', bg = 'none' },
-
-		-- NeogitChangeModified = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeAdded = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeDeleted = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeRenamed = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeUpdated = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeCopied = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeNewFile = { fg = '#e0def4', bg = 'none' },
-		-- NeogitChangeUnmerged = { fg = '#e0def4', bg = 'none' },
+		MiniFilesCursorLine = { fg = 'none', bg = '#1d1f21' },
+		-- MiniFilesCursorLine = { fg = 'none', bg = '#1d1f21', blend = 18 },
 
 		['@neorg.markup.italic.norg'] = { italic = true },
 		['@neorg.markup.bold.norg'] = { bold = true },
@@ -125,6 +97,8 @@ require('rose-pine').setup({
 
 		-- It works on posix shell too (the face is for shebang)
 		['@keyword.directive.bash'] = { fg = 'muted' },
+		-- ['@variable.bash'] = { priority = 99 },
+
 	      }
 	    })
 

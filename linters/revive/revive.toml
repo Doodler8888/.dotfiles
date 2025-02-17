@@ -1,7 +1,0 @@
-enableAllRules = true
-
-[rule.package-comments]
-Disabled = true
-
-[rule.line-length-limit]
-Disabled = true

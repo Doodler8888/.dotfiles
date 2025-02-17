@@ -1,9 +1,0 @@
-extends: default
-
-rules:
-  document-start: disable
-  truthy:
-    allowed-values:
-      - 'on'
-      - 'true'
-      - 'false'

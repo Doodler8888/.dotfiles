@@ -1,9 +1,0 @@
-system_configuration_rc_files:
-  - zsh/.zshrc
-  - bash/.bashrc
-  - bash/.inputrc
-
-system_configuration_rc_files2:
-  - .zshrc
-  - .bashrc
-  - .inputrc

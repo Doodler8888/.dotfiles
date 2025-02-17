@@ -1,6 +1,0 @@
-- name: Test My Role
-  hosts: localhost  # or any group from your inventory
-  roles:
-    - doodler8888.arch_linux_setup.general_packages_installation
-    - doodler8888.arch_linux_setup.system_configuration
-    - doodler8888.arch_linux_setup.setup_git_ssh

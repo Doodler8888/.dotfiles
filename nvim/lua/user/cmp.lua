@@ -38,18 +38,39 @@ cmp.setup {
     },
     { name = 'nvim_lsp' },
     -- { name = 'conjure' },
-    -- { name = 'buffer' },
+    { name = 'buffer' },
     -- { name = 'vim-dadbod-completion' },
     -- { name = 'luasnip' },
   },
   mapping = {
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.confirm({ select = true })
+    --   else
+    --     cmp.complete()
+    --   end
+    -- end, { 'i', 's', 'c' }),
+['<Tab>'] = cmp.mapping(function(fallback)
+  if cmp.visible() then
+    local entries = cmp.get_entries() or {}
+    if #entries == 1 then
+      cmp.confirm({ select = true })
+    else
+      cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+    end
+  else
+    cmp.complete()
+    -- Defer the check to allow entries to populate.
+    vim.defer_fn(function()
       if cmp.visible() then
-        cmp.confirm({ select = true })
-      else
-        cmp.complete()
+        local entries = cmp.get_entries() or {}
+        if #entries == 1 then
+          cmp.confirm({ select = true })
+        end
       end
-    end, { 'i', 's', 'c' }),
+    end, 1)  -- delay in milliseconds; adjust as needed
+  end
+end, { 'i', 's', 'c' }),
     ['<C-n>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
@@ -107,17 +128,24 @@ cmp.setup.filetype({ "sql" }, {
 })
 
 
--- Allows to have autocompletion for file paths
-vim.api.nvim_create_autocmd("TextChangedI", {
-  callback = function()
-    local col = vim.fn.col('.') - 1
-    if col <= 0 then
-      return
-    end
-    local line = vim.fn.getline('.')
-    local char = line:sub(col, col)
-    if char == '/' or char == '~' then
-      require("cmp").complete()
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("TextChangedI", {
+--   callback = function()
+--     local col = vim.fn.col('.') - 1
+--     if col <= 0 then
+--       return
+--     end
+--     local line = vim.fn.getline('.')
+--     local char = line:sub(col, col)
+--     local prev_char = line:sub(col - 1, col - 1)
+--
+--     -- Trigger completion only if:
+--     -- 1. The char is '/' not preceded by 's' or '/'
+--     -- 2. The char is '~'
+--     -- 3. The char is '.' preceded by '/'
+--     if (char == '/' and prev_char ~= 's' and prev_char ~= '/' and prev_char ~= '\\' ) or
+--        char == '~' or
+--        (char == '.' and prev_char == '/') then
+--       require("cmp").complete()
+--     end
+--   end,
+-- })

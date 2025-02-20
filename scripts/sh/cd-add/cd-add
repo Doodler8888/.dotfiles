@@ -24,13 +24,12 @@ main() {
         ln -s "$HOME/.dotfiles/scripts/sh/cd-add/.dirs" "$HOME"
     fi
 
-    clean_file
     # If i don't give any parameter
     if [ -z "$1" ]; then
         dirs_path=$(pwd)
-        echo "$1" >> "$HOME"/.dirs
+        echo "$dirs_path" >> "$HOME"/.dirs
 		echo "This is the executed command: echo $1 >> $HOME/.dirs"
-        echo "$1 is added."
+        echo "$dirs_path is added."
     # If i write a full path for some reason with '/home...' or "~/", then i
     # just insert the given path.
     elif [ "$(echo "$1" | cut -c -5)" = "/home" ]; then

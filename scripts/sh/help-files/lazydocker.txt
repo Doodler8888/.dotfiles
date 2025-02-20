@@ -1,0 +1,3 @@
+To return from the main pain use <escape>. <tab> to go in, and <escape> to go
+out. Otherwise you will try to use <tab> and it will put you to the next menu
+pane, and not to the previous one.

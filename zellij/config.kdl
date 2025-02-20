@@ -31,7 +31,7 @@ keybinds clear-defaults=true {
         bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
-        bind "a" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "a" { TogglePaneEmbedOrFloating; ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "z" { TogglePaneFrames; SwitchToMode "Normal"; }
         bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
@@ -70,12 +70,14 @@ keybinds clear-defaults=true {
         bind "Tab" { ToggleTab; }
     }
     scroll {
-        bind "Alt l" { SwitchToMode "Normal"; }
+        bind "Alt c" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         // bind "Ctrl ?" { ScrollToBottom; SwitchToMode "Normal"; }
         // bind "j" "Down" { ScrollDown; } // I use these two for the quickfix
+        bind "j" "Down" { PageScrollDown; } // I use these two for the quickfix
         // bind "k" "Up" { ScrollUp; } // I use these two for the quickfix
+        bind "k" "Up" { PageScrollUp; } // I use these two for the quickfix
         bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
         bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
         bind "d" { HalfPageScrollDown; }
@@ -153,7 +155,7 @@ keybinds clear-defaults=true {
         bind "Alt Up" { MovePane "Up"; }
         bind "Alt Right" { MovePane "Right"; }
         bind "Alt n" { NewPane; SwitchToMode "Normal"; }
-        bind "Alt f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+        bind "Alt w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
 	bind "Alt F1" { MoveTab "Left"; }
         bind "Alt F2" { MoveTab "Right"; }
         // bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
@@ -162,8 +164,8 @@ keybinds clear-defaults=true {
         // bind "Ctrl g" { SwitchToMode "Locked"; }
         bind "Alt q" { Quit; }
         bind "Alt n" { NewPane; }
-        bind "Alt h" { MoveFocusOrTab "Left"; }
-        bind "Alt l" { MoveFocusOrTab "Right"; }
+        // bind "Alt h" { MoveFocusOrTab "Left"; }
+        // bind "Alt l" { MoveFocusOrTab "Right"; }
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
         // bind "Alt =" { Resize "Increase"; }
@@ -370,7 +372,7 @@ copy_command "wl-copy"                    // wayland
 //   - system (default)
 //   - primary
 //
-// copy_clipboard "primary"
+copy_clipboard "system"
 
 // Enable or disable automatic copy (and clear) of selection when releasing mouse
 // Default: true

@@ -1,0 +1,2 @@
+pandoc -f <input_format_name> -t <output_format_name> input_file_name >
+output_file_name

@@ -14,13 +14,15 @@ local function get_history(win)
   return history_by_win[win], index_by_win[win]
 end
 
--- Helper function to get a stable identifier for netrw buffers
+-- Helper function to get a stable identifier for netrw and oil.nvim buffers
 local function get_buffer_identifier(bufnr)
   local ft = vim.bo[bufnr].filetype
   local name = vim.fn.bufname(bufnr)
 
   if ft == "netrw" then
     return "netrw:" .. vim.fn.fnamemodify(name, ":p")
+  elseif ft == "oil" then
+    return "oil:" .. vim.fn.fnamemodify(name, ":p")
   else
     return bufnr
   end
@@ -77,20 +79,28 @@ function M.jump(dir, count)
   local new_index = cur_index + (dir * count)
 
   if new_index < 1 or new_index > #hist then
-    vim.notify(dir > 0 and "Reached end of buffer history" or "Reached start of buffer history",
-      vim.log.levels.INFO)
+    vim.notify(dir > 0 and "Reached end of buffer history" or "Reached start of buffer history", vim.log.levels.INFO)
     return
   end
 
   local target = hist[new_index]
 
-  if type(target) == "string" and target:match("^netrw:") then
-    local path = target:gsub("^netrw:", "")
-    index_by_win[win] = new_index
-    jumping = true
-    vim.cmd("Explore " .. vim.fn.fnameescape(path))
-    jumping = false
-    return
+  if type(target) == "string" then
+    if target:match("^netrw:") then
+      local path = target:gsub("^netrw:", "")
+      index_by_win[win] = new_index
+      jumping = true
+      vim.cmd("Explore " .. vim.fn.fnameescape(path))
+      jumping = false
+      return
+    elseif target:match("^oil:") then
+      local path = target:gsub("^oil:", "")
+      index_by_win[win] = new_index
+      jumping = true
+      require("oil").open(path)
+      jumping = false
+      return
+    end
   end
 
   if vim.fn.bufexists(target) == 1 then

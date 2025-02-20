@@ -44,7 +44,7 @@ require('rose-pine').setup({
 	-- https://github.com/rose-pine/neovim/wiki/Recipes
 	highlight_groups = {
 		ColorColumn = { bg = 'subtle', blend = 35, bold = false },
-		-- CursorLine = { bg = 'foam', blend = 10, bold = false },
+		CursorLine = { bg = 'none' },
 		-- CursorLineLn = { bg = 'foam', blend = 10, bold = false },
 		StatusLine = { fg = 'love', bg = 'love', blend = 10, bold = false },
 		StatusLineNC = { link = "StatusLine", bold = false },
@@ -54,9 +54,10 @@ require('rose-pine').setup({
 		TabLineSel = { bg = 'muted', blend = 25, bold = false },
 		Title = { bold = false }, -- responsible for the split counter
 		MatchParen = { bg = 'muted', fg = 'muted' },
-		Search = { link = "Visual" },
+		-- Search = { link = "Visual" },
+		-- IncSearch = { fg = "subtle" },
 		Substitute = { link = "Visual" },
-		CurSearch = { link = "Visual" },
+		CurSearch = { bg = 'subtle' },
 		-- TermCursor = { link = "Visual" },
 		Directory = { fg = 'foam', bold = false },
 		NotificationInfo = { bg = 'none', fg = '#e0def4' },
@@ -75,7 +76,8 @@ require('rose-pine').setup({
 
 		['@neorg.markup.italic.norg'] = { italic = true },
 		['@neorg.markup.bold.norg'] = { bold = true },
-		['@markup.italic.markdown_inline'] = { italic = true },
+		['@markup.italic.markdown_inline'] = { fg = '#b2aec2', italic = true },
+		['@markup.raw.markdown_inline'] = { bg = '#17191a', fg = '#b2aec2', },
 		['@markup.strong.markdown_inline'] = { bold = true },
 
 		-- I probably don't need all of them. They were added because of url's in comment string had their own color.
@@ -107,6 +109,8 @@ require('rose-pine').setup({
 -- vim.api.nvim_set_hl(0, '@type.clojure', { link = '@type' })
 -- vim.api.nvim_set_hl(0, '@function.call.clojure', { link = '@function' })
 -- vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
+
+vim.api.nvim_set_hl(0, '@number.bash', { fg = '#908caa' })
 
 vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
 vim.api.nvim_set_hl(0, '@boolean.python', { fg = '#908caa' })

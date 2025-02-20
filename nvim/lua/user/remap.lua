@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>fe", "<cmd>Dirvish<CR>")
 -- vim.keymap.set("n", "<leader>fe", function()
 --   require("mini.files").open(vim.fn.expand('%:p:h'))
 -- end, { noremap = true, silent = true })
@@ -22,7 +23,7 @@ vim.keymap.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Buffers
 -- vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
--- vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
+vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
 -- vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-Tab>", ":BufferHistoryBack<CR>", { noremap = true, silent = true })
@@ -241,7 +242,7 @@ vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = t
 -- Add C-x C-s and s bindings
 vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-x><C-e>', ':wqa<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-x><C-c>', ':wqa<CR>', {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 

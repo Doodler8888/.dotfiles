@@ -672,7 +672,7 @@ vim.keymap.set('n', '<leader>fd', function()
     builtin.find_files({
         prompt_title = "Find Directories",
         -- find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
-        find_command = { "find", ".", "--type", "d", "--hidden", "--exclude", ".git" },
+	find_command = { "find", ".", "-type", "d", "-not", "-path", "./.git/*" },
     })
 end, { noremap = true, silent = true, desc = "Find directories" })
 

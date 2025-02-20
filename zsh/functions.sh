@@ -172,6 +172,8 @@ function wait_for_ctrl_r_or_c {
     print_current_directory_inline
   elif [[ "$key" == $'\C-b' ]]; then
     switch_branch
+  elif [[ "$key" == $'\C-y' ]]; then
+    Cp
   fi
 }
 
@@ -282,9 +284,11 @@ Cp() {
   fi
 
   # Notify the user that the path has been copied
-  echo "Copied current directory path to clipboard: $current_dir"
+  # echo "Copied current directory path to clipboard: $current_dir"
+  notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
+    # zle reset-prompt
 }
-
+zle -N Cp
 
 # Create a widget for pasting
 paste-from-clipboard() {
@@ -453,3 +457,62 @@ delete_word_backward() {
  
 zle -N delete_word_backward
 bindkey '^W' delete_word_backward
+
+
+fzf-copy-notify() {
+notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
+} 
+
+
+# incremental_fzf() {
+#   local curr_dir="."
+#   local selection
+#
+#   while true; do
+#     selection=$(ls -la "$curr_dir" | fzf --header="$curr_dir")
+#     if [[ -z "$selection" ]]; then
+#       break
+#     fi
+#
+#     # Extract the filename from the ls output
+#     filename=$(echo "$selection" | awk '{print $NF}')
+#
+#     if [[ -d "$curr_dir/$filename" && "$filename" != "." && "$filename" != ".." ]]; then
+#       curr_dir="$curr_dir/$filename"
+#     else
+#       echo "Selected: $curr_dir/$filename"
+#       break
+#     fi
+#   done
+# }
+
+
+vertico_nav_fzf() {
+  local depth=1
+  local query=""
+  
+  while true; do
+    local selection=$(find . -mindepth 1 -maxdepth $depth -type d | sed 's|^\./||' | fzf \
+      --query "$query" \
+      --header="Navigate (type a path with / to go deeper)" \
+      --bind "change:reload(echo {q} | grep -q '/' && \
+              path=\$(echo {q} | sed 's|/[^/]*$||'); \
+              find . -mindepth 1 -maxdepth 1 -type d -path \"./\${path:-}*\" | sed 's|^./||' || \
+              find . -mindepth 1 -maxdepth 1 -type d | sed 's|^./||')" \
+      --preview "ls -la ./{}" \
+      --print-query)
+    
+    query=$(echo "$selection" | head -1)
+    selection=$(echo "$selection" | tail -1)
+    
+    if [ -z "$selection" ]; then
+      echo "No selection made"
+      return
+    fi
+    
+    if [ -d "./$selection" ]; then
+      echo "Selected: $selection"
+      return
+    fi
+  done
+}

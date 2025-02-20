@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 service_path=""
 
 service_exists() {
@@ -10,14 +12,15 @@ service_exists() {
 	return 0
     else
 	echo "Service file doesn't exist"
-        return 1
+    return 1
     fi
 }
 
 add_service() {
     ln -s "$service_path" /var/service/
     echo "Service is added:"
-    ls -la "$service_path"
+	service_name=$(basename "$service_path")
+    ls -la /var/service/ | grep "$service_name"
 }
 
 main() {

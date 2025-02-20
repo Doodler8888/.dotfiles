@@ -34,7 +34,6 @@ SAVEHIST=16000
 # Colors for gnu ls output
 unset LS_COLORS
 export LS_COLORS="ln=38;2;76;86;106"
-
 alias D="cd ~/Downloads"
 alias S="cd ~/.source"
 alias fnc="cd ~/.dotfiles/zsh/ && nvim functions.sh"
@@ -139,8 +138,8 @@ alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias i3c="nvim ~/.config/i3/config"
 alias mk="minikube"
-alias lazy="lazydocker"
-alias lz="lazydocker"
+alias lzd="lazydocker"
+alias lzg="lazygit"
 alias dit="docker inspect"
 alias dis='docker images'
 alias os="cat /etc/os-release"
@@ -152,9 +151,17 @@ alias update="sudo apt update && sudo apt upgrade"
 alias tmux-source="tmux source-file ~/.tmux.conf"
 alias t-s="tmux source-file ~/.tmux.conf"
 alias cm="chmod"
+alias sv-list="ls /var/service/"
+alias ulb="/usr/local/bin"
+alias hso="/home/wurfkreuz/.secret_dotfiles/org/"
 
 
-# Uncomment the following line to enable command auto-correction.
+autoload -Uz compinit; compinit;
+bindkey "^Xa" _expand_alias
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*' regular true
+
+# Command auto-correction.
 ENABLE_CORRECTION="true"
 
 zle_highlight=(region:bg=#524f67)
@@ -199,15 +206,15 @@ PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%
 # if [ -z "$SSH_AUTH_SOCK" ]; then
 #     # Check for a running ssh-agent
 #     pid=$(pgrep ssh-agent)
-    
+
 #     if [ -n "$pid" ]; then
 #         # ssh-agent is running, find the socket
 #         export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.\* -uid $(id -u) 2>/dev/null | head -n 1)
 #     fi
-    
+
 #     # If socket is not found, start a new ssh-agent
 #     if [ -z "$SSH_AUTH_SOCK" ]; then
-#         eval "$(ssh-agent -s > /dev/null)" 
+#         eval "$(ssh-agent -s > /dev/null)"
 #     fi
 # fi
 

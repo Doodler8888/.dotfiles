@@ -1,0 +1,6 @@
+Void has a package for lua rocks with the exact lua version that you need:
+
+luarocks-lua51
+
+You probably also need to install lua51-devel package, instead of just lua51 (or
+maybe install both).

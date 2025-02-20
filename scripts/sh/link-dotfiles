@@ -1,0 +1,25 @@
+#!/bin/sh
+
+directory="$HOME/.dotfiles/"
+
+# /home/wurfkreuz/.dotfiles/
+
+in_config="alacritty foot nvim zellij tmux sway starship lazydocker k9s i3 hyprland"
+
+find "$directory" -maxdepth 1 | while IFS= read -r input; do
+dotfiles_dir="$(basename "$input")"
+	for in_config_item in $in_config; do
+		# echo "This is the current item: $in_config_item"
+		# echo "This is the current input: $dotfiles_dir"
+		if [ "$dotfiles_dir" = "$in_config_item" ]; then
+			if  [ -e ~/.config/"$dotfiles_dir" ]; then
+				echo "$dotfiles_dir is already linked."
+			else
+				echo "Put $dotfiles_dir to config."
+				ln -s $input ~/.config
+			fi
+		fi
+	done
+done
+
+

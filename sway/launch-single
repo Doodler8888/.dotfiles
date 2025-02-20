@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+# Your existing script to set up workspaces and launch applications
+# Create a tabbed container on workspace 1 and assign Alacritty instances to it
+swaymsg 'workspace 1'
+# swaymsg 'layout tabbed'
+# swaymsg 'exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland'
+# swaymsg 'exec opera'
+swaymsg 'exec firefox'
+
+sleep 2
+
+# Create a tabbed container on workspace 2 and assign browsers to it
+swaymsg 'workspace 2'
+# swaymsg 'layout tabbed'
+# swaymsg 'exec vivaldi-stable'
+# swaymsg 'exec vivaldi.vivaldi-stable'
+swaymsg 'exec librewolf-wayland'
+# swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
+# swaymsg 'exec alacritty'
+
+sleep 2
+
+
+swaymsg 'workspace 3'
+swaymsg 'exec foot tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh" \; attach'
+
+
+sleep 2
+
+swaymsg 'workspace 4'
+swaymsg 'exec telegram-desktop'
+# swaymsg 'exec telegram'
+
+swaymsg 'workspace 3'

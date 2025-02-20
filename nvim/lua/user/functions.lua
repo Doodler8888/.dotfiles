@@ -221,6 +221,22 @@ vim.api.nvim_create_user_command("GitInitCustomBranch", GitInitCustomBranch, {})
 vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap = true, silent = true })
 
 
+local function reload_file()
+  -- Save cursor position and window state
+  local view = vim.fn.winsaveview()
+  vim.cmd('edit')  -- Reload buffer
+  vim.fn.winrestview(view)  -- Restore cursor/window state
+  vim.notify('File reloaded from disk', vim.log.levels.INFO)
+end
+
+-- Then create the mapping DIRECTLY to the function
+vim.api.nvim_set_keymap('n', '<Leader>rr', '', {
+  noremap = true,
+  silent = true,
+  callback = reload_file  -- Directly use the local function
+})
+
+
 -- -- This is the code for mimicking emacs functionality for switching between
 -- -- buffers in history
 -- -- MRU buffer history implementation
@@ -501,3 +517,6 @@ vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap
 --
 -- vim.keymap.set("n", "<C-Tab>", go_back, { noremap = true, silent = true })
 -- vim.keymap.set("n", "<S-Tab>", go_forward, { noremap = true, silent = true })
+
+
+

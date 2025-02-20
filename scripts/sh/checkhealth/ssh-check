@@ -1,0 +1,71 @@
+#!/bin/sh
+
+set -e
+
+# gitlab_remote="git@gitlab.com:Doodler8888/dotfiles.git"
+# test_remote="git@test.com:Doodler8888/dotfiles.git"
+# remote_addresses="$test_remote $gitlab_remote"
+
+[ -d "$HOME"/.ssh ] &&  || { echo "The ssh directory doesn't exist, trying to symlink the directory from ~/.secret_dotfiles."; ln -s "$HOME"/.secret_dotfiles/.ssh "$HOME"; }
+
+if [ ! -d "$HOME"/.ssh ]; then
+	echo "The ssh directory is currently empty, trying to symlink the directory from ~/.secret_dotfiles."
+	ln -s "$HOME"/.secret_dotfiles/.ssh "$HOME"
+else
+	echo "Ssh directory exists:"
+	ls -ld "$HOME"/.ssh
+	printf "\nContinue the execution...\n"
+fi
+
+
+distro_name="$(sed -n '2{s/.*"\([^"]*\)".*/\1/p}' /etc/os-release)"
+
+
+install_command=""
+
+if [ "$distro_name" = "void" ]; then
+	install_command="sudo xbps-install -Sy openssh"
+	echo "The install command is set to $install_command"
+elif [ "$distro_name" = "ubuntu" ]; then
+	install_command="sudo apt install openssh-server"
+	echo "The install command is set to $install_command"
+fi
+	
+echo "This is the distro name: $distro_name"
+
+if [ "$(which ssh-agent)" = false ]; then
+	echo "ssh-agent isn't installed, trying to install it for $distro_name"
+	eval "$install_command"
+	if [ "$distro_name" = "void" ]; then
+		if [ $(sudo sv status sshd) = false ]; then
+			echo "The ssh daemon isn't enabled. Enable it and rerun the script."
+		else
+			echo "This is the status of the ssh daemon"
+			sudo sv status sshd
+		fi
+	echo "Check if ssh daemon works, and relaunch shell to luanch ssh-agent"
+else
+	echo "ssh-agent is installed"
+	which ssh-agent
+	echo "Checking if it's working..."
+	if [ -z $(echo "$SSH_AUTH_SOCK") ]; then
+		echo "ssh-agent doesn't work, trying to enable it..."
+		eval $(ssh-agent)
+	elif
+		echo "Loading ssh-keys..."
+
+fi
+
+### This part is awkward to implement, i just skipped it. ###
+# printf "Checking ssh daemon..."
+
+# if  [ "$distro_name" = "void" ] ; then
+# 	# sudo sv status sshd || echo "Is ssh package installed?"
+# 	daemon_status_output="$(sudo sv status sshd | awk '{print $5}' | sed 's/..$//')"
+# 	echo "This is the amount of seconds the daemons is active: $daemon_status_output"
+	
+# elif  [ "$distro_name" = "ubuntu" ] ; then
+# 	sudo systemctl status sshd || echo "Is ssh package installed?"     
+# fi
+##############################################################################
+

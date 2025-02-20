@@ -27,6 +27,7 @@ local root_patterns = {
     '.git',
     'lazy-lock.json',
     '.zshrc',
+	'help-files',
 }
 
 -- Function to find project root

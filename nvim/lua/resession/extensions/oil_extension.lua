@@ -11,7 +11,8 @@ M.save_win = function(winid)
 end
 
 M.load_win = function(winid, config)
-  require("oil").open(config.bufname)
+  -- require("oil").open(config.bufname)
+  vim.cmd("edit " .. config.bufname) -- I haven't tried with this version
 end
 
 return M

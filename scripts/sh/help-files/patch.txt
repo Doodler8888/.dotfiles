@@ -1,0 +1,3 @@
+From a root directory of a file you want to patch:
+
+patch -p1 < /path/to/patch

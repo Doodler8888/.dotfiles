@@ -2,6 +2,7 @@
 /home/wurfkreuz/Downloads/books
 /home/wurfkreuz/.dotfiles
 /home/wurfkreuz/.dotfiles/nvim
+/home/wurfkreuz/.dotfiles/scripts/sh
 /home/wurfkreuz/.dotfiles/scripts/sh/help-files
 /home/wurfkreuz/.dotfiles/sway
 /home/wurfkreuz/.emacs.d
@@ -9,4 +10,5 @@
 /home/wurfkreuz/.source
 /home/wurfkreuz/.source/emacs
 /home/wurfkreuz/.source/neovim
-/home/wurfkreuz/.dotfiles/scripts/sh
+
+/home/wurfkreuz/test

@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-vim.keymap.set('n', '<CR>', ':cc<CR>', { noremap = true, silent = true, desc = "Go to current quickfix item" })
+vim.keymap.set('n', '<M-CR>', ':cc<CR>', { noremap = true, silent = true, desc = "Go to current quickfix item" })
 vim.keymap.set('n', '<C-M-n>', ':cnext<CR>', { noremap = true, silent = true, desc = "Next quickfix item" })
 vim.keymap.set('n', '<C-M-p>', ':cprev<CR>', { noremap = true, silent = true, desc = "Previous quickfix item" })
 

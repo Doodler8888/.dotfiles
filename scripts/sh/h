@@ -1,0 +1,39 @@
+#!/bin/sh
+
+help() {
+    file_name="$XDG_HELP_DIR/$1.txt"
+
+    # Try the original file
+    if ! cat "$file_name" 2>/dev/null; then
+        # Try adding 's'
+        file_name="$XDG_HELP_DIR/$1s.txt"
+        if ! cat "$file_name" 2>/dev/null; then
+            # Try removing the last character (using `expr` instead of `${var%?}`)
+            trimmed_arg=$(echo "$1" | sed 's/.$//')
+            file_name="$XDG_HELP_DIR/$trimmed_arg.txt"
+            if ! cat "$file_name" 2>/dev/null; then
+                echo "No entry for $1"
+            fi
+        fi
+    fi
+}
+
+edit_help() {
+	if [ -z "$EDITOR" ]; then
+		echo "The EDITOR variable isn't set" && exit 1
+	else
+		"$EDITOR" "$XDG_HELP_DIR/$1.txt"
+	fi
+}
+
+main() {
+	case "$1" in
+		-e) edit_help "$@";;
+		*) help "$@";;
+	esac
+}
+
+case "$(basename "$0")" in
+    h) main "$@";;
+esac
+

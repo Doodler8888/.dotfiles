@@ -23,7 +23,11 @@ require("resession").setup({
     "winfixwidth",
   },
   extensions = {
-    oil_extension = {
+    -- oil_extension = {
+    --   enable_in_tab = true,
+    --   save_buffers = true,
+    -- },
+    dirvish_extension = {
       enable_in_tab = true,
       save_buffers = true,
     },
@@ -31,10 +35,10 @@ require("resession").setup({
       enable_in_tab = true,
       save_buffers = true,
     },
-    -- folds_extension = {
-    --   enable_in_tab = true,
-    --   save_buffers = true,
-    -- },
+    folds_extension = {
+      enable_in_tab = true,
+      save_buffers = true,
+    },
     tabs_extension = {
       enable_in_tab = true,
       save_buffers = true,

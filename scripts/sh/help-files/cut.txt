@@ -1,0 +1,10 @@
+-3 - cut until a third character
+
+> echo "Hello World" | cut -c -3
+Hel
+
+
+2- - cut starting from a second chararter:
+
+> echo "Hello World" | cut -c 2-
+ello World

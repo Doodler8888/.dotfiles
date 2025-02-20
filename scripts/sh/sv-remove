@@ -6,6 +6,7 @@ service_active() {
     # echo "This is what was tried to act on: $1"
     if [ -e /var/service/"$1" ]; then
         rm /var/service/"$1"
+		ls /var/service
     else
         echo "Service isn't active"
     fi

@@ -36,8 +36,9 @@ vim.cmd('command! Todo lcd $HOME/.secret_dotfiles/nvim/todo/ | edit todo.md')
 vim.cmd('command! Tmux lcd /home/wurfkreuz/.dotfiles/tmux | edit .tmux.conf')
 vim.cmd('command! Sh lcd /home/wurfkreuz/.dotfiles/scripts/sh | Ex ~/.dotfiles/scripts/sh')
 vim.cmd('command! Foot lcd /home/wurfkreuz/.dotfiles/foot/ | edit ~/.dotfiles/foot/foot.ini')
-vim.cmd('command! Todo lcd $HOME/.secret_dotfiles/ | edit todo.md')
 vim.cmd('command! Org lcd $HOME/.secret_dotfiles/org/ | Ex ~/.secret_dotfiles/org/')
+vim.cmd('command! Md lcd $HOME/.secret_dotfiles/markdown | Ex ~/.secret_dotfiles/markdown/')
+vim.cmd('command! Help lcd $HOME/.dotfiles/scripts/sh/help-files | Ex ~/.dotfiles/scripts/sh/help-files')
 
 vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end

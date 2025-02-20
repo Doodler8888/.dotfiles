@@ -70,6 +70,7 @@ local plugins = {
 	},
 	'tpope/vim-fugitive',
 	-- 'stevearc/oil.nvim',
+	'justinmk/vim-dirvish', -- use tpope/vim-eunuch with the plugin
 	-- {
 	-- 	"neovim/nvim-lspconfig",
 	-- },
@@ -80,6 +81,18 @@ local plugins = {
 	  ---@type quicker.SetupOptions
 	  opts = {},
 	},
+-- {
+--     "vhyrro/luarocks.nvim",
+--     priority = 1001, -- this plugin needs to run before anything else
+--     opts = {
+--         rocks = { "magick" },
+--     },
+-- },
+-- {
+--     "3rd/image.nvim",
+--     dependencies = { "luarocks.nvim" },
+--     opts = {}
+-- },
 	{
 		'echasnovski/mini.nvim',
 		config = function()
@@ -87,6 +100,23 @@ local plugins = {
 			})
 			require("mini.bracketed").setup({
 			})
+			-- require("mini.files").setup({
+			-- 	mappings = {
+			-- 		close       = 'q',
+			-- 		go_in       = '<CR>',
+			-- 		go_in_plus  = 'L',
+			-- 		go_out      = '-',
+			-- 		go_out_plus = 'H',
+			-- 		mark_goto   = "'",
+			-- 		mark_set    = 'm',
+			-- 		reset       = '<BS>',
+			-- 		reveal_cwd  = '@',
+			-- 		show_help   = 'g?',
+			-- 		synchronize = '=',
+			-- 		trim_left   = '<',
+			-- 		trim_right  = '>',
+			-- 	},
+			-- })
   -- 	require("mini.files").setup({
   -- -- Module mappings created only inside explorer.
   -- -- Use `''` (empty string) to not create one.

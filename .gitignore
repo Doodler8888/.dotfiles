@@ -7,6 +7,7 @@
 quicklisp/
 
 **/.lem/logs/language-client.log
+**/.lem/history
 
 lazy-lock.json
 

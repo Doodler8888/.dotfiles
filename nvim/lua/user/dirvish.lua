@@ -223,3 +223,30 @@ end
 setup_create_dir()
 setup_rename()
 setup_permissions()
+
+
+
+vim.keymap.set("n", "fe", function()
+  local fname = vim.api.nvim_buf_get_name(0)
+  if fname == "" then
+    -- no file name, so open Dirvish on the cwd
+    return vim.cmd("Dirvish")
+  end
+
+  local target = fname
+  if vim.fn.isdirectory(fname) ~= 1 then
+    local head = vim.fn.fnamemodify(fname, ":h")
+    if vim.fn.isdirectory(head) == 1 then
+      target = head
+    else
+      target = nil
+    end
+  end
+
+  if target then
+    vim.cmd("Dirvish " .. target)
+  else
+    -- fallback: open Dirvish on the current working directory
+    vim.cmd("Dirvish")
+  end
+end)

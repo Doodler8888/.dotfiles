@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>fe", "<cmd>Dirvish<CR>")
+-- vim.keymap.set("n", "<leader>fe", "<cmd>Dirvish<CR>")
 -- vim.keymap.set("n", "<leader>fe", function()
 --   require("mini.files").open(vim.fn.expand('%:p:h'))
 -- end, { noremap = true, silent = true })

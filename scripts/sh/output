@@ -1,0 +1,84 @@
+.
+.config
+.config/recursive_dir
+.config/recursive_dir/deeply_nested
+.config/recursive_dir/deeply_nested/level2
+.config/recursive_dir/deeply_nested/level2/level3
+.config/recursive_dir/deeply_nested/level2/level3/level4
+.config/recursive_dir/deeply_nested/level2/level3/level4/level5
+.config/recursive_dir/even_more_nested
+.config/recursive_dir/even_more_nested/level_a
+.config/recursive_dir/even_more_nested/level_a/level_b
+.config/config321
+.config/config321/another_level
+.config/config321/another_level/even_deeper
+.config/config321/another_level/even_deeper/deeper_still
+.config/config321/another_level/even_deeper/deeper_still/final_depth
+.config/config321/another_level/sibling_level
+.config/config321/yet_another_level
+.config/config321/yet_another_level/more_inside
+.config/config321/completely_separate_branch
+
+
+s/[^\/]*\//|___/g
+
+.
+.config
+|___recursive_dir
+|___|___deeply_nested
+|___|___|___level2
+|___|___|___|___level3
+|___|___|___|___|___level4
+|___|___|___|___|___|___level5
+|___|___even_more_nested
+|___|___|___level_a
+|___|___|___|___level_b
+|___config321
+|___|___another_level
+|___|___|___even_deeper
+|___|___|___|___deeper_still
+|___|___|___|___|___final_depth
+|___|___|___sibling_level
+|___|___yet_another_level
+|___|___|___more_inside
+|___|___completely_separate_branch
+
+
+s/___|/   |/g
+
+.
+.config
+|___recursive_dir
+|   |___deeply_nested
+|   |   |___level2
+|   |   |   |___level3
+|   |   |   |   |___level4
+|   |   |   |   |   |___level5
+|   |___even_more_nested
+|   |   |___level_a
+|   |   |   |___level_b
+|___config321
+|   |___another_level
+|   |   |___even_deeper
+|   |   |   |___deeper_still
+|   |   |   |   |___final_depth
+|   |   |___sibling_level
+|   |___yet_another_level
+|   |   |___more_inside
+|   |___completely_separate_branch
+
+
+|____./config
+|         |____config321
+|                   |____test1337
+|                   |____test69
+|         |____file1
+|         |____file2
+|         |____recursive_dir
+|                       |____rec-file1
+|                       |____rec-file2
+|____./init.lua
+|____./lazy-lock.json
+|____./test-file.bak
+|____./test-file2
+|____./testfile.md

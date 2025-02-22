@@ -218,7 +218,8 @@ plugins {
 }
 
 session_serialization true
-pane_viewport_serialization true
+// pane_viewport_serialization true
+// scrollback_lines_to_serialize 1000
 
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
 // eg. when terminal window with an active zellij session is closed

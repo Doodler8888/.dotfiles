@@ -99,8 +99,13 @@ require('rose-pine').setup({
 
 		-- It works on posix shell too (the face is for shebang)
 		['@keyword.directive.bash'] = { fg = 'muted' },
-		-- ['@variable.bash'] = { priority = 99 },
+		['@number.bash'] = { fg = '#908caa' },
 
+		['@number.python'] = { fg = '#908caa' },
+		['@boolean.python'] = { fg = '#908caa' },
+		['@constant.python'] = { fg = '#e0def4' },
+		['@variable.parameter.python'] = { fg = '#908caa' },
+		['@keyword.directive.python'] = { fg = 'muted' },
 	      }
 	    })
 
@@ -110,12 +115,13 @@ require('rose-pine').setup({
 -- vim.api.nvim_set_hl(0, '@function.call.clojure', { link = '@function' })
 -- vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
 
-vim.api.nvim_set_hl(0, '@number.bash', { fg = '#908caa' })
-
-vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
-vim.api.nvim_set_hl(0, '@boolean.python', { fg = '#908caa' })
-vim.api.nvim_set_hl(0, '@constant.python', { fg = '#e0def4' })
-vim.api.nvim_set_hl(0, '@variable.parameter.python', { fg = '#908caa' })
+-- vim.api.nvim_set_hl(0, '@number.bash', { fg = '#908caa' })
+--
+-- vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
+-- vim.api.nvim_set_hl(0, '@boolean.python', { fg = '#908caa' })
+-- vim.api.nvim_set_hl(0, '@constant.python', { fg = '#e0def4' })
+-- vim.api.nvim_set_hl(0, '@variable.parameter.python', { fg = '#908caa' })
+-- vim.api.nvim_set_hl(0, '@keyword.directive.python', { fg = 'muted' })
 
 -- -- Customize Identifier for Clojure files
 -- vim.api.nvim_create_autocmd("FileType", {

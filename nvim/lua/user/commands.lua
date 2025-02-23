@@ -39,6 +39,7 @@ vim.cmd('command! Foot lcd /home/wurfkreuz/.dotfiles/foot/ | edit ~/.dotfiles/fo
 vim.cmd('command! Org lcd $HOME/.secret_dotfiles/org/ | Dirvish ~/.secret_dotfiles/org/')
 vim.cmd('command! Md lcd $HOME/.secret_dotfiles/markdown | Dirvish ~/.secret_dotfiles/markdown/')
 vim.cmd('command! Help lcd $HOME/.dotfiles/scripts/sh/help-files | Dirvish ~/.dotfiles/scripts/sh/help-files')
+vim.cmd('command! I3 lcd $HOME/.dotfiles/i3 | Dirvish ~/.dotfiles/i3')
 
 vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end

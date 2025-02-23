@@ -53,7 +53,9 @@ else
 		eval $(ssh-agent)
 	elif
 		echo "Loading ssh-keys..."
-
+		# so i need to check how ssh-agent works exactly
+		# try to check if you can connect to remotes and why it doesn't work and
+		# things like that. Then use ssh-agent.
 fi
 
 ### This part is awkward to implement, i just skipped it. ###

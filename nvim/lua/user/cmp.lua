@@ -50,25 +50,30 @@ cmp.setup {
     --     cmp.complete()
     --   end
     -- end, { 'i', 's', 'c' }),
+
 ['<Tab>'] = cmp.mapping(function(fallback)
   if cmp.visible() then
-    local entries = cmp.get_entries() or {}
-    if #entries == 1 then
+    local entries = cmp.get_entries()
+    if entries and #entries == 1 then
       cmp.confirm({ select = true })
     else
-      cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      -- If an item is selected, confirm it. Otherwise, move to next item
+      local entry = cmp.get_active_entry()
+      if entry then
+        cmp.confirm({ select = true })
+      else
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+      end
     end
   else
     cmp.complete()
-    -- Defer the check to allow entries to populate.
+    -- Defer the check to allow entries to populate
     vim.defer_fn(function()
-      if cmp.visible() then
-        local entries = cmp.get_entries() or {}
-        if #entries == 1 then
-          cmp.confirm({ select = true })
-        end
+      local entries = cmp.get_entries()
+      if entries and #entries == 1 then
+        cmp.confirm({ select = true })
       end
-    end, 1)  -- delay in milliseconds; adjust as needed
+    end, 0)
   end
 end, { 'i', 's', 'c' }),
     ['<C-n>'] = cmp.mapping(function(fallback)

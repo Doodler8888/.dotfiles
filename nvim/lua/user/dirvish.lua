@@ -52,6 +52,7 @@ local function get_target_file()
   return vim.api.nvim_buf_get_name(0)
 end
 
+
 local function DeleteFile()
   local fname = get_target_file()
   if not fname or fname == "" then
@@ -72,12 +73,18 @@ local function DeleteFile()
     return
   end
 
-  if vim.bo.filetype ~= "dirvish" then
-    vim.cmd("bdelete!")
-  else
+  -- Iterate over all buffers and delete any that match the file name.
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_name(bufnr) == fname then
+      vim.cmd("bdelete! " .. bufnr)
+    end
+  end
+
+  if vim.bo.filetype == "dirvish" then
     refresh_dirvish()  -- Use the helper function we defined earlier
   end
 end
+
 
 -- Create global command
 vim.api.nvim_create_user_command("Delete", DeleteFile, {})

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+git pull https://github.com/neovim/neovim.git
+
+make deps
+
+make CMAKE_BUILD_TYPE=Release
+
+sudo make install
+
+echo "version verification:"
+/usr/local/bin/nvim --version

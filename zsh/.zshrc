@@ -3,7 +3,7 @@ source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
-export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/cd-add/:$PATH"
+export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/cd-add/:$HOME/.dotfiles/scripts/sh/nvim:$PATH"
 GTAGSOBJDIRPREFIX=~/.cache/gtags/
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"

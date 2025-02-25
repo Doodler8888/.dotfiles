@@ -12,7 +12,7 @@ export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --ex
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.9.0.1/bin"
 # export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
 # export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
-# export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
+export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 # export LUA_BINDIR="/usr/local/bin/"
 # export LUA_BINDIR_SET=yes
 export VISUDO_EDITOR=/usr/local/bin/nvim
@@ -202,20 +202,23 @@ setopt PROMPT_SUBST
 setopt PROMPT_SUBST
 PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%{\e[38;2;208;135;112m%}>%{\e[0m%} '
 
-# # Start ssh-agent if it's not already running
 # if [ -z "$SSH_AUTH_SOCK" ]; then
-#     # Check for a running ssh-agent
-#     pid=$(pgrep ssh-agent)
-
-#     if [ -n "$pid" ]; then
-#         # ssh-agent is running, find the socket
-#         export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.\* -uid $(id -u) 2>/dev/null | head -n 1)
-#     fi
-
-#     # If socket is not found, start a new ssh-agent
-#     if [ -z "$SSH_AUTH_SOCK" ]; then
-#         eval "$(ssh-agent -s > /dev/null)"
-#     fi
+# 	if [ -z "$(pgrep ssh-agent)" ]; then
+# 		eval "$(ssh-agent)" > /dev/null
+# 	else
+# 		export SSH_AUTH_SOCK="$(find /tmp/ssh-*/agent.* | head -n 1)"
+# 	fi
+# 	if [ -d ~/.ssh ] || [ -h ~/.ssh ]; then
+# 		find -L "$HOME"/.ssh -type f \
+# 			 ! -name '*.pub' \
+# 			 ! -name "config" \
+# 			 ! -name 'known_hosts*' \
+# 			 ! -name 'authorized_key*' |
+# 			while IFS= read -r input; do
+# 				chmod 600 "$input"
+# 				ssh-add "$input" > /dev/null 2>&1 # for some reason it prints output through stderr
+# 			done
+# 	fi
 # fi
 
 

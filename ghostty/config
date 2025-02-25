@@ -1,0 +1,11 @@
+font-family = NotoSansM Nerd Font Mono
+font-style = medium
+font-size = 12.3
+
+theme = nord
+background = #1d1f21
+
+keybind = alt+1=unbind
+keybind = alt+2=unbind
+keybind = alt+3=unbind
+keybind = alt+4=unbind

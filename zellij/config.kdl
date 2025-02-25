@@ -162,7 +162,7 @@ keybinds clear-defaults=true {
 	bind "Alt d" { NewPane "Down"; SwitchToMode "Normal"; }
 	// bind "Alt r" { NewPane "Right"; SwitchToMode "Normal"; }
         // bind "Ctrl g" { SwitchToMode "Locked"; }
-        bind "Alt q" { Quit; }
+        // bind "Alt q" { Quit; }
         bind "Alt n" { NewPane; }
         // bind "Alt h" { MoveFocusOrTab "Left"; }
         // bind "Alt l" { MoveFocusOrTab "Right"; }

@@ -24,6 +24,18 @@ files=""
 
 make_link() {
     for arg in $files; do
+	full_path="$dest_path/$arg"
+	if [ -e $full_path ]; then
+	    echo "$full_path already exists.\nWhat do you want to delete it (write 'y' or 'n')?"
+	    while IFS= read -r input; do
+		if [ $input = "y" ]; then
+		    rm -r $full_path
+		    break
+		elif [ $input = "n"]; then
+		    break
+		fi
+	    done
+	fi
         if [ "$(echo "$arg" | cut -c -5)" = "/home" ]; then
             # I use -e because -f doesn't work on directories, but only on regular files
             [ -e "$arg" ] || { echo "File $arg doesn't exist"; exit 1; }
@@ -69,6 +81,7 @@ main() {
                 shift
                 ;;
             *)
+	      dest_path="$HOME/.config"
                 [ "$dest_path" != "$1" ] && files="$files $1"
                 shift
                 # dest_path="$HOME/.config/"

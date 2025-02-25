@@ -69,11 +69,28 @@ local plugins = {
 		opts = {}, -- this is equalent to setup({}) function
 	},
 	'tpope/vim-fugitive',
+-- {
+--   "tadmccorkle/markdown.nvim",
+-- on_attach = function(bufnr)
+--   local map = vim.keymap.set
+--   local opts = { buffer = bufnr }
+--   map({ 'n', 'i' }, '<C-l><M-o>', '<Cmd>MDListItemBelow<CR>', opts)
+--   map({ 'n', 'i' }, '<C-L><M-O>', '<Cmd>MDListItemAbove<CR>', opts)
+--   map('n', '<M-CR>', '<Cmd>MDListItemBelow<CR>', opts)
+--   map('i', '<M-CR>', '<Cmd>MDListItemBelow<CR>', opts)
+-- end,
+--   ft = "markdown",
+--   opts = {
+--     -- your other options here
+--   },
+--   config = function()
+--   end,
+-- },
 	-- 'stevearc/oil.nvim',
 	'justinmk/vim-dirvish', -- use tpope/vim-eunuch with the plugin
-	-- {
-	-- 	"neovim/nvim-lspconfig",
-	-- },
+	{
+		"neovim/nvim-lspconfig",
+	},
 	{
 	  'stevearc/quicker.nvim',
 	  event = "FileType qf",

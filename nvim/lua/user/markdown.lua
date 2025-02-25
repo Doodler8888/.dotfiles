@@ -19,6 +19,10 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
+-- require("markdown").setup({
+-- })
+-- -- For some reason, it just doesn't work
+-- vim.keymap.set('i', '<M-CR>', '<cmd>MDListItemBelow<CR>', { buffer = true })
 
 -- -- Function to auto-insert a new numbered item
 -- local function auto_insert_numbered_item()

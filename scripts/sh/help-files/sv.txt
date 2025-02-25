@@ -1,8 +1,11 @@
 Launch service:
 doas ln -s /etc/sv/service-name /var/service
 
-Serivec status:
+Service status:
 doas sv status
+
+Servie reload:
+doas sv reload
 
 Pause a service:
 doas sv pause servicename(?)

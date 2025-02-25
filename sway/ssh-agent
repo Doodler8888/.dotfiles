@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+	if [ -z "$(pgrep ssh-agent)" ]; then
+		eval "$(ssh-agent)" > /dev/null
+	else
+		export SSH_AUTH_SOCK="$(find /tmp/ssh-*/agent.* | head -n 1)"
+	fi
+	if [ -d ~/.ssh ] || [ -h ~/.ssh ]; then
+		find -L "$HOME"/.ssh -type f \
+			 ! -name '*.pub' \
+			 ! -name "config" \
+			 ! -name 'known_hosts*' \
+			 ! -name 'authorized_key*' |
+			while IFS= read -r input; do
+				chmod 600 "$input"
+				ssh-add "$input" > /dev/null 2>&1 # for some reason it prints output through stderr
+			done
+	fi
+fi

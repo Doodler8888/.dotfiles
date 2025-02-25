@@ -19,7 +19,7 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.signcolumn = "auto"
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
 
 -- Disable 'scrolloff' when using 'H' and 'L'
 vim.opt.scrolloff = 8
@@ -60,6 +60,7 @@ vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
 
 vim.diagnostic.config({
   signs = false,
+  underline = false,
   -- virtual_lines = true  -- Enables lsp diagnostics representation like in helix, but i need to pull from master first.
 })
 

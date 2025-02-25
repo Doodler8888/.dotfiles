@@ -80,6 +80,7 @@ M.compile_commands = {
     c = "gcc -Wall -Wextra -o %< %",
     sh = "shellcheck -f gcc %",
     go = "go vet % && go build %",
+    perl = "perl -c %",
 }
 
 function M.setup_compile()
@@ -152,7 +153,7 @@ vim.keymap.set('n', '<M-y>', M.toggle_compile_qf, {
 
 -- Autocommands
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"c", "cpp", "rust", "go", "sh"},
+    pattern = {"c", "cpp", "rust", "go", "sh", "perl" },
     callback = M.setup_compile
 })
 

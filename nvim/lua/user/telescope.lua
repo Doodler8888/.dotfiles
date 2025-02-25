@@ -522,13 +522,13 @@ require('telescope').setup{
       i = {
         -- Your custom mappings in insert mode
         -- ["<C-[>"] = insert_selection_into_cmdline,
-        ["<M-CR>"] = insert_selection_into_cmdline,
+        -- ["<M-CR>"] = insert_selection_into_cmdline,
         ["<C-g>"] = actions.close,
       },
       n = {
         -- Your custom mappings in normal mode
         -- ["<C-[>"] = insert_selection_into_cmdline,
-        ["<M-CR>"] = insert_selection_into_cmdline,
+        -- ["<M-CR>"] = insert_selection_into_cmdline,
         ["<C-g>"] = actions.close,
       },
     }),

@@ -301,3 +301,19 @@ require 'lspconfig.configs'.fennel_language_server = {
 }
 
 lspconfig.fennel_language_server.setup{}
+
+local config = {
+  cmd = { '/home/wurfkreuz/perl5/bin/pls' }, -- complete path to where PLS is located
+  settings = {
+    pls = {
+      -- inc = { '/my/perl/5.34/lib', '/some/other/perl/lib' },  -- add list of dirs to @INC
+      -- cwd = { '/my/projects' },   -- working directory for PLS
+      -- perlcritic = { enabled = true, perlcriticrc = '/my/projects/.perlcriticrc' },  -- use perlcritic and pass a non-default location for its config
+      perlcritic = { enabled = true, },  -- use perlcritic and pass a non-default location for its config
+      syntax = { enabled = true, perl = '/usr/bin/perl', args = { 'arg1', 'arg2' } }, -- enable syntax checking and use a non-default perl binary
+      -- perltidy = { perltidyrc = '/my/projects/.perltidyrc' } -- non-default location for perltidy's config
+      perltidy = { } -- non-default location for perltidy's config
+    }
+  }
+}
+lspconfig.perlpls.setup(config)

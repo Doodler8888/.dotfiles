@@ -1,2 +1,5 @@
 Launch bare nvim:
 nvim --clean
+
+Sequentially increment:
+g+C+a

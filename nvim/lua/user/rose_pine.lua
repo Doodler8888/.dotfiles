@@ -106,6 +106,9 @@ require('rose-pine').setup({
 		['@constant.python'] = { fg = '#e0def4' },
 		['@variable.parameter.python'] = { fg = '#908caa' },
 		['@keyword.directive.python'] = { fg = 'muted' },
+
+		['@number.perl'] = { fg = '#908caa' },
+		['@string.escape.perl'] = { fg = 'gold' },
 	      }
 	    })
 

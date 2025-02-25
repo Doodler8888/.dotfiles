@@ -98,7 +98,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 
-
 -- Netrw-style % command for creating files in Dirvish
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'dirvish',
@@ -108,25 +107,21 @@ vim.api.nvim_create_autocmd('FileType', {
       if vim.fn.isdirectory(dir) ~= 1 then
         dir = vim.fn.fnamemodify(dir, ':h')
       end
-
       vim.ui.input({prompt = 'New file: ', completion = 'file'}, function(input)
         if not input or input == '' then return end
-        local new_file = dir .. '/' .. input
-
+        -- Use vim.fs.normalize to handle path concatenation properly
+        local new_file = vim.fs.normalize(dir .. '/' .. input)
         -- Create parent directories if needed
         local parent_dir = vim.fn.fnamemodify(new_file, ':h')
         if vim.fn.isdirectory(parent_dir) ~= 1 then
           vim.fn.mkdir(parent_dir, 'p')
         end
-
         -- Create empty file
         local f = io.open(new_file, 'w')
         if f then
           f:close()
-          -- Refresh Dirvish while preserving cursor position
-          local view = vim.fn.winsaveview()
-          vim.cmd('edit')
-          vim.fn.winrestview(view)
+          -- Edit the newly created file
+          vim.cmd('edit ' .. vim.fn.fnameescape(new_file))
         else
           vim.notify('Failed to create file: ' .. new_file, vim.log.levels.ERROR)
         end

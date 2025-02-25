@@ -4,3 +4,4 @@ and so on)
 "-z" - if length of a string is zero
 "-n" - if length of a string is non-zero
 "-d" - if given path resolves to directory
+"-h" - if given path is a link

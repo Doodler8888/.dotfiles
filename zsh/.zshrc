@@ -154,6 +154,8 @@ alias cm="chmod"
 alias sv-list="ls /var/service/"
 alias ulb="/usr/local/bin"
 alias hso="/home/wurfkreuz/.secret_dotfiles/org/"
+alias grv="git remote -v"
+alias grr="git remote rm"
 
 
 autoload -Uz compinit; compinit;
@@ -198,7 +200,6 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-setopt PROMPT_SUBST
 setopt PROMPT_SUBST
 PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%{\e[38;2;208;135;112m%}>%{\e[0m%} '
 

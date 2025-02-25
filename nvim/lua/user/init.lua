@@ -4,7 +4,7 @@
  require("user.treesitter")
  require("user.rose_pine")
  require("user.commands")
- -- require("user.lspconfig")
+ require("user.lspconfig")
  require("user.cmp")
  -- require("user.blink")
  require("user.functions")

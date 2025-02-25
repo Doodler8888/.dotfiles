@@ -180,8 +180,9 @@ vim.api.nvim_set_keymap('n', '<Leader>te', ':TableModeToggleeCR>', {noremap = tr
 -- Move between tabs with
 for i = 1, 9 do
      -- vim.api.nvim_set_keymap('n', '<leader>'..i, i..'gt', {noremap = true, silent = true})
-	 -- It's mapped to Alt, didn't work the other way, had to use an escape character
-	 vim.api.nvim_set_keymap('n', '\27'..i, i..'gt', { noremap = true, silent = true })
+	 -- It's mapped to Alt
+	 -- vim.api.nvim_set_keymap('n', '\27'..i, i..'gt', { noremap = true, silent = true })
+	 vim.api.nvim_set_keymap('n', '<A-'..i..'>', i..'gt', { noremap = true, silent = true })
 end
 
 -- function SwitchTab(num)

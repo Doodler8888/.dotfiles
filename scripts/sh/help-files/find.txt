@@ -3,3 +3,14 @@ find . -maxdepth 1 -name 'your_search_pattern*'
 -- quotes, otherwise it will be expanded as a list, so that a list of the found
 -- items is a search pattern.
 
+
+Negate:
+
+find "$HOME"/.ssh -type f ! -name '*.pub' ! -name "config"
+
+
+Gotchas:
+
+find doesn't follow symlinks, so if you try to use 'find . -type f ! -name
+"*.pub"' it wont work. Add '-L' flag.
+

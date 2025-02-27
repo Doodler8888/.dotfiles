@@ -1,0 +1,76 @@
+#!/bin/perl
+
+use 5.26.0;
+use strict;
+use warnings;
+use feature 'signatures';
+
+my @repos_hash = (
+	{path => "$ENV{HOME}/.dotfiles", default_url => "git\@gitlab.com:Doodler8888/dotfiles.git"},
+	{path => "$ENV{HOME}/.emacs.d", default_url => "git\@gitlab.com:Doodler8888/emacs.git"},
+	{path => "$ENV{HOME}/.secret_dotfiles", default_url => "git\@gitlab.com:Doodler8888/secret_dotfiles.git"},
+);
+
+
+my $ssh_dir = "ENV{HOME}/.ssh";
+my $secret_ssh_dir = "ENV{HOME}/.secret_dotfiles/.ssh";
+
+-d "$ENV{HOME}/.secret_dotfiles" or die "You don't have the $ENV{HOME}/.secret_dotfiles directory.\n";
+! -e $ssh_dir && symlink($secret_ssh_dir, $ssh_dir);
+
+if (-f $ssh_dir || -d $ssh_dir ) {
+	say "The ssh directory isn't not a symlink from secret_dotifiles";
+	print `ls -la $ssh_dir`;
+	say "do you want to replace it? (y/*)";
+	my $input = <STDIN>;
+	if ($input =~ "y") {
+		system("rm -r ~/.ssh") == 0 or die $!;
+		symlink($secret_ssh_dir, $ssh_dir);
+	} else {
+		say "Exiting the script..." and exit 1;
+	}
+}
+
+# Without a newline, 'die' returns output with debugging information.
+# system(ssh -T -o StrictHostKeyChecking=no git\@gitlab.com) or die "Can't connect to gitlab\n";
+system("ssh -T -o StrictHostKeyChecking=no git\@gitlab.com > /dev/null 2>&1") == 0  
+	and print "Successfully connected to Gitlab!\n"
+    or die "Failed to connect to Gitlab\n";
+
+# Unlike gitlab, gihub returns exit code 1 in the same situation, that also
+# means its output goes to stderr, so i have to redirect it, otherwise i can't
+# regex match it.
+`ssh -T -o StrictHostKeyChecking=no git\@github.com 2>&1` =~ /^Hi /
+	and print "Successfully connected to Github!\n\n"
+	or die "Failed to connect to Github\n";
+
+sub gitlab_remote_add($repos_hash) {
+	my $path = $repos_hash->{path};
+	my $default_url = $repos_hash->{default_url};
+	my $output = `cd $path && git remote -v 2>/dev/null`;
+
+	if ($output !~ /^gitlab\s+/m) {
+		print "The gitlab remote isn't added for $path:\n$output\nDo you want to add it? Enter: 'y/n' \n=> ";
+		while(1) { # In perl '1' means 'true'
+			chomp(my $input = lc <STDIN>); # lc converts to lowercase
+			if ($input eq "y") {
+				print "Enter the remote address (Default is $default_url):\n=> ";
+				chomp(my $remote_address = (<STDIN>));
+				system("cd $path && git remote add gitlab " . ($remote_address || $default_url)) == 0 or die;
+				print "\nThe remote for $path is added.\n" . `cd $path && git remote -v` . "\n";
+				last;
+			}
+			elsif ($input eq "n") {
+				die "Script is stopped.";
+			} else {
+				print "Incorrect input, type \"y\" or \"n\".\n=> ";
+			}
+		}
+	} else {
+		print "$path already has gitlab remote connected:\n";
+		print `cd $path && git remote -v`. "\n";
+	}
+}
+
+map { gitlab_remote_add($_) } @repos_hash;
+	

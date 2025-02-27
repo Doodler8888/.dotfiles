@@ -1,0 +1,31 @@
+#!/bin/perl
+
+use 5.26.0;
+use strict;
+use warnings;
+use feature 'signatures';
+use File::Copy;
+use Getopt::Long;
+
+
+my $description = "Usage: $0 [--copy|-c] <file1> <file2> ...\n";
+
+# I check at the same time if provided flags are correct (GetOptions), and if i provided anything (@ARGV).
+(GetOptions(
+	 "copy|c" => \my $c_flag,
+	 "help|h" => sub { say $description; exit 0 }, # Otherwise it will see that ARGV is empty and also print the description message.
+ ) && @ARGV) or die $description;
+	
+sub main(@files) {
+	for my $file (@files) {
+		say "File $file doesn't exist" unless -f $file;
+		my $new_name = $file =~ /\.bak$/ ? substr($file, 0, -4) : "$file.bak";
+		if ($c_flag) {
+			copy($file, $new_name) and say "Copied: $file -> $new_name";	
+		} else {
+			rename($file, $new_name) and say "Renamed: $file -> $new_name";		
+		}
+	}
+}
+
+main(@ARGV);

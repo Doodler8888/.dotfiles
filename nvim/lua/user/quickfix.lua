@@ -142,9 +142,9 @@ function M.toggle_compile_qf()
 end
 
 -- Key mappings
-vim.keymap.set('n', '<M-l>', toggle_quickfix_diagnostics,
+vim.keymap.set({'n', 'i'}, '<M-l>', toggle_quickfix_diagnostics,
     {noremap = true, silent = true, desc = "LSP Diagnostics"})
-vim.keymap.set('n', '<M-y>', M.toggle_compile_qf, {
+vim.keymap.set({'n', 'i'}, '<M-y>', M.toggle_compile_qf, {
     silent = true,
     desc = "Toggle compilation quickfix"
 })

@@ -1,0 +1,18 @@
+#!/bin/perl
+
+use 5.26.0;
+use strict;
+use warnings;
+use feature 'signatures';
+
+my @repos = (
+	"$ENV{HOME}/.dotfiles",
+	"$ENV{HOME}/.emacs.d",
+	"$ENV{HOME}/.secret_dotfiles",
+);
+
+for my $repo (@repos) {
+	`cd $repo && git remote rm gitlab`;
+	print "Remote 'gitlab' is deleted.\n";
+	print `cd $repo && git remote -v`;
+}

@@ -109,6 +109,8 @@ require('rose-pine').setup({
 
 		['@number.perl'] = { fg = '#908caa' },
 		['@string.escape.perl'] = { fg = 'gold' },
+		['@string.escape.perl'] = { fg = 'gold' },
+		['@variable.builtin.perl'] = { fg = '#e0def4' },
 	      }
 	    })
 

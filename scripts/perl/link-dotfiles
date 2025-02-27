@@ -1,0 +1,40 @@
+#!/bin/perl
+
+use 5.26.0;
+
+use strict;
+use warnings;
+use File::Basename;
+use File::Spec::Functions qw(catfile);
+
+
+my $directory = "$ENV{HOME}/.config";
+my $dotfiles_path = "$ENV{HOME}/.dotfiles";
+
+my @link_hash = (
+	{dotfiles_target => [map {"$dotfiles_path/$_"}
+						 ("alacritty", "foot", "nvim", "zellij", "tmux", "sway", "starship", "lazydocker", "k9s", "i3", "hyprland")],
+	 link_directory => "$ENV{HOME}/.config"},
+	{dotfiles_target => ["$dotfiles_path/zsh/.zshrc", "$dotfiles_path/tmux/.tmux.conf"],
+	 link_directory => "$ENV{HOME}"},
+	);
+
+# opendir(my $dh, $directory) or die "Cannot open directory: $!";
+# my @entries = grep { $_ ne '.' && $_ ne '..' } readdir($dh);
+# closedir($dh);
+
+for my $entry (@link_hash) {
+	my $link_directory = $entry -> {link_directory};
+    for my $target (@{ $entry->{dotfiles_target} }) {
+		my $link_path = catfile($link_directory, basename($target));
+        if (-e $link_path) {
+            say "The entry $target already exists, do you want to delete it? (y/*)";
+            my $input = <STDIN>;
+            next unless $input eq "y";  # Skip to next iteration if not "y"
+			system("rm -r $target") == 0 or die "Failed to delete $target: $!";
+        }
+        say "Linking $target -> $link_path";
+        symlink($target, $link_path) or die "Failed to create symlink: $!";
+    }
+}
+

@@ -59,9 +59,26 @@ vim.keymap.set('i', '<C-e>', '<End>', {noremap = true})   -- End of line
 -- vim.keymap.set('i', '<C-k>', '<Esc><Left><Left>Di', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-f>', '<Esc> ea', {noremap = true})
 vim.api.nvim_set_keymap('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
+-- vim.api.nvim_set_keymap('i', '<C-M-b>', '<Esc> Bi', {noremap = true}) # doesn't work, if at the very end of a line
 vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-M-b>', '<Esc> Bi', {noremap = true})
 vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
+
+function _G.backword_mapping()
+  local col = vim.fn.col('.')
+  local line = vim.fn.getline('.')
+  if col > #line then
+    col = #line
+  end
+  local keys = ''
+  if col == #line then
+    keys = '<Esc><Left>Bi'
+  else
+    keys = '<Esc>Bi'
+  end
+  return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
+
+vim.api.nvim_set_keymap('i', '<C-M-b>', 'v:lua.backword_mapping()', {expr = true, noremap = true, silent = true})
 
 -- Cmd line bindings
 vim.keymap.set('c', '<C-f>', '<Right>')

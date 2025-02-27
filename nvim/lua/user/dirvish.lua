@@ -1,3 +1,14 @@
+-- Remove the global mapping (if it's already set)
+vim.api.nvim_del_keymap('n', '-')
+
+-- Set a buffer-local mapping for Dirvish buffers
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dirvish",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, 'n', '-', '<Plug>(dirvish_up)', { noremap = false, silent = true })
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "dirvish",
   callback = function()
@@ -228,7 +239,7 @@ setup_permissions()
 
 
 
-vim.keymap.set("n", "fe", function()
+vim.keymap.set("n", "<leader>fe", function()
   local fname = vim.api.nvim_buf_get_name(0)
   if fname == "" then
     -- no file name, so open Dirvish on the cwd

@@ -1,0 +1,42 @@
+#!/bin/perl
+
+use 5.26.0;
+
+use strict;
+use warnings;
+use File::Basename;
+use File::Copy;
+
+
+my $input = $ARGV[0] or die "Argument wasn't provided.\n";
+
+if ($input =~ /^~/) {
+	$input =~ s/^~/\$HOME/;
+}
+# If i pass tilde in parameter, the shell itself will expand it before it gets to perl
+elsif ($input =~ /$ENV{HOME}/) {
+	$input =~ s/^$ENV{HOME}/\$HOME/;
+}
+
+my $file = "$ENV{HOME}/.dotfiles/zsh/.zshrc";
+die "File 'test' doesn't exist." unless -f $file;
+
+my $tmpfile = "/tmp/" . basename($file) . ".tmp";
+
+open(my $fh_in, '<', $file) or die "Can't open test file: $!";
+open(my $fh_out, '>', $tmpfile) or die "Can't open tmptest file: $!";
+
+my $done = 0;
+while (my $line = <$fh_in>) {
+    if (!$done && $line =~ /(^export PATH="[^"]*)(:\$PATH)/) {
+        $line =~ s/(^export PATH="[^"]*)(:\$PATH)/$1:$input$2/;
+		# I'm making it to only modify first occurence of this pattern
+        $done = 1;
+    }
+    print $fh_out $line;
+}
+
+close $fh_in;
+close $fh_out;
+
+move($tmpfile, $file) or die "Failed to replace $file: $!";

@@ -419,42 +419,95 @@ bindkey '^R' my_fzf_history_widget
 delete_word_backward() {
     local CURSOR_BEFORE=$CURSOR
     
-    # If there's no slash in the text before cursor, use regular word deletion
+    # If there are no characters before cursor, return
+    if [[ $CURSOR -eq 0 ]]; then
+        return
+    fi
+    
+    # Check if we're dealing with a path (contains slash)
     if [[ ! ${BUFFER:0:$CURSOR} =~ / ]]; then
+        # Not a path, use regular word deletion
         local WORDCHARS=''
         zle backward-kill-word
+        return
+    fi
+    
+    # Check if we're right after a space
+    if [[ ${BUFFER:$((CURSOR-1)):1} == " " ]]; then
+        # Delete the space
+        BUFFER="${BUFFER:0:$((CURSOR-1))}${BUFFER:$CURSOR}"
+        CURSOR=$((CURSOR-1))
+        
+        # Then trigger delete again to delete the word before the space
+        if [[ $CURSOR -gt 0 ]]; then
+            local text_before=${BUFFER:0:$CURSOR}
+            local last_slash_pos=${text_before##*/}
+            local last_word_len=${#last_slash_pos}
+            
+            # If there's a word after the last slash
+            if [[ $last_word_len -gt 0 ]]; then
+                CURSOR=$((CURSOR - last_word_len))
+                BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE-1}"
+            fi
+        fi
         return
     fi
     
     # If cursor is right after a slash, delete until previous slash
     if [[ ${BUFFER:$((CURSOR-1)):1} == "/" ]]; then
         local slash_pos=${BUFFER:0:$((CURSOR-1))}
-        
         # If there's no previous slash, delete everything up to cursor
         if [[ ! $slash_pos =~ / ]]; then
-            BUFFER="${BUFFER:$CURSOR_BEFORE}"
+            BUFFER="${BUFFER:$CURSOR}"
             CURSOR=0
             return
         fi
-        
         slash_pos=${slash_pos%/*}
         local slash_length=${#slash_pos}
         CURSOR=$((slash_length + 1))
         BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
+        return
+    fi
+    
+    # Handle words after a space (like "newpath123" in your example)
+    if [[ ${BUFFER:0:$CURSOR} =~ " " ]]; then
+        local last_space=${BUFFER:0:$CURSOR}
+        last_space=${last_space##* }
+        # Check if we're in a word after a space
+        if [[ ${#last_space} -gt 0 ]]; then
+            # Find position of the last space
+            local space_pos=${BUFFER:0:$CURSOR}
+            space_pos=${space_pos%"$last_space"}
+            local space_length=${#space_pos}
+            
+            # Delete the word after the space
+            CURSOR=$space_length
+            BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
+            return
+        fi
+    fi
+    
+    # Default case: Find the previous slash position and the word after it
+    local slash_pos=${BUFFER:0:$CURSOR}
+    local after_last_slash=${slash_pos##*/}
+    local word_len=${#after_last_slash}
+    
+    if [[ $word_len -gt 0 ]]; then
+        # Delete the word after the last slash
+        CURSOR=$((CURSOR - word_len))
+        BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
     else
-        # Find the previous slash position
-        local slash_pos=${BUFFER:0:$CURSOR}
+        # We're at a path boundary, delete until previous slash
         slash_pos=${slash_pos%/*}
         local slash_length=${#slash_pos}
         
-        # Delete until but not including the slash
         if [[ $slash_length -lt $CURSOR_BEFORE ]]; then
             CURSOR=$((slash_length + 1))
             BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
         fi
     fi
 }
- 
+
 zle -N delete_word_backward
 bindkey '^W' delete_word_backward
 

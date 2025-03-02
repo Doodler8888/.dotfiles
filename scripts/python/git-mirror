@@ -71,7 +71,7 @@ def check_remote_commit(repos_dictionary):
         else:
             logging.info(f"\nHashes aren't the same:\ngitlab hash:{gitlab_hash}\ngithub hash:{github_hash}\nPushing changes to the gitlab remote of {repo_path}.")
             try:
-                output = subprocess.check_output(f"cd {repo_path} && git push gitlab master:main", shell=True, text=True)
+                output = subprocess.check_output(f"cd {repo_path} && git push gitlab master:main", shell=True, text=True, stderr=subprocess.STDOUT)
                 logging.info(f"This is the output {output}")
             except subprocess.CalledProcessError as e:
                 logging.error(f"Wasn't able to push to the gitlab remote: {e}")

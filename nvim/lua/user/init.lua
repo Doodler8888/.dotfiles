@@ -6,10 +6,11 @@
  require("user.commands")
  require("user.lspconfig")
  require("user.cmp")
+ require("user.luasnip")
  -- require("user.blink")
  require("user.functions")
  require("user.telescope")
- -- require("user.snippets")
+ require("user.snippets")
  require("user.commenting")
  -- require("user.dadbod")
  require("user.surround") -- because i disabled keybindings on C-g

@@ -52,41 +52,12 @@ local plugins = {
 			})
 		end,
 	},
--- 	{
---   "NeogitOrg/neogit",
---   dependencies = {
---     "nvim-lua/plenary.nvim",         -- required
---     "sindrets/diffview.nvim",        -- optional - Diff integration
---
---     "nvim-telescope/telescope.nvim", -- optional
---     -- "echasnovski/mini.pick",         -- optional
---   },
---   config = true
--- },
 	{
 		"windwp/nvim-autopairs",
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
 	},
 	'tpope/vim-fugitive',
--- {
---   "tadmccorkle/markdown.nvim",
--- on_attach = function(bufnr)
---   local map = vim.keymap.set
---   local opts = { buffer = bufnr }
---   map({ 'n', 'i' }, '<C-l><M-o>', '<Cmd>MDListItemBelow<CR>', opts)
---   map({ 'n', 'i' }, '<C-L><M-O>', '<Cmd>MDListItemAbove<CR>', opts)
---   map('n', '<M-CR>', '<Cmd>MDListItemBelow<CR>', opts)
---   map('i', '<M-CR>', '<Cmd>MDListItemBelow<CR>', opts)
--- end,
---   ft = "markdown",
---   opts = {
---     -- your other options here
---   },
---   config = function()
---   end,
--- },
-	-- 'stevearc/oil.nvim',
 	'justinmk/vim-dirvish', -- use tpope/vim-eunuch with the plugin
 	{
 		"neovim/nvim-lspconfig",
@@ -117,22 +88,9 @@ local plugins = {
 			})
 			require("mini.bracketed").setup({
 			})
-			-- require("mini.files").setup({
-			-- 	mappings = {
-			-- 		close       = 'q',
-			-- 		go_in       = '<CR>',
-			-- 		go_in_plus  = 'L',
-			-- 		go_out      = '-',
-			-- 		go_out_plus = 'H',
-			-- 		mark_goto   = "'",
-			-- 		mark_set    = 'm',
-			-- 		reset       = '<BS>',
-			-- 		reveal_cwd  = '@',
-			-- 		show_help   = 'g?',
-			-- 		synchronize = '=',
-			-- 		trim_left   = '<',
-			-- 		trim_right  = '>',
-			-- 	},
+			-- require("mini.icons").setup({
+			-- })
+			-- require("mini.completion").setup({
 			-- })
   -- 	require("mini.files").setup({
   -- -- Module mappings created only inside explorer.
@@ -183,7 +141,24 @@ local plugins = {
 	'hrsh7th/cmp-buffer',
 	'hrsh7th/cmp-path',
 	'hrsh7th/cmp-cmdline',
-	'hrsh7th/nvim-cmp',
+	'saadparwaiz1/cmp_luasnip',
+	{
+	    "hrsh7th/nvim-cmp",
+	    dependencies = {
+		{
+		    'L3MON4D3/LuaSnip',
+		    build = (function()
+			-- Build Step is needed for regex support in snippets
+			-- This step is not supported in many windows environments
+			-- Remove the below condition to re-enable on windows
+			if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+			    return
+			end
+			return 'make install_jsregexp'
+		    end)(),
+		},
+	    },
+	},
 	-- {
 	-- 	'saghen/blink.cmp',
 	-- 	dependencies = 'rafamadriz/friendly-snippets',

@@ -1,0 +1,99 @@
+#!/bin/python
+
+import os
+import sys
+import subprocess
+import shutil
+import re
+
+home = os.environ["HOME"]
+config_dir = os.path.join(home, ".config") # Otherwise i would need to do something like this: config_dir = home + "/.config"
+secret_dotfiles_dir = os.path.join(home, ".secret_dotfiles")
+
+dotfiles_dir = os.path.join(home, ".dotfiles")
+emacs_dir = os.path.join(home, ".emacs.d")
+
+ssh_dir = os.path.join(home, ".ssh")
+secret_ssh_dir = os.path.join(secret_dotfiles_dir, ".ssh")
+
+# print(f"This is config dir: {config_dir}")
+# print(f"This is secret_dotifles dir: {secret_dotfiles_dir}")
+
+repos_dictionary = [
+    {"path": dotfiles_dir, "default_url": "git@gitlab.com:Doodler8888/dotfiles.git"},
+    {"path": emacs_dir, "default_url": "git@gitlab.com:Doodler8888/emacs.git"},
+    {"path": secret_dotfiles_dir, "default_url": "git@gitlab.com:Doodler8888/secret_dotfiles.git"},
+]
+
+if not os.path.isdir(secret_dotfiles_dir):
+    print("You don't have the .secret_dotfiles directory") 
+    sys.exit(1)
+
+if not os.path.exists(ssh_dir):
+    print("The ssh directory doesn't exist, trying to symlink it from the .secret_dotfiles")
+    os.symlink(secret_ssh_dir, ssh_dir)
+
+# The isdir check follows symlinks, which makes it useless when you wont to
+# check if something is a symlink or not.
+if (os.path.isdir(ssh_dir) and not os.path.islink(ssh_dir)) or os.path.isfile(ssh_dir):
+    print(
+            "You already have the ssh directory or file, it's not a symlink:\n "
+            )
+    subprocess.run(["ls", "-ld", ssh_dir])
+    print(
+            "\nWhich means it's probably isn't derived from the .secret_dotfiles. "
+            "Do you want to replace\nthe current ssh directory with the symlink "
+            "from .secret_dotfiles/.ssh? (y/*)\n=> "
+            , end="")
+    user_input = input() # I can't name the variable as 'input', it will overshadow the input() function.
+    if user_input == "y":
+        shutil.rmtree(ssh_dir) # rmdir() doesn't delete non-empty directories
+        os.symlink(secret_ssh_dir, ssh_dir)
+        print("\nThe symlink is created:")
+        subprocess.run(["ls", "-ld", ssh_dir])
+    else:
+        print("incorrect input")
+
+try:
+    subprocess.run("ssh -T -o StrictHostKeyChecking=no git@gitlab.com", shell=True, check=True) # Without 'shell=True' i wont see stdout, without 'check=True' exceptions aren't triggered (?).
+except Exception as e:
+    print(e)
+    sys.exit(1)
+
+output = subprocess.run("ssh -T -o StrictHostKeyChecking=no git@github.com", shell=True, capture_output=True, text=True)
+if output.stderr.startswith("Hi "):
+    print(output.stderr)
+else:
+    print("Failed to connect to github")
+
+def gitlab_remote_add(repos_dictionary):
+    path = repos_dictionary["path"]
+    default_url = repos_dictionary["default_url"]
+    output = subprocess.run(f"cd {path} && git remote -v 2>/dev/null", shell=True, capture_output=True, check=True, text=True)
+
+    if not re.search(r"^gitlab\s+", output.stdout, re.MULTILINE):
+        print(f"The gitlab remote isn't added for {path}:\n{output.stdout}\n"
+              "Do you want to add it? Enter: 'y/n' \n=> ", end="")
+        while True:
+            user_input = input()
+            if user_input == "y":
+                print(f"Enter the remote address (Default is {default_url}):\n=> ", end="")
+                remote_address = input() or default_url
+                # print(f"This is a remote address: {remote_adderss}")
+                subprocess.run(f"cd {path} && git remote add gitlab {remote_address}", shell=True, check=True)
+                print (f"\nThe remote for {path} is added.\n")
+                subprocess.run(f"cd {path} && git remote -v\n", shell=True, check=True)
+                break
+            elif user_input == "n":
+                print("Script stopped")
+                sys.exit(1)
+            else:
+                print("Incorrect input, type \"y\" or \"n\".\n=> ")
+    else:
+        print(f"{path} already has gitlab remote connected:\n")
+        output = subprocess.run(f"cd {path} && git remote -v", shell=True, check=True, capture_output=True, text=True)
+        print(output.stdout)
+
+
+for entry in repos_dictionary:
+    gitlab_remote_add(entry)

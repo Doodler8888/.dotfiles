@@ -154,7 +154,7 @@ keybinds clear-defaults=true {
         bind "Alt Down" { MovePane "Down"; }
         bind "Alt Up" { MovePane "Up"; }
         bind "Alt Right" { MovePane "Right"; }
-        bind "Alt n" { NewPane; SwitchToMode "Normal"; }
+        // bind "Alt n" { NewPane; SwitchToMode "Normal"; }
         bind "Alt w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
 	bind "Alt F1" { MoveTab "Left"; }
         bind "Alt F2" { MoveTab "Right"; }

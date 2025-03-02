@@ -26,6 +26,20 @@ vim.api.nvim_create_autocmd("FileType", {
             { buffer = ev.buf }
         )
     end,
+    pattern = "python",
+    callback = function(ev)
+        -- Normal function snippet
+        vim.snippet.add("srsc",
+            "subprocess.run(\"${1}\", shell=True, Check=True)",
+            { buffer = ev.buf }
+        )
+
+        -- -- Local function snippet
+        -- vim.snippet.add("sfn",
+        --     "subprocess.run(\"${1}\", shell=True, Check=True)",
+        --     { buffer = ev.buf }
+        -- )
+    end,
 })
 
 

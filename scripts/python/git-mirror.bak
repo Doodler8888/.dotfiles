@@ -1,0 +1,64 @@
+#!/bin/env python
+
+import os
+import subprocess
+import sys
+import logging
+
+home = os.environ["HOME"]
+
+
+secret_dotfiles_dir = os.path.join(home, ".secret_dotfiles")
+dotfiles_dir = os.path.join(home, ".dotfiles")
+emacs_dir = os.path.join(home, ".emacs.d")
+
+repos=[secret_dotfiles_dir, dotfiles_dir, emacs_dir]
+
+repos_dictionary = [
+    {"path": dotfiles_dir, "default_url": "git@gitlab.com:Doodler8888/dotfiles.git"},
+    {"path": emacs_dir, "default_url": "git@gitlab.com:Doodler8888/emacs.git"},
+    {"path": secret_dotfiles_dir, "default_url": "git@gitlab.com:Doodler8888/secret_dotfiles.git"},
+]
+
+# logger = logging.getLogger(__logger__)
+logging.basicConfig(filename='/var/log/git-mirror/logs.log', encoding='utf-8', level=logging.DEBUG) # 'level=logging.DEBUG' means that the minimal logging treshold is 'DEBUG'.
+
+logging.basicConfig
+def check_remote_commit(repos_dictionary):
+    repo_path = repos_dictionary["path"]
+    gitlab_remote_url = repos_dictionary["default_url"]
+    github_output = subprocess.check_output(f"cd {repo_path} && git ls-remote origin master", shell=True, text=True)
+    github_hash = github_output.split()[0] if github_output else None
+    logging.info(f"\nThis is the github hash {github_hash}")
+    # print(f"\nThis is the github hash {github_hash}")
+    gitlab_output = subprocess.check_output(f"cd {repo_path} && git ls-remote gitlab main", shell=True, text=True)
+    gitlab_hash = gitlab_output.split()[0] if gitlab_output else None
+    logging.info(f"\nThis is the gitlab hash {gitlab_hash}")
+    # print(f"This is the gitlab hash {gitlab_hash}")
+    if not gitlab_hash:
+        print(f"Remote {gitlab_remote_url} doesn't have any hash: {gitlab_hash}\n"
+              "This could mean that nothing was pushed to it yet.\nDo you want to push? "
+              "(y/*)\n=> ", end="")
+        input1 = input()
+        if input1 == "y":
+            subprocess.check_output(f"cd {repo_path} && git push -u gitlab master:main", shell=True, text=True)
+        else:
+            print("Exiting the script")
+            sys.exit(1)
+    else:
+        print(f"\nHashes are the same:\ngitlab hash:{gitlab_hash}\ngithub hash:{github_hash}")
+
+for entry in repos_dictionary:
+    check_remote_commit(entry)
+
+
+
+# for repo in repos:
+#     master_hash = subprocess.check_output(f"cd {repo} && git ls-remote origin master", shell=True, text=True).split()[0]
+#     print(f"This is the master hash {master_hash}")
+#     gitlab_hash = subprocess.check_output(f"cd {repo} && git ls-remote gitlab master", shell=True, text=True).split()[0]
+#     print(f"This is the gitlab hash {gitlab_hash}")
+#     if master_hash != gitlab_hash:
+#         subprocess.run(f"cd {repo} && git push gitlab master:main", shell=True, check=True, capture_output=True)
+
+

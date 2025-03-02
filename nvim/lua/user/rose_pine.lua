@@ -106,27 +106,29 @@ require('rose-pine').setup({
 		['@constant.python'] = { fg = '#e0def4' },
 		['@variable.parameter.python'] = { fg = '#908caa' },
 		['@keyword.directive.python'] = { fg = 'muted' },
+		['@string.escape.python'] = { fg = 'gold' },
+		['@string.regexp.python'] = { fg = 'gold' },
+		['@function.builtin.python'] = { fg = 'love' },
+		['@function.method.call.python'] = { fg = 'rose' },
+		['@keyword.operator.python'] = { fg = 'pine' },
+		['@constant.builtin.python'] = { fg = 'foam' },
 
 		['@number.perl'] = { fg = '#908caa' },
 		['@string.escape.perl'] = { fg = 'gold' },
 		['@string.escape.perl'] = { fg = 'gold' },
 		['@variable.builtin.perl'] = { fg = '#e0def4' },
+		['@string.regexp.perl'] = { fg = 'gold' },
 	      }
 	    })
+
+
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#17191a" })
 
 -- vim.api.nvim_set_hl(0, '@string.special.symbol.clojure', { link = 'Identifier' })
 -- vim.api.nvim_set_hl(0, '@lsp.type.macro.clojure', { link = '@constant.macro' })
 -- vim.api.nvim_set_hl(0, '@type.clojure', { link = '@type' })
 -- vim.api.nvim_set_hl(0, '@function.call.clojure', { link = '@function' })
 -- vim.api.nvim_set_hl(0, '@function.method.clojure', { link = '@function.method' })
-
--- vim.api.nvim_set_hl(0, '@number.bash', { fg = '#908caa' })
---
--- vim.api.nvim_set_hl(0, '@number.python', { fg = '#908caa' })
--- vim.api.nvim_set_hl(0, '@boolean.python', { fg = '#908caa' })
--- vim.api.nvim_set_hl(0, '@constant.python', { fg = '#e0def4' })
--- vim.api.nvim_set_hl(0, '@variable.parameter.python', { fg = '#908caa' })
--- vim.api.nvim_set_hl(0, '@keyword.directive.python', { fg = 'muted' })
 
 -- -- Customize Identifier for Clojure files
 -- vim.api.nvim_create_autocmd("FileType", {

@@ -57,11 +57,13 @@ vim.keymap.set('i', '<C-p>', '<Up>', {noremap = true})
 vim.keymap.set('i', '<C-a>', '<Home>', {noremap = true})  -- Start of line
 vim.keymap.set('i', '<C-e>', '<End>', {noremap = true})   -- End of line
 -- vim.keymap.set('i', '<C-k>', '<Esc><Left><Left>Di', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-f>', '<Esc> ea', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
--- vim.api.nvim_set_keymap('i', '<C-M-b>', '<Esc> Bi', {noremap = true}) # doesn't work, if at the very end of a line
-vim.api.nvim_set_keymap('i', '<M-b>', '<Esc> bi', {noremap = true})
-vim.api.nvim_set_keymap('i', '<M-m>', '<Esc>I', {noremap = true})
+vim.keymap.set('i', '<M-f>', '<Esc> ea', {noremap = true})
+vim.keymap.set('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
+-- vim.keymap.set('i', '<C-M-b>', '<Esc> Bi', {noremap = true}) # doesn't work, if at the very end of a line
+vim.keymap.set('i', '<M-b>', '<Esc> bi', {noremap = true})
+vim.keymap.set('i', '<M-m>', '<Esc>I', {noremap = true})
+vim.keymap.set({'n', 'o'}, '<M-m>', '^')
+
 
 function _G.backword_mapping()
   local col = vim.fn.col('.')

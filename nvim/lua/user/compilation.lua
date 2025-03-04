@@ -30,7 +30,7 @@ function M.compile()
 end
 
 -- Set up keymaps
-vim.keymap.set('n', '<C-x>cl', M.compile, { silent = true })
+vim.keymap.set('n', '<C-s>cl', M.compile, { silent = true })
 
 -- Auto setup compile command when opening supported files
 vim.api.nvim_create_autocmd("FileType", {

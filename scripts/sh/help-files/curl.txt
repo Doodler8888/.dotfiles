@@ -1,0 +1,4 @@
+To save a file use '-o' (also --output and -O), because curl outputs to stdout
+by default:
+
+curl -o file-name https://www.whatever.com/path/to/something

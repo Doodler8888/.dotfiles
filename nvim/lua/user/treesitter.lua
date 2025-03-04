@@ -11,7 +11,7 @@ require 'nvim-treesitter.configs'.setup {
 
     highlight = {
         enable = true,
-        disable = { "lua", "tmux" },
+        disable = { "lua", "tmux", "csv" },
         additional_vim_regex_highlighting = false,
     },
     textobjects = {

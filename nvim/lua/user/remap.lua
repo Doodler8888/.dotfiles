@@ -48,7 +48,7 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<C-t>', 'ZQ', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-t>', '<cmd>:qa!<CR>', { noremap = true, silent = true })
 
 vim.keymap.set('i', '<C-f>', '<Right>', {noremap = true})
 vim.keymap.set('i', '<C-n>', '<Down>', {noremap = true})
@@ -260,17 +260,18 @@ vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = t
 
 
 -- Add C-x C-s and s bindings
-vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-x><C-c>', ':wqa<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>sf', ':w<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>xc', ':wqa<CR>', {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 
 
-vim.keymap.set('n', '<C-x><C-f>', function()
-    local current_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
-    vim.fn.feedkeys(':e ' .. current_path, 'n')
-end, {noremap = true})
+-- vim.keymap.set('n', '<C-x><C-f>', function()
+--     local current_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
+--     vim.fn.feedkeys(':e ' .. current_path, 'n')
+-- end, {noremap = true})
 
 
 

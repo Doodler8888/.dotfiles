@@ -15,7 +15,7 @@ local function completion_key_map(key)
   if completion_menu_visible() then
     return key
   else
-    return '<C-x><C-o>' .. key
+    return '<C-s><C-o>' .. key
   end
 end
 

@@ -28,7 +28,7 @@ main() {
     if [ -z "$1" ]; then
         dirs_path=$(pwd)
         echo "$dirs_path" >> "$HOME"/.dirs
-		echo "This is the executed command: echo $1 >> $HOME/.dirs"
+		echo "This is the executed command: echo $dirs_path >> $HOME/.dirs"
         echo "$dirs_path is added."
     # If i write a full path for some reason with '/home...' or "~/", then i
     # just insert the given path.
@@ -54,7 +54,7 @@ main() {
 }
 
 case "$(basename "$0")" in
-    cd-add)
+    add-cd)
         main "$1"
         ;;
 esac

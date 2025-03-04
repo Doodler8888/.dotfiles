@@ -1,0 +1,71 @@
+#!/bin/env python
+
+import re
+import sys
+# import os
+import json
+
+# 2. Reading and parsing lines
+# 3. Making variables out components of parsed lines
+# 3. To see how well ip's are captured, you could 
+
+input_file_name = sys.argv[1]
+json_file_name = sys.argv[2]
+
+# def is_source_url(record):
+#     source_url = record.split()[10]
+#     if source_url == "\"-\"":
+#         return print(f"Source url is absent:\n{source_url}")
+#     else:
+#         return print(f"This is the source url:\n{source_url}")
+
+def create_json_record(ip, timestamp, request_method, url, status_code, user_agent):
+    data = {
+        "ip": ip,
+        "timestamp": timestamp,
+        "method": request_method,
+        "url": url,
+        # "status_code": int(status_code),  # Convert to integer
+        "status_code": status_code,  # Convert to integer
+        "user_agent": user_agent
+    }
+    # return json.dumps(data, ensure_ascii=False, indent=2)
+    return json.dumps(data)
+
+def find_user_agent(input):
+    user_agent_start = line.split()[11]
+    user_agent_object = re.search(rf"{user_agent_start}.*\"", input)
+    user_agent = user_agent_object.group(0)
+    return user_agent
+
+with open(input_file_name, "r") as f:
+    for line in f:
+        ip = line.split()[0]
+        timestamp_match_object = re.search(r"\[[\w\/\:]+\s[\-\+][0-9]{4}\]", line)
+        timestamp = timestamp_match_object.group(0) if timestamp_match_object else ""
+        # request_method = re.search(r"")
+        request_method_group = line.split()[5]
+        request_method = request_method_group[1:]
+        url = line.split()[6]
+        # http_version = line.split()[7]
+        status_code = line.split()[8]
+        # source_url = line.split()[10]
+        # user_agent = line.split()[11]
+        user_agent = find_user_agent(line)
+
+        with open(json_file_name, "a") as jf:
+            jf.write(create_json_record(ip, timestamp, request_method, url, status_code, user_agent) + "\n")
+
+        # complete_request_method = os.path.join(request_method, request_method1, request_method2)
+
+        # print(f"This is the current line:\n{line}")
+        # print(f"This is the ip:\n{ip}")
+        # print(f"This is the timestamp:\n{timestamp}")
+        # print(f"This is the request method:\n{request_method}")
+        # print(f"This is the relative url:\n{url}")
+        # # print(f"This is http version 3:\n{http_version}")
+        # print(f"This is status code:\n{status_code}")
+        # # print(f"This is source url:\n{source_url}")
+        # # is_source_url(line)
+        # # print(f"This is the complete_request_method:\n{complete_request_method}")
+        #

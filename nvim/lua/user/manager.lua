@@ -57,7 +57,7 @@ local plugins = {
 		bvent = "InsertEnter",
 		opts = {}, -- this is equalent to setup({}) function
 	},
-	'tpope/vim-fugitive',
+	-- 'tpope/vim-fugitive',
 	'justinmk/vim-dirvish', -- use tpope/vim-eunuch with the plugin
 	{
 		"neovim/nvim-lspconfig",
@@ -81,41 +81,17 @@ local plugins = {
 --     dependencies = { "luarocks.nvim" },
 --     opts = {}
 -- },
-	{
-		'echasnovski/mini.nvim',
-		config = function()
-			require("mini.ai").setup({
-			})
-			require("mini.bracketed").setup({
-			})
-			-- require("mini.icons").setup({
-			-- })
-			-- require("mini.completion").setup({
-			-- })
-  -- 	require("mini.files").setup({
-  -- -- Module mappings created only inside explorer.
-  -- -- Use `''` (empty string) to not create one.
-  -- mappings = {
-  --  close       = 'q',
-  --  go_in       = 'L',
-  --  go_in_plus  = '<CR>',
-  --  go_out      = '-',
-  --  go_out_plus = 'H',
-  --  mark_goto   = "'",
-  --  mark_set    = 'm',
-  --  reset       = '<BS>',
-  --  reveal_cwd  = '@',
-  --  show_help   = 'g?',
-  --  synchronize = '=',
-  --  trim_left   = '<',
-  --  trim_right  = '>',
-  -- },
-			-- })
-			-- require("mini.surround").setup({
-			-- })
-		end,
-	},
-	'mbbill/undotree',
+	-- {
+	-- 	'echasnovski/mini.nvim',
+	-- 	branch = 'main',
+	-- 	config = function()
+	-- 		require("mini.ai").setup({
+	-- 		})
+	-- 		-- require("mini.bracketed").setup({
+	-- 		-- })
+	-- 	end,
+	-- },
+	-- 'mbbill/undotree',
 	-- {
 	-- 'smilhey/ed-cmd.nvim',
 	-- 	config = function()

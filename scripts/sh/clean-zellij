@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+exited_sessions="$(zellij list-sessions --no-formatting | grep "(EXITED - attach to resurrect)")"
+
+echo "$exited_sessions" | while IFS= read -r input; do
+    session_name="$(echo "$input" | awk '{print $1}')"
+    zellij delete-session "$session_name"
+    # echo "This is a session name: $session_name"
+done
+
+# echo "These are exited sessions:\n$exited_sessions"

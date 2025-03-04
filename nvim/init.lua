@@ -1,5 +1,5 @@
--- require("core.lsp")
--- require("core.snippet")
+require("core.lsp")
+require("core.snippet")
 
 require("user")
 

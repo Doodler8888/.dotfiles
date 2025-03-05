@@ -20,6 +20,8 @@ keybinds clear-defaults=true {
         bind "L" { Resize "Decrease Right"; }
         bind "=" "+" { Resize "Increase"; }
         bind "-" { Resize "Decrease"; }
+        bind "[" { PreviousSwapLayout; }
+        bind "]" { NextSwapLayout; }
     }
     pane {
         bind "Alt p" { SwitchToMode "Normal"; }
@@ -168,8 +170,8 @@ keybinds clear-defaults=true {
         // bind "Alt l" { MoveFocusOrTab "Right"; }
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
-        // bind "Alt =" { Resize "Increase"; }
-        // bind "Alt -" { Resize "Decrease"; }
+        bind "Alt =" { Resize "Increase"; }
+        bind "Alt -" { Resize "Decrease"; }
         // bind "Alt <" { PreviousSwapLayout; }
        // bind "Alt >" { NextSwapLayout; }
 	// bind "Alt 1" { GoToTab 1; SwitchToMode "Normal"; }
@@ -189,9 +191,9 @@ keybinds clear-defaults=true {
     shared_except "pane" "locked" {
         bind "Alt p" { SwitchToMode "Pane"; }
     }
-    // shared_except "resize" "locked" {
-    //     bind "Alt y" { SwitchToMode "Resize"; }
-    // }
+    shared_except "resize" "locked" {
+        bind "Alt r" { SwitchToMode "Resize"; }
+    }
     shared_except "scroll" "locked" {
         bind "Alt c" { SwitchToMode "Scroll"; }
     }
@@ -218,8 +220,8 @@ plugins {
 }
 
 session_serialization true
-// pane_viewport_serialization true
-// scrollback_lines_to_serialize 1000
+pane_viewport_serialization true
+scrollback_lines_to_serialize 1000
 
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
 // eg. when terminal window with an active zellij session is closed

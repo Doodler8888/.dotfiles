@@ -7,7 +7,6 @@
  require("user.lspconfig")
  require("user.cmp")
  require("user.luasnip")
- -- require("user.blink")
  require("user.functions")
  require("user.telescope")
  require("user.snippets")
@@ -26,9 +25,9 @@
  -- require('user.neogit')
  -- require('user.fugitive')
  -- require('user.hydra')
- -- require('user.oil')
+ require('user.oil')
  require("user.resession")
- require("user.dirvish")
+ -- require("user.dirvish")
 
 
 require('user.statusline') -- the statusline code probably causes the cursor to dissappear

@@ -157,6 +157,7 @@ alias ulb="/usr/local/bin"
 alias hso="/home/wurfkreuz/.secret_dotfiles/org/"
 alias grv="git remote -v"
 alias grr="git remote rm"
+alias cd-add="add-cd"
 
 
 autoload -Uz compinit; compinit;
@@ -238,3 +239,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(direnv hook zsh)"
+# eval "$(starship init zsh)"

@@ -98,3 +98,4 @@ vim.keymap.set({'n', 'v', 'o'}, '<C-M-e>', function()
     print("Jumping to end of function")
     vim.cmd("TSTextobjectGotoNextEnd @function.outer")
 end, { noremap = true, silent = false, desc = "Jump to end of function" })
+

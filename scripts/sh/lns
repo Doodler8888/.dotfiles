@@ -1,0 +1,97 @@
+#!/bin/sh
+
+help_function() {
+    echo "Usage:
+  command -h [FILES]
+      Link the specified FILES to your home directory.
+      
+  command -b [FILES]
+      Link the specified FILES to /usr/local/bin.
+      
+  command [FILES] -d <directory>
+      Link the specified FILES to <directory>.
+
+Options:
+  -h                Link files to the home directory.
+  -b                Link files to /usr/local/bin.
+  -d <directory>    Link files to the specified directory.
+  --help            Show this help message and exit.
+"
+}
+
+dest_path=""
+files=""
+
+make_link() {
+    for arg in $files; do
+	full_path="$dest_path/$arg"
+	if [ -e $full_path ]; then
+	    echo "$full_path already exists.\nWhat do you want to delete it (write 'y' or 'n')?"
+	    while IFS= read -r input; do
+		if [ $input = "y" ]; then
+		    rm -r $full_path
+		    break
+		elif [ $input = "n"]; then
+		    break
+		fi
+	    done
+	fi
+        if [ "$(echo "$arg" | cut -c -5)" = "/home" ]; then
+            # I use -e because -f doesn't work on directories, but only on regular files
+            [ -e "$arg" ] || { echo "File $arg doesn't exist"; exit 1; }
+            echo "\nLinking $arg to $dest_path"
+            ln -s "$arg" "$dest_path"
+        else
+            [ -e "$(pwd)/$arg" ] || { echo "File $(pwd)/$arg doesn't exist"; exit 1; }
+            echo "\nLinking $(pwd)/$arg to $dest_path"
+            ln -s "$(pwd)/$arg" "$dest_path"
+        fi
+        echo "Output from $dest_path:"
+        ls -la "$dest_path" | grep "$arg"
+    done
+}
+
+main() {
+    # $# → Represents the number of positional arguments remaining.
+    # -gt 0 → Checks if the number of arguments is greater than (-gt) 0.
+    # while [ $# -gt 0 ]; do ... done → This loop processes all command-line
+    # arguments one by one until none are left.
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            --help)
+                help_function
+                shift
+                ;;
+            -h)
+                dest_path="$HOME"
+                shift
+                make_link "$@"
+                ;;
+            -b)
+                dest_path="/usr/local/bin/"
+                shift
+                make_link "$@"
+                ;;
+            -d)
+                [ -n "$2" ] || { echo "Error: -d requires a directory argument"; exit 1; }
+                [ -e "$2" ] || [ -e "$(pwd)/$1" ] || { echo "Error: Directory $1 doesn't exist"; exit 1; }
+                [ -d "$2" ] || { echo "Error: '$1' is not a directory"; exit 1; }
+                dest_path="$2"
+                echo "This is the directory argument $2"
+                shift
+                ;;
+            *)
+	      dest_path="$HOME/.config"
+                [ "$dest_path" != "$1" ] && files="$files $1"
+                shift
+                # dest_path="$HOME/.config/"
+                # make_link "$@"
+                ;;
+        esac
+    done
+    make_link
+}
+
+case "$(basename "$0")" in
+    lns) main "$@";;
+esac

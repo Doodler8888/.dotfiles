@@ -52,13 +52,22 @@ local plugins = {
 			})
 		end,
 	},
+	-- {
+	-- 	"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
+	-- 	bvent = "InsertEnter",
+	-- 	opts = {}, -- this is equalent to setup({}) function
+	-- },
 	{
-		"windwp/nvim-autopairs",
-		bvent = "InsertEnter",
-		opts = {}, -- this is equalent to setup({}) function
+	    'altermo/ultimate-autopair.nvim',
+	    event={'InsertEnter','CmdlineEnter'},
+	    branch='v0.6', --recommended as each new version will have breaking changes
+	    opts={
+		--Config goes here
+	    },
 	},
 	-- 'tpope/vim-fugitive',
-	'justinmk/vim-dirvish', -- use tpope/vim-eunuch with the plugin
+	-- 'justinmk/vim-dirvish',
+	'stevearc/oil.nvim',
 	{
 		"neovim/nvim-lspconfig",
 	},
@@ -69,6 +78,13 @@ local plugins = {
 	  ---@type quicker.SetupOptions
 	  opts = {},
 	},
+{
+  "tadmccorkle/markdown.nvim",
+  -- ft = "markdown", -- or 'event = "VeryLazy"'
+  -- opts = {
+  --   -- configuration here or empty for defaults
+  -- },
+},
 -- {
 --     "vhyrro/luarocks.nvim",
 --     priority = 1001, -- this plugin needs to run before anything else

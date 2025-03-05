@@ -1,0 +1,7 @@
+Create venv:
+python -m venv venv/path
+
+Activate venv:
+source /path/to/venv/bin/activate
+
+

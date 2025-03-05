@@ -1,0 +1,11 @@
+**Bold Text**
+
+*Italic Text*
+
+***Bold and Italic***
+
+~~Strikethrough~~
+
+`Inline Code`
+
+(markdown doesn't have underlines)

@@ -1,0 +1,5 @@
+kill uses SIGTERM (it's called TERM in the man page) as a default signal.
+
+Example of usage:
+
+kill -9 $(pgrep -o steam)

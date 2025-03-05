@@ -30,7 +30,9 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.termguicolors = true
-vim.opt.conceallevel = 0
+-- vim.opt.conceallevel = 0
+vim.opt.conceallevel = 2
+-- vim.opt.concealcursor = "nc"
 
 vim.opt.autowrite = true
 vim.opt.autowriteall = true
@@ -46,10 +48,15 @@ vim.opt.formatoptions:append("cq")
 --  Prevent auto commenting on new lines
 vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
 
+-- Treesitter folding (it autofolds on launch, that's why i don't use it)
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
+-- This code break folding
 -- -- Folding autosave (the setting causing bug(?) where it switches the current directory to nvim where i open .bashrc)
-vim.cmd([[ set viewoptions=folds,cursor ]])
-vim.cmd([[ autocmd BufWinLeave * silent! mkview ]])
-vim.cmd([[ autocmd BufWinEnter * silent! loadview ]])
+-- vim.cmd([[ set viewoptions=folds,cursor ]])
+-- vim.cmd([[ autocmd BufWinLeave * silent! mkview ]])
+-- vim.cmd([[ autocmd BufWinEnter * silent! loadview ]])
 
 -- For tmux <escape> latency
 -- vim.o.timeoutlen = 1000

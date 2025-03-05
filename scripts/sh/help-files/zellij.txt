@@ -1,2 +1,3 @@
-In order to fix the issue with cache, try this:
-zellij delete-all-sessions
+I don't know where the cache directory is, i checked in the documentation and
+didn't see anything. The only way i know know is to try to find the main
+function from the 'ressurectable' tab and delete it from there.

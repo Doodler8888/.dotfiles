@@ -164,10 +164,9 @@ vim.keymap.set('c', '<M-b>', function()
         last_word_start = word_start
     end
 
-    if last_word_start > 0 and last_word_start <cmdpos then
-        -- Calculate how many positions to move left
-        local move_left = cmdpos - last_word_start
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Left>", true, false, true):rep(move_left), 'n', false)
+    if last_word_start > 0 and last_word_start < cmdpos then
+        -- Move the cursor directly instead of feeding <Left> keys
+        vim.fn.setcmdpos(last_word_start)
     end
 end, { noremap = true, desc = "Move backward by vim-style word in command mode" })
 
@@ -261,7 +260,9 @@ vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = t
 
 -- Add C-x C-s and s bindings
 -- vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>sf', ':w<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>ww', ':w<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>wa', ':wa<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>so', ':so<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>xc', ':wqa<CR>', {noremap = true, silent = true})
 

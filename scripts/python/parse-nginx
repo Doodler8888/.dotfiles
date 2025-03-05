@@ -5,19 +5,8 @@ import sys
 # import os
 import json
 
-# 2. Reading and parsing lines
-# 3. Making variables out components of parsed lines
-# 3. To see how well ip's are captured, you could 
-
 input_file_name = sys.argv[1]
 json_file_name = sys.argv[2]
-
-# def is_source_url(record):
-#     source_url = record.split()[10]
-#     if source_url == "\"-\"":
-#         return print(f"Source url is absent:\n{source_url}")
-#     else:
-#         return print(f"This is the source url:\n{source_url}")
 
 def create_json_record(ip, timestamp, request_method, url, status_code, user_agent):
     data = {

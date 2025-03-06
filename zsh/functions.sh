@@ -214,12 +214,6 @@ ss() {
 zle -N ss
 
 
-d() {
-    cd "$1" || return
-    exa -la
-}
-
-
 clear-ls-all() {
     clear
     ls -la --color=auto

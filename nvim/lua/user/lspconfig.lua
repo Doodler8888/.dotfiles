@@ -223,7 +223,7 @@ lspconfig.clojure_lsp.setup{}
 
 -- Nix
 
-require'lspconfig'.nil_ls.setup{}
+-- require'lspconfig'.nil_ls.setup{}
 
 -- SQL
 

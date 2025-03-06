@@ -167,6 +167,34 @@ end
 
 -- Rename command (R mapping) --
 ---------------------------------
+-- local function setup_rename()
+--   vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'dirvish',
+--     callback = function()
+--       vim.keymap.set('n', 'R', function()
+--         local old_path = get_target_file()
+--         if not old_path then return end
+--
+--         vim.ui.input({
+--           prompt = 'Rename to: ',
+--           default = vim.fn.fnamemodify(old_path, ':t')
+--         }, function(new_name)
+--           if not new_name or new_name == '' then return end
+--
+--           local new_path = vim.fn.fnamemodify(old_path, ':h') .. '/' .. new_name
+--           local ok, err = os.rename(old_path, new_path)
+--           if ok then
+--             refresh_dirvish()
+--             vim.notify('Renamed to: ' .. new_path, vim.log.levels.INFO)
+--           else
+--             vim.notify('Rename failed: ' .. err, vim.log.levels.ERROR)
+--           end
+--         end)
+--       end, {buffer = true})
+--     end
+--   })
+-- end
+
 local function setup_rename()
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'dirvish',
@@ -177,7 +205,7 @@ local function setup_rename()
 
         vim.ui.input({
           prompt = 'Rename to: ',
-          default = vim.fn.fnamemodify(old_path, ':t')
+          default = old_path
         }, function(new_name)
           if not new_name or new_name == '' then return end
 

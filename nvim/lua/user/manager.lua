@@ -57,17 +57,17 @@ local plugins = {
 	-- 	bvent = "InsertEnter",
 	-- 	opts = {}, -- this is equalent to setup({}) function
 	-- },
-	{
-	    'altermo/ultimate-autopair.nvim',
-	    event={'InsertEnter','CmdlineEnter'},
-	    branch='v0.6', --recommended as each new version will have breaking changes
-	    opts={
-		--Config goes here
-	    },
-	},
+	-- {
+	--     'altermo/ultimate-autopair.nvim',
+	--     event={'InsertEnter','CmdlineEnter'},
+	--     branch='v0.6', --recommended as each new version will have breaking changes
+	--     opts={
+	-- 	--Config goes here
+	--     },
+	-- },
 	-- 'tpope/vim-fugitive',
 	-- 'justinmk/vim-dirvish',
-	'stevearc/oil.nvim',
+	-- 'stevearc/oil.nvim',
 	{
 		"neovim/nvim-lspconfig",
 	},

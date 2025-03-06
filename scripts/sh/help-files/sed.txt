@@ -1,0 +1,3 @@
+Delete a first line:
+
+sed '1d' intput_file > output_file

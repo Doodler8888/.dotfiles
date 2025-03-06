@@ -22,10 +22,11 @@
  require('user.autocmd')
  require('user.compilation')
  require('user.set')
+ require('user.my_autopairing')
  -- require('user.neogit')
  -- require('user.fugitive')
  -- require('user.hydra')
- require('user.oil')
+ -- require('user.oil')
  require("user.resession")
  -- require("user.dirvish")
 

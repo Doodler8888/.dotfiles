@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
 -- vim.keymap.set("n", "<leader>fe", "<cmd>Dirvish<CR>")
 -- vim.keymap.set("n", "<leader>fe", function()
 --   require("mini.files").open(vim.fn.expand('%:p:h'))
@@ -60,7 +60,7 @@ vim.keymap.set('i', '<C-e>', '<End>', {noremap = true})   -- End of line
 vim.keymap.set('i', '<M-f>', '<Esc> ea', {noremap = true})
 vim.keymap.set('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
 -- vim.keymap.set('i', '<C-M-b>', '<Esc> Bi', {noremap = true}) # doesn't work, if at the very end of a line
-vim.keymap.set('i', '<M-b>', '<Esc> bi', {noremap = true})
+-- vim.keymap.set('i', '<M-b>', '<Esc> bi', {noremap = true})
 vim.keymap.set('i', '<M-m>', '<Esc>I', {noremap = true})
 vim.keymap.set({'n', 'o'}, '<M-m>', '^')
 
@@ -81,6 +81,23 @@ function _G.backword_mapping()
 end
 
 vim.api.nvim_set_keymap('i', '<C-M-b>', 'v:lua.backword_mapping()', {expr = true, noremap = true, silent = true})
+
+function _G.backword_mapping_alt()
+  local col = vim.fn.col('.')
+  local line = vim.fn.getline('.')
+  if col > #line then
+    col = #line
+  end
+  local keys = ''
+  if col == #line then
+    keys = '<Esc><Left>bi'
+  else
+    keys = '<Esc>bi'
+  end
+  return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
+
+vim.api.nvim_set_keymap('i', '<M-b>', 'v:lua.backword_mapping_alt()', {expr = true, noremap = true, silent = true})
 
 -- Cmd line bindings
 vim.keymap.set('c', '<C-f>', '<Right>')
@@ -150,25 +167,40 @@ vim.keymap.set('c', '<M-f>', function()
 end, { noremap = true, desc = "Move forward to end of word in command mode" })
 
 vim.keymap.set('c', '<M-b>', function()
-    local cmdline = vim.fn.getcmdline()
-    local cmdpos = vim.fn.getcmdpos()
+  local cmd = vim.fn.getcmdline()
+  local pos = vim.fn.getcmdpos()
 
-    -- Get text before cursor
-    local before_cursor = cmdline:sub(1, cmdpos - 1)
-
-    -- Find start of current/previous word
-    local pattern = "[%w_]+"
-    local last_word_start = 0
-
-    for word_start in before_cursor:gmatch("()(" .. pattern .. ")") do
-        last_word_start = word_start
+  local function word_start_at(p)
+    local rev_cmd = cmd:sub(1, p):reverse()
+    local word = rev_cmd:match("^[%w_]+")
+    if word then
+      return p - #word
+    else
+      return p
     end
+  end
 
-    if last_word_start > 0 and last_word_start < cmdpos then
-        -- Move the cursor directly instead of feeding <Left> keys
-        vim.fn.setcmdpos(last_word_start)
+  local target = pos
+  if pos > 1 and cmd:sub(pos - 1, pos - 1):match("[%w_]") then
+    target = word_start_at(pos - 1)
+  else
+    local rev_rest = cmd:sub(1, pos - 1):reverse()
+    local nonword = rev_rest:match("^[^%w_]+") or ""
+    local prev_word_end = pos - #nonword - 1
+    if prev_word_end > 0 then
+      target = word_start_at(prev_word_end)
     end
-end, { noremap = true, desc = "Move backward by vim-style word in command mode" })
+  end
+
+  local steps = pos - target
+  if steps > 0 then
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes("<Left>", true, false, true):rep(steps),
+      'n',
+      false
+    )
+  end
+end, { noremap = true, desc = "Move back to start of word in command mode" })
 
 local function emacs_kill_line()
   local cursor = vim.api.nvim_win_get_cursor(0)

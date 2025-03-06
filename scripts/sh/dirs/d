@@ -1,0 +1,74 @@
+#!/bin/sh
+
+set -e
+
+dirs_file="$HOME/.dotfiles/scripts/sh/dirs/d-dirs"
+
+[ ! -f "$dirs_file" ] || touch "$dirs_file"
+
+check_dirs_file() {
+    if [ "$(wc -l "$dirs_file")" -gt 10 ]; then
+	tmp_dirs_file="$(mktemp)"
+	sed '1d' "$dirs_file" > "$tmp_dirs_file"
+	cp "$tmp_dirs_file" "$dirs_file"
+    fi
+}
+
+main() {
+    cd "$1"
+    echo "$1" >> "$dirs_file"
+    check_dirs_file
+}
+
+
+case "$(basename "$0")" in
+    d) main "$@" ;;
+esac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,7 @@
-font-family = NotoSansM Nerd Font Mono
+# font-family = NotoSansM Nerd Font Mono
+font-family = Jetbrains Mono Nerd Font
 font-style = medium
+
 font-size = 12.3
 
 theme = nord

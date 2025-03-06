@@ -40,6 +40,8 @@
 ;; -- line wrap --
 (setf (variable-value 'line-wrap :global) nil)
 
+;;;; -- line numbers --
+(lem/line-numbers:toggle-line-numbers)
 
 
 

@@ -23,6 +23,7 @@
     # antigen
 	  swaynotificationcenter
     glibcLocales
+    xplr
     # corefonts
     # nerd-fonts.noto
     # noto-fonts-emoji

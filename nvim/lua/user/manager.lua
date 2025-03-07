@@ -97,16 +97,16 @@ local plugins = {
 --     dependencies = { "luarocks.nvim" },
 --     opts = {}
 -- },
-	-- {
-	-- 	'echasnovski/mini.nvim',
-	-- 	branch = 'main',
-	-- 	config = function()
-	-- 		require("mini.ai").setup({
-	-- 		})
-	-- 		-- require("mini.bracketed").setup({
-	-- 		-- })
-	-- 	end,
-	-- },
+	{
+		'echasnovski/mini.nvim',
+		branch = 'main',
+		config = function()
+			require("mini.pairs").setup({
+			})
+			-- require("mini.bracketed").setup({
+			-- })
+		end,
+	},
 	-- 'mbbill/undotree',
 	-- {
 	-- 'smilhey/ed-cmd.nvim',

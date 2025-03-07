@@ -22,7 +22,7 @@
  require('user.autocmd')
  require('user.compilation')
  require('user.set')
- require('user.my_autopairing')
+ -- require('user.my_autopairing') -- don't use it because it doesn't indent and rearrenge when create a newline inside a pair (usually a pair of curly brackets)
  -- require('user.neogit')
  -- require('user.fugitive')
  -- require('user.hydra')

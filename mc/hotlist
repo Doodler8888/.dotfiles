@@ -1,0 +1,5 @@
+ENTRY "/home/wurfkreuz" URL "/home/wurfkreuz"
+ENTRY "/home/wurfkreuz/.config/" URL "/home/wurfkreuz/.config"
+ENTRY "/home/wurfkreuz/.dotfiles/" URL "/home/wurfkreuz/.dotfiles"
+ENTRY "/home/wurfkreuz/.dotfiles/scripts" URL "/home/wurfkreuz/.dotfiles/scripts"
+ENTRY "/home/wurfkreuz/.dotfiles/scripts/sh" URL "/home/wurfkreuz/.dotfiles/scripts/sh"

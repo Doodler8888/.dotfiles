@@ -23,8 +23,8 @@ sleep 2
 
 
 swaymsg 'workspace 3'
-swaymsg 'exec foot ~/.cargo/bin/zellij attach main'
-# swaymsg 'exec foot tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh" \; attach'
+# swaymsg 'exec foot ~/.cargo/bin/zellij attach main-new'
+swaymsg 'exec foot tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh" \; attach'
 # swaymsg 'tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh"'
 # swaymsg 'exec ghostty'
 

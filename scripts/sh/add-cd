@@ -6,10 +6,10 @@
 # Secondly, i need to check if the added path exists.
 
 dirs_path=""
+dir_file="$HOME/.dotfiles/scripts/sh/dirs/add-cd-dirs"
 
 clean_file() {
     temp_file=$(mktemp) || exit 1
-    dir_file="$HOME/.dotfiles/scripts/sh/cd-add/.dirs"
     # NF is 'number of fields'. Don't forget that field in awk is a symbol
     # separated by whitespaces.
     awk 'NF > 0' "$dir_file" | sort -d | uniq > "$temp_file"
@@ -19,9 +19,10 @@ clean_file() {
 main() {
 	# The -h flag is for cheking symlinks (the man page says about the -l flag also, but it doesn't work)
     if [ -e "$HOME"/.dirs ] && [ ! -h "$HOME"/.dirs ]; then
-		echo "Can't symlink the \"~/.dotfiles/scripts/sh/cd-add/.dirs\". You already have a file or directory with the name '.dirs'."; exit 1;
+		echo "Can't symlink the \"$dir_file\". You already have a file or directory with the name '.dirs'."; exit 1;
     elif [ ! -e "$HOME"/.dirs ]; then
-        ln -s "$HOME/.dotfiles/scripts/sh/cd-add/.dirs" "$HOME"
+	echo "Trying to symlink the dirs file from $dir_file"
+        ln -s "$dir_file" "$HOME/.dirs"
     fi
 
     # If i don't give any parameter

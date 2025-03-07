@@ -19,6 +19,7 @@ with open(input_file, "r") as infile, open(output_file, "w") as outfile:
         # the shortest possible string that satisfies the overall pattern.
         # Otherwise it will capture anything between two markup'ed words.
         modified_line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", modified_line)
+        # modified_line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", modified_line)
 
         # If i understand correctly, the point of the '(?:)' syntax is to
         # provide an ability to group patterns ('^' and 's+' in this case) so
@@ -26,7 +27,7 @@ with open(input_file, "r") as infile, open(output_file, "w") as outfile:
         # to alter meaning of brackets from being a syntax for creating capture
         # groups to something else. So the first bracket pair at the very
         # beginning is not a capture group.
-        modified_line = re.sub(r"(^|\s+)(\/([^\/]+)\/)", r"\g<1>*\g<3>*", modified_line)
+        modified_line = re.sub(r"(^|\s+)(\/([^\/]+)\/)(?=\s|$)", r"\g<1>*\g<3>*", modified_line)
         modified_line = re.sub(r"(^|\s+)#\+begin_src", r"\g<1>```", modified_line)
         modified_line = re.sub(r"(^|\s+)#\+end_src", r"\g<1>```", modified_line)
 

@@ -137,8 +137,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # exec_always ~/.dotfiles/sway/ssh-agent
-exec_always ~/.dotfiles/sway/launch
-# exec_always ~/.dotfiles/sway/launch-single
+# exec_always ~/.dotfiles/sway/launch
+exec_always ~/.dotfiles/sway/launch-single
 
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)

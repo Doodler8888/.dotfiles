@@ -42,6 +42,7 @@ vim.cmd('command! Md lcd $HOME/.secret_dotfiles/markdown | Ex ~/.secret_dotfiles
 vim.cmd('command! Help lcd $HOME/.dotfiles/scripts/sh/help-files | Ex ~/.dotfiles/scripts/sh/help-files')
 vim.cmd('command! I3 lcd $HOME/.dotfiles/i3 | Ex ~/.dotfiles/i3')
 vim.cmd('command! STrash lcd $HOME/.secret_dotfiles/trash | Ex ~/.secret_dotfiles/trash')
+vim.cmd('command! Mc lcd $HOME/.dotfiles/mc/ | Ex ~/.dotfiles/mc/')
 
 vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end

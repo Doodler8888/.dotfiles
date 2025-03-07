@@ -158,21 +158,23 @@ function wait_for_ctrl_r_or_c {
   # The character code for Ctrl-r is ^R or \x12, and for Ctrl-c is ^C or \x03
   if [[ "$key" == $'\C-r' ]]; then
     fd-search # Execute fd-search if Ctrl-r is pressed
-  elif [[ "$key" == $'\C-f' ]]; then
-    fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
-  elif [[ "$key" == $'\C-h' ]]; then
-    fd-lsearchh
+  # elif [[ "$key" == $'\C-f' ]]; then
+  #   fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
+  # elif [[ "$key" == $'\C-h' ]]; then
+  #   fd-lsearchh
   elif [[ "$key" == $'\C-z' ]]; then
     fzf-zoxide
-  elif [[ "$key" == $'\C-e' ]]; then
-    fzf-nvim
-  elif [[ "$key" == $'\C-d' ]]; then
-    systemctl-tui
-  elif [[ "$key" == $'\C-p' ]]; then
+  # elif [[ "$key" == $'\C-e' ]]; then
+  #   fzf-nvim
+  # elif [[ "$key" == $'\C-d' ]]; then
+  #   systemctl-tui
+  # elif [[ "$key" == $'\C-p' ]]; then
+  #   print_current_directory_inline
+  elif [[ "$key" == $'\p' ]]; then
     print_current_directory_inline
-  elif [[ "$key" == $'\C-b' ]]; then
-    switch_branch
-  elif [[ "$key" == $'\C-y' ]]; then
+  # elif [[ "$key" == $'\C-b' ]]; then
+  #   switch_branch
+  elif [[ "$key" == $'\y' ]]; then
     Cp
   fi
 }
@@ -180,7 +182,7 @@ function wait_for_ctrl_r_or_c {
 # Create a ZLE widget for the modified function
 zle -N wait_for_ctrl_r_or_c
 
-# Bind 'Ctrl-f' to the new widget
+# bindkey '^h' wait_for_ctrl_r_or_c
 bindkey '^h' wait_for_ctrl_r_or_c
 
 fzf-nvim() {
@@ -482,8 +484,8 @@ delete_word_backward() {
     fi
     
     # Default case: Find the previous slash position and the word after it
-    local slash_pos=${BUFFER:0:$CURSOR}
-    local after_last_slash=${slash_pos##*/}
+    local path_part=${BUFFER:0:$CURSOR}
+    local after_last_slash=${path_part##*/}
     local word_len=${#after_last_slash}
     
     if [[ $word_len -gt 0 ]]; then
@@ -492,18 +494,22 @@ delete_word_backward() {
         BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
     else
         # We're at a path boundary, delete until previous slash
-        slash_pos=${slash_pos%/*}
-        local slash_length=${#slash_pos}
+        local prev_path=${path_part%/*}
+        local prev_path_length=${#prev_path}
         
-        if [[ $slash_length -lt $CURSOR_BEFORE ]]; then
-            CURSOR=$((slash_length + 1))
+        if [[ $prev_path_length -gt 0 ]]; then
+            CURSOR=$((prev_path_length + 1))
+            BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
+        else
+            # If we're at the root level, just delete the slash
+            CURSOR=$((CURSOR - 1))
             BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
         fi
     fi
 }
 
 zle -N delete_word_backward
-bindkey '^W' delete_word_backward
+# bindkey '^W' delete_word_backward
 
 
 fzf-copy-notify() {

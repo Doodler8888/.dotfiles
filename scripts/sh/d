@@ -1,0 +1,92 @@
+#!/bin/sh
+
+set -e
+
+dirs_file="$HOME/.dotfiles/scripts/sh/dirs/d-dirs"
+line_count="$(wc -l "$dirs_file" | awk '{print $1}')"
+
+
+clean_file() {
+    temp_file=$(mktemp) || exit 1
+    # NF is 'number of fields'. Don't forget that field in awk is a symbol
+    # separated by whitespaces.
+    awk 'NF > 0' "$dirs_file" | sort -d | uniq > "$temp_file"
+    mv "$temp_file" "$dirs_file"
+}
+
+# echo "This is line numbers: $line_count"
+
+[ ! -f "$dirs_file" ] || touch "$dirs_file"
+
+add_dir() {
+    echo "$1" >> "$dirs_file"
+}
+
+check_dirs_file() {
+    if [ "$line_count" -gt 10 ]; then
+	echo "Line counter is greater the 10, trimming"
+	tmp_dirs_file="$(mktemp)"
+	sed '1d' "$dirs_file" > "$tmp_dirs_file"
+	cp "$tmp_dirs_file" "$dirs_file"
+    fi
+}
+
+main() {
+    cd "$1"
+    # echo "$1" >> "$dirs_file"
+    clean_file
+    check_dirs_file
+}
+
+
+case "$(basename "$0")" in
+    d) main "$@" ;;
+esac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

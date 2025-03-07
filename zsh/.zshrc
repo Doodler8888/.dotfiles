@@ -3,7 +3,7 @@ source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
-export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$PATH"
+export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:$PATH"
 GTAGSOBJDIRPREFIX=~/.cache/gtags/
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -125,14 +125,16 @@ alias off="loginctl poweroff"
 alias re="loginctl reboot"
 alias run="cargo run"
 alias build="cargo build"
-alias scr="~/.dotfiles/scripts"
-alias dot="~/.dotfiles"
-alias sdot="cd ~/.secret_dotfiles"
-alias bin="cd /usr/local/bin"
+alias l="ln -s"
+alias -g scr="~/.dotfiles/scripts"
+alias -g dot="~/.dotfiles"
+alias -g sdot="~/.secret_dotfiles"
+alias -g bin="/usr/local/bin"
+alias -g cfg="~/.config"
+alias -g home="~/"
 alias dimages="docker images"
 alias dtag="docker tag"
 alias dpsa="docker ps -a | head -n 5"
-alias cfg="~/.config"
 alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias i3c="nvim ~/.config/i3/config"
@@ -156,7 +158,6 @@ alias hso="/home/wurfkreuz/.secret_dotfiles/org/"
 alias grv="git remote -v"
 alias grr="git remote rm"
 alias cd-add="add-cd"
-
 
 autoload -Uz compinit; compinit;
 bindkey "^Xa" _expand_alias

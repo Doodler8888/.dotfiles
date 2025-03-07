@@ -79,6 +79,7 @@ require('rose-pine').setup({
 		['@markup.italic.markdown_inline'] = { fg = '#b2aec2', italic = true },
 		['@markup.raw.markdown_inline'] = { bg = '#17191a', fg = '#b2aec2', },
 		['@markup.strong.markdown_inline'] = { bold = true },
+		['@markup.raw.block.markdown'] = { fg = '#e0def4' },
 
 		-- I probably don't need all of them. They were added because of url's in comment string had their own color.
 		-- Also, if i try to change the highlighting like i did wit python below, then it will work very slow for some reason.

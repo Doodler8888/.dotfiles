@@ -64,7 +64,6 @@ alias rm_untagged='docker rm $(docker ps -a -q -f "status=exited") && docker rmi
 alias console='sudo -u postgres psql'
 alias run='nim c -r'
 alias compile='nim c -d:release'
-alias ld='sudo lazydocker'
 # alias rm=''
 alias rf='rm -rf'
 alias md='mkdir -p'
@@ -93,6 +92,7 @@ alias home='nvim /home/wurfkreuz/.dotfiles/home-manager/home.nix'
 # alias tree='eza -Ta --ignore-glob='.git''
 alias ls='ls --color=auto'
 alias la='ls -la --color=auto'
+alias ld='ls -ld --color=auto'
 alias grep='grep --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -158,6 +158,8 @@ alias hso="/home/wurfkreuz/.secret_dotfiles/org/"
 alias grv="git remote -v"
 alias grr="git remote rm"
 alias cd-add="add-cd"
+alias a-c="add-cd"
+alias c-a="add-cd"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xa" _expand_alias

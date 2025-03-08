@@ -36,3 +36,6 @@ swaymsg 'exec telegram-desktop'
 # swaymsg 'exec telegram'
 
 swaymsg 'workspace 3'
+
+
+# /home/wurfkreuz/.dotfiles/scripts/sh/clean-zellij >> /home/wurfkreuz/.var/log/zellij/zellij.log 2>&1

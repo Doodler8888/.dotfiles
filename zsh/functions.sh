@@ -139,12 +139,15 @@ fd-lsearch() {
 zle -N fd-lsearch
 # bindkey '^O' fd-lsearch
 
+function fzf-recent() {
+    local dir
+	dir=$(cat ~/.dotfiles/scripts/python/script_files/d_dirs | fzf --height 40% --border) && cd "$dir"
+    zle reset-prompt
+}
+zle -N fzf-recent
 
 function fzf-zoxide() {
     local dir
-    # dir=$(zoxide query --list | fzf --height 40% --border) && cd "$dir"
-    # dir=$(zoxide query --list | pick) && cd "$dir"
-    # dir=$(cat ~/.dirs | pick) && cd "$dir"
 	dir=$(cat ~/.dirs | fzf --height 40% --border) && cd "$dir"
     zle reset-prompt
 }
@@ -156,14 +159,16 @@ function wait_for_ctrl_r_or_c {
   # Read a single character
   read -r -sk 1 key
   # The character code for Ctrl-r is ^R or \x12, and for Ctrl-c is ^C or \x03
-  if [[ "$key" == $'\C-r' ]]; then
-    fd-search # Execute fd-search if Ctrl-r is pressed
+  # if [[ "$key" == $'\C-r' ]]; then
+  #   fd-search # Execute fd-search if Ctrl-r is pressed
   # elif [[ "$key" == $'\C-f' ]]; then
   #   fd-lsearch # Execute fd-lsearch if Ctrl-c is pressed
   # elif [[ "$key" == $'\C-h' ]]; then
   #   fd-lsearchh
-  elif [[ "$key" == $'\C-z' ]]; then
+  if [[ "$key" == $'\C-z' ]]; then
     fzf-zoxide
+  elif [[ "$key" == $'\C-r' ]]; then
+    fzf-recent
   # elif [[ "$key" == $'\C-e' ]]; then
   #   fzf-nvim
   # elif [[ "$key" == $'\C-d' ]]; then

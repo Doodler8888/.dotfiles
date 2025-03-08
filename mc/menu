@@ -1,0 +1,8 @@
+shell_patterns=0
++ f t
+p Copy current directory path to clipboard
+    pwd | tr -d '\n' | wl-copy
+
++ f t
+P Copy selected item full path to clipboard
+    echo "%d/%f" | tr -d '\n' | wl-copy

@@ -1,3 +1,59 @@
 #!/bin/python
 
+import os
+import argparse
+import re
+import subprocess
 
+
+# nargs stands for "number of arguments". It specifies how many command-line
+# arguments should be consumed into a single item.
+# '+' means "one or more". This tells argparse to expect at least one filename
+# argument, and it will collect all the filename arguments provided into a list.
+parser = argparse.ArgumentParser(
+                    prog='lns',
+                    description='fast symlinking',
+                    add_help=False)
+
+parser.add_argument('filename', nargs='+', help='Filenames to create symlinks for')
+parser.add_argument('-h', '--home', action='store_true', help='Create symlinks in the home directory')
+parser.add_argument('-b', '--bin', action='store_true', help='Create symlinks in the bin directory')
+parser.add_argument('--help', action='help', help='Show program help and exit')
+
+args = parser.parse_args()
+
+current_path = os.getcwd()
+home_path = os.environ["HOME"]
+config_path = os.path.join(home_path, ".config/")
+
+def construct_path(file):
+    if re.search(r"^\/", file):
+        return file
+    else:
+        return os.path.join(current_path, file)
+
+def make_link(argument, files):
+    for file in files:
+        print
+        # if i don't pass it with a slash anywhere, exception is if it's at the very end, then i
+        # or i need to check where i pass a full path or not.
+        # if re.search(r"\/[^\/]$", file):
+        # if os.path.exists(file):
+        # full_path = os.path.join(dest_path,)
+
+def main():
+    dest_path = ""
+
+    if args.home:
+        dest_path = home_path
+    elif args.bin:
+        dest_path = "/usr/local/bin"
+    else:
+        dest_path = config_path
+    for file in args.filename:
+        source_path = construct_path(file)
+        print(f"This is the command that will be run: ln -s {source_path} {dest_path}")
+        subprocess.check_output(f"ln -s {source_path} {dest_path}", shell=True, text=True)
+
+if __name__ == "__main__":
+    main()

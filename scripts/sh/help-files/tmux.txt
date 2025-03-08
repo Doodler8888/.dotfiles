@@ -22,8 +22,8 @@ Kill a split:
 Cycle between splits:
 <prefix> + o
 
-Move to a split:
-<prefix> + <arrow>
+Rename tab:
+<prefix> ,
 
 Copy mode:
 <prefix> + [

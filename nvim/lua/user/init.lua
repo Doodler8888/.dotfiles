@@ -28,7 +28,7 @@
  -- require('user.hydra')
  -- require('user.oil')
  require("user.resession")
- -- require("user.dirvish")
+ require("user.dirvish")
 
 
 require('user.statusline') -- the statusline code probably causes the cursor to dissappear

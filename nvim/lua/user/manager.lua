@@ -66,7 +66,7 @@ local plugins = {
 	--     },
 	-- },
 	-- 'tpope/vim-fugitive',
-	-- 'justinmk/vim-dirvish',
+	'justinmk/vim-dirvish',
 	-- 'stevearc/oil.nvim',
 	{
 		"neovim/nvim-lspconfig",

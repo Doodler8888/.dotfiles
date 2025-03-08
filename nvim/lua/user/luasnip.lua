@@ -50,5 +50,8 @@ ls.add_snippets("python", {
     t(' {'),
     i(2, ""),  -- Cursor inside curly braces
     t('}")'),
-  })
+  }),
+  s("main", {
+    t({'if __name__ == "__main__":', '    main()'}),
+  }),
 }) -- Removed the extra comma here

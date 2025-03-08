@@ -3,6 +3,7 @@ require("core.snippet")
 
 require("user")
 
+
 -- local bufhist = require("user.buffer_history")
 -- vim.keymap.set("n", "<C-Tab>", function() bufhist.jump(-1) end, { noremap = true, silent = true })
 -- vim.keymap.set("n", "<S-Tab>", function() bufhist.jump(1)  end, { noremap = true, silent = true })
@@ -18,4 +19,5 @@ require("user")
 
 -- If i put it to visual.lua or rosepine.lua, it wont work
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#17191a" })
+
 

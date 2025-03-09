@@ -123,7 +123,7 @@ function ShowMessagesInNewBuffer()
   vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
 
   -- Create a buffer-local keybinding for 'q' to close the buffer
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', ':bdelete<CR>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', ':bdelete<CR>', { noremap = true, silent = true })
 
   -- Finally, set the buffer name so that future calls can find it
   vim.api.nvim_buf_set_name(bufnr, bufname)

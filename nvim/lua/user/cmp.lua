@@ -1,5 +1,11 @@
 local cmp = require'cmp'
 local luasnip = require'luasnip'
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 cmp.setup {
   snippet = {
@@ -77,11 +83,36 @@ cmp.setup.cmdline(':', {
   mapping = {
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.confirm({ select = true })
+        local entries = cmp.get_entries()
+        if entries and #entries == 1 then
+          cmp.confirm({ select = true })
+        else
+          -- If an item is selected, confirm it. Otherwise, move to next item
+          local entry = cmp.get_active_entry()
+          if entry then
+            cmp.confirm({ select = true })
+          else
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          end
+        end
       else
         cmp.complete()
+        -- Defer the check to allow entries to populate
+        vim.defer_fn(function()
+          local entries = cmp.get_entries()
+          if entries and #entries == 1 then
+            cmp.confirm({ select = true })
+          end
+        end, 0)
       end
-    end, { 'c' }),
+    end),
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.confirm({ select = true })
+    --   else
+    --     cmp.complete()
+    --   end
+    -- end, { 'c' }),
     ['<C-n>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
@@ -110,7 +141,6 @@ cmp.setup.filetype({ "sql" }, {
     { name = "buffer" },
   },
 })
-
 
 -- vim.api.nvim_create_autocmd("TextChangedI", {
 --   callback = function()

@@ -75,6 +75,14 @@
 
 (setf (lem:variable-value 'lem-core::highlight-line :global) nil)
 
+;; The completion pop-up requires 1 Enter keypress to select the first entry,
+;; and another Enter keypress to validate it. We can shorten this to 1:
+(define-keys lem/completion-mode::*completion-mode-keymap*
+  ("Return" (cmd
+              (lem/completion-mode::completion-select)
+              (when (lem/prompt-window::current-prompt-window)
+                (lem/prompt-window::prompt-execute)))))
+
 ;; (variable-value symbol &optional (scope default) (where nil wherep)) 
 ;;
 ;; &optional means everything that comes after symbol here is optional. 

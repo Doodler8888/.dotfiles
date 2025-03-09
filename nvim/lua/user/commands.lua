@@ -44,6 +44,7 @@ vim.cmd('command! I3 lcd $HOME/.dotfiles/i3 | Dirvish ~/.dotfiles/i3')
 vim.cmd('command! STrash lcd $HOME/.secret_dotfiles/trash | Dirvish ~/.secret_dotfiles/trash')
 vim.cmd('command! Mc lcd $HOME/.dotfiles/mc/ | Dirvish ~/.dotfiles/mc/')
 vim.cmd('command! Source lcd $HOME/.source | Dirvish ~/.source')
+vim.cmd('command! Mnt lcd /mnt | Dirvish /mnt')
 
 vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end

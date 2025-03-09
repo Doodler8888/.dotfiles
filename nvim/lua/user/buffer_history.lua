@@ -23,6 +23,8 @@ local function get_buffer_identifier(bufnr)
     return "netrw:" .. vim.fn.fnamemodify(name, ":p")
   elseif ft == "oil" then
     return "oil:" .. vim.fn.fnamemodify(name, ":p")
+  elseif ft == "dirvish" then
+    return "dirvish:" .. vim.fn.fnamemodify(name, ":p")
   else
     return bufnr
   end

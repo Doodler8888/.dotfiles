@@ -52,11 +52,11 @@ local plugins = {
 			})
 		end,
 	},
-	-- {
-	-- 	"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
-	-- 	bvent = "InsertEnter",
-	-- 	opts = {}, -- this is equalent to setup({}) function
-	-- },
+	{
+		"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
+		bvent = "InsertEnter",
+		opts = {}, -- this is equalent to setup({}) function
+	},
 	-- {
 	--     'altermo/ultimate-autopair.nvim',
 	--     event={'InsertEnter','CmdlineEnter'},
@@ -101,7 +101,9 @@ local plugins = {
 		'echasnovski/mini.nvim',
 		branch = 'main',
 		config = function()
-			require("mini.pairs").setup({
+			-- require("mini.pairs").setup({
+			-- })
+			require("mini.ai").setup({
 			})
 			-- require("mini.bracketed").setup({
 			-- })

@@ -76,10 +76,20 @@ require('rose-pine').setup({
 
 		['@neorg.markup.italic.norg'] = { italic = true },
 		['@neorg.markup.bold.norg'] = { bold = true },
+
 		['@markup.italic.markdown_inline'] = { fg = '#b2aec2', italic = true },
-		['@markup.raw.markdown_inline'] = { bg = '#17191a', fg = '#b2aec2', },
-		['@markup.strong.markdown_inline'] = { bold = true },
+		['@markup.raw.markdown_inline'] = { bg = '#17191a', fg = '#b2aec2' },
+		['@markup.strong.markdown_inline'] = { fg = 'muted', bold = true },
 		['@markup.raw.block.markdown'] = { fg = '#e0def4' },
+		['@label.markdown'] = { fg = 'subtle' },
+		['@markup.raw.block.markdown'] = { fg = 'subtle' },
+		['@markup.heading.1.markdown'] = { fg = 'rose' },
+		['@markup.heading.2.markdown'] = { fg = 'foam' },
+		['@markup.heading.3.markdown'] = { fg = 'iris' },
+		['@markup.heading.4.markdown'] = { fg = 'muted' },
+		['@markup.heading.5.markdown'] = { fg = 'pine' },
+
+
 
 		-- I probably don't need all of them. They were added because of url's in comment string had their own color.
 		-- Also, if i try to change the highlighting like i did wit python below, then it will work very slow for some reason.

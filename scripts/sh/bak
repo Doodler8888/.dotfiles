@@ -80,3 +80,11 @@ main() {
 case "$(basename "$0")" in
     bak) main "$@";;
 esac
+
+check_dirs_file() {
+    if [ "$(wc -l "$dirs_file")" -gt 10 ]; then
+tmp_dirs_file="$(mktemp)"
+sed '1d' "$dirs_file" > "$tmp_dirs_file"
+cp "$tmp_dirs_file" "$dirs_file"
+    fi
+}

@@ -92,4 +92,3 @@ for entry in repos_dictionary:
 #     if master_hash != gitlab_hash:
 #         subprocess.run(f"cd {repo} && git push gitlab master:main", shell=True, check=True, capture_output=True)
 
-

@@ -84,25 +84,27 @@ local conf = require('telescope.config').values
 local action_state = require('telescope.actions.state')
 local actions = require('telescope.actions')
 
+
 function Select_and_load_session_telescope(opts)
   opts = opts or {}
-
   local sessions = require('resession').list()
-
   if #sessions == 0 then
     print("No sessions found.")
     return
   end
 
-  -- Custom layout configuration
-  local layout_config = {
-    width = 0.5, -- Width of the Telescope window as a fraction of the total width
-    height = 0.5, -- Height of the Telescope window as a fraction of the total height
-    mirror = false, -- Whether to mirror the layout
-    strategy = "center", -- Use the center strategy to automatically center the window
-  }
+  -- Properly structure telescope options
+  local custom_opts = vim.tbl_extend("force", opts, {
+    layout_strategy = "center",
+    layout_config = {
+      width = 0.5,
+      height = 0.5,
+      mirror = false,
+      prompt_position = "bottom" -- This places the prompt at the bottom
+    }
+  })
 
-  pickers.new(opts, {
+  pickers.new(custom_opts, {
     prompt_title = 'Load Session',
     finder = finders.new_table {
       results = sessions,
@@ -114,7 +116,7 @@ function Select_and_load_session_telescope(opts)
         }
       end,
     },
-    sorter = conf.generic_sorter(opts),
+    sorter = conf.generic_sorter(custom_opts),
     attach_mappings = function(prompt_bufnr, map)
       local function load_selected_session()
         local selection = action_state.get_selected_entry()
@@ -125,13 +127,10 @@ function Select_and_load_session_telescope(opts)
           print("No session selected.")
         end
       end
-
       map('i', '<CR>', load_selected_session)
       map('n', '<CR>', load_selected_session)
-
       return true
     end,
-    layout_config = layout_config, -- Apply the custom layout configuration
   }):find()
 end
 

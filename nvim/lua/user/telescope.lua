@@ -742,3 +742,32 @@ vim.api.nvim_create_user_command('SshHosts', ssh_hosts, {})
 
 -- Set up a keybinding to launch the picker
 vim.keymap.set('n', '<leader>sh', ssh_hosts, { noremap = true, silent = true, desc = "SSH Hosts" })
+
+
+local function grep_current_tab_files()
+  -- Get list of buffers open in the current tab
+  local buffers = {}
+  local current_tab = vim.api.nvim_get_current_tabpage()
+
+  -- Get all windows in the current tab
+  local windows = vim.api.nvim_tabpage_list_wins(current_tab)
+
+  -- Get the buffer for each window and add its filename to our list
+  for _, win in ipairs(windows) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local filename = vim.api.nvim_buf_get_name(buf)
+    if filename ~= "" then  -- Skip unnamed buffers
+      table.insert(buffers, filename)
+    end
+  end
+
+  -- Run telescope live grep with the files open in current tab
+  require('telescope.builtin').live_grep({
+    prompt_title = "Search Current Tab Files",
+    search_dirs = buffers,
+  })
+end
+
+-- Create a mapping or command
+vim.api.nvim_create_user_command('TelescopeTabGrep', grep_current_tab_files, {})
+vim.keymap.set('n', '<C-s><C-s>', grep_current_tab_files, { desc = "Search in current tab files" })

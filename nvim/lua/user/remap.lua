@@ -59,45 +59,45 @@ vim.keymap.set('i', '<C-e>', '<End>', {noremap = true})   -- End of line
 -- vim.keymap.set('i', '<C-k>', '<Esc><Left><Left>Di', {noremap = true})
 vim.keymap.set('i', '<M-f>', '<Esc> ea', {noremap = true})
 vim.keymap.set('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
--- vim.keymap.set('i', '<C-M-b>', '<Esc> Bi', {noremap = true}) # doesn't work, if at the very end of a line
--- vim.keymap.set('i', '<M-b>', '<Esc> bi', {noremap = true})
+vim.keymap.set('i', '<C-M-b>', '<C-o>B', {noremap = true})
+vim.keymap.set('i', '<M-b>', '<C-o>b', {noremap = true})
 vim.keymap.set('i', '<M-m>', '<Esc>I', {noremap = true})
 vim.keymap.set({'n', 'o'}, '<M-m>', '^')
 
 
-function _G.backword_mapping()
-  local col = vim.fn.col('.')
-  local line = vim.fn.getline('.')
-  if col > #line then
-    col = #line
-  end
-  local keys = ''
-  if col == #line then
-    keys = '<Esc><Left>Bi'
-  else
-    keys = '<Esc>Bi'
-  end
-  return vim.api.nvim_replace_termcodes(keys, true, false, true)
-end
-
-vim.api.nvim_set_keymap('i', '<C-M-b>', 'v:lua.backword_mapping()', {expr = true, noremap = true, silent = true})
-
-function _G.backword_mapping_alt()
-  local col = vim.fn.col('.')
-  local line = vim.fn.getline('.')
-  if col > #line then
-    col = #line
-  end
-  local keys = ''
-  if col == #line then
-    keys = '<Esc><Left>bi'
-  else
-    keys = '<Esc>bi'
-  end
-  return vim.api.nvim_replace_termcodes(keys, true, false, true)
-end
-
-vim.api.nvim_set_keymap('i', '<M-b>', 'v:lua.backword_mapping_alt()', {expr = true, noremap = true, silent = true})
+-- function _G.backword_mapping()
+--   local col = vim.fn.col('.') - 1  -- Adjust for cursor at end
+--   local line = vim.fn.getline('.')
+--   if col > #line then
+--     col = #line
+--   end
+--   local keys = ''
+--   if col == #line then
+--     keys = '<Esc><Left>Bi'
+--   else
+--     keys = '<Esc>Bi'
+--   end
+--   return vim.api.nvim_replace_termcodes(keys, true, false, true)
+-- end
+--
+-- vim.api.nvim_set_keymap('i', '<C-M-b>', 'v:lua.backword_mapping()', {expr = true, noremap = true, silent = true})
+--
+-- function _G.backword_mapping_alt()
+--   local col = vim.fn.col('.') - 1  -- Adjust for cursor at end
+--   local line = vim.fn.getline('.')
+--   if col > #line then
+--     col = #line
+--   end
+--   local keys = ''
+--   if col == #line then
+--     keys = '<Esc><Left>bi'
+--   else
+--     keys = '<Esc>bi'
+--   end
+--   return vim.api.nvim_replace_termcodes(keys, true, false, true)
+-- end
+--
+-- vim.api.nvim_set_keymap('i', '<M-b>', 'v:lua.backword_mapping_alt()', {expr = true, noremap = true, silent = true})
 
 -- Cmd line bindings
 vim.keymap.set('c', '<C-f>', '<Right>')

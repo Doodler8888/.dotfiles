@@ -224,8 +224,18 @@ vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap
 local function reload_file()
   -- Save cursor position and window state
   local view = vim.fn.winsaveview()
-  vim.cmd('edit')  -- Reload buffer
-  vim.fn.winrestview(view)  -- Restore cursor/window state
+  
+  -- Check if buffer has been modified
+  if vim.bo.modified then
+    -- Force reload without saving local changes by using :edit!
+    vim.cmd('edit!')
+  else
+    -- Normal reload if no local changes
+    vim.cmd('edit')
+  end
+  
+  -- Restore cursor/window state
+  vim.fn.winrestview(view)
   vim.notify('File reloaded from disk', vim.log.levels.INFO)
 end
 

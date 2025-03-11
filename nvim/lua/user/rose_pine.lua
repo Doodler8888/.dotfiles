@@ -111,6 +111,9 @@ require('rose-pine').setup({
 		-- It works on posix shell too (the face is for shebang)
 		['@keyword.directive.bash'] = { fg = 'muted' },
 		['@number.bash'] = { fg = '#908caa' },
+		['@constant.bash'] = { fg = 'foam' },
+
+		['zshNumber'] = { fg = '#908caa' },
 
 		['@number.python'] = { fg = '#908caa' },
 		['@boolean.python'] = { fg = '#908caa' },

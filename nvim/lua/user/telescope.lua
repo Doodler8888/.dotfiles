@@ -238,50 +238,102 @@ end
 vim.api.nvim_set_keymap('n', '<leader>ih', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('i', '<C-f><C-i>h', '<cmd>lua Search_and_insert_from_home()<CR>', {noremap = true, silent = true})
 
-local function zoxide_list()
-  local handle = io.popen("zoxide query -l")
-  local result = handle:read("*a")
-  handle:close()
+-- local function zoxide_list()
+--   local handle = io.popen("zoxide query -l")
+--   local result = handle:read("*a")
+--   handle:close()
+--
+--   local dirs = {}
+--   for dir in result:gmatch("[^\r\n]+") do
+--     table.insert(dirs, dir)
+--   end
+--   return dirs
+-- end
+--
+-- local function zoxide_telescope()
+--   local dirs = zoxide_list()
+--
+--   pickers.new({
+--     layout_strategy = "horizontal",
+--     layout_config = {
+--       width = 0.5,
+--       height = 0.5,
+--       prompt_position = "bottom"
+--     },
+--   }, {
+--     prompt_title = "Zoxide Directories",
+--     finder = finders.new_table {
+--       results = dirs
+--     },
+--     sorter = conf.generic_sorter({}),
+--     attach_mappings = function(prompt_bufnr, map)
+--       actions.select_default:replace(function()
+--         actions.close(prompt_bufnr)
+--         local selection = action_state.get_selected_entry()
+--         vim.cmd("lcd " .. selection[1])
+-- 	vim.cmd("Oil " .. selection[1])
+--         print("Navigated to: " .. selection[1])
+--       end)
+--       return true
+--     end,
+--   }):find()
+-- end
+--
+-- vim.api.nvim_create_user_command("Zoxide", zoxide_telescope, {})
+--
+-- vim.api.nvim_set_keymap('n', 'gz', ':Zoxide<CR>', { noremap = true, silent = true })
 
+
+-- Function to read directory paths from ~/.dirs and filter only valid directories
+local function get_valid_dirs()
   local dirs = {}
-  for dir in result:gmatch("[^\r\n]+") do
-    table.insert(dirs, dir)
+  local file = io.open(vim.fn.expand("~/.dirs"), "r")
+  if file then
+    for line in file:lines() do
+      -- Check if the directory exists
+      if vim.fn.isdirectory(line) == 1 then
+        table.insert(dirs, line)
+      end
+    end
+    file:close()
   end
   return dirs
 end
 
-local function zoxide_telescope()
-  local dirs = zoxide_list()
-
+-- Create a custom Telescope picker for zoxide-like navigation
+local function telescope_zoxide()
+  local dirs = get_valid_dirs()
   pickers.new({
-    layout_strategy = "horizontal",
+    layout_strategy = "center", -- center the window
     layout_config = {
-      width = 0.5,
-      height = 0.5,
-      prompt_position = "bottom"
+      width = 0.4,           -- reduce overall width (adjust as desired)
+      height = 0.4,          -- reduce overall height (adjust as desired)
+      prompt_position = "bottom", -- move the prompt (and its title) to the bottom
     },
+    prompt_title = "Zoxide Directories", -- will now appear at the bottom with the prompt
+    results_title = false,
   }, {
-    prompt_title = "Zoxide Directories",
-    finder = finders.new_table {
+    finder = finders.new_table({
       results = dirs
-    },
+    }),
     sorter = conf.generic_sorter({}),
     attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
-        actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
-        vim.cmd("lcd " .. selection[1])
-	vim.cmd("Oil " .. selection[1])
-        print("Navigated to: " .. selection[1])
+        actions.close(prompt_bufnr)
+        vim.cmd("cd " .. vim.fn.fnameescape(selection[1]))
+        vim.cmd("Dirvish " .. vim.fn.fnameescape(selection[1]))
       end)
       return true
     end,
   }):find()
 end
 
-vim.api.nvim_create_user_command("Zoxide", zoxide_telescope, {})
+-- Command to call the function
+vim.api.nvim_create_user_command("ZoxideNavigate", telescope_zoxide, {})
 
-vim.api.nvim_set_keymap('n', 'gz', ':Zoxide<CR>', { noremap = true, silent = true })
+-- Optional: Add a keymap for quick access
+vim.keymap.set("n", "gz", telescope_zoxide, { desc = "Zoxide navigate with Telescope" })
 
 
 function Switch_git_branch()

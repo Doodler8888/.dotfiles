@@ -1,5 +1,5 @@
 Create venv:
-python -m venv venv/path
+python -m venv .venv
 
 Activate venv:
 source /path/to/venv/bin/activate

@@ -286,7 +286,56 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 local tabs1 = require('user.tab_rename')
 vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
 
-vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = true})
+local function paste_from_clipboard()
+  local reg_backup = vim.fn.getreg('"') -- Save the current unnamed register
+  local reg_type_backup = vim.fn.getregtype('"')
+
+  vim.fn.setreg('"', vim.fn.getreg('+')) -- Set unnamed register to clipboard contents
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-r>"', true, true, true), 'i', true)
+
+  vim.fn.setreg('"', reg_backup, reg_type_backup) -- Restore unnamed register
+end
+
+
+-- This function pastes the system clipboard at the current cursor position in insert mode.
+function _G.paste_clipboard()
+  local clip = vim.fn.getreg('+')
+  if clip == "" then
+    return
+  end
+  -- Split the clipboard text into lines.
+  local lines = vim.split(clip, "\n", true)
+  -- Get the current cursor position (row and column; note: row is 1-indexed)
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local current_line = vim.api.nvim_get_current_line()
+
+  if #lines == 1 then
+    -- For a single-line paste, simply insert the text at the cursor.
+    local new_line = current_line:sub(1, col) .. lines[1] .. current_line:sub(col+1)
+    vim.api.nvim_set_current_line(new_line)
+    vim.api.nvim_win_set_cursor(0, { row, col + #lines[1] })
+  else
+    -- For a multi-line paste:
+    local first_line = current_line:sub(1, col) .. lines[1]
+    local last_line  = lines[#lines] .. current_line:sub(col+1)
+    local new_lines = { first_line }
+    -- If there are any lines in between, add them.
+    if #lines > 2 then
+      for i = 2, #lines - 1 do
+        table.insert(new_lines, lines[i])
+      end
+    end
+    table.insert(new_lines, last_line)
+    -- Replace the current line with the new lines.
+    vim.api.nvim_buf_set_lines(0, row - 1, row, false, new_lines)
+    -- Move the cursor to the end of the pasted text.
+    vim.api.nvim_win_set_cursor(0, { row + #lines - 1, #lines[#lines] })
+  end
+end
+vim.keymap.set('i', '<C-y>', function()
+  paste_clipboard()
+end, { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<C-y>', '<C-R><C-O>+', {noremap = true, silent = true})
 -- vim.cmd([[ cnoremap <C-y> <C-r>+ ]])
 
 

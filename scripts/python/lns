@@ -5,7 +5,6 @@ import argparse
 import re
 import subprocess
 
-
 # nargs stands for "number of arguments". It specifies how many command-line
 # arguments should be consumed into a single item.
 # '+' means "one or more". This tells argparse to expect at least one filename
@@ -31,15 +30,6 @@ def construct_path(file):
         return file
     else:
         return os.path.join(current_path, file)
-
-def make_link(argument, files):
-    for file in files:
-        print
-        # if i don't pass it with a slash anywhere, exception is if it's at the very end, then i
-        # or i need to check where i pass a full path or not.
-        # if re.search(r"\/[^\/]$", file):
-        # if os.path.exists(file):
-        # full_path = os.path.join(dest_path,)
 
 def main():
     dest_path = ""

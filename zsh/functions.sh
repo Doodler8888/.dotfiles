@@ -147,8 +147,15 @@ function fzf-recent() {
 zle -N fzf-recent
 
 function fzf-zoxide() {
-    local dir
-	dir=$(cat ~/.dirs | fzf --height 40% --border) && cd "$dir"
+    processed_lines=""
+    while IFS= read -r line; do
+	if [ -d "$line" ]; then
+	    processed_lines=$(printf "%s\n%s" "$processed_lines" "$line")
+	else
+	    continue
+	fi
+    done < ~/.dirs # if i do 'cat ~/.dirs' instead, then it sets the $processed_lines in a subshell, which mean the code that is out of this scope don't get the variable.
+    dir=$(echo "$processed_lines" | fzf --height 40% --border) && cd "$dir"
     zle reset-prompt
 }
 zle -N fzf-zoxide

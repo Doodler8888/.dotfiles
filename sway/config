@@ -162,3 +162,10 @@ exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY 
 # ```
 
 # into /usr/share/wayland-sessions/sway.desktop
+
+
+
+# # It creates a empty spaces inside the floating frame.
+# exec --no-startup-id foot --app-id=floatingframe -e tmux new-session -A -s emacs
+# for_window [app_id="floatingframe"] floating enable, resize set 1200 720, move position center, move scratchpad
+# bindsym $mod+f scratchpad show, resize set 1200 800, move position center

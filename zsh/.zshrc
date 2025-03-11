@@ -1,3 +1,4 @@
+export DOCKER_CONTENT_TRUST=1
 source /usr/local/bin
 source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
@@ -204,8 +205,8 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-setopt PROMPT_SUBST
-PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%{\e[38;2;208;135;112m%}>%{\e[0m%} '
+# setopt PROMPT_SUBST
+# PROMPT=$'%{\e[1;34m%}%~%{\e[1;38;2;180;142;173m%}$(parse_git_branch)%{\e[0m%}\n%{\e[38;2;208;135;112m%}>%{\e[0m%} '
 
 # if [ -z "$SSH_AUTH_SOCK" ]; then
 # 	if [ -z "$(pgrep ssh-agent)" ]; then
@@ -241,4 +242,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(direnv hook zsh)"
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"

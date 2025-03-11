@@ -1,0 +1,2 @@
+To check if you have a library installed or not:
+pip show fastapi

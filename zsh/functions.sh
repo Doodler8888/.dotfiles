@@ -217,15 +217,15 @@ fzf-nvim() {
 zle -N fzf-nvim
 # bindkey '^E' fzf-nvim
 
-ss() {
-  # set -x - debugging
-  local session
-  session=$(zellij list-sessions | fzf --height=10 --layout=reverse --border --ansi)
-  if [[ -n "$session" ]]; then
-    zellij attach "$(echo "$session" | awk '{print $1}')"
-  fi
-}
-zle -N ss
+# ss() {
+#   # set -x - debugging
+#   local session
+#   session=$(zellij list-sessions | fzf --height=10 --layout=reverse --border --ansi)
+#   if [[ -n "$session" ]]; then
+#     zellij attach "$(echo "$session" | awk '{print $1}')"
+#   fi
+# }
+# zle -N ss
 
 
 clear-ls-all() {

@@ -54,4 +54,23 @@ ls.add_snippets("python", {
   s("main", {
     t({'if __name__ == "__main__":', '    main()'}),
   }),
-}) -- Removed the extra comma here
+})
+
+ls.add_snippets("markdown", {
+    s("bash", {
+        t({"``` bash", ""}),
+        i(1),  -- Default insert node content
+        t({"", "```"}),
+    }),
+    s("py", {
+        t({"``` python", ""}),
+        i(1),  -- Default insert node content
+        t({"", "```"}),
+    }),
+    s("code", {
+        t({"```", ""}),
+        i(1),  -- Default insert node content
+        t({"", "```"}),
+    }),
+})
+

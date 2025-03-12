@@ -63,7 +63,7 @@ vim.keymap.set('i', '<C-M-b>', '<C-o>B', {noremap = true})
 vim.keymap.set('i', '<M-b>', '<C-o>b', {noremap = true})
 vim.keymap.set('i', '<M-m>', '<Esc>I', {noremap = true})
 vim.keymap.set({'n', 'o'}, '<M-m>', '^')
-
+vim.keymap.set('n', '<CR>', 'i<CR><Esc>', { noremap = true })
 
 -- function _G.backword_mapping()
 --   local col = vim.fn.col('.') - 1  -- Adjust for cursor at end
@@ -356,4 +356,11 @@ vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 -- end, {noremap = true})
 
 
-
+vim.keymap.set("n", "g;", function()
+  local pos_before = vim.api.nvim_win_get_cursor(0)
+  vim.cmd("normal! g;")
+  local pos_after = vim.api.nvim_win_get_cursor(0)
+  if pos_before[1] == pos_after[1] and pos_before[2] == pos_after[2] then
+    vim.cmd("normal! g;")
+  end
+end, { noremap = true, silent = true })

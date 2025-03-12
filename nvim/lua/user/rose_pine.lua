@@ -82,7 +82,7 @@ require('rose-pine').setup({
 		['@markup.strong.markdown_inline'] = { fg = 'muted', bold = true },
 		['@markup.raw.block.markdown'] = { fg = '#e0def4' },
 		['@label.markdown'] = { fg = 'subtle' },
-		['@markup.raw.block.markdown'] = { fg = 'subtle' },
+		['@markup.raw.block.markdown'] = { fg = 'subtle' }, -- Changing this also changes coded hi, you can't just change the backticks apparently
 		['@markup.heading.1.markdown'] = { fg = 'rose' },
 		['@markup.heading.2.markdown'] = { fg = 'foam' },
 		['@markup.heading.3.markdown'] = { fg = 'iris' },

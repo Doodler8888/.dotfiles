@@ -78,3 +78,5 @@ vim.opt.guicursor = "n-v:block,i-ci-c-ve:ver25,r-cr:hor20,o:hor50"
 
 vim.g.netrw_banner = 0
 -- vim.g.netrw_trash = 1
+
+vim.cmd([[ set iskeyword-=_ ]])

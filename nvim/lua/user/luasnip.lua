@@ -37,6 +37,11 @@ ls.add_snippets("python", {
     i(1, ""),  -- cursor will be here between the quotes
     t('", shell=True, text=True)'),
   }),
+  s("p", {
+      t('print("'),
+      i(1),  -- Cursor inside the quotes
+      t('")')
+  }),
   s("pt", {
     t('print(f"This is the '),
     i(1, ""),  -- Cursor inside f-string expression
@@ -52,7 +57,9 @@ ls.add_snippets("python", {
     t('}")'),
   }),
   s("main", {
-    t({'if __name__ == "__main__":', '    main()'}),
+      t({'if __name__ == "__main__":', '    main('}),
+      i(1),
+      t({')'})
   }),
 })
 
@@ -63,6 +70,11 @@ ls.add_snippets("markdown", {
         t({"", "```"}),
     }),
     s("py", {
+        t({"``` python", ""}),
+        i(1),  -- Default insert node content
+        t({"", "```"}),
+    }),
+    s("python", {
         t({"``` python", ""}),
         i(1),  -- Default insert node content
         t({"", "```"}),

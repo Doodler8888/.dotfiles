@@ -1,0 +1,59 @@
+#!/bin/env python
+
+import sys
+import os
+import argparse
+import shutil
+import subprocess
+
+
+argument = sys.argv[1]
+cwd = os.getcwd()
+
+
+parser = argparse.ArgumentParser(
+                    prog='lns',
+                    description='fast symlinking',)
+
+parser.add_argument('filename', nargs='+', help='Bak files')
+parser.add_argument('-c', '--copy', action='store_true', help='Copy files and then bak them')
+# parser.add_argument('-h', '--help', action='help', help='Show program help and exit')
+
+args = parser.parse_args()
+
+def bak(arg):
+    if arg.endswith(".bak"):
+        arg = arg[0:-4]
+        return arg
+    else:
+        arg = arg + ".bak"
+        return arg
+
+def main(arg):
+    new_name = None
+    if os.path.exists(arg):
+        new_name = bak(arg)
+    else:
+        arg = os.path.join(cwd, arg)
+        if os.path.exists(arg):
+            new_name = bak(arg)
+        # os.rename(arg, new_name)
+        else:
+            print(f"file {arg} doesn't exist")
+            return
+
+    if new_name is None:  # Ensure new_name was assigned
+        print("Error: new_name was not assigned")
+        return
+
+    if args.copy:
+        subprocess.check_output(f"cp -r {arg} {new_name}", shell=True, text=True)
+    else:
+        os.rename(arg, new_name)
+
+
+
+if __name__ == "__main__":
+    for arg in args.filename:
+        main(arg)
+    # main(argument)

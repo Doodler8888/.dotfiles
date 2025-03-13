@@ -33,3 +33,4 @@ main() {
 case "$(basename "$0")" in
     sv-add) main "$@";;
 esac
+

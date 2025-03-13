@@ -93,6 +93,7 @@ vim.keymap.set({'n', 'v', 'o'}, '<C-M-a>', function()
     vim.cmd("TSTextobjectGotoPreviousStart @function.outer")
 end, { noremap = true, silent = false, desc = "Jump to start of function" })
 
+
 -- Jump to end of function (normal, visual, and operator-pending modes)
 vim.keymap.set({'n', 'v', 'o'}, '<C-M-e>', function()
     print("Jumping to end of function")

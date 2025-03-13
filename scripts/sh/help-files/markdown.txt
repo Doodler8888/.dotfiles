@@ -9,3 +9,13 @@
 `Inline Code`
 
 (markdown doesn't have underlines)
+
+
+The mark like 'Note:', 'Warning:' and so on are extensions, you wont see them
+rendered by treesitter:
+
+> [!NOTE]  
+> Highlights information that users should take into account, even when skimming.
+
+> [!WARNING]  
+> Critical content demanding immediate user attention due to potential risks.

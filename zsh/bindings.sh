@@ -30,30 +30,65 @@ bindkey -M vicmd '^F' forward-char
 
 WORDCHARS='*?_[]~=&;!#$%^(){}<>|'
 
-# Modified functions for whole string movement
+# # Modified functions for whole string movement
+# forward-whole-string() {
+#     local save_wordchars="$WORDCHARS"
+#     WORDCHARS='*?_-[]~=&;!#$%^(){}<>|'  # Include - and all other chars
+#     zle forward-word
+#     WORDCHARS="$save_wordchars"
+# }
+#
+# backward-whole-string() {
+#     local save_wordchars="$WORDCHARS"
+#     WORDCHARS='*?_-[]~=&;!#$%^(){}<>|'  # Include - and all other chars
+#     zle backward-word
+#     WORDCHARS="$save_wordchars"
+# }
+
+# Move forward to the beginning of the next word (non-space sequence)
 forward-whole-string() {
-    local save_wordchars="$WORDCHARS"
-    WORDCHARS='*?_-[]~=&;!#$%^(){}<>|'  # Include - and all other chars
-    zle forward-word
-    WORDCHARS="$save_wordchars"
+  local len=${#BUFFER}
+  # Skip the current word (if any)
+  while (( CURSOR < len )); do
+    if [[ "${BUFFER:$CURSOR:1}" == " " ]]; then
+      break
+    fi
+    (( CURSOR++ ))
+  done
+  # Then skip over any whitespace to land at the start of the next word
+  while (( CURSOR < len )); do
+    if [[ "${BUFFER:$CURSOR:1}" != " " ]]; then
+      break
+    fi
+    (( CURSOR++ ))
+  done
+  zle reset-prompt
 }
 
+# Move backward to the beginning of the previous word (non-space sequence)
 backward-whole-string() {
-    local save_wordchars="$WORDCHARS"
-    WORDCHARS='*?_-[]~=&;!#$%^(){}<>|'  # Include - and all other chars
-    zle backward-word
-    WORDCHARS="$save_wordchars"
+  # First, if the character immediately left of the cursor is whitespace, skip it
+  while (( CURSOR > 0 )); do
+    if [[ "${BUFFER:$((CURSOR-1)):1}" != " " ]]; then
+      break
+    fi
+    (( CURSOR-- ))
+  done
+  # Then, skip backwards over non-space characters until a space is encountered
+  while (( CURSOR > 0 )); do
+    if [[ "${BUFFER:$((CURSOR-1)):1}" == " " ]]; then
+      break
+    fi
+    (( CURSOR-- ))
+  done
+  zle reset-prompt
 }
 
+# Register the functions
 zle -N forward-whole-string
 zle -N backward-whole-string
 
-# # Your existing bindings remain the same
-# bindkey -M viins '^[^F' forward-whole-string   # C-M-f: Jump over whole string
-# bindkey -M viins '^[^B' backward-whole-string  # C-M-b: Jump back over whole string
-# bindkey -M vicmd '^[^F' forward-whole-string
-# bindkey -M vicmd '^[^B' backward-whole-string
-
+# Bindings
 bindkey "^[^F" forward-whole-string  # Escape followed by Ctrl-F
 bindkey "^[^B" backward-whole-string # Escape followed by Ctrl-B
 bindkey -M vicmd "^[^F" forward-whole-string

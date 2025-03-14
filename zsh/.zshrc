@@ -113,6 +113,7 @@ alias remove='sudo apt remove'
 alias install='sudo xbps-install -Sy'
 alias remove='sudo xbps-remove -R' # '-R' for recursive removal of dependencies
 alias query='xbps-query -Rs' # '-R' for recursive removal of dependencies
+alias q='xbps-query -Rs' # '-R' for recursive removal of dependencies
 alias orphaned='sudo pacman -Qtdq'
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 alias users="awk -F: '\$3>=1000 && \$1!=\"nobody\" && \$1!~/nixbld/ {print \$1}' /etc/passwd"  # Original: awk: cmd. line:1: >=1000 && !=nobody && !~/nixbld/ {print }

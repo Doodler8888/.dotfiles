@@ -107,20 +107,20 @@ vim.filetype.add({
   },
 })
 
--- require("lspconfig").yamlls.setup {
--- 	-- filetypes = { "yaml", "yaml.kubernetes" },
--- 	-- filetypes = { "yaml", },
--- 	-- settings = {
--- 	--   yaml = {
--- 	--     schemas = {
--- 	--       kubernetes = {
--- 	-- 	"*/templates/*.yaml",
--- 	-- 	"*/templates/*.yml",
--- 	-- },
--- 	--      },
--- 	--    },
--- 	--  },
--- }
+require("lspconfig").yamlls.setup {
+	-- filetypes = { "yaml", "yaml.kubernetes" },
+	-- filetypes = { "yaml", },
+	-- settings = {
+	--   yaml = {
+	--     schemas = {
+	--       kubernetes = {
+	-- 	"*/templates/*.yaml",
+	-- 	"*/templates/*.yml",
+	-- },
+	--      },
+	--    },
+	--  },
+}
 
 --
 -- function InsertCommentChar()

@@ -18,6 +18,7 @@ with open(input_file, "r") as infile, open(output_file, "w") as outfile:
         # the shortest possible string that satisfies the overall pattern.
         # Otherwise it will capture anything between two markup'ed words.
         line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", line)
+        line = re.sub(r"\/(?!\s)(.*?)(?<!\s)\/", r"*\g<1>*", line)
         # line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", line)
 
         # If i understand correctly, the point of the '(?:)' syntax is to

@@ -61,9 +61,23 @@ ls.add_snippets("python", {
       i(1),
       t({')'})
   }),
+  s("args", {
+      t({"import argparse", "", "parser = argparse.ArgumentParser("}),
+      t({"    prog='"}), i(1, "program_name"), t({"',"}),
+      t({"    description='"}), i(2, "description_here"), t({"',)"}),
+      t({"", "parser.add_argument('"}), i(3, "argument_name"), t({"', nargs='+', help='"}), i(4, "argument_help"), t({"')"}),
+      t({"", "parser.add_argument('"}), i(5, "short_flag"), t({"-', '"}), i(6, "long_flag"), t({"', action='store_true', help='"}), i(7, "flag_help"), t({"')"}),
+      t({"", "parser.add_argument('-h', '--help', action='help', help='Show program help and exit')"}),
+      t({"", "", "args = parser.parse_args()"})
+  })
 })
 
 ls.add_snippets("markdown", {
+    s("code", {
+        t({"```", ""}),
+        i(1),  -- Default insert node content
+        t({"", "```"}),
+    }),
     s("bash", {
         t({"``` bash", ""}),
         i(1),  -- Default insert node content
@@ -79,8 +93,8 @@ ls.add_snippets("markdown", {
         i(1),  -- Default insert node content
         t({"", "```"}),
     }),
-    s("code", {
-        t({"```", ""}),
+    s("yaml", {
+        t({"``` yaml", ""}),
         i(1),  -- Default insert node content
         t({"", "```"}),
     }),

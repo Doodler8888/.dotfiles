@@ -81,6 +81,7 @@ M.compile_commands = {
     sh = "shellcheck -f gcc %",
     go = "go vet % && go build %",
     perl = "perl -c %",
+    dockerfile = "hadolint -f gnu %",
 }
 
 function M.setup_compile()
@@ -153,7 +154,7 @@ vim.keymap.set({'n', 'i'}, '<M-y>', M.toggle_compile_qf, {
 
 -- Autocommands
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"c", "cpp", "rust", "go", "sh", "perl" },
+    pattern = {"c", "cpp", "rust", "go", "sh", "perl", "dockerfile" },
     callback = M.setup_compile
 })
 

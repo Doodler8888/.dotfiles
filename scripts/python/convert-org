@@ -2,34 +2,64 @@
 
 import re
 import sys
+from pathlib import Path
 
-input_file = sys.argv[1]
-output_file = sys.argv[2]
 
-with open(input_file, "r") as infile, open(output_file, "w") as outfile:
-    for line in infile:
-        line = re.sub(r"^\* ", "# ", line)
-        line = re.sub(r"^\*\* ", "## ", line)
-        line = re.sub(r"^\*\*\* ", "### ", line)
-        line = re.sub(r"^\*\*\*\* ", "#### ", line)
-        line = re.sub(r"^\*\*\*\*\* ", "##### ", line)
+def convert_file(input_file, output_file):
+    with open(input_file, "r") as infile, open(output_file, "w") as outfile:
+        for line in infile:
+            line = re.sub(r"^\* ", "# ", line)
+            line = re.sub(r"^\*\* ", "## ", line)
+            line = re.sub(r"^\*\*\* ", "### ", line)
+            line = re.sub(r"^\*\*\*\* ", "#### ", line)
+            line = re.sub(r"^\*\*\*\*\* ", "##### ", line)
 
-        # Using '?' after '.*' allows it to be non-greedy, meaning it will match
-        # the shortest possible string that satisfies the overall pattern.
-        # Otherwise it will capture anything between two markup'ed words.
-        line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", line)
-        line = re.sub(r"\/(?!\s)(.*?)(?<!\s)\/", r"*\g<1>*", line)
-        # line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", line)
+            # Using '?' after '.*' allows it to be non-greedy, meaning it will match
+            # the shortest possible string that satisfies the overall pattern.
+            # Otherwise it will capture anything between two markup'ed words.
+            line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", line)
+            line = re.sub(r"\/(?!\s)(.*?)\/(?=\s)", r"*\g<1>*", line)
+            # line = re.sub(r"~(?!\s)(.*?)(?<!\s)~", r"`\g<1>`", line)
 
-        # If i understand correctly, the point of the '(?:)' syntax is to
-        # provide an ability to group patterns ('^' and 's+' in this case) so
-        # that it is possible to apply logical operators. Basically it's a way
-        # to alter meaning of brackets from being a syntax for creating capture
-        # groups to something else. So the first bracket pair at the very
-        # beginning is not a capture group.
-        line = re.sub(r"^\=([^\=]*?)=", r"***\g<1>***", line)
-        line = re.sub(r"(^|\s+)#\+begin_src", r"\g<1>```", line)
-        line = re.sub(r"(^|\s+)#\+end_src", r"\g<1>```", line)
+            # If i understand correctly, the point of the '(?:)' syntax is to
+            # provide an ability to group patterns ('^' and 's+' in this case) so
+            # that it is possible to apply logical operators. Basically it's a way
+            # to alter meaning of brackets from being a syntax for creating capture
+            # groups to something else. So the first bracket pair at the very
+            # beginning is not a capture group.
+            line = re.sub(r"^\=([^\=]*?)=", r"***\g<1>***", line)
+            line = re.sub(r"(^|\s+)#\+begin_src", r"\g<1>```", line)
+            line = re.sub(r"(^|\s+)#\+end_src", r"\g<1>```", line)
 
-        outfile.write(line)
+            outfile.write(line)
+
+
+def extract_all_files(directory):
+    directory = Path(directory)
+    files_list = list(directory.glob("**/*"))
+    files_list = [file for file in files_list if file.is_file()]
+    return files_list
+
+
+def main(input_file, output_file):
+    # if args.directory:
+    if sys.argv[1] == "-d":
+        print("the -d flag was used")
+        files_list = extract_all_files(input_file)
+        for file in files_list:
+            if str(file).endswith(".org"):
+                output_file = str(file)[:-3] + "md"
+                convert_file(file, output_file)
+    else:
+        convert_file(input_file, output_file)
+
+
+if __name__ == "__main__":
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    # if args.directory:
+    if sys.argv[1] == "-d":
+        input_file = sys.argv[2]
+        output_file = None
+    main(input_file, output_file)
 

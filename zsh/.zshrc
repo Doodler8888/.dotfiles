@@ -1,4 +1,3 @@
-export DOCKER_CONTENT_TRUST=1
 source /usr/local/bin
 source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
@@ -135,9 +134,9 @@ alias -g sdot="~/.secret_dotfiles"
 alias -g bin="/usr/local/bin"
 alias -g cfg="~/.config"
 alias -g home="~/"
-alias dimages="docker images"
-alias dtag="docker tag"
-alias dpsa="docker ps -a | head -n 5"
+alias di="docker images"
+alias dr="docker run"
+alias dbb="docker buildx build"
 alias comma="bash ~/Downloads/comma/comma-complete-2023.08.0/bin/comma.sh"
 alias pg_hba="/var/lib/postgres/data/pg_hba.conf"
 alias i3c="nvim ~/.config/i3/config"

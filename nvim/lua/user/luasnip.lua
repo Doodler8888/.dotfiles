@@ -61,15 +61,17 @@ ls.add_snippets("python", {
       i(1),
       t({')'})
   }),
-  s("args", {
-      t({"import argparse", "", "parser = argparse.ArgumentParser("}),
-      t({"    prog='"}), i(1, "program_name"), t({"',"}),
-      t({"    description='"}), i(2, "description_here"), t({"',)"}),
-      t({"", "parser.add_argument('"}), i(3, "argument_name"), t({"', nargs='+', help='"}), i(4, "argument_help"), t({"')"}),
-      t({"", "parser.add_argument('"}), i(5, "short_flag"), t({"-', '"}), i(6, "long_flag"), t({"', action='store_true', help='"}), i(7, "flag_help"), t({"')"}),
-      t({"", "parser.add_argument('-h', '--help', action='help', help='Show program help and exit')"}),
-      t({"", "", "args = parser.parse_args()"})
-  })
+s("args", {
+  -- t({"import argparse", "", "parser = argparse.ArgumentParser("}),
+  t({"parser = argparse.ArgumentParser("}),
+  t({"", "                    prog='"}), i(1, "program_name"), t({"',"}),
+  t({"", "                    description='"}), i(2, "description_here"), t({"',"}),
+  t({"", "                    add_help="}), i(3, "True"), t({")"}),
+  t({"", "parser.add_argument('"}), i(4, "name_of_the_main_argument_for_the_parser"), t({"', nargs='+', help='"}), i(5, "argument_help"), t({"')"}),
+  t({"", "parser.add_argument('"}), i(6, "short_flag"), t({"', '"}), i(7, "long_flag"), t({"', action='store_true', help='"}), i(8, "flag_help"), t({"')"}),
+  t({"", "", "args = parser.parse_args()"}
+  )
+})
 })
 
 ls.add_snippets("markdown", {

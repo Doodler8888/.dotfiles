@@ -9,3 +9,7 @@ Move between curly brackets:
 
 Move to start of the next line:
 +
+
+Reload buffer:
+e! - "!" forces the reload, discarding any unsaved changes.
+

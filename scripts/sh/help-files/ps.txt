@@ -1,12 +1,8 @@
 By default ps shows only current interactive processes of the current terminal
 session.
 
-
 To display all processes:
-
 ps aux
 
-
 To display only processes of the current terminal(?):
-
 ps T

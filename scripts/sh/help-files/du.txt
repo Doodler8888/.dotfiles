@@ -1,0 +1,7 @@
+Example:
+
+doas du -t 10000000 -sh /usr/*
+
+The *-s* flag is used to stop du from being recursive.
+You can use the *-t* flag to specify a minimum size from where directories are
+shown in the output (in kylobytes(?)).

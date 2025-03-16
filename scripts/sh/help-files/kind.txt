@@ -1,0 +1,5 @@
+Existing clusters (you wont be able to do a similar thing through kubectl(?)):
+kind get clusters
+
+Delete a cluster:
+kind delete cluster --name=cluster-name

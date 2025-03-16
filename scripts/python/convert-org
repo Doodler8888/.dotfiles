@@ -42,9 +42,7 @@ def extract_all_files(directory):
 
 
 def main(input_file, output_file):
-    # if args.directory:
     if sys.argv[1] == "-d":
-        print("the -d flag was used")
         files_list = extract_all_files(input_file)
         for file in files_list:
             if str(file).endswith(".org"):
@@ -57,7 +55,6 @@ def main(input_file, output_file):
 if __name__ == "__main__":
     input_file = sys.argv[1]
     output_file = sys.argv[2]
-    # if args.directory:
     if sys.argv[1] == "-d":
         input_file = sys.argv[2]
         output_file = None

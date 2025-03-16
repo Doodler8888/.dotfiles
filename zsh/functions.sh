@@ -581,3 +581,7 @@ vertico_nav_fzf() {
     fi
   done
 }
+
+q() {
+    xbps-query -Rs "*$1*"
+}

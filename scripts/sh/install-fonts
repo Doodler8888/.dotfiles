@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+font_archive="$HOME"/Downloads/fonts/noto-nerd-font
+font_dir="$HOME"/Downloads/fonts
+
+[ -d "$font_dir" ] || mkdir "$font_dir"
+
+if [ ! -f "$font_archive" ]; then
+    curl -Lo $font_archive https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Noto.zip
+else
+    echo "Already have the archive with the font"
+fi
+
+if [ ! -d "$font_dir/noto-nerd-font-dir"]; then
+    unzip "$font_archive" -d "$font_dir/noto-nerd-font-dir"
+else
+    echo "Already have the directory with the font"
+fi
+
+# [ -f "$font_archive" ] || { echo "The noto font archives doesn't exist in $font_dir"; exit 1; }
+#
+# [ -f "$font_archive" ] && unzip "$font_archive" -d "$font_dir/noto-nerd-font-dir"
+
+cp -r "$font_dir/noto-nerd-font-dir" "$HOME"/.fonts
+
+fc-cache -f -v

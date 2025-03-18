@@ -163,6 +163,7 @@ alias grr="git remote rm"
 alias cd-add="add-cd"
 alias a-c="add-cd"
 alias c-a="add-cd"
+alias exit-steam="kill $(pgrep -o steam)"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xa" _expand_alias

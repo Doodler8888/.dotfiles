@@ -1,3 +1,5 @@
 Current context:
 kubectl config current-context
 
+Apply manifest:
+kubectl apply -f path/to/file

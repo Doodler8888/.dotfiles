@@ -1,0 +1,53 @@
+#!/bin/env python
+
+import re
+import sys
+from pathlib import Path
+
+
+def convert_file(input_file, output_file):
+    with open(input_file, "r") as infile, open(output_file, "w") as outfile:
+        for line in infile:
+
+            line = re.sub(r"(?!<\*)\*(?!\s|\*)([^\*]*?)(?!<\*)\*(?!=\*)(?=\s|,|\.|\?)", r"/\g<1>/", line)
+            line = re.sub(r"\*\*(?!\s)([^*]*?)\*\*(?=\s)", r"*\g<1>*", line)
+
+            line = re.sub(r"^\#{5} ", "***** ", line)
+            line = re.sub(r"^\#{4} ", "**** ", line)
+            line = re.sub(r"^\#{3} ", "*** ", line)
+            line = re.sub(r"^\#{2} ", "** ", line)
+            line = re.sub(r"^\# ", "* ", line)
+            
+            line = re.sub(r"`(?!\s)(.*?)(?<!\s)`", r"~\g<1>~", line)
+
+            line = re.sub(r"^\*\*\*([^*=]*?)\*\*\*", r"=\g<1>=", line)
+
+            outfile.write(line)
+
+
+def extract_all_files(directory):
+    directory = Path(directory)
+    files_list = list(directory.glob("**/*"))
+    files_list = [file for file in files_list if file.is_file()]
+    return files_list
+
+
+def main(input_file, output_file):
+    if sys.argv[1] == "-d":
+        files_list = extract_all_files(input_file)
+        for file in files_list:
+            if str(file).endswith(".org"):
+                output_file = str(file)[:-3] + "md"
+                convert_file(file, output_file)
+    else:
+        convert_file(input_file, output_file)
+
+
+if __name__ == "__main__":
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    if sys.argv[1] == "-d":
+        input_file = sys.argv[2]
+        output_file = None
+    main(input_file, output_file)
+

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+
+CC=gcc-14 ./autogen.sh
+
+./configure --with-native-compilation=aot --with-tree-sitter  --with-gif \
+--with-png --with-jpeg --with-rsvg --with-tiff  --with-imagemagick \
+--with-pgtk --with-mailutils 
+
+make -j$(nproc)
+
+# I often don't install the compiled binary
+# sudo make install

@@ -1,4 +1,0 @@
-Seach for packages (It will also search doc strings unlike the -S flag that
-searches for installed packages. And giving that you will still see if something
-is installed or not with the -s flag, don't use the -S flag.):
-xbps-query -s [package-name]

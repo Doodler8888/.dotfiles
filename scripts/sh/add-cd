@@ -1,3 +1,4 @@
+#!/bin/sh
 # > cd-add .dotfiles
 # This is the executed command: echo /home/wurfkreuz//home/wurfkreuz/.dotfiles >> /home/wurfkreuz/.dirs
 

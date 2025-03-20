@@ -1,0 +1,2 @@
+-c - to make shell to not interpretate given arguments as a single command
+ string (?)

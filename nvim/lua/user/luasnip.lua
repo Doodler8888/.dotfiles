@@ -102,3 +102,6 @@ ls.add_snippets("markdown", {
     }),
 })
 
+ls.add_snippets("yaml", {
+  s("name", { t("app.kubernetes.io/name: ") }),
+})

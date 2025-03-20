@@ -1,0 +1,3 @@
+Install without confirmation:
+
+apt install -y package_name

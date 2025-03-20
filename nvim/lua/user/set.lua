@@ -62,8 +62,8 @@ vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatop
 -- vim.cmd([[ autocmd BufWinEnter * silent! loadview ]])
 
 -- For tmux <escape> latency
--- vim.o.timeoutlen = 1000
--- vim.o.ttimeoutlen = 0
+vim.o.timeoutlen = 1000
+vim.o.ttimeoutlen = 0
 
 vim.cmd([[ set wildmode=longest:full ]])
 vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
@@ -83,3 +83,5 @@ vim.g.netrw_banner = 0
 -- vim.g.netrw_trash = 1
 
 vim.cmd([[ set iskeyword-=_ ]])
+
+vim.cmd([[ set sidescroll=0 ]])

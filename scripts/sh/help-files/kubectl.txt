@@ -3,3 +3,6 @@ kubectl config current-context
 
 Apply manifest:
 kubectl apply -f path/to/file
+
+Rollback status:
+kubectl rollout status resource_type/resource_name

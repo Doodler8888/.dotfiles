@@ -1,0 +1,4 @@
+Package installation:
+
+apt update - (without updating, packages aren't available)
+apt install

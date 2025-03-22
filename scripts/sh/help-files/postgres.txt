@@ -1,0 +1,15 @@
+Data directory:
+/var/lib/postgresql*/data/
+
+Config file:
+/var/lib/postgresql*/data/pg_hba.conf
+
+Connection url:
+postgresql://myuser:mypassword@localhost/mydatabase
+
+
+Commands:
+
+SELECT user; - current user
+
+\l or \list (without semicolon) - list all databases 

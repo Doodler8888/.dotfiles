@@ -11,7 +11,7 @@
  require("user.telescope")
  require("user.snippets")
  require("user.commenting")
- -- require("user.dadbod")
+ require("user.dadbod")
  require("user.surround") -- because i disabled keybindings on C-g
  require("user.project_root")
  require('user.tab_rename')

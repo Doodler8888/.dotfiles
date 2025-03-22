@@ -17,8 +17,21 @@ in
     xplr
     hadolint
     yaml-language-server
+    sqls
+    kind
+    # docker
+    # docker-buildx
     # unstablePkgs.emacs # Use unstable Emacs
   ];
+
+  # I've tried to use it, it doesn't change anything (maybe because i had git
+  # from xbps installed at the same time?)
+  # programs.git = {
+  #   enable = true;
+  #   userName  = "John Doe";
+  #   userEmail = "johndoe@example.com";
+  # };
+    
   home.sessionVariables = { };
   programs.home-manager.enable = true;
 }

@@ -83,5 +83,3 @@ vim.g.netrw_banner = 0
 -- vim.g.netrw_trash = 1
 
 vim.cmd([[ set iskeyword-=_ ]])
-
-vim.cmd([[ set sidescroll=0 ]])

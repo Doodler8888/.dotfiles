@@ -13,4 +13,4 @@ tar -xvf my_archive.tar
 Create a simple (uncompressed) tarball:
 tar -cvf my_archive.tar file1.txt file2.txt my_directory/
 
-Use -z flag to 
+Use -z flag to ... (finish, i used it trying to unzip, didn't work)

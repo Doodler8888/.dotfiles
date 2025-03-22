@@ -8,3 +8,7 @@ Hel
 
 > echo "Hello World" | cut -c 2-
 ello World
+
+
+You can't use cut to return string without its last character or something like
+that (?).

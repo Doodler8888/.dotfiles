@@ -1,5 +1,8 @@
 Existing clusters (you wont be able to do a similar thing through kubectl(?)):
 kind get clusters
 
+Create a cluster:
+kind create cluster --config path/to/cluster/template
+
 Delete a cluster:
 kind delete cluster --name=cluster-name (name is without 'kind-' in the start)

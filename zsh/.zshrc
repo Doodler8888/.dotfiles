@@ -3,7 +3,7 @@ source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
 export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
-export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/bin/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:$PATH"
+export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:$PATH"
 GTAGSOBJDIRPREFIX=~/.cache/gtags/
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -96,7 +96,8 @@ alias ld='ls -ld --color=auto'
 alias grep='grep --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'# alias push='git add . && git commit -m "n" && git push'
+alias fgrep='fgrep --color=auto'
+# alias push='git add . && git commit -m "n" && git push'
 # alias push='git add . && git commit -m "n" && git push'
 alias g='git'
 alias notes='nvim "$HOME/notes.txt"'
@@ -107,23 +108,20 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias nvm='cd ~/.dotfiles/nvim/ && nvim .'
-# alias install='sudo apt install'
+alias install='sudo apt install'
 alias remove='sudo apt remove'
-alias install='sudo xbps-install -S'
-alias update='sudo xbps-install -Syu'
-alias remove='sudo xbps-remove -R' # '-R' for recursive removal of dependencies
-alias query='xbps-query -Rs' # '-R' for recursive removal of dependencies
-# alias q='xbps-query -Rs' # '-R' for recursive removal of dependencies
-alias orphaned='sudo pacman -Qtdq'
+# alias install='sudo xbps-install -S'
+# alias update='sudo xbps-install -Syu'
+# alias remove='sudo xbps-remove -R' # '-R' for recursive removal of dependencies
+# alias query='xbps-query -Rs' # '-R' for recursive removal of dependencies
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 alias users="awk -F: '\$3>=1000 && \$1!=\"nobody\" && \$1!~/nixbld/ {print \$1}' /etc/passwd"  # Original: awk: cmd. line:1: >=1000 && !=nobody && !~/nixbld/ {print }
 alias playbooks="cd ~/.secret_dotfiles/ansible/playbooks/"
 alias books="cd ~/Downloads/books/"
 alias hosts="sudo -e /etc/ansible/hosts"
 alias scr="cd ~/.dotfiles/scripts/"
-# alias off="poweroff"
-alias off="loginctl poweroff"
-alias off="loginctl poweroff"
+alias off="poweroff"
+# alias off="loginctl poweroff"
 alias re="loginctl reboot"
 alias run="cargo run"
 alias build="cargo build"
@@ -134,7 +132,8 @@ alias -g dot="~/.dotfiles"
 alias -g sdot="~/.secret_dotfiles"
 alias -g bin="/usr/local/bin"
 alias -g cfg="~/.config"
-alias -g home="~/"
+alias -g strash="~/.secret_dotfiles/trash"
+# alias -g home="~/"
 alias di="docker images"
 alias dr="docker run"
 alias dbb="docker buildx build"
@@ -195,13 +194,13 @@ bindkey -M viins '^P' up-line-or-history
 bindkey -M viins '^N' down-line-or-history
 bindkey -M viins '^L' clear-screen
 
-# I manually use the plugin instead of dealing with any pluging managers
-# git clone https://github.com/kutsan/zsh-system-clipboard
-source "$HOME/.source/zsh-system-clipboard/zsh-system-clipboard.zsh"
-if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
-    ZSH_SYSTEM_CLIPBOARD_METHOD=xcc
-    typeset -g ZSH_SYSTEM_CLIPBOARD_METHOD
-fi
+# # I manually use the plugin instead of dealing with any pluging managers
+# # git clone https://github.com/kutsan/zsh-system-clipboard
+# source "$HOME/.source/zsh-system-clipboard/zsh-system-clipboard.zsh"
+# if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
+#     ZSH_SYSTEM_CLIPBOARD_METHOD=xcc
+#     typeset -g ZSH_SYSTEM_CLIPBOARD_METHOD
+# fi
 
 
 parse_git_branch() {
@@ -248,5 +247,6 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+source <(kubectl completion zsh)
 eval "$(direnv hook zsh)"
 # eval "$(starship init zsh)"

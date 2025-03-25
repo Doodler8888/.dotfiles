@@ -1,0 +1,2 @@
+Check logs:
+journalctl -u <daemon_name> --since "1 hour ago"

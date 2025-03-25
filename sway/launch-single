@@ -15,7 +15,8 @@ swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi-stable'
 # swaymsg 'exec vivaldi.vivaldi-stable'
-swaymsg 'exec librewolf-wayland'
+# swaymsg 'exec librewolf-wayland'
+swaymsg 'exec librewolf'
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
@@ -26,12 +27,15 @@ swaymsg 'workspace 3'
 # swaymsg 'exec foot ~/.cargo/bin/zellij attach main'
 # swaymsg 'exec foot tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh" \; attach'
 
-# You also need to use the 'exec foot tmux new-session -d -s main || true' command
-swaymsg 'exec foot tmux new-session -d -s main || true'
-sleep 1
-swaymsg 'exec /usr/bin/foot /usr/bin/tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
-sleep 1
-swaymsg 'exec foot tmux attach-session -t main'
+swaymsg 'exec alacritty -e tmux'
+# # You also need to use the 'exec foot tmux new-session -d -s main || true' command
+# # Can't use this code with the sway tmux float. Otherwise the float will open with the main function instead of the one i specify.
+# swaymsg 'exec foot tmux new-session -d -s main || true'
+# sleep 1
+# # swaymsg 'exec /usr/bin/foot /usr/bin/tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+# swaymsg 'exec foot tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+# sleep 1
+# swaymsg 'exec foot tmux attach-session -t main'
 
 # swaymsg 'tmux new-session -d "tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh"'
 # swaymsg 'exec ghostty'
@@ -40,8 +44,9 @@ swaymsg 'exec foot tmux attach-session -t main'
 sleep 2
 
 swaymsg 'workspace 4'
-swaymsg 'exec telegram-desktop'
+# swaymsg 'exec telegram-desktop'
 # swaymsg 'exec telegram'
+swaymsg 'exec /home/wurfkreuz/Downloads/Telegram/Telegram'
 
 swaymsg 'workspace 3'
 

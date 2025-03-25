@@ -1,0 +1,35 @@
+#!/bin/env python
+
+import os
+import subprocess
+import pathlib
+
+
+home = os.environ["HOME"]
+config_dir = os.path.join(home, ".config")
+dotfiles_dir = os.path.join(home, ".dotfiles")
+
+link_paths = {
+        os.path.join(dotfiles_dir, "zsh", ".zshrc"): os.path.join(home, ".zshrc"),
+        pathlib.Path(dotfiles_dir) / "tmux/.tmux.conf": os.path.join(home, ".tmux.conf"),
+        pathlib.Path(dotfiles_dir) / "scripts/sh/dirs/add-cd-dirs": os.path.join(home, ".dirs"),
+
+        pathlib.Path(dotfiles_dir) / "nvim": os.path.join(config_dir, "nvim"),
+        pathlib.Path(dotfiles_dir) / "foot": os.path.join(config_dir, "foot"),
+        pathlib.Path(dotfiles_dir) / "alacritty": os.path.join(config_dir, "alacritty"),
+        pathlib.Path(dotfiles_dir) / "home-manager": os.path.join(config_dir, "home-manager"),
+        pathlib.Path(dotfiles_dir) / "sway": os.path.join(config_dir, "sway"),
+        pathlib.Path(dotfiles_dir) / "k9s": os.path.join(config_dir, "k9s"),
+        pathlib.Path(dotfiles_dir) / "lazydocker": os.path.join(config_dir, "lazydocker"),
+        }
+
+for origin, path in link_paths.items():
+    # print(f"This is the origin: {origin}")
+    if os.path.exists(path):
+        if not os.path.islink(path):
+            print(f"[WARNING!] {path} is not a link.")
+        else:
+            print(f"{path} exists already.")
+    else:
+        subprocess.check_output(f"ln -s {origin} {path}", shell=True, text=True)
+        print(f"Link is created: {origin} --> {path}")

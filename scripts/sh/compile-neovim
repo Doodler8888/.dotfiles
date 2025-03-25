@@ -6,7 +6,7 @@ set -e
 make distclean
 make deps
 make CMAKE_BUILD_TYPE=Release
-sudo make install
+sudo make install # despite that i still needed to run the command myself again to update the binaray i use
 
 echo "version verification:"
 /usr/local/bin/nvim --version

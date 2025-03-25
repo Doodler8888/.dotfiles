@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -e
+
+# Create the wayland session directory
+sudo mkdir -p /usr/share/wayland-sessions
+
+# Create necessary files
+sudo touch /usr/share/wayland-sessions/sway.desktop
+sudo touch /usr/local/bin/sway-in-shell
+touch "$HOME/.zprofile"
+
+# Write sway.desktop file correctly
+echo "[Desktop Entry]
+Name=Sway (in login shell)
+Comment=SirCmpwn's Wayland window manager
+Exec=/usr/local/bin/sway-in-shell
+Type=Application" | sudo tee /usr/share/wayland-sessions/sway.desktop > /dev/null
+
+# Write sway-in-shell script correctly
+echo '#!/bin/sh
+
+if [ "x$XDG_SESSION_TYPE" = "xwayland" ] &&
+   [ "x$XDG_SESSION_CLASS" != "xgreeter" ] &&
+   [ -n "$SHELL" ] &&
+   grep -q "$SHELL" /etc/shells &&
+   ! echo "$SHELL" | grep -qE "false|nologin"; then
+  if [ "$1" != "-l" ]; then
+    exec bash -c "exec -l \"$SHELL\" -c \"$0 -l $*\""
+  else
+    shift
+  fi
+fi
+
+exec /usr/bin/sway "$@"' | sudo tee /usr/local/bin/sway-in-shell > /dev/null
+
+# Make sway-in-shell executable
+sudo chmod +x /usr/local/bin/sway-in-shell
+
+# Set up .zprofile with proper quoting
+echo 'export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+export XDG_DATA_DIRS="/usr/local/share:/usr/share:$HOME/.nix-profile/share${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS"' > "$HOME/.zprofile"

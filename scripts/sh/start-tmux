@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux attach-session -t main
+

@@ -1,6 +1,9 @@
 Source config:
 tmux-source /path/to/config/file
 
+Attach session:
+tmux attach-session -t <session_name>
+
 Cmd line:
 <prefix> + :
 
@@ -16,14 +19,8 @@ Create a vertical split:
 Create a horizontal split:
 <prefix> + "
 
-Kill a split:
-<prefix> + x
-
 Cycle between splits:
 <prefix> + o
 
 Rename tab:
 <prefix> ,
-
-Copy mode:
-<prefix> + [

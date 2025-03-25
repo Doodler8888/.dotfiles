@@ -6,7 +6,8 @@ swaymsg 'workspace 1'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec opera'
-swaymsg 'exec firefox'
+# swaymsg 'exec firefox'
+swaymsg 'exec brave'
 
 sleep 2
 
@@ -15,50 +16,62 @@ swaymsg 'workspace 2'
 # swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi-stable'
 # swaymsg 'exec vivaldi.vivaldi-stable'
-swaymsg 'exec librewolf-wayland'
+# swaymsg 'exec librewolf-wayland'
+swaymsg 'exec librewolf'
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
 sleep 2
 
 
-# Tab 1
 swaymsg 'workspace 3'
-swaymsg 'layout tabbed'
-
-# swaymsg 'exec alacritty -e zellij attach main'
-# swaymsg 'exec alacritty -e zellij'
-swaymsg 'exec foot tmux'
-# swaymsg 'exec foot ~/.cargo/bin/zellij'
-# swaymsg 'exec foot zellij'
-# swaymsg 'exec ghostty -e zellij'
-# swaymsg 'exec alacritty'
-
-# # Wait for Emacs to launch
-sleep 2
-
-# # Split the layout vertically, launch Alacritty, and set layout to stacking
-swaymsg 'splitv'
-# swaymsg 'exec /home/wurfkreuz/.nix-profile/bin/emacs'
+# swaymsg 'exec alacritty -e tmux'
 swaymsg 'exec emacs'
-# swaymsg exec '/home/wurfkreuz/common-lisp/lem/lem --interface "sdl2"'
-# swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
+
+# swaymsg 'exec foot tmux'
+
+# Can't use this code with the sway tmux float. Otherwise the float will open with the main function instead of the one i specify.
+# You also need to use the 'exec foot tmux new-session -d -s main || true' command
+swaymsg 'exec foot tmux new-session -d -s main || true'
+sleep 1
+# swaymsg 'exec /usr/bin/foot /usr/bin/tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+swaymsg 'exec foot tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+sleep 1
+swaymsg 'exec foot tmux attach-session -t main'
+
 swaymsg 'layout stacking'
 
-sleep 2
+# # Tab 1
+# swaymsg 'workspace 3'
+# swaymsg 'layout tabbed'
 
-# Tab 2
-swaymsg 'focus parent'
-swaymsg 'layout tabbed'
-swaymsg 'mark main'
+# # swaymsg 'exec alacritty -e zellij attach main'
+# # swaymsg 'exec alacritty -e zellij'
+# swaymsg 'exec foot tmux'
+# # swaymsg 'exec foot ~/.cargo/bin/zellij'
+# # swaymsg 'exec foot zellij'
+# # swaymsg 'exec ghostty -e zellij'
+# # swaymsg 'exec alacritty -e tmux'
+
+# # # Wait for Emacs to launch
+# sleep 2
+
+# # # Split the layout vertically, launch Alacritty, and set layout to stacking
+# swaymsg 'splitv'
+# # swaymsg 'exec /home/wurfkreuz/.nix-profile/bin/emacs'
+# swaymsg 'exec emacs'
+# # swaymsg exec '/home/wurfkreuz/common-lisp/lem/lem --interface "sdl2"'
+# # swaymsg 'exec emacs --eval "(load-desktop-session \"main\")"'
+# swaymsg 'layout stacking'
+
+sleep 1
 
 
 swaymsg 'workspace 4'
-swaymsg 'exec telegram-desktop'
-# swaymsg 'exec telegram'
+# swaymsg 'exec telegram-desktop'
+swaymsg 'exec Telegram'
 
 swaymsg 'workspace 3'
 
-sleep 5
 
 # /home/wurfkreuz/.dotfiles/scripts/sh/clean-zellij >> /home/wurfkreuz/.var/log/zellij/zellij.log 2>&1

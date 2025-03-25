@@ -14,7 +14,24 @@ vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
 -- end, {silent = true})
 
 ls.add_snippets("python", {
-  -- subprocess.run() with shell=True and check=True
+  s("home", { t("home = os.environ[\"HOME\"]") }),
+  s("dot", { t("dotfiles_dir = os.path.join(home, \".dotfiles\")") }),
+  s("config", { t("config_dir = os.path.join(home, \".config\")") }),
+  s("join", {
+    t('os.path.join('),
+    i(1, ""),  -- cursor will be here between the quotes
+    t(')'),
+  }),
+  s("-e", {
+    t('os.path.exists('),
+    i(1, ""),  -- cursor will be here between the quotes
+    t(')'),
+  }),
+  s("-l", {
+    t('os.path.islink('),
+    i(1, ""),  -- cursor will be here between the quotes
+    t(')'),
+  }),
   s("srsc", {
     t('subprocess.run("'),
     i(1, ""),  -- cursor will be here between the quotes
@@ -32,6 +49,11 @@ ls.add_snippets("python", {
     i(1, ""),  -- cursor will be here between the quotes
     t('", shell=True, check=True, capture_output=True)'),
   }),
+  s("shell", {
+    t('subprocess.check_output("'),
+    i(1, ""),  -- cursor will be here between the quotes
+    t('", shell=True, text=True)'),
+  }),
   s("sc", {
     t('subprocess.check_output("'),
     i(1, ""),  -- cursor will be here between the quotes
@@ -47,6 +69,11 @@ ls.add_snippets("python", {
     i(1, ""),  -- Cursor inside f-string expression
     t(' {'),
     i(2, ""),  -- Cursor inside curly braces
+    t('}")'),
+  }),
+  s("pf", {
+    t('print(f"{'),
+    i(1, ""),  -- Cursor inside f-string expression
     t('}")'),
   }),
   s("li", {
@@ -104,6 +131,7 @@ ls.add_snippets("markdown", {
 
 ls.add_snippets("yaml", {
   s("name", { t("app.kubernetes.io/name: ") }),
+
   s("statefulset", {
     t("apiVersion: apps/v1"), t({"", "kind: StatefulSet"}),
     t({"", "metadata:"}),
@@ -135,6 +163,7 @@ ls.add_snippets("yaml", {
     t({"", "            claimName: "}), i(8, "postgres-pvc"),
     t({"", "  serviceName: "}), i(9, "postgres-service")
   }),
+
   s("pvhost", {
     t("apiVersion: v1"), t({"", "kind: PersistentVolume"}),
     t({"", "metadata:"}),
@@ -148,5 +177,69 @@ ls.add_snippets("yaml", {
     t({"", "  hostPath:"}),
     t({"", "    path: "}), i(5, "/data/kind-hostpath-reboot-volume"),
     t({"", "    type: "}), i(6, "DirectoryOrCreate")
-  })
+  }),
+
+  s("service", {
+    t("apiVersion: v1"), t({"", "kind: Service"}),
+    t({"", "metadata:"}),
+    t({"", "  name: "}), i(1, "my-service"),
+    t({"", "spec:"}),
+    t({"", "  selector:"}),
+    t({"", "    app: "}), i(2, "my-app"),
+    t({"", "  ports:"}),
+    t({"", "    - protocol: TCP"}),
+    t({"", "      port: "}), i(3, "80"),
+    t({"", "      targetPort: "}), i(4, "9376")
+  }),
+
+  s("pvc", {
+    t("apiVersion: v1"), t({"", "kind: PersistentVolumeClaim"}),
+    t({"", "metadata:"}),
+    t({"", "  name: "}), i(1, "my-pvc"),
+    t({"", "spec:"}),
+    t({"", "  accessModes:"}),
+    t({"", "    - "}), i(2, "ReadWriteOnce"),
+    t({"", "  resources:"}),
+    t({"", "    requests:"}),
+    t({"", "      storage: "}), i(3, "1Gi")
+  }),
+
+  s("pod", {
+    t("apiVersion: v1"), t({"", "kind: Pod"}),
+    t({"", "metadata:"}),
+    t({"", "  name: "}), i(1, "my-pod"),
+    t({"", "spec:"}),
+    t({"", "  containers:"}),
+    t({"", "  - name: "}), i(2, "my-container"),
+    t({"", "    image: "}), i(3, "nginx:latest"),
+    t({"", "    ports:"}),
+    t({"", "      - containerPort: "}), i(4, "80")
+  }),
+
+  s("secret", {
+  	t("apiVersion: v1"),
+  	t({"", "kind: Secret"}),
+  	t({"", "metadata:"}),
+  	t({"", "  name: "}), i(1, "postgres-secrets"),
+  	t({"", "type: "}), i(2, "Opaque"),
+  	t({"", "data:"}),
+  	t({"", "  USER: "}), i(3, "dXNlcg=="),  -- pre-encoded "user"
+  	t({"", "  PASSWORD: "}), i(4, "c2VjcmV0cGFzc3dvcmQ="),  -- pre-encoded "secretpassword"
+  	t({"", "  DB: "}), i(5, "ZGF0YWJhc2U=")  -- pre-encoded "database"
+  }),
+
+  s("env", {
+    t("env:"),
+    t({"", "  - name: "}), i(1, "ENV_VAR_NAME"),
+    t({"", "    value: "}), i(2, "ENV_VALUE")
+  }),
+
+  s("envs", {
+    t("env:"),
+    t({"", "  - name: "}), i(1, "ENV_VAR_NAME"),
+    t({"", "    valueFrom:"}),
+    t({"", "      secretKeyRef:"}),
+    t({"", "        name: "}), i(2, "secret-name"),
+    t({"", "        key: "}), i(3, "SECRET_KEY")
+  }),
 })

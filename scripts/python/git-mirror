@@ -1,4 +1,7 @@
-#!/bin/env python
+#!/usr/bin/env python
+
+# Very careful with the shebang, cron migth not find the executable if the path
+# to env is incorrect, because it's different on different distros.
 
 import os
 import subprocess

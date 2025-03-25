@@ -3,8 +3,11 @@
 help() {
     file_name="$XDG_HELP_DIR/$1.txt"
 
+	if [ "$1" = "psql" ]; then
+		file_name="$XDG_HELP_DIR/postgres.txt"
+		cat "$file_name"
     # Try the original file
-    if ! cat "$file_name" 2>/dev/null; then
+    elif ! cat "$file_name" 2>/dev/null; then
         # Try adding 's'
         file_name="$XDG_HELP_DIR/$1s.txt"
         if ! cat "$file_name" 2>/dev/null; then
@@ -36,4 +39,3 @@ main() {
 case "$(basename "$0")" in
     h) main "$@";;
 esac
-

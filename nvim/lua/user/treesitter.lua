@@ -11,7 +11,7 @@ require 'nvim-treesitter.configs'.setup {
 
     highlight = {
         enable = true,
-        disable = { "lua", "tmux", "csv" },
+        disable = { "lua", "tmux", "csv", "lisp", "commonlisp" }, -- commonlisp is triggered in elisp files
         additional_vim_regex_highlighting = false,
     },
     textobjects = {

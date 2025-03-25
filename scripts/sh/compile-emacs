@@ -2,6 +2,7 @@
 
 set -e
 
+sudo apt install autoconf texinfo imagemagick libmagickwand-dev libgtk-3-dev libglib2.0-dev libgccjit0 libgccjit-13-dev libgnutls28-dev libtree-sitter-dev
 
 CC=gcc-14 ./autogen.sh
 

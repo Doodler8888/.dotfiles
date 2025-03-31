@@ -19,6 +19,7 @@ in
     shellcheck
     yaml-language-server
     lua-language-server
+    ansible-lint
     pyright
     sqls
     kind

@@ -87,29 +87,61 @@ lspconfig.pyright.setup {
 
 -- Ansible/Yaml
 
--- Autodetect Ansible playbook files
-vim.filetype.add({
-  pattern = {
-    -- Ansible Playbooks
-    [".*playbook.*%.ya?ml"] = "yaml.ansible",
-    -- Ansible Roles
-    [".*/roles/.*/tasks/.*%.ya?ml"] = "yaml.ansible",
-    [".*/roles/.*/handlers/.*%.ya?ml"] = "yaml.ansible",
-    [".*/roles/.*/defaults/.*%.ya?ml"] = "yaml.ansible",
-    [".*/roles/.*/vars/.*%.ya?ml"] = "yaml.ansible",
-    [".*/roles/.*/meta/.*%.ya?ml"] = "yaml.ansible",
-    -- Ansible Inventory files
-    ["inventory%.ya?ml"] = "yaml.ansible",
-    ["hosts%.ya?ml"] = "yaml.ansible",
-    -- Kubernetes templates
-    [".*/templates/.*%.ya?ml"] = "yaml.kubernetes",
-    [".*/templates/.*%.yaml"] = "yaml.kubernetes",
-  },
-})
+-- vim.filetype.add({
+--   pattern = {
+--     -- Ansible Playbooks & Roles (extend as needed)
+--     [".*playbook.*%.ya?ml"] = "yaml.ansible",
+--     [".*/roles/.*/tasks/.*%.ya?ml"] = "yaml.ansible",
+--     [".*/roles/.*/handlers/.*%.ya?ml"] = "yaml.ansible",
+--     [".*/roles/.*/defaults/.*%.ya?ml"] = "yaml.ansible",
+--     [".*/roles/.*/vars/.*%.ya?ml"] = "yaml.ansible",
+--     [".*/roles/.*/meta/.*%.ya?ml"] = "yaml.ansible",
+--     -- Additional pattern for ansible tasks outside roles:
+--     [".*/ansible/.*tasks/.*%.ya?ml"] = "yaml.ansible",
+--     [".*/ansible/.*hosts%.ya?ml"] = "yaml.ansible",
+--     [".*/ansible/.*inventory%.ya?ml"] = "yaml.ansible",
+--
+--     -- Kubernetes templates
+--     [".*/templates/.*%.ya?ml"] = "yaml.kubernetes",
+--     [".*/templates/.*%.yaml"] = "yaml.kubernetes",
+--     [".*/kubernetes/.*%.ya?ml"] = "yaml.kubernetes",
+--     [".*/kubernetes/.*%.yaml"] = "yaml.kubernetes",
+--   },
+-- })
+
+-- -- I've added it, because the custom filetypes aren't applied on files that end
+-- -- with 'yaml'.
+-- vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+--   pattern = "*kubernetes/*.yaml",
+--   callback = function()
+--     vim.bo.filetype = "yaml.kubernetes"
+--   end,
+-- })
+
+
+-- require("lspconfig").yamlls.setup {
+--   filetypes = { "yaml", "yaml.kubernetes", "yaml.ansible" },
+--   on_attach = function(client, bufnr)
+--     if vim.bo[bufnr].filetype == "yaml.kubernetes" then
+--       -- Use the current file's full path to force schema association only for this file
+--       local current_file = vim.fn.expand("%:p")
+--       client.config.settings.yaml.schemas = {
+--         -- You can replace the key below with a full schema URL if desired.
+--         ["kubernetes"] = { current_file },
+--       }
+--       client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+--     end
+--   end,
+--   settings = {
+--     yaml = {
+--       schemas = {}, -- start empty and populate it only when needed
+--     },
+--   },
+-- }
 
 require("lspconfig").yamlls.setup {
-	-- filetypes = { "yaml", "yaml.kubernetes" },
-	filetypes = { "yaml", },
+	-- filetypes = { "yaml", "yaml.kubernetes", "yaml.ansible" },
+	filetypes = { "yaml" },
 	settings = {
 	  yaml = {
 	    schemas = {

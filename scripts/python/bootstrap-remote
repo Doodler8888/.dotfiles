@@ -6,6 +6,7 @@ import subprocess
 import shutil
 import re
 
+os.path.join(AssertionError)
 home = os.environ["HOME"]
 config_dir = os.path.join(home, ".config") # Otherwise i would need to do something like this: config_dir = home + "/.config"
 secret_dotfiles_dir = os.path.join(home, ".secret_dotfiles")

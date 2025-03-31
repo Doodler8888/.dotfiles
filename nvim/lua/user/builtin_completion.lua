@@ -1,63 +1,44 @@
--- This should apperently enable autocompletion, but there is non.
---  vim.api.nvim_create_autocmd({ "VimEnter" }, {
--- callback = function()
--- 	local clients = vim.lsp.get_clients()
--- 	for _, client in ipairs(clients) do
--- 		local id = client.id
--- 		vim.lsp.completion.enable(true, id, 1, { autotrigger = true })
--- 		return
--- 	end
--- end,
--- })
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    ---[[Code required to activate autocompletion and trigger it on each keypress
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
+    vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
+      buffer = args.buf,
+      callback = function()
+        vim.lsp.completion.get()
+      end
+    })
+    vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    ---]]
 
-
--- Built-in autocompletion hack
--- -- A helper function to trigger built-in completions based on context
--- function _G.auto_complete_trigger()
---   -- Get the current line and cursor position (column is 1-indexed)
---   local col = vim.fn.col('.') - 1
---   local line = vim.fn.getline('.')
---   local before_cursor = line:sub(1, col)
---
---   -- Only trigger if there's something non-whitespace before the cursor.
---   if not before_cursor:match("%S") then
---     return
---   end
---
---   -- Don't trigger if the popup menu is already visible.
---   if vim.fn.pumvisible() ~= 0 then
---     return
---   end
---
---   -- If it looks like a file path (contains '/' or '\' or starts with '~' or '.'),
---   -- trigger file-path completion (<C-x><C-f>).
---   if before_cursor:find("[/\\]") or before_cursor:find("^[~%.]") then
---     vim.api.nvim_feedkeys(
---       vim.api.nvim_replace_termcodes("<C-x><C-f>", true, false, true),
---       "n",
---       true
---     )
---   -- Else, if an omni-completion function is set (for code),
---   -- trigger omni-completion (<C-x><C-o>).
---   elseif vim.bo.omnifunc and vim.bo.omnifunc ~= "" then
---     vim.api.nvim_feedkeys(
---       vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true),
---       "n",
---       true
---     )
---   -- Otherwise, fall back to keyword (buffer) completion (<C-n>).
---   else
---     vim.api.nvim_feedkeys(
---       vim.api.nvim_replace_termcodes("<C-x><C-n>", true, false, true),
---       "n",
---       true
---     )
---   end
--- end
---
--- -- Use the TextChangedI event (fires after text changes in Insert mode) to trigger our function
--- vim.api.nvim_create_autocmd("TextChangedI", {
---   callback = function()
---     _G.auto_complete_trigger()
---   end,
--- })
+    ---[[Code required to add documentation popup for an item
+    local _, cancel_prev = nil, function() end
+    vim.api.nvim_create_autocmd('CompleteChanged', {
+      buffer = args.buf,
+      callback = function()
+        cancel_prev()
+        local info = vim.fn.complete_info({ 'selected' })
+        local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp', 'completion_item')
+        if nil == completionItem then
+          return
+        end
+        _, cancel_prev = vim.lsp.buf_request(args.buf,
+          vim.lsp.protocol.Methods.completionItem_resolve,
+          completionItem,
+          function(err, item, ctx)
+            if not item then
+              return
+            end
+            local docs = (item.documentation or {}).value
+            local win = vim.api.nvim__complete_set(info['selected'], { info = docs })
+            if win.winid and vim.api.nvim_win_is_valid(win.winid) then
+              vim.treesitter.start(win.bufnr, 'markdown')
+              vim.wo[win.winid].conceallevel = 3
+            end
+          end)
+      end
+    })
+    ---]]
+  end
+})

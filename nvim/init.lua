@@ -16,7 +16,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-
 -- If i put it to visual.lua or rosepine.lua, it wont work
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#17191a" })
 vim.api.nvim_set_hl(0, "DirvishSuffix", { fg = "#6e6a86" })

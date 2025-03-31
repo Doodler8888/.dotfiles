@@ -1,0 +1,2 @@
+Check if the rule is loaded:
+sudo auditctl -l | grep rule_name_key

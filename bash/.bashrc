@@ -1,4 +1,3 @@
-source /home/wurfkreuz/.dotfiles/scripts/sh/bak.sh
 source /home/wurfkreuz/.dotfiles/bash/functions.sh
 
 export PATH="$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/bin:/home/wurfkreuz/.ghcup/bin:/home/wurfkreuz/.cabal/bin:/home/wufkreuz/.local/share/racket:$PATH"
@@ -131,7 +130,7 @@ alias hello='echo "Hello"'
 alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 
 
-if ! pgrep -x "swww-daemon" > /dev/null; then
-    swww init 2> /dev/null
-    swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
-fi
+# if ! pgrep -x "swww-daemon" > /dev/null; then
+#     swww init 2> /dev/null
+#     swww img "$HOME/Downloads/pictures/68747470733a2f2f692e696d6775722e636f6d2f4c65756836776d2e676966.gif"
+# fi

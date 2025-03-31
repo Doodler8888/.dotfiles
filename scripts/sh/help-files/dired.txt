@@ -1,0 +1,2 @@
+Open files in another window:
+C-o

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+mount | awk '{print $3}' | xargs -r ls -ld | while IFS= read -r line; do
+	# echo "This is the line: $line"
+	permission_bits="$(echo $line | awk '{print $1}')"
+	global_permission_bits="$(echo $line | awk '{print $1}' | cut -c 8-)"
+	# echo "These are global permissions bits $global_permission_bits for $file_system"
+	file_system="$(echo $line | awk '{print $9}')"
+	if [ "$(echo $global_permission_bits | grep 'w')" ]; then
+		echo "This filesystem $file_system has write permissions: $global_permission_bits"
+	fi
+done

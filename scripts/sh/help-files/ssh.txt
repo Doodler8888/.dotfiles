@@ -1,0 +1,5 @@
+Connect to a remote:
+ssh wurfkreuz-server@192.168.100.7
+
+Add a public key:
+ssh-copy-id -i ~/.ssh/your_public_key_file.pub username@your_server_ip

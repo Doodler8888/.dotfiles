@@ -82,6 +82,7 @@ M.compile_commands = {
     go = "go vet % && go build %",
     perl = "perl -c %",
     dockerfile = "hadolint -f gnu %",
+    yaml = "ansible-lint %",
 }
 
 function M.setup_compile()
@@ -154,7 +155,7 @@ vim.keymap.set({'n', 'i'}, '<M-y>', M.toggle_compile_qf, {
 
 -- Autocommands
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"c", "cpp", "rust", "go", "sh", "perl", "dockerfile" },
+    pattern = {"c", "cpp", "rust", "go", "sh", "perl", "dockerfile", "yaml" },
     callback = M.setup_compile
 })
 

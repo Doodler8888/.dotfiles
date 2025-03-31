@@ -1,28 +1,18 @@
--- 1. Create separate 'nvim-repro' config directory:
---     - '~/.config/nvim-repro/'
---
--- 2. Launch neovim with `NVIM_APPNAME=nvim-repro nvim`.
+vim.lsp.config["lua-language-server"] = {
+    cmd = { "lua-language-server" },
+    root_markers = { ".luarc.json" },
+    filetypes = { "lua" },
+}
 
--- Bootstrap lazy.nvim if not installed
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
+vim.lsp.enable("lua-language-server")
 
--- Set up lazy.nvim to load only nvim-autopairs
-require("lazy").setup({
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup{}
-    end,
-  },
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
+  end,
 })
+
+vim.cmd("set completeopt+=noselect")

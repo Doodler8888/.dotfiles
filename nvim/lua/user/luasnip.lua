@@ -2,6 +2,10 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node  -- add the insert node
+local fmt = require("luasnip.extras.fmt").fmt
+
+-- ls.filetype_extend("yaml.ansible", {"yaml"})
+-- ls.filetype_extend("yaml.kubernetes", {"yaml"})
 
 vim.keymap.set({"i"}, "<C-H>", function() ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
@@ -130,6 +134,47 @@ ls.add_snippets("markdown", {
 })
 
 ls.add_snippets("yaml", {
+
+    s("daemonset", fmt([[
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {}
+  namespace: {}
+spec:
+  selector:
+    matchLabels:
+      app: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {}
+    spec:
+      volumes:
+      - name: {}
+        persistentVolumeClaim: {}
+      containers:
+      - name: {}
+        image: {}
+        ports:
+        - containerPort: {}
+        volumeMounts:
+        - name: {}
+          mountPath: {}
+]], {
+    i(1, "daemonset-name"),
+    i(2, "default"),
+    i(3, "app-label"),
+    i(4, "app-label"),
+    i(5, "volume-name"),
+    i(6, "pvc-name"),
+    i(7, "container-name"),
+    i(8, "image:tag"),
+    i(9, "80"),
+    i(10, "volume-name"),
+    i(11, "/mount/path")
+  })),
+
   s("name", { t("app.kubernetes.io/name: ") }),
 
   s("statefulset", {
@@ -139,12 +184,12 @@ ls.add_snippets("yaml", {
     t({"", "spec:"}),
     t({"", "  selector:"}),
     t({"", "    matchLabels:"}),
-    t({"", "      app.kubernetes.io/name: "}), i(2, "postgres"),
+    t({"", "      app.kubernetes.io/name: "}), i(2, "pod-names-selected-by-selector"),
     t({"", "  replicas: "}), i(3, "3"),
     t({"", "  template:"}),
     t({"", "    metadata:"}),
     t({"", "      labels:"}),
-    t({"", "        app.kubernetes.io/name: "}), i(4, "postgres"),
+    t({"", "        app.kubernetes.io/name: "}), i(4, "created-pod-name"),
     t({"", "    spec:"}),
     t({"", "      containers:"}),
     t({"", "      - name: "}), i(5, "postgres-container"),
@@ -179,7 +224,7 @@ ls.add_snippets("yaml", {
     t({"", "    type: "}), i(6, "DirectoryOrCreate")
   }),
 
-  s("service", {
+  s("k8s-service", {
     t("apiVersion: v1"), t({"", "kind: Service"}),
     t({"", "metadata:"}),
     t({"", "  name: "}), i(1, "my-service"),
@@ -242,4 +287,82 @@ ls.add_snippets("yaml", {
     t({"", "        name: "}), i(2, "secret-name"),
     t({"", "        key: "}), i(3, "SECRET_KEY")
   }),
+})
+
+-- ls.add_snippets("yaml.ansible", {
+ls.add_snippets("yaml", {
+--   s("file", fmt([[
+-- - name: "Creating a {} file with content"
+--   ansible.builtin.copy:
+--     dest: {}
+--     content: |
+--       {}
+--       {}
+-- ]], { i(1, "file_name/path"), i(2, "filePath"), i(3, "line1"), i(4, "line2") })),
+  -- s("file-empty", fmt([[
+  s("file", fmt([[
+- name: "Creating a file at {}"
+  ansible.builtin.file:
+    path: {}
+    state: touch
+    owner: {}
+    group: {}
+    mode: '{}'
+    ]], { i(1, "file_name/path"), i(2, "file_path"), i(3, "root"), i(4, "root"), i(5, "0644") })),
+  s("copy", fmt([[
+- name: "Copy {} file to {}"
+  ansible.builtin.copy:
+    src: {}
+    dest: {}
+    owner: {}
+    group: {}
+    mode: '{}'
+    ]], { i(1, "path"), i(2, "path"), i(3, "path"), i(4, "path"), i(5, "owner_name"), i(6, "group_name"), i(7, "644") })),
+  s("line", fmt([[
+- name: {}
+  ansible.builtin.lineinfile:
+    dest: {}
+    regexp: '{}'
+    line: '{}'
+    insertbefore: '{}'
+    mode: '0644'
+]], { i(1, "description"), i(2, "filePath"), i(3, "regex"), i(4, "line_to_insert"), i(5, "fallback_pattern_when_regex_wasnt_found") })),
+  s("lines", fmt([[
+- name: {}
+  ansible.builtin.lineinfile:
+    dest: {}
+    line: "{{{{ item.line }}}}"
+  loop:
+    - {{ line: '{}' }}
+    - {{ line: '{}' }}
+]], { i(1, "description"), i(2, "filePath"), i(3, "line"), i(4, "line") })),
+  s("package", fmt([[
+- name: Install packages
+  ansible.builtin.package:
+    name:
+      - {}
+      - {}
+    state: present
+]], { i(1, "package_name"), i(2, "package_name") })),
+  s("ansible-service", fmt([[
+- name: {}
+  ansible.builtin.service:
+    name: {}
+    state: started
+    enabled: yes
+]], { i(1, "desrciption"), i(2, "service name but without '.service'") })),
+  s("lvm-lv", fmt([[
+- name: Create a LV {} in VG {}
+  community.general.lvol:
+    vg: {}
+    lv: {}
+    size: {}
+    state: present
+]], { i(1, "{{ lv_name }}"), i(2, "{{ vg_name }}"), i(3, "{{ vg_name }}"), i(4, "{{ lv_name }}"), i(5, "{{ lv_size }}") })),
+  s("filesystem", fmt([[
+- name: Create a {} filesystem on {}
+  community.general.filesystem:
+    fstype: {}
+    dev: {}
+]], { i(1, "name"), i(2, "path"), i(3, "type"), i(4, "path_to_paritition") })),
 })

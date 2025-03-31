@@ -66,7 +66,8 @@ vim.o.timeoutlen = 1000
 vim.o.ttimeoutlen = 0
 
 vim.cmd([[ set wildmode=longest:full ]])
-vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+-- vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+vim.opt.completeopt = { "menuone", "noselect", "popup", "fuzzy" }
 
 vim.diagnostic.config({
   signs = false,
@@ -84,3 +85,6 @@ vim.g.netrw_banner = 0
 
 -- I can't change this, because it fucks up highlighting
 -- vim.cmd([[ set iskeyword-=_ ]])
+
+-- new option
+-- vim.o.winborder = 'rounded'

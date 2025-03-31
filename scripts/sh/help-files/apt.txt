@@ -1,3 +1,8 @@
 Install without confirmation:
+apt install -y <package_name>
 
-apt install -y package_name
+Query packages:
+apt search <package_name>
+
+List all installed packages:
+apt list --installed

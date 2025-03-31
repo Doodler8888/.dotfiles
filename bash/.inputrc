@@ -11,17 +11,35 @@ set keyseq-timeout 10
 set bind-tty-special-chars off
 
 $if mode=vi
-    set keymap vi-insert
-    "\C-p": previous-history
-    "\C-n": next-history
-    "\C-l": clear-screen
-    "\e.": yank-last-arg
-    
-    set keymap vi-command
-    "\C-p": previous-history
-    "\C-n": next-history
-    "\C-l": clear-screen
-    "\e.": yank-last-arg
+# Vi insert mode key bindings
+set keymap vi-insert
+"\C-p": previous-history
+"\C-n": next-history
+"\C-l": clear-screen
+"\e.": yank-last-arg
+"\e[1;5C": forward-word  # Ctrl-Right (Terminal dependent)
+"\e[1;5D": backward-word # Ctrl-Left (Terminal dependent)
+"\ef": forward-word       # Alt-f (Emacs style)
+"\eb": backward-word      # Alt-b (Emacs style)
+"\C-a": beginning-of-line # Ctrl-a
+"\C-e": end-of-line       # Ctrl-e
+"\C-M-f": forward-word    # Ctrl-Meta-f (Emacs style)
+"\C-M-b": backward-word   # Ctrl-Meta-b (Emacs style)
 
-    "p": "i\C-u\C-y\e"  # Paste from clipboard in normal mode
+# Vi command mode key bindings
+set keymap vi-command
+"\C-p": previous-history
+"\C-n": next-history
+"\C-l": clear-screen
+"\e.": yank-last-arg
+"p": "i\C-u\C-y\e"  # Paste from clipboard in normal mode
+
+# Emacs-style bindings in command mode as well
+"\ef": forward-word
+"\eb": backward-word
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-M-f": forward-word
+"\C-M-b": backward-word
+
 $endif

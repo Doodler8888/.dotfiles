@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Very careful with the shebang, cron migth not find the executable if the path
 # to env is incorrect, because it's different on different distros.
@@ -23,7 +23,7 @@ repos_dictionary = [
     {"path": secret_dotfiles_dir, "default_url": "git@gitlab.com:Doodler8888/secret_dotfiles.git"},
 ]
 
-# The 'logging' module automatically creates 
+# The 'logging' module automatically creates
 log_file_path = os.path.join(home, ".var/log/git-mirror/logs.log")
 log_file_dir = os.path.join(home, ".var/log/git-mirror/")
 
@@ -95,4 +95,3 @@ for entry in repos_dictionary:
 #     print(f"This is the gitlab hash {gitlab_hash}")
 #     if master_hash != gitlab_hash:
 #         subprocess.run(f"cd {repo} && git push gitlab master:main", shell=True, check=True, capture_output=True)
-

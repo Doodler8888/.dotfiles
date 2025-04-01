@@ -406,7 +406,14 @@ local function setup_rename()
         local old_path = get_target_file()
         if not old_path then return end
 
-        -- Try to find another dirvish window and build a default target path:
+        -- Determine if target is directory and normalize paths
+        local is_dir = vim.fn.isdirectory(old_path) == 1
+        local normalized_old = old_path
+        if is_dir then
+          normalized_old = vim.fn.fnamemodify(old_path, ':p')  -- Ensure trailing slash
+        end
+
+        -- Default target logic
         local other_dir = find_other_dirvish_window()
         local default_target = old_path
         if other_dir then
@@ -419,16 +426,48 @@ local function setup_rename()
         }, function(new_name)
           if not new_name or new_name == '' then return end
 
+          -- Handle new path construction
           local new_path
-          -- If the new_name starts with '/', assume it's an absolute path (move/rename anywhere)
           if new_name:sub(1,1) == '/' then
             new_path = new_name
           else
             new_path = vim.fn.fnamemodify(old_path, ':h') .. '/' .. new_name
           end
 
+          -- Perform actual rename
           local ok, err = os.rename(old_path, new_path)
           if ok then
+            -- Normalize new path for directories
+            if is_dir then
+              new_path = vim.fn.fnamemodify(new_path, ':p')  -- Add trailing slash
+            end
+
+            -- Update affected buffers
+            local buffers = vim.api.nvim_list_bufs()
+            for _, buf in ipairs(buffers) do
+              if vim.api.nvim_buf_is_valid(buf) then
+                local name = vim.api.nvim_buf_get_name(buf)
+
+                if is_dir then
+                  -- Handle directory itself (with and without trailing slash)
+                  local old_no_slash = normalized_old:sub(1, -2)
+                  if name == old_no_slash then
+                    local new_no_slash = new_path:sub(1, -2)
+                    vim.api.nvim_buf_set_name(buf, new_no_slash)
+                  -- Handle contents of directory
+                  elseif name:sub(1, #normalized_old) == normalized_old then
+                    local rel_path = name:sub(#normalized_old + 1)
+                    vim.api.nvim_buf_set_name(buf, new_path .. rel_path)
+                  end
+                else
+                  -- Handle file rename
+                  if name == old_path then
+                    vim.api.nvim_buf_set_name(buf, new_path)
+                  end
+                end
+              end
+            end
+
             refresh_dirvish()
             vim.notify('Renamed to: ' .. new_path, vim.log.levels.INFO)
           else

@@ -132,6 +132,9 @@ require('rose-pine').setup({
 		['@string.escape.perl'] = { fg = 'gold' },
 		['@variable.builtin.perl'] = { fg = '#e0def4' },
 		['@string.regexp.perl'] = { fg = 'gold' },
+
+		['@variable.member.helm'] = { fg = 'iris' },
+		['@constant.builtin.helm'] = { fg = 'iris' },
 	      }
 	    })
 

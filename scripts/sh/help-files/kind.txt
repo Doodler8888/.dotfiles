@@ -5,4 +5,4 @@ Create a cluster:
 kind create cluster --config path/to/cluster/template
 
 Delete a cluster:
-kind delete cluster --name=cluster-name (name is without 'kind-' in the start)
+kind delete cluster --name=cluster-name (name is without 'kind-' at the start)

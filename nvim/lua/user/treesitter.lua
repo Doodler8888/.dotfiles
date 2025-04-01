@@ -1,6 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "terraform", "hcl", "vim", "vimdoc", "query", "go" },
+    ensure_installed = { "terraform", "hcl", "vim", "vimdoc", "query", "go", "yaml", "gotmpl", "helm" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -99,4 +99,15 @@ vim.keymap.set({'n', 'v', 'o'}, '<C-M-e>', function()
     print("Jumping to end of function")
     vim.cmd("TSTextobjectGotoNextEnd @function.outer")
 end, { noremap = true, silent = false, desc = "Jump to end of function" })
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "yaml",
+  callback = function(args)
+    local fname = vim.api.nvim_buf_get_name(args.buf)
+    if fname:match("templates") then
+      vim.bo[args.buf].filetype = "helm"
+    end
+  end,
+})
 

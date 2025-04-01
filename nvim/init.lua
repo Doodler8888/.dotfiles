@@ -21,3 +21,4 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#17191a" })
 vim.api.nvim_set_hl(0, "DirvishSuffix", { fg = "#6e6a86" })
 
 
+

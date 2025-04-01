@@ -133,9 +133,9 @@ ls.add_snippets("markdown", {
     }),
 })
 
-ls.add_snippets("yaml", {
+ls.add_snippets("helm", {
 
-    s("daemonset", fmt([[
+  s("daemonset", fmt([[
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -144,7 +144,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {}
+      app.kubernetes.io/name: {}
   template:
     metadata:
       labels:
@@ -152,7 +152,8 @@ spec:
     spec:
       volumes:
       - name: {}
-        persistentVolumeClaim: {}
+        persistentVolumeClaim:
+	  claimName: {}
       containers:
       - name: {}
         image: {}
@@ -175,41 +176,64 @@ spec:
     i(11, "/mount/path")
   })),
 
+  -- StatefulSet snippet with limits defined in the container's resources
+  s("statefulset", fmt([[
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {}
+  replicas: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {}
+    spec:
+      containers:
+      - name: {}
+        image: {}
+        env:
+          - name: "POSTGRES_PASSWORD"
+            value: "1337"
+        ports:
+          - containerPort: {}
+        volumeMounts:
+          - name: postgres-volume
+            mountPath: /var/lib/postgresql/data
+        resources:
+          limits:
+            cpu: {}
+            memory: {}
+	  requests:
+	    cpu: {}
+	    memory: {}
+      volumes:
+        - name: postgres-volume
+          persistentVolumeClaim:
+            claimName: {}
+  serviceName: {}
+]], {
+    i(1, "postgres-statefulset"),
+    i(2, "pod-selector-label"),
+    i(3, "3"),
+    i(4, "created-pod-name"),
+    i(5, "postgres-container"),
+    i(6, "postgres:17"),
+    i(7, "5432"),
+    i(8, "200m"),
+    i(9, "200Mi"),
+    i(10, "200m"),
+    i(11, "200Mi"),
+    i(12, "postgres-pvc"),
+    i(13, "postgres-service")
+  })),
+
   s("name", { t("app.kubernetes.io/name: ") }),
 
-  s("statefulset", {
-    t("apiVersion: apps/v1"), t({"", "kind: StatefulSet"}),
-    t({"", "metadata:"}),
-    t({"", "  name: "}), i(1, "postgres-statefulset"),
-    t({"", "spec:"}),
-    t({"", "  selector:"}),
-    t({"", "    matchLabels:"}),
-    t({"", "      app.kubernetes.io/name: "}), i(2, "pod-names-selected-by-selector"),
-    t({"", "  replicas: "}), i(3, "3"),
-    t({"", "  template:"}),
-    t({"", "    metadata:"}),
-    t({"", "      labels:"}),
-    t({"", "        app.kubernetes.io/name: "}), i(4, "created-pod-name"),
-    t({"", "    spec:"}),
-    t({"", "      containers:"}),
-    t({"", "      - name: "}), i(5, "postgres-container"),
-    t({"", "        image: "}), i(6, "postgres:17"),
-    t({"", "        env:"}),
-    t({"", "          - name: \"POSTGRES_PASSWORD\""}),
-    t({"", "            value: \"1337\""}),
-    t({"", "        ports:"}),
-    t({"", "          - containerPort: "}), i(7, "5432"),
-    t({"", "        volumeMounts:"}),
-    t({"", "          - name: postgres-volume"}),
-    t({"", "            mountPath: /var/lib/postgresql/data"}),
-    t({"", "      volumes:"}),
-    t({"", "        - name: postgres-volume"}),
-    t({"", "          persistentVolumeClaim:"}),
-    t({"", "            claimName: "}), i(8, "postgres-pvc"),
-    t({"", "  serviceName: "}), i(9, "postgres-service")
-  }),
-
-  s("pvhost", {
+  s("pv-host", {
     t("apiVersion: v1"), t({"", "kind: PersistentVolume"}),
     t({"", "metadata:"}),
     t({"", "  name: "}), i(1, "test-persistent-pvc"),
@@ -219,9 +243,10 @@ spec:
     t({"", "  capacity:"}),
     t({"", "      storage: "}), i(3, "1Gi"),
     t({"", "  persistentVolumeReclaimPolicy: "}), i(4, "Retain"),
+    t({"", "  storageClassName: "}), i(5, "manual-hostpath"),
     t({"", "  hostPath:"}),
-    t({"", "    path: "}), i(5, "/data/kind-hostpath-reboot-volume"),
-    t({"", "    type: "}), i(6, "DirectoryOrCreate")
+    t({"", "    path: "}), i(6, "path"),
+    t({"", "    type: "}), i(7, "DirectoryOrCreate")
   }),
 
   s("k8s-service", {
@@ -237,17 +262,46 @@ spec:
     t({"", "      targetPort: "}), i(4, "9376")
   }),
 
-  s("pvc", {
-    t("apiVersion: v1"), t({"", "kind: PersistentVolumeClaim"}),
-    t({"", "metadata:"}),
-    t({"", "  name: "}), i(1, "my-pvc"),
-    t({"", "spec:"}),
-    t({"", "  accessModes:"}),
-    t({"", "    - "}), i(2, "ReadWriteOnce"),
-    t({"", "  resources:"}),
-    t({"", "    requests:"}),
-    t({"", "      storage: "}), i(3, "1Gi")
-  }),
+  s("pvc-static", fmt([[
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {}
+spec:
+  accessModes:
+    - {}
+  resources:
+    requests:
+      storage: {}
+  storageClassName: {}
+  volumeName: {}
+]], {
+    i(1, "my-pvc"),
+    i(2, "ReadWriteOnce"),
+    i(3, "250Mi"),
+    i(4, "storage-class-name"),
+    i(5, "pv-name"),
+  })),
+
+  -- PVC snippet for dynamic provisioning (using a StorageClass)
+  s("pvc-dynamic", fmt([[
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {}
+spec:
+  accessModes:
+    - {}
+  resources:
+    requests:
+      storage: {}
+  storageClassName: {}
+]], {
+    i(1, "my-pvc"),
+    i(2, "ReadWriteOnce"),
+    i(3, "250Mi"),
+    i(4, "standard")
+  })),
 
   s("pod", {
     t("apiVersion: v1"), t({"", "kind: Pod"}),
@@ -272,6 +326,42 @@ spec:
   	t({"", "  PASSWORD: "}), i(4, "c2VjcmV0cGFzc3dvcmQ="),  -- pre-encoded "secretpassword"
   	t({"", "  DB: "}), i(5, "ZGF0YWJhc2U=")  -- pre-encoded "database"
   }),
+
+  s("resources", fmt([[
+resources:
+  limits:
+    cpu: {}
+    memory: {}
+  requests:
+    cpu: {}
+    memory: {}
+]], {
+    i(1, "200m"),
+    i(2, "250Mi"),
+    i(3, "100m"),
+    i(4, "128Mi")
+  })),
+
+  -- Volumes snippet for a persistent volume claim
+  s("volumes", fmt([[
+volumes:
+- name: {}
+  persistentVolumeClaim:
+    claimName: {}
+]], {
+    i(1, "volume-name"),
+    i(2, "pvc-name")
+  })),
+
+  -- VolumeMounts snippet for mounting a volume into a container
+  s("volmounts", fmt([[
+volumeMounts:
+- name: {}
+  mountPath: {}
+]], {
+    i(1, "volume-name"),
+    i(2, "/mount/path")
+  })),
 
   s("env", {
     t("env:"),

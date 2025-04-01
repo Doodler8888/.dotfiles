@@ -88,3 +88,6 @@ vim.g.netrw_banner = 0
 
 -- new option
 -- vim.o.winborder = 'rounded'
+
+-- I set it as auto-revert
+vim.o.autoread = true

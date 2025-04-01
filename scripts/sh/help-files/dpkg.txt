@@ -1,0 +1,3 @@
+Install downloaded package:
+
+sudo dpkg -i package-name

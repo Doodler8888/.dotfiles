@@ -42,6 +42,7 @@ local plugins = {
 	  end,
 	},
 	'Doodler8888/resession.nvim',
+	{ "ngynkvn/gotmpl.nvim", opts = {}},
 	-- 'tpope/vim-surround',
 	{
 		"kylechui/nvim-surround",

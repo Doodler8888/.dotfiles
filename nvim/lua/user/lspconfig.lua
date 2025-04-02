@@ -141,7 +141,7 @@ lspconfig.pyright.setup {
 
 require("lspconfig").yamlls.setup {
 	-- filetypes = { "yaml", "yaml.kubernetes", "yaml.ansible" },
-	filetypes = { "yaml" },
+	filetypes = { "yaml", "helm" },
 	settings = {
 	  yaml = {
 	    schemas = {

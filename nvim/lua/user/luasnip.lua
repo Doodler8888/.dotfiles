@@ -232,6 +232,7 @@ spec:
   })),
 
   s("name", { t("app.kubernetes.io/name: ") }),
+  s("rn", { t("{{ .Release.Name }}") }),
 
   s("pv-host", {
     t("apiVersion: v1"), t({"", "kind: PersistentVolume"}),
@@ -358,9 +359,46 @@ volumes:
 volumeMounts:
 - name: {}
   mountPath: {}
+  readOnly: true
 ]], {
     i(1, "volume-name"),
     i(2, "/mount/path")
+  })),
+
+  s("k8s-command-long", fmt([[
+command:
+  - 'sh'
+  - '-c'
+  - |
+    {}
+    {}
+]], {
+    i(1, "echo \"Running as user: $(whoami)\""),
+    i(2, "mkdir -p /fluentd/plugins"),
+  })),
+
+  s("init", fmt([[
+initContainers:
+- name: {}
+  image: {}
+  command:
+    - 'sh'
+    - '-c'
+    - |
+      {}
+      {}
+]], {
+    i(1, "init-myservice"),
+    i(2, "busybox:1.28"),
+    i(3, "command1"),
+    i(4, "command2"),
+  })),
+
+  s("root", fmt([[
+  securityContext:
+    runAsUser: {}
+]], {
+    i(1, "0"),
   })),
 
   s("env", {
@@ -390,7 +428,8 @@ ls.add_snippets("yaml", {
 --       {}
 -- ]], { i(1, "file_name/path"), i(2, "filePath"), i(3, "line1"), i(4, "line2") })),
   -- s("file-empty", fmt([[
-  s("file", fmt([[
+
+s("file", fmt([[
 - name: "Creating a file at {}"
   ansible.builtin.file:
     path: {}
@@ -399,7 +438,8 @@ ls.add_snippets("yaml", {
     group: {}
     mode: '{}'
     ]], { i(1, "file_name/path"), i(2, "file_path"), i(3, "root"), i(4, "root"), i(5, "0644") })),
-  s("copy", fmt([[
+
+s("copy", fmt([[
 - name: "Copy {} file to {}"
   ansible.builtin.copy:
     src: {}
@@ -408,7 +448,8 @@ ls.add_snippets("yaml", {
     group: {}
     mode: '{}'
     ]], { i(1, "path"), i(2, "path"), i(3, "path"), i(4, "path"), i(5, "owner_name"), i(6, "group_name"), i(7, "644") })),
-  s("line", fmt([[
+
+s("line", fmt([[
 - name: {}
   ansible.builtin.lineinfile:
     dest: {}
@@ -417,7 +458,8 @@ ls.add_snippets("yaml", {
     insertbefore: '{}'
     mode: '0644'
 ]], { i(1, "description"), i(2, "filePath"), i(3, "regex"), i(4, "line_to_insert"), i(5, "fallback_pattern_when_regex_wasnt_found") })),
-  s("lines", fmt([[
+
+s("lines", fmt([[
 - name: {}
   ansible.builtin.lineinfile:
     dest: {}
@@ -426,7 +468,8 @@ ls.add_snippets("yaml", {
     - {{ line: '{}' }}
     - {{ line: '{}' }}
 ]], { i(1, "description"), i(2, "filePath"), i(3, "line"), i(4, "line") })),
-  s("package", fmt([[
+
+s("package", fmt([[
 - name: Install packages
   ansible.builtin.package:
     name:
@@ -434,14 +477,16 @@ ls.add_snippets("yaml", {
       - {}
     state: present
 ]], { i(1, "package_name"), i(2, "package_name") })),
-  s("ansible-service", fmt([[
+
+s("ansible-service", fmt([[
 - name: {}
   ansible.builtin.service:
     name: {}
     state: started
     enabled: yes
 ]], { i(1, "desrciption"), i(2, "service name but without '.service'") })),
-  s("lvm-lv", fmt([[
+
+s("lvm-lv", fmt([[
 - name: Create a LV {} in VG {}
   community.general.lvol:
     vg: {}
@@ -449,7 +494,8 @@ ls.add_snippets("yaml", {
     size: {}
     state: present
 ]], { i(1, "{{ lv_name }}"), i(2, "{{ vg_name }}"), i(3, "{{ vg_name }}"), i(4, "{{ lv_name }}"), i(5, "{{ lv_size }}") })),
-  s("filesystem", fmt([[
+
+s("filesystem", fmt([[
 - name: Create a {} filesystem on {}
   community.general.filesystem:
     fstype: {}

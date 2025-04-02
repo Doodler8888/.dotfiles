@@ -56,7 +56,6 @@ vim.keymap.set('i', '<C-b>', '<Left>', {noremap = true})
 vim.keymap.set('i', '<C-p>', '<Up>', {noremap = true})
 vim.keymap.set('i', '<C-a>', '<Home>', {noremap = true})  -- Start of line
 vim.keymap.set('i', '<C-e>', '<End>', {noremap = true})   -- End of line
--- vim.keymap.set('i', '<C-k>', '<Esc><Left><Left>Di', {noremap = true})
 vim.keymap.set('i', '<M-f>', '<Esc> ea', {noremap = true})
 vim.keymap.set('i', '<C-M-f>', '<Esc> Ea', {noremap = true})
 vim.keymap.set('i', '<C-M-b>', '<C-o>B', {noremap = true})
@@ -64,6 +63,7 @@ vim.keymap.set('i', '<M-b>', '<C-o>b', {noremap = true})
 vim.keymap.set('i', '<M-m>', '<Esc>I', {noremap = true})
 vim.keymap.set({'n', 'o'}, '<M-m>', '^')
 vim.keymap.set('n', '<CR>', 'i<CR><Esc>', { noremap = true })
+-- vim.keymap.set('i', '<C-k>', '<Esc><Left><Left>Di', {noremap = true})
 
 -- function _G.backword_mapping()
 --   local col = vim.fn.col('.') - 1  -- Adjust for cursor at end

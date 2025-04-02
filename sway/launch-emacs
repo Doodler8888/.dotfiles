@@ -28,7 +28,7 @@ sleep 2
 swaymsg 'workspace 3'
 # swaymsg 'exec alacritty -e tmux'
 swaymsg 'exec emacs'
-
+swaymsg 'exec /opt/pycharm/bin/pycharm.sh'
 # swaymsg 'exec foot tmux'
 
 # Can't use this code with the sway tmux float. Otherwise the float will open with the main function instead of the one i specify.
@@ -40,7 +40,8 @@ swaymsg 'exec foot tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/s
 sleep 1
 swaymsg 'exec foot tmux attach-session -t main'
 
-swaymsg 'layout stacking'
+# swaymsg 'layout stacking'
+swaymsg 'layout tabbed'
 
 # # Tab 1
 # swaymsg 'workspace 3'

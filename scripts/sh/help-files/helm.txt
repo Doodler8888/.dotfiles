@@ -1,0 +1,11 @@
+List charts:
+helm list -n default
+
+Install your chart:
+helm install <chart-name> path/to/root/dir/of/the/chart --namespace default --create-namespace
+
+Uninstall chart:
+helm uninstall <chart_name> -n chart_namespace
+
+Upgrade chart:
+helm upgrade <chart-name> path/to/root/dir/of/the/chart --namespace default

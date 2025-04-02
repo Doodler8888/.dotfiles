@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PyCharm (opt)
+Comment=Python IDE (Installed in /opt) # Optional description
+Exec=/opt/pycharm/bin/pycharm.sh %f # CRITICAL: Path to your script. %f allows opening files with PyCharm.
+Icon=/opt/pycharm/bin/pycharm.svg  # Path to the icon (check if pycharm.svg or pycharm.png exists here)
+Terminal=false # PyCharm is a GUI app, doesn't need a terminal
+Categories=Development;IDE;Python; # Helps launchers categorize it
+StartupWMClass=jetbrains-pycharm # Helps Wayland/X11 associate the window with this launcher

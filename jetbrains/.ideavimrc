@@ -1,0 +1,30 @@
+set incsearch
+set rnu
+set clipboard+=unnamed
+
+set commentary
+set surround
+
+" Basic movement in insert mode
+inoremap <C-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-b> <Left>
+inoremap <C-p> <Up>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+" Word movement in insert mode (M is Alt key)
+inoremap <A-f> <Esc>ea
+inoremap <C-A-f> <Esc>Ea
+inoremap <C-A-b> <C-o>B
+inoremap <A-b> <C-o>b
+inoremap <A-m> <Esc>I
+
+" Normal mode mappings
+nnoremap <A-m> ^
+onoremap <A-m> ^
+nnoremap <CR> i<CR><Esc>
+
+let mapleader=" "
+map <leader>z <Action>(ToggleDistractionFreeMode)
+nmap <leader>f <Action>(GotoFile)

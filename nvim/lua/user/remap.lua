@@ -23,7 +23,7 @@ vim.keymap.set("n", "<leader>xx", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Buffers
 -- vim.keymap.set("n", '<S-Tab>', ":b#<CR>")
-vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
+-- vim.keymap.set("n", '<C-Tab>', ":b#<CR>")
 -- vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-Tab>", ":BufferHistoryBack<CR>", { noremap = true, silent = true })
@@ -272,7 +272,7 @@ vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':noh<CR><Esc>', { noremap = true, si
 
 vim.api.nvim_set_keymap('n', '<Leader>uu', ':UndotreeToggle<CR>', {noremap = true, silent = true})
 
-vim.api.nvim_set_keymap('n', '<Leader>dd', ':DBUIToggle<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<Leader>dd', ':DBUIToggle<CR>', {noremap = true, silent = true})
 
 -- Navigate to the top-right split
 vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { noremap = true, silent = true })

@@ -134,6 +134,7 @@ ls.add_snippets("markdown", {
 })
 
 ls.add_snippets("helm", {
+-- ls.add_snippets("yaml", {
 
   s("daemonset", fmt([[
 apiVersion: apps/v1
@@ -378,7 +379,7 @@ command:
   })),
 
   s("init", fmt([[
-initContainers:
+initContainer:
 - name: {}
   image: {}
   command:
@@ -394,12 +395,18 @@ initContainers:
     i(4, "command2"),
   })),
 
-  s("root", fmt([[
-  securityContext:
-    runAsUser: {}
-]], {
-    i(1, "0"),
-  })),
+--   s("root", fmt([[
+--     securityContext:
+--       runAsUser: 0
+-- ]], {
+--   })),
+
+  s("root", {
+    t({
+      "securityContext:",
+      "  runAsUser: 0"
+    })
+  }),
 
   s("env", {
     t("env:"),

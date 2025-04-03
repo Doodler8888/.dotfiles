@@ -24,6 +24,7 @@ local plugins = {
 	-- 'dhruvasagar/vim-buffer-history',
 	-- "anuvyklack/hydra.nvim",
 	-- "stevearc/conform.nvim",
+	"nvim-tree/nvim-tree.lua",
 	{
 	  'kristijanhusak/vim-dadbod-ui',
 	  dependencies = {

@@ -2,6 +2,8 @@ set incsearch
 set rnu
 set clipboard+=unnamed
 
+vnoremap p "_dP
+
 set commentary
 set surround
 
@@ -12,6 +14,10 @@ inoremap <C-b> <Left>
 inoremap <C-p> <Up>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+
+imap <C-k> <C-o>C
+imap <C-u> <C-o>d0
+imap <C-y> <C-r>0
 
 " Word movement in insert mode (M is Alt key)
 inoremap <A-f> <Esc>ea
@@ -24,6 +30,7 @@ inoremap <A-m> <Esc>I
 nnoremap <A-m> ^
 onoremap <A-m> ^
 nnoremap <CR> i<CR><Esc>
+nnoremap Y y$
 
 let mapleader=" "
 map <leader>z <Action>(ToggleDistractionFreeMode)

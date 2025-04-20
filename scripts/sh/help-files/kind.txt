@@ -6,3 +6,6 @@ kind create cluster --config path/to/cluster/template
 
 Delete a cluster:
 kind delete cluster --name=cluster-name (name is without 'kind-' at the start)
+
+Add image:
+kind load docker-image <image_name:tag> --name <cluster_name>

@@ -1,0 +1,2 @@
+Example:
+wget --no-check-certificate -O - https://10.43.0.1:443/version

@@ -20,6 +20,7 @@ in
     yaml-language-server
     lua-language-server
     ansible-lint
+    ansible-language-server
     pyright
     sqls
     kind
@@ -32,6 +33,7 @@ in
     lazydocker
     lazygit
     k9s
+    fluent-bit
     # obs-studio
     # unstablePkgs.emacs # Use unstable Emacs
   ];

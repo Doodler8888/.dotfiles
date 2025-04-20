@@ -1,8 +1,18 @@
 Current context:
 kubectl config current-context
 
-Apply manifest:
-kubectl apply -f path/to/file
+Change context (then use 'kubectl get nodes' to check it):
+kubectl config use-context <context_name>
 
-Rollback status:
-kubectl rollout status resource_type/resource_name
+Apply manifest:
+kubectl apply -f path/to/file -n <namespace>
+
+Describe/explain key:
+kubectl explain pod.spec.containers.imagePullPolicy
+
+Port forwarding:
+kubectl port-forward service/<service_name> <your_port>:<service_port>
+
+Debug container (the '--copy-to' flag create a copy of the target pod):
+kubectl debug -it pod/<pod_name> -n <namespace> --image=busybox
+--share-processes --copy-to=coredns-debug

@@ -8,9 +8,9 @@ take() {
 
 note() {
   {
-    echo "date: $(date)" 
-    echo "$@" 
-    echo "" 
+    echo "date: $(date)"
+    echo "$@"
+    echo ""
   } >> "$HOME/notes.txt"
 }
 
@@ -309,8 +309,11 @@ paste-from-clipboard() {
     fi
 }
 zle -N paste-from-clipboard
-# Bind C-y to the paste widget using the octal code
-bindkey '\031' paste-from-clipboard
+# Bind C-v (octal \026) to paste from the system clipboard
+bindkey '\026' paste-from-clipboard
+# # Bind C-y to the paste widget using the octal code
+# bindkey '\031' paste-from-clipboard
+bindkey '\031' yank
 
 
 switch() {
@@ -331,10 +334,10 @@ sv-down() {
     local SERVICE="$1"
     echo "Stopping $SERVICE..."
     sudo sv down "$SERVICE"
-    
+
     echo "Removing service link..."
     sudo rm "/var/service/$SERVICE"
-    
+
     echo "Service $SERVICE has been stopped and removed."
 }
 
@@ -347,7 +350,7 @@ sv-up() {
     fi
 
     local SERVICE="$1"
-    
+
     if [ ! -d "/etc/sv/$SERVICE" ]; then
         echo "Error: Service '$SERVICE' not found in /etc/sv/"
         return 1
@@ -355,14 +358,14 @@ sv-up() {
 
     echo "Enabling $SERVICE..."
     sudo ln -s "/etc/sv/$SERVICE" "/var/service/"
-    
+
     echo "Service $SERVICE has been enabled."
 }
 
 
 # bak() {
 #     local do_copy=false
-    
+
 #     # Parse options
 #     while getopts "c" opt; do
 #         case $opt in
@@ -374,10 +377,10 @@ sv-up() {
 
 #     [ $# -eq 0 ] && { echo "Usage: bak [-c] filename|directory"; return 1; }
 #     [ ! -e "$1" ] && [ ! -e "${1%.bak}" ] && { echo "Error: File/directory does not exist"; return 1; }
-    
+
 #     # Remove trailing slash if present
 #     local target="${1%/}"
-    
+
 #     if [[ "$target" == *.bak ]]; then
 #         if $do_copy; then
 #             cp -r "$target" "${target%.bak}"
@@ -428,12 +431,12 @@ bindkey '^R' my_fzf_history_widget
 
 delete_word_backward() {
     local CURSOR_BEFORE=$CURSOR
-    
+
     # If there are no characters before cursor, return
     if [[ $CURSOR -eq 0 ]]; then
         return
     fi
-    
+
     # Check if we're dealing with a path (contains slash)
     if [[ ! ${BUFFER:0:$CURSOR} =~ / ]]; then
         # Not a path, use regular word deletion
@@ -441,19 +444,19 @@ delete_word_backward() {
         zle backward-kill-word
         return
     fi
-    
+
     # Check if we're right after a space
     if [[ ${BUFFER:$((CURSOR-1)):1} == " " ]]; then
         # Delete the space
         BUFFER="${BUFFER:0:$((CURSOR-1))}${BUFFER:$CURSOR}"
         CURSOR=$((CURSOR-1))
-        
+
         # Then trigger delete again to delete the word before the space
         if [[ $CURSOR -gt 0 ]]; then
             local text_before=${BUFFER:0:$CURSOR}
             local last_slash_pos=${text_before##*/}
             local last_word_len=${#last_slash_pos}
-            
+
             # If there's a word after the last slash
             if [[ $last_word_len -gt 0 ]]; then
                 CURSOR=$((CURSOR - last_word_len))
@@ -462,7 +465,7 @@ delete_word_backward() {
         fi
         return
     fi
-    
+
     # If cursor is right after a slash, delete until previous slash
     if [[ ${BUFFER:$((CURSOR-1)):1} == "/" ]]; then
         local slash_pos=${BUFFER:0:$((CURSOR-1))}
@@ -478,7 +481,7 @@ delete_word_backward() {
         BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
         return
     fi
-    
+
     # Handle words after a space (like "newpath123" in your example)
     if [[ ${BUFFER:0:$CURSOR} =~ " " ]]; then
         local last_space=${BUFFER:0:$CURSOR}
@@ -489,19 +492,19 @@ delete_word_backward() {
             local space_pos=${BUFFER:0:$CURSOR}
             space_pos=${space_pos%"$last_space"}
             local space_length=${#space_pos}
-            
+
             # Delete the word after the space
             CURSOR=$space_length
             BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
             return
         fi
     fi
-    
+
     # Default case: Find the previous slash position and the word after it
     local path_part=${BUFFER:0:$CURSOR}
     local after_last_slash=${path_part##*/}
     local word_len=${#after_last_slash}
-    
+
     if [[ $word_len -gt 0 ]]; then
         # Delete the word after the last slash
         CURSOR=$((CURSOR - word_len))
@@ -510,7 +513,7 @@ delete_word_backward() {
         # We're at a path boundary, delete until previous slash
         local prev_path=${path_part%/*}
         local prev_path_length=${#prev_path}
-        
+
         if [[ $prev_path_length -gt 0 ]]; then
             CURSOR=$((prev_path_length + 1))
             BUFFER="${BUFFER:0:$CURSOR}${BUFFER:$CURSOR_BEFORE}"
@@ -528,7 +531,7 @@ zle -N delete_word_backward
 
 fzf-copy-notify() {
 notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
-} 
+}
 
 
 # incremental_fzf() {
@@ -557,7 +560,7 @@ notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
 vertico_nav_fzf() {
   local depth=1
   local query=""
-  
+
   while true; do
     local selection=$(find . -mindepth 1 -maxdepth $depth -type d | sed 's|^\./||' | fzf \
       --query "$query" \
@@ -568,15 +571,15 @@ vertico_nav_fzf() {
               find . -mindepth 1 -maxdepth 1 -type d | sed 's|^./||')" \
       --preview "ls -la ./{}" \
       --print-query)
-    
+
     query=$(echo "$selection" | head -1)
     selection=$(echo "$selection" | tail -1)
-    
+
     if [ -z "$selection" ]; then
       echo "No selection made"
       return
     fi
-    
+
     if [ -d "./$selection" ]; then
       echo "Selected: $selection"
       return

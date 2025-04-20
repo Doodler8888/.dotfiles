@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+[ -z "$1" ] && echo "Provide the image name (e.g image-name:1.0)"
+
+docker save -o my-app-image.tar "$1"
+
+sudo k3s ctr --namespace k8s.io images import my-app-image.tar
+
+rm my-app-image.tar

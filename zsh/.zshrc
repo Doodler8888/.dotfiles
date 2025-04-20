@@ -2,24 +2,19 @@ source /usr/local/bin
 source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
 export GOPATH=$HOME/go
-export XDG_HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:$PATH"
+export FPATH="$HOME/.docker/completions:$FPATH"
 GTAGSOBJDIRPREFIX=~/.cache/gtags/
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.9.0.1/bin"
-# export ANSIBLE_CONFIG="~/.dotfiles/ansible/ansible.cfg"
-# export ANSIBLE_COLLECTIONS_PATH="~/.dotfiles/ansible/ansible_collections"
 export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
-# export LUA_BINDIR="/usr/local/bin/"
-# export LUA_BINDIR_SET=yes
 export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
-# export XAUTHORITY=$HOME/.Xauthority
-# export K9S_CONFIG_DIR="~/.config/k9s/"
-# export K9S_SKIN="$HOME/.config/k9s/skins/nord_aurora.yaml"
+export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/k3s-config
+export MANPAGER='nvim +Man!'
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -57,9 +52,6 @@ alias bsh='cd ~/.dotfiles/bash/ && nvim .bashrc'
 alias ble='cd ~/.dotfiles/bash/ && nvim .blerc'
 alias mstart='minikube start'
 alias mstatus='minikube status'
-alias k='kubectl'
-alias kdescribe='kubectl describe'
-alias kapply='kubectl apply'
 alias rm_untagged='docker rm $(docker ps -a -q -f "status=exited") && docker rmi $(docker images -f "dangling=true" -q)'
 alias console='sudo -u postgres psql'
 alias run='nim c -r'
@@ -169,6 +161,19 @@ alias cd-add="add-cd"
 alias a-c="add-cd"
 alias c-a="add-cd"
 alias exit-steam="kill $(pgrep -o steam)"
+alias untar="tar -xzf"
+alias k='kubectl'
+alias klogs="kubectl logs <pod_name> -n default --tail=1 | jq '.'"
+alias kps="kubectl port-forward services/"
+alias kdescribe='kubectl describe'
+alias kapply='kubectl apply'
+alias kcontext='kubectl config current-context'
+alias kcontexts='kubectl config get-contexts'
+alias kswitch='kubectl config use-context'
+alias k3s-install="curl -sfL https://get.k3s.io | sh -"
+alias k3s-remove="sudo /usr/local/bin/k3s-uninstall.sh"
+alias charts="helm list --all-namespaces"
+alias grafana-password="kubectl get secret --namespace default <secret_name> -o jsonpath=\"{.data.admin-password}\" | base64 --decode ; echo"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xa" _expand_alias
@@ -199,8 +204,8 @@ bindkey -M viins '^P' up-line-or-history
 bindkey -M viins '^N' down-line-or-history
 bindkey -M viins '^L' clear-screen
 
-# # I manually use the plugin instead of dealing with any pluging managers
-# # git clone https://github.com/kutsan/zsh-system-clipboard
+# I manually use the plugin instead of dealing with any pluging managers
+# git clone https://github.com/kutsan/zsh-system-clipboard
 # source "$HOME/.source/zsh-system-clipboard/zsh-system-clipboard.zsh"
 # if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
 #     ZSH_SYSTEM_CLIPBOARD_METHOD=xcc
@@ -253,5 +258,6 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source <(kubectl completion zsh)
+source <(helm completion zsh)
 eval "$(direnv hook zsh)"
 # eval "$(starship init zsh)"

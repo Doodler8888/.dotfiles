@@ -1,2 +1,5 @@
 Check if the rule is loaded:
-sudo auditctl -l | grep rule_name_key
+sudo auditctl -l
+
+Source rules:
+augenrules --load

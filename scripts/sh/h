@@ -1,19 +1,21 @@
 #!/bin/sh
 
+HELP_DIR=$HOME/.dotfiles/scripts/sh/help-files
+
 help() {
-    file_name="$XDG_HELP_DIR/$1.txt"
+    file_name="$HELP_DIR/$1.txt"
 
 	if [ "$1" = "psql" ]; then
-		file_name="$XDG_HELP_DIR/postgres.txt"
+		file_name="$HELP_DIR/postgres.txt"
 		cat "$file_name"
     # Try the original file
     elif ! cat "$file_name" 2>/dev/null; then
         # Try adding 's'
-        file_name="$XDG_HELP_DIR/$1s.txt"
+        file_name="$HELP_DIR/$1s.txt"
         if ! cat "$file_name" 2>/dev/null; then
             # Try removing the last character (using `expr` instead of `${var%?}`)
             trimmed_arg=$(echo "$1" | sed 's/.$//')
-            file_name="$XDG_HELP_DIR/$trimmed_arg.txt"
+            file_name="$HELP_DIR/$trimmed_arg.txt"
             if ! cat "$file_name" 2>/dev/null; then
                 echo "No entry for $1"
             fi
@@ -25,7 +27,7 @@ edit_help() {
 	if [ -z "$EDITOR" ]; then
 		echo "The EDITOR variable isn't set" && exit 1
 	else
-		"$EDITOR" "$XDG_HELP_DIR/$1.txt"
+		"$EDITOR" "$HELP_DIR/$1.txt"
 	fi
 }
 

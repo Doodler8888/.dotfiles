@@ -1,0 +1,11 @@
+1. Create a desktop file:
+~/.local/share/applications/myapp.desktop
+
+2. Add this:
+[Desktop Entry]
+Name=MyApp
+Exec=/home/youruser/path/to/myapp
+Type=Application
+
+3. Reload the desktop database (optional):
+update-desktop-database ~/.local/share/applications

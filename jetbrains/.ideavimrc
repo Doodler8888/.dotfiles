@@ -1,8 +1,7 @@
 set incsearch
 set rnu
-set clipboard+=unnamed
-
-vnoremap p "_dP
+set scrolloff=8
+set clipboard=unnamedplus
 
 set commentary
 set surround
@@ -17,7 +16,10 @@ inoremap <C-e> <End>
 
 imap <C-k> <C-o>C
 imap <C-u> <C-o>d0
-imap <C-y> <C-r>0
+imap <C-y> <C-r>+
+
+vmap <C-v> c<ESC>"+p
+vnoremap <C-c> "+y
 
 " Word movement in insert mode (M is Alt key)
 inoremap <A-f> <Esc>ea
@@ -31,7 +33,13 @@ nnoremap <A-m> ^
 onoremap <A-m> ^
 nnoremap <CR> i<CR><Esc>
 nnoremap Y y$
+nnoremap g; :action JumpToLastChange<Enter>
+nnoremap g, :action JumpToNextChange<Enter>
 
 let mapleader=" "
 map <leader>z <Action>(ToggleDistractionFreeMode)
 nmap <leader>f <Action>(GotoFile)
+nmap <leader>p <Action>(EditorPaste)
+
+nmap gww <Action>(com.andrewbrookins.idea.wrap.WrapAction)
+vmap gw <Action>(com.andrewbrookins.idea.wrap.WrapAction)

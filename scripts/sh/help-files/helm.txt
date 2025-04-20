@@ -1,11 +1,17 @@
-List charts:
-helm list -n default
+List installed charts:
+helm list --all-namespaces (or -n <namespace>)
 
 Install your chart:
-helm install <chart-name> path/to/root/dir/of/the/chart --namespace default --create-namespace
+helm install <release-name> path/to/root/dir/of/the/chart --namespace default --create-namespace
 
-Uninstall chart:
+Uninstall chart (specifying a namespace is necessary if it's not the default namespace):
 helm uninstall <chart_name> -n chart_namespace
 
 Upgrade chart:
-helm upgrade <chart-name> path/to/root/dir/of/the/chart --namespace default
+helm upgrade <chart-name> path/to/root/dir/of/the/chart --namespace default -f values.yaml
+
+Search for charts:
+helm search repo <name>
+
+Sync dependencies:
+helm dependency update

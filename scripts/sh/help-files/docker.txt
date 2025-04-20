@@ -1,0 +1,14 @@
+Build image (the last dot is for the build context):
+docker buildx build -t <name>:<tag> .
+
+Run container
+docker run -d -p 8081:8081 -p 5000:5000 --name <container_name> -v <volume_name>:<volume_path_inside_container>
+<image_name>
+
+Execute command on a running container:
+docker exec -it <container_name> bash
+
+Add new image reference:
+docker tag <existing_image_reference> <new_reference>
+Example (you just create another one reference, the old one also stays):
+docker tag fast-api:1.0 wurfkreuz/fast-api:tagname

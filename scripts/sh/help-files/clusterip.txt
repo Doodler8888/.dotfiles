@@ -1,0 +1,2 @@
+Dns of a service:
+<service-name>.<namespace>.svc.cluster.local:<port>

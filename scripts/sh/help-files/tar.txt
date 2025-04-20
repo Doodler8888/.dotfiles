@@ -7,8 +7,8 @@
     extracting to a specific location. If omitted, tar extracts to the current
     directory.
 
-Extract a simple (uncompressed) tarball:
-tar -xvf my_archive.tar
+Extract (the -z flag must be before the -f flag):
+tar -xzf pycharm-community-2024.3.5.tar.gz
 
 Create a simple (uncompressed) tarball:
 tar -cvf my_archive.tar file1.txt file2.txt my_directory/

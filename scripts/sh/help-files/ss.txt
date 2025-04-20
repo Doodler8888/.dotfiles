@@ -1,0 +1,8 @@
+Show all tcp/udp sockets with names:
+sudo ss -tulpn
+
+t: TCP
+u: UDP
+l: listening
+p: process name/PID
+n: numeric ports

@@ -1,0 +1,2 @@
+Add group:
+usermod -aG <group_name> <user_name>

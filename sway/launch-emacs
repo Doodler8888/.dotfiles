@@ -9,7 +9,7 @@ swaymsg 'workspace 1'
 # swaymsg 'exec firefox'
 swaymsg 'exec brave'
 
-sleep 2
+sleep 5
 
 # Create a tabbed container on workspace 2 and assign browsers to it
 swaymsg 'workspace 2'
@@ -28,19 +28,22 @@ sleep 2
 swaymsg 'workspace 3'
 # swaymsg 'exec alacritty -e tmux'
 swaymsg 'exec emacs'
+sleep 2
 swaymsg 'exec /opt/pycharm/bin/pycharm.sh'
 # swaymsg 'exec foot tmux'
-
+sleep 2
 # Can't use this code with the sway tmux float. Otherwise the float will open with the main function instead of the one i specify.
 # You also need to use the 'exec foot tmux new-session -d -s main || true' command
 swaymsg 'exec foot tmux new-session -d -s main || true'
-sleep 1
+sleep 2
 # swaymsg 'exec /usr/bin/foot /usr/bin/tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
 swaymsg 'exec foot tmux run-shell /home/wurfkreuz/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
-sleep 1
+sleep 2
 swaymsg 'exec foot tmux attach-session -t main'
 
 # swaymsg 'layout stacking'
+
+sleep 2
 swaymsg 'layout tabbed'
 
 # # Tab 1
@@ -72,6 +75,14 @@ sleep 1
 swaymsg 'workspace 4'
 # swaymsg 'exec telegram-desktop'
 swaymsg 'exec Telegram'
+
+sleep 1
+
+# swaymsg 'workspace 5'
+
+# swaymsg 'exec obsidian'
+
+# sleep 5
 
 swaymsg 'workspace 3'
 

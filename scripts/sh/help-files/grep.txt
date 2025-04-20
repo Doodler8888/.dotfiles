@@ -1,0 +1,5 @@
+Grep without cat:
+grep "pattern" filename
+
+Grep with several patterns:
+grep -E 'WARNING|ERROR'

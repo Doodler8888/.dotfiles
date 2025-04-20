@@ -1,18 +1,15 @@
-Add a group to a user (the group wont be updated even after 'exec zsh -l',
+Check if a group exists (only through exit code);
+getent group <group_name> >/dev/null 2>&1; echo $?
+
+Add a group to a user (the group list wont be updated even after 'exec zsh -l',
 because it doesn't trigger /bin/login):
 sudo usermod -aG groupname username
+
+Load a shell with the added group:
+su - <user_name>
 
 Remove a user from a group:
 (TLDR - just edit /etc/group)
 
 Remove a group:
 sudo groupdel groupname
-
-Void page about groups:
-https://docs.voidlinux.org/config/users-and-groups.html?highlight=groups#default-groups
-
-Original list of groups:
-wurfkreuz bin sys wheel daemon floppy audio video cdrom optical kvm xbuilder
-
-But i ended up having only these:
-wurfkreuz wheel audio video

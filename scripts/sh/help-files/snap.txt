@@ -1,0 +1,9 @@
+List all updatable packages:
+snap refresh --list
+
+Update package:
+sudo snap refresh <package_name>
+
+Update all packages (if it doesn't update, that means that target packages are
+opened currently):
+sudo snap refresh

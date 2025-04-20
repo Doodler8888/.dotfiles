@@ -139,12 +139,21 @@ lspconfig.pyright.setup {
 --   },
 -- }
 
+
+-- Disable because it creates '.ansible' directories everywhere
+-- require('lspconfig').ansiblels.setup {
+--   cmd = { "ansible-language-server", "--stdio" },
+--   root_dir = lspconfig.util.root_pattern(".git"),
+--   filetypes = { "yaml", "ansible" },
+--   }
+
 require("lspconfig").yamlls.setup {
 	-- filetypes = { "yaml", "yaml.kubernetes", "yaml.ansible" },
 	filetypes = { "yaml", "helm" },
 	settings = {
 	  yaml = {
 	    schemas = {
+	      ["https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json"] = "tasks/*.{yml,yaml}",
 	      kubernetes = {
 		"*/templates/*.yaml",
 		"*/kubernetes/*.yaml",

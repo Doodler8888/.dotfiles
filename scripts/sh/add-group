@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# The script should be utility agnostic. If i don't have usermod, then it tries
+# to use something else.
+
+set -e
+
+
+if command -v usermod >/dev/null 2>&1; then
+	if getent group "$1" >/dev/null 2>&1; then
+		sudo usermod -aG "$1" "$USER"
+		echo "Run:\nexec zsh -l"
+	else
+		echo "Group $1 doesn't exist"
+	fi
+else
+    echo "usermod isn't installed"
+fi

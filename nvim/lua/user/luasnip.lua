@@ -133,8 +133,49 @@ ls.add_snippets("markdown", {
     }),
 })
 
+-- add snippets for ClusterRoleBinding, ClusterRole and ServiceAccount
 ls.add_snippets("helm", {
 -- ls.add_snippets("yaml", {
+
+s("deployment", fmt([[
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {}
+  namespace: {}
+spec:
+  replicas: {}
+  selector:
+    matchLabels:
+      app: {}
+  template:
+    metadata:
+      labels:
+        app: {}
+    spec:
+      containers:
+      - name: {}
+        image: {}
+        ports:
+        - containerPort: {}
+]], {
+    i(1, "deployment-name"),
+    i(2, "default"),
+    i(3, "3"),
+    i(4, "app-label"),
+    i(5, "app-label"),
+    i(6, "container-name"),
+    i(7, "image:tag"),
+    i(8, "80")
+})),
+
+s("env-node", fmt([[
+env:
+  - name: NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+]], {})),
 
   s("daemonset", fmt([[
 apiVersion: apps/v1
@@ -251,7 +292,7 @@ spec:
     t({"", "    type: "}), i(7, "DirectoryOrCreate")
   }),
 
-  s("k8s-service", {
+  s("service", {
     t("apiVersion: v1"), t({"", "kind: Service"}),
     t({"", "metadata:"}),
     t({"", "  name: "}), i(1, "my-service"),
@@ -263,6 +304,20 @@ spec:
     t({"", "      port: "}), i(3, "80"),
     t({"", "      targetPort: "}), i(4, "9376")
   }),
+
+  s("configmap", fmt([[
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {}
+  namespace: {}
+data:
+  {}: |
+]], {
+    i(1, "configmap-name (can't contain underscores?)"),
+    i(2, "default"),
+    i(3, "config-file-name"),
+  })),
 
   s("pvc-static", fmt([[
 apiVersion: v1
@@ -509,3 +564,4 @@ s("filesystem", fmt([[
     dev: {}
 ]], { i(1, "name"), i(2, "path"), i(3, "type"), i(4, "path_to_paritition") })),
 })
+

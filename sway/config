@@ -90,7 +90,6 @@ bindsym $mod+e exec emacs
 # bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
 # bindsym $mod+t exec telegram-desktop
 # bindsym $mod+shift+t exec telegram
-bindsym $mod+i exec /home/wurfkreuz/Downloads/intellij/idea-IU-242.23339.11/bin/idea
 
 # Workspace management
 bindsym $mod+1 workspace number 1
@@ -149,7 +148,7 @@ output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # I also probably need to add a command that applies the gif. I haven't done it
 # here because by the time i wrote this line, i already applied the image, and
 # it looks like i don't have to reapply it.
-exec_always --no-startup-id /home/wurfkreuz/.dotfiles/sway/swww.sh
+# exec_always --no-startup-id /home/wurfkreuz/.dotfiles/sway/swww.sh
 
 # # An attempt to enable polkit
 # exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1

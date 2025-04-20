@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+mkdir -p ~/.kube
+if [ ! -d /etc/rancher/k3s ]; then
+	echo "Did you install k3s cluster? Run:\ncurl -sfL https://get.k3s.io | sh - "; exit 1;
+else
+	sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+fi
+
+sudo chown $(id -u):$(id -g) ~/.kube/config
+chmod 600 ~/.kube/config

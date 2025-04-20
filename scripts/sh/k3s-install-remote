@@ -1,0 +1,25 @@
+#!/bin/sh
+
+
+set -e
+
+
+remote_host_ip="$(ssh wurfkreuz-server "ip a | grep '192.168.100.' | awk '{print \$2}' | cut -c -13")"
+
+if ssh wurfkreuz-server "[ ! -f /usr/local/bin/k3s-uninstall.sh ]"; then
+    if [ "$1" = '-m' ]; then
+	echo "Installing with klipper disabled (for metallb)"
+	ssh -t wurfkreuz-server "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable servicelb\" sh -s -"
+    else
+	ssh -t wurfkreuz-server "curl -sfL https://get.k3s.io | sh -"
+    fi
+    ssh wurfkreuz-server -t "sudo /usr/bin/cat /etc/rancher/k3s/k3s.yaml" > $HOME/.kube/k3s-config
+    sed -i 's/default/laptop/g' $HOME/.kube/k3s-config
+    sed -i "s/127.0.0.1/$remote_host_ip/" $HOME/.kube/k3s-config
+else
+    echo 'The cluster is probably installed already.'
+    echo 'Trying to copy /etc/rancher/k3s/k3s.yaml to your host...'
+    ssh wurfkreuz-server -t "sudo /usr/bin/cat /etc/rancher/k3s/k3s.yaml" > $HOME/.kube/k3s-config
+    sed -i 's/default/laptop/g' $HOME/.kube/k3s-config
+    sed -i "s/127.0.0.1/$remote_host_ip/" $HOME/.kube/k3s-config
+fi

@@ -1,0 +1,12 @@
+Install cluster:
+curl -sfL https://get.k3s.io | sh -
+or
+k3s-install (alias)
+
+Delete cluster:
+sudo /usr/local/bin/k3s-uninstall.sh
+or
+k3s-remove (alias)
+
+Add container (through my own script):
+k3s-add-image iamge-name:1.0

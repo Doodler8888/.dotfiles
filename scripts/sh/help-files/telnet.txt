@@ -1,2 +1,2 @@
 Check tcp connection:
-nc -vz <ip> <port>
+telnet <ip> <port>

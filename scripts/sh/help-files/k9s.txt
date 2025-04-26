@@ -1,0 +1,2 @@
+Switch between previos/next windows:
+hyphen (in other words "minus")

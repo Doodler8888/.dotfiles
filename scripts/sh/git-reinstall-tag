@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+set -e
+
+
+echo "Enter tag value:"
+read -r tag
+
+git tag -d "$tag"
+git push origin :refs/tags/"$tag"
+
+last_commit="$(git log -n 1 | awk 'NR == 1 { print $2 }')"
+git tag "$tag" "$last_commit"
+git push origin "$tag"
+

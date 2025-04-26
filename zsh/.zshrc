@@ -174,6 +174,8 @@ alias k3s-install="curl -sfL https://get.k3s.io | sh -"
 alias k3s-remove="sudo /usr/local/bin/k3s-uninstall.sh"
 alias charts="helm list --all-namespaces"
 alias grafana-password="kubectl get secret --namespace default <secret_name> -o jsonpath=\"{.data.admin-password}\" | base64 --decode ; echo"
+alias t="tree -a --gitignore -I '.git' -I '.gitignore'"
+alias last-commit="git log n -1"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xa" _expand_alias

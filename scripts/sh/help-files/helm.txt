@@ -5,7 +5,7 @@ Install your chart:
 helm install <release-name> path/to/root/dir/of/the/chart --namespace default --create-namespace
 
 Uninstall chart (specifying a namespace is necessary if it's not the default namespace):
-helm uninstall <chart_name> -n chart_namespace
+helm uninstall -n <chart_namespace> <chart_name>
 
 Upgrade chart:
 helm upgrade <chart-name> path/to/root/dir/of/the/chart --namespace default -f values.yaml

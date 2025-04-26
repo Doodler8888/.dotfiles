@@ -8,6 +8,9 @@ docker run -d -p 8081:8081 -p 5000:5000 --name <container_name> -v <volume_name>
 Execute command on a running container:
 docker exec -it <container_name> bash
 
+Set entrypoint:
+docker run -it --rm --entrypoint bash <image_name:tag>
+
 Add new image reference:
 docker tag <existing_image_reference> <new_reference>
 Example (you just create another one reference, the old one also stays):

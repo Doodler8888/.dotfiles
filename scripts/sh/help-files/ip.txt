@@ -1,0 +1,2 @@
+Check arp table:
+ip neigh show

@@ -1,2 +1,5 @@
 Check logs:
 journalctl -u <daemon_name> --since "1 hour ago"
+
+Check logs in real time (you can even filter it through grep):
+sudo journalctl -fk

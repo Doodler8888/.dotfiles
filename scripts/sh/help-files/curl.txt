@@ -1,5 +1,6 @@
-If you wont to save a file, you use:
-
+If you want to save a file, use (-o directs stdout into a file, -L handles http
+redirection):
 curl -Lo file-name https://www.whatever.com/path/to/something
 
--o directs stnout into a file, -L handles http redirection.
+Ignore certificates:
+curl -k https://wurfkreuz-server.local:6443

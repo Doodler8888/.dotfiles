@@ -1,0 +1,2 @@
+Search and replace (should work on selection):
+M-r

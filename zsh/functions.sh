@@ -184,6 +184,8 @@ function wait_for_ctrl_r_or_c {
   #   print_current_directory_inline
   elif [[ "$key" == $'\p' ]]; then
     print_current_directory_inline
+  # elif [[ "$key" == $'C-v' ]]; then
+  #   fzf-copy-notify
   # elif [[ "$key" == $'\C-b' ]]; then
   #   switch_branch
   elif [[ "$key" == $'\y' ]]; then
@@ -217,17 +219,17 @@ fzf-nvim() {
 zle -N fzf-nvim
 # bindkey '^E' fzf-nvim
 
-ss() {
-  # set -x - debugging
-  local session
-  # session=$(zellij list-sessions | fzf --height=10 --layout=reverse --border --ansi)
-  session=$(tmux list-sessions | fzf --height=10 --layout=reverse --border --ansi)
-  if [[ -n "$session" ]]; then
-      # zellij attach "$(echo "$session" | awk '{print $1}')"
-      tmux attach -t "$(echo "$session" | awk '{print $1}' | sed 's/:$//')"
-  fi
-}
-zle -N ss
+# ss() {
+#   # set -x - debugging
+#   local session
+#   # session=$(zellij list-sessions | fzf --height=10 --layout=reverse --border --ansi)
+#   session=$(tmux list-sessions | fzf --height=10 --layout=reverse --border --ansi)
+#   if [[ -n "$session" ]]; then
+#       # zellij attach "$(echo "$session" | awk '{print $1}')"
+#       tmux attach -t "$(echo "$session" | awk '{print $1}' | sed 's/:$//')"
+#   fi
+# }
+# zle -N ss
 
 
 clear-ls-all() {
@@ -532,7 +534,9 @@ zle -N delete_word_backward
 fzf-copy-notify() {
 notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
 }
-
+# autoload fzf-copy-notify
+# zle -N fzf-copy-notify
+# bindkey '^0' fzf-copy-notify
 
 # incremental_fzf() {
 #   local curr_dir="."

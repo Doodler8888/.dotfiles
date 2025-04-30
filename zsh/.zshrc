@@ -160,7 +160,7 @@ alias grr="git remote rm"
 alias cd-add="add-cd"
 alias a-c="add-cd"
 alias c-a="add-cd"
-alias exit-steam="kill $(pgrep -o steam)"
+alias steam-shutdown="kill $(pgrep -o steam)"
 alias untar="tar -xzf"
 alias k='kubectl'
 alias klogs="kubectl logs <pod_name> -n default --tail=1 | jq '.'"

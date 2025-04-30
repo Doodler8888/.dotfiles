@@ -1,0 +1,8 @@
+Run a cluster (should execute in the same directory as the compose file):
+docker compose up -d
+
+Check status of containers:
+docker compose ps
+
+Put down the cluster (if you also want to remove volumes, add -v):
+docker compose down

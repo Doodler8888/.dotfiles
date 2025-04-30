@@ -1,0 +1,8 @@
+Launch a cluster:
+docker compose up -d
+
+Disable a cluster:
+docker compose down
+
+Check status of containers:
+docker compose ps

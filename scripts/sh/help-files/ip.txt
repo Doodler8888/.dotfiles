@@ -1,2 +1,5 @@
+Check routing table:
+ip route
+
 Check arp table:
 ip neigh show

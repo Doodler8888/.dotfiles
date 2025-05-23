@@ -1,0 +1,7 @@
+When you need to use printf to print out variables akin
+echo $variable > file
+
+You need to do it like this (if you need to add a newline, do '%s\n'):
+printf '%s' "$variable" > file
+
+Without '%s' printf interpretates the context of a variable as an instruction.

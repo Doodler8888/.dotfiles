@@ -594,3 +594,13 @@ vertico_nav_fzf() {
 q() {
     xbps-query -Rs "*$1*"
 }
+
+
+gateway() {
+	ip route show | grep default | awk '{print $3}'; echo; echo \"To see every existing gateway, use 'ip route show'\";
+}
+
+
+steam-shutdown() {
+  kill "$(pgrep -o steam)"
+}

@@ -9,4 +9,4 @@ or
 k3s-remove (alias)
 
 Add container (through my own script):
-k3s-add-image iamge-name:1.0
+k3s-add-image image-name:1.0

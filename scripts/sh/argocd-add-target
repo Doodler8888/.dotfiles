@@ -1,0 +1,30 @@
+#!/bin/sh
+
+
+set -e
+
+
+argocd account get || { echo "You either need to log in, or nothing works on the argocd port."; exit 1; }
+
+echo "Write cluster names (context names) using a whitespace as a delimiter:"
+read -r clusters
+
+for cluster in $clusters; do
+    kubectl config use-context "$cluster"
+
+    # the idea for this approach is that the dry run outputs a yaml file with a
+    # manifest it would execute and if everything alright it is passed to the
+    # real command. That way my script is idempotent.
+    kubectl create namespace argocd-manager --dry-run=client -o yaml | kubectl apply -f -
+    kubectl create serviceaccount argocd-manager-sa -n argocd-manager --dry-run=client -o yaml | kubectl apply -f -
+
+    kubectl create clusterrolebinding argocd-manager-admin-binding \
+	--clusterrole=cluster-admin \
+	--serviceaccount=argocd-manager:argocd-manager-sa --dry-run=client -o yaml | kubectl apply -f -
+
+    argocd cluster add "$cluster" \
+      --system-namespace argocd-manager \
+      --cluster-resources \
+      --label infrastructure=yes \
+      --upsert
+done

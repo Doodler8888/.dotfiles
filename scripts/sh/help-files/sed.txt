@@ -1,3 +1,5 @@
 Delete a first line:
-
 sed '1d' intput_file > output_file
+
+Remove the last character:
+printf "%s" "$output" | sed 's/.$//'

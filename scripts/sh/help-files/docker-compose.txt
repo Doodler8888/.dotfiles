@@ -1,6 +1,9 @@
 Launch a cluster:
 docker compose up -d
 
+Recreate a container:
+docker compose up -d --force-recreate <container_name>
+
 Disable a cluster:
 docker compose down
 

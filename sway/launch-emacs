@@ -23,7 +23,7 @@ swaymsg 'exec vivaldi.vivaldi-stable --ozone-platform=wayland --enable-features=
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
-sleep 5
+sleep 7
 
 
 swaymsg 'workspace 3'

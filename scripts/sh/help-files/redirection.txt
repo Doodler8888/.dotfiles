@@ -1,0 +1,2 @@
+Redirect stdout and stderr (bash only):
+$>

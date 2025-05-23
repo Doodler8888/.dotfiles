@@ -15,6 +15,7 @@ export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/k3s-config
 export MANPAGER='nvim +Man!'
+export VAULT_ADDR="http://192.168.100.13:30007"
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -160,26 +161,30 @@ alias grr="git remote rm"
 alias cd-add="add-cd"
 alias a-c="add-cd"
 alias c-a="add-cd"
-alias steam-shutdown="kill $(pgrep -o steam)"
 alias untar="tar -xzf"
 alias k='kubectl'
 alias klogs="kubectl logs <pod_name> -n default --tail=1 | jq '.'"
 alias kps="kubectl port-forward services/"
 alias kdescribe='kubectl describe'
-alias kapply='kubectl apply'
+alias kapply='kubectl apply -f'
+alias kaf='kubectl apply -f'
 alias kcontext='kubectl config current-context'
 alias kcontexts='kubectl config get-contexts'
 alias kswitch='kubectl config use-context'
 alias k3s-install="curl -sfL https://get.k3s.io | sh -"
+alias k3s-install-metallb="curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable servicelb\" sh -s -"
 alias k3s-remove="sudo /usr/local/bin/k3s-uninstall.sh"
 alias charts="helm list --all-namespaces"
 alias grafana-password="kubectl get secret --namespace default <secret_name> -o jsonpath=\"{.data.admin-password}\" | base64 --decode ; echo"
 alias t="tree -a --gitignore -I '.git' -I '.gitignore'"
 alias last-commit="git log n -1"
+alias argocd-password="kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d"
+alias ipa="ip -o addr show | grep -E ' (eth|enp|ens|eno|wlan|wlp|wlx)[^ ]* .*inet ' | awk '{print \$2, \$4}'"
 
 autoload -Uz compinit; compinit;
-bindkey "^Xa" _expand_alias
-zstyle ':completion:*' completer _expand_alias _complete _ignored
+bindkey "^Xe" _expand_alias
+zstyle ':completion:*' completer _complete _ignored
+# zstyle ':completion:*' completer _expand_alias _complete _ignored
 zstyle ':completion:*' regular true
 
 # Command auto-correction.
@@ -261,5 +266,12 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 
 source <(kubectl completion zsh)
 source <(helm completion zsh)
+# if i add this, i'll get errors
+# vault -autocomplete-install
 eval "$(direnv hook zsh)"
 # eval "$(starship init zsh)"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /snap/opentofu/156/tofu tofu
+
+complete -o nospace -C /usr/bin/vault vault

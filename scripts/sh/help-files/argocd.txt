@@ -1,0 +1,5 @@
+Add cluster (you need to log in first):
+argocd cluster add <your-laptop-context-name>
+
+Check all added cluster:
+argocd cluster list

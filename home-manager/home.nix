@@ -34,6 +34,8 @@ in
     lazygit
     k9s
     fluent-bit
+    ventoy-full-gtk
+    # keyd
     # obs-studio
     # unstablePkgs.emacs # Use unstable Emacs
   ];

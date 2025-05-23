@@ -1,1 +1,4 @@
 sudo dd if=image-name.iso of=/dev/sdX status=progress
+
+You can make dd faster by adding something like "​​bs=32M", but i haven't asked or
+try this flag. It makes the writing faster by making blocks to be bigger.

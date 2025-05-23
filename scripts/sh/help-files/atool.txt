@@ -1,0 +1,6 @@
+Tool	      Purpose
+
+aunpack	      Extract archives
+apack	      Create archives
+als	          List contents of an archive
+arepack	      Convert archive formats

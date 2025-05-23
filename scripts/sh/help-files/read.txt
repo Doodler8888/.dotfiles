@@ -1,0 +1,6 @@
+Example:
+
+echo "Write cluster names (whitespace as a delimiter)"
+read -r clusters
+
+echo "$clusters"

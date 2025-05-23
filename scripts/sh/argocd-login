@@ -1,0 +1,17 @@
+#!/bin/sh
+
+
+set -e
+
+
+echo "Enter the namespace on which argocd works currently (default 'argocd')":
+read -r namespace
+
+test -z "$namespace" && namespace=argocd
+
+password="$(kubectl -n $namespace get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d)"
+
+echo "This is the password: $password"
+
+argocd login localhost:8082 \
+    --username admin --password "$password"

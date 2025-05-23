@@ -1,0 +1,21 @@
+TO USE ANY OF THI COMMANDS, YOU HAVE TO USE THE -address FLAG. IT COMES AFTER
+THE MAIN SEQUENCE (e.g. 'vault policy write -address ...'). OR YOU CAN EXPORT
+THE VAULT_ADDR ENV VARIABLE.
+
+Log in:
+vault login [-address <vault_address>] <root_token>
+
+Apply policy:
+vault policy write <policy_name> <path_to_policy_file>
+
+Policy list:
+vault policy list
+
+Create a token (the -period flag is for the -renewable flag):
+vault token create -policy="policy_name" -ttl="8h" -renewable=true -period="24h"
+
+Add a secret (you have to use the path in such manner '-mount="..." "..."',
+otherwise you'll get 403 error):
+vault kv put -address <address> -mount="kv" "<path>" <key>=<value> \
+													 <key>=<value> \
+													 <key>=<value>

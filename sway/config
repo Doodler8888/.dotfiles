@@ -52,6 +52,8 @@ bindsym $mod+t layout tabbed
 # bindsym $mod+t layout toggle all
 # bindsym $mod+Shift+t exec swaymsg workspace_layout tabbed
 
+bindsym $mod+Home exec wtype -k End # make sure you have wtype installed
+
 bindsym $mod+h focus left
 bindsym $mod+l focus right
 bindsym $mod+k focus up

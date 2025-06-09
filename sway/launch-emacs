@@ -32,7 +32,7 @@ swaymsg 'exec emacs'
 sleep 2
 swaymsg 'exec /opt/pycharm/bin/pycharm.sh'
 # swaymsg 'exec foot tmux'
-sleep 2
+sleep 4
 # Can't use this code with the sway tmux float. Otherwise the float will open with the main function instead of the one i specify.
 # You also need to use the 'exec foot tmux new-session -d -s main || true' command
 swaymsg 'exec foot tmux new-session -d -s main || true'
@@ -75,7 +75,8 @@ sleep 1
 
 swaymsg 'workspace 4'
 # swaymsg 'exec telegram-desktop'
-swaymsg 'exec Telegram'
+# swaymsg 'exec Telegram'
+swaymsg 'exec /snap/bin/telegram-desktop'
 
 sleep 1
 

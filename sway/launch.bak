@@ -76,7 +76,9 @@ swaymsg 'layout stacking'
 sleep 2
 
 swaymsg 'workspace 4'
-swaymsg 'exec telegram-desktop'
+# swaymsg 'exec /snap/bin/telegram-desktop'
+# swaymsg 'exec ~/.nix-profile/bin/telegram-desktop'
+
 # swaymsg 'exec telegram'
 
 swaymsg 'workspace 3'

@@ -1,19 +1,14 @@
-Data directory:
-/var/lib/postgresql*/data/
-
-Config file (* - version):
-/var/lib/postgresql*/data/pg_hba.conf
-or
-/etc/postgresql/*/main/pg_hba.conf
+Connect to a database:
+psql -h pg-primary.internal.company.com -U your_username -d name_of_db
 
 Connection url:
 postgresql://myuser:mypassword@localhost/mydatabase
 
+Print current user:
+SELECT user;
 
-Commands:
+List all roles:
+\du
 
-SELECT user; - print current user
-
-\du - list all roles
-
-\l or \list (without semicolon) - list all databases
+List all databases:
+\l or \list (without semicolon)

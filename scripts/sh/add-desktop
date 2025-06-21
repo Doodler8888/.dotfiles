@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+
+set -e
+
+
+create_desktop_file() {
+    local executable_path="$1"
+    local output_dir="${2:-$HOME/.local/share/applications}"
+    
+    # Check if executable path is provided
+    if [[ -z "$executable_path" ]]; then
+        echo "Usage: create_desktop_file <executable_path> [output_directory]"
+        echo "Example: create_desktop_file /usr/bin/firefox"
+        echo "Example: create_desktop_file ./myapp ~/Desktop"
+        return 1
+    fi
+    
+    # Get absolute path
+    executable_path=$(realpath "$executable_path")
+    
+    # Check if executable exists
+    if [[ ! -f "$executable_path" ]]; then
+        echo "Error: Executable not found: $executable_path"
+        return 1
+    fi
+    
+    # Check if file is executable
+    if [[ ! -x "$executable_path" ]]; then
+        echo "Error: File is not executable: $executable_path"
+        return 1
+    fi
+    
+    # Create output directory if it doesn't exist
+    mkdir -p "$output_dir"
+    
+    # Extract application name from path as default
+    default_name=$(basename "$executable_path")
+    
+    # Ask user for application name
+    echo "Enter application name (press Enter for default: $default_name):"
+    read -r user_input
+    
+    # Use user input if provided, otherwise use default
+    if [[ -n "$user_input" ]]; then
+        app_name="$user_input"
+        file_name=$(echo "$user_input" | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
+    else
+        app_name="$default_name"
+        file_name="$default_name"
+    fi
+    
+    # Desktop file path
+    desktop_file="$output_dir/${file_name}.desktop"
+    
+    # Create desktop file
+    cat > "$desktop_file" << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=$app_name
+Comment=Application: $app_name
+Exec=$executable_path
+Icon=application-x-executable
+Terminal=false
+Categories=Application;
+EOF
+    
+    # Make desktop file executable
+    chmod +x "$desktop_file"
+    
+    echo "Desktop file created: $desktop_file"
+    return 0
+}
+
+# Main script logic
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Script is being run directly
+    if [[ $# -eq 0 ]]; then
+        echo "Desktop File Creator"
+        echo "Usage: $0 <executable_path> [output_directory]"
+        echo ""
+        echo "Examples:"
+        echo "  $0 /usr/bin/firefox                    # Creates firefox.desktop in ~/.local/share/applications"
+        echo "  $0 ./myapp ~/Desktop                   # Creates myapp.desktop on Desktop"
+        echo "  $0 /opt/myprogram/bin/myprogram        # Creates myprogram.desktop in ~/.local/share/applications"
+        exit 1
+    fi
+    
+    create_desktop_file "$@"
+fi

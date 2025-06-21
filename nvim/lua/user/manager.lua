@@ -25,26 +25,7 @@ local plugins = {
 	-- "anuvyklack/hydra.nvim",
 	-- "stevearc/conform.nvim",
 	-- "nvim-tree/nvim-tree.lua",
-	{
-	  'kristijanhusak/vim-dadbod-ui',
-	  dependencies = {
-	    { 'tpope/vim-dadbod', lazy = true },
-	    { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql', 'psql' }, lazy = true },
-	  },
-	  cmd = {
-	    'DBUI',
-	    'DBUIToggle',
-	    'DBUIAddConnection',
-	    'DBUIFindBuffer',
-	  },
-	  init = function()
-	    -- Your DBUI configuration
-	    vim.g.db_ui_use_nerd_fonts = 1
-	  end,
-	},
 	'Doodler8888/resession.nvim',
-	{ "ngynkvn/gotmpl.nvim", opts = {}},
-	-- 'tpope/vim-surround',
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -55,22 +36,12 @@ local plugins = {
 			})
 		end,
 	},
-	-- {
-	-- 	"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
-	-- 	bvent = "InsertEnter",
-	-- 	opts = {}, -- this is equalent to setup({}) function
-	-- },
-	-- {
-	--     'altermo/ultimate-autopair.nvim',
-	--     event={'InsertEnter','CmdlineEnter'},
-	--     branch='v0.6', --recommended as each new version will have breaking changes
-	--     opts={
-	-- 	--Config goes here
-	--     },
-	-- },
-	-- 'tpope/vim-fugitive',
+	{
+		"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
+		bvent = "InsertEnter",
+		opts = {}, -- this is equalent to setup({}) function
+	},
 	'justinmk/vim-dirvish',
-	-- 'stevearc/oil.nvim',
 	{
 		"neovim/nvim-lspconfig",
 	},
@@ -88,24 +59,12 @@ local plugins = {
   --   -- configuration here or empty for defaults
   -- },
 },
--- {
---     "vhyrro/luarocks.nvim",
---     priority = 1001, -- this plugin needs to run before anything else
---     opts = {
---         rocks = { "magick" },
---     },
--- },
--- {
---     "3rd/image.nvim",
---     dependencies = { "luarocks.nvim" },
---     opts = {}
--- },
 	{
 		'echasnovski/mini.nvim',
 		branch = 'main',
 		config = function()
-			require("mini.pairs").setup({
-			})
+			-- require("mini.pairs").setup({
+			-- })
 			-- require("mini.completion").setup({
 			-- })
 			-- require("mini.ai").setup({
@@ -114,16 +73,6 @@ local plugins = {
 			-- })
 		end,
 	},
-	-- 'mbbill/undotree',
-	-- {
-	-- 'smilhey/ed-cmd.nvim',
-	-- 	config = function()
-	--  vim.opt.guicursor = "n-v:block,i-ci-c-ve:ver25,r-cr:hor20,o:hor50"
-	-- 		require("ed-cmd").setup({
-	-- 			keymaps = { edit = "<ESC>", execute = "<CR>", close = "<C-g>" },
-	-- 		})
-	-- 	end,
-	-- },
 	{
 	  "nvim-treesitter/nvim-treesitter",
 	  config = function()

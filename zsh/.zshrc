@@ -180,6 +180,7 @@ alias t="tree -a --gitignore -I '.git' -I '.gitignore'"
 alias last-commit="git log n -1"
 alias argocd-password="kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d"
 alias ipa="ip -o addr show | grep -E ' (eth|enp|ens|eno|wlan|wlp|wlx)[^ ]* .*inet ' | awk '{print \$2, \$4}'"
+alias launch-goland="sh /home/wurfkreuz/Downloads/archives/GoLand-252.19874.29/bin/goland.sh"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xe" _expand_alias

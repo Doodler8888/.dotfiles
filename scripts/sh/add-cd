@@ -1,8 +1,4 @@
 #!/bin/sh
-# > cd-add .dotfiles
-# This is the executed command: echo /home/wurfkreuz//home/wurfkreuz/.dotfiles >> /home/wurfkreuz/.dirs
-
-# Secondly, i need to check if the added path exists.
 
 dirs_path=""
 dir_file="$HOME/.dotfiles/scripts/sh/dirs/add-cd-dirs"

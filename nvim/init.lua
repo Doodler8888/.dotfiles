@@ -1,9 +1,3 @@
--- Forcefully disable the conflicting nvim-surround insert-mode mapping
--- by mapping its underlying <Plug> to <Nop> (No Operation).
--- This must be done before other plugins are loaded.
-vim.keymap.set('i', '<Plug>(nvim-surround-insert)', '<Nop>', { noremap = true, silent = true })
-vim.keymap.set('i', '<Plug>(nvim-surround-insert-line)', '<Nop>', { noremap = true, silent = true })
-
 vim.filetype.add({
   pattern = {
     [".*/templates/.*%.yaml"] = "helm",
@@ -51,6 +45,5 @@ end
 
 -- Update your statusline to use the plugin's function
 vim.o.statusline = '%{winnr()} %{%v:lua.FormatFilePath()%} %{gitbranch#name() != "" ? "[" . gitbranch#name() . "]" : ""}'
-
 
 

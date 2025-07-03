@@ -37,5 +37,3 @@ end
 vim.cmd([[
     cabbrev <expr> so getcmdtype() == ':' && getcmdline() == 'so' ? '<Cmd>lua source_and_trim()<CR>' : 'so'
 ]])
-
-

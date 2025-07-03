@@ -138,3 +138,8 @@ alias inpt='cd $HOME/.dotfiles/bash && nvim .inputrc'
 complete -C /snap/opentofu/156/tofu tofu
 
 complete -C /usr/bin/vault vault
+
+. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+eval "$(atuin init bash)"

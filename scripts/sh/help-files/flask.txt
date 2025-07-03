@@ -1,0 +1,2 @@
+Run a flask server:
+flask --app hello run

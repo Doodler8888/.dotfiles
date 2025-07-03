@@ -16,6 +16,7 @@ if ssh wurfkreuz-server "[ ! -f /usr/local/bin/k3s-uninstall.sh ]"; then
     ssh wurfkreuz-server -t "sudo /usr/bin/cat /etc/rancher/k3s/k3s.yaml" > $HOME/.kube/k3s-config
     sed -i 's/default/laptop/g' $HOME/.kube/k3s-config
     sed -i "s/127.0.0.1/$remote_host_ip/" $HOME/.kube/k3s-config
+	echo "kubeconfig от кластера ноутбука добавлен на твой пк, теперь ты можешь без проблем удаленно зайти на кластер."
 else
     echo 'The cluster is probably installed already.'
     echo 'Trying to copy /etc/rancher/k3s/k3s.yaml to your host...'

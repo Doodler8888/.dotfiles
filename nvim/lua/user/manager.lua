@@ -25,6 +25,7 @@ local plugins = {
 	-- "anuvyklack/hydra.nvim",
 	-- "stevearc/conform.nvim",
 	-- "nvim-tree/nvim-tree.lua",
+	-- "tpope/vim-fugitive",
 	'Doodler8888/resession.nvim',
 	{
 		"kylechui/nvim-surround",
@@ -36,12 +37,17 @@ local plugins = {
 			})
 		end,
 	},
+	-- {
+	-- 	"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
+	-- 	bvent = "InsertEnter",
+	-- 	opts = {}, -- this is equalent to setup({}) function
+	-- },
+	-- 'justinmk/vim-dirvish',
 	{
-		"windwp/nvim-autopairs", -- This pluging causes a bug if i try to press enter before triple backticks to move markdown code block one line down. It creates 2 newlines in this case.
-		bvent = "InsertEnter",
-		opts = {}, -- this is equalent to setup({}) function
+	    "stevearc/oil.nvim",
+	    branch = "master",
+	    pin = true  -- prevents auto-updates
 	},
-	'justinmk/vim-dirvish',
 	{
 		"neovim/nvim-lspconfig",
 	},
@@ -63,8 +69,8 @@ local plugins = {
 		'echasnovski/mini.nvim',
 		branch = 'main',
 		config = function()
-			-- require("mini.pairs").setup({
-			-- })
+			require("mini.pairs").setup({
+			})
 			-- require("mini.completion").setup({
 			-- })
 			-- require("mini.ai").setup({
@@ -72,6 +78,11 @@ local plugins = {
 			-- require("mini.bracketed").setup({
 			-- })
 		end,
+	},
+	{
+	    'numToStr/Comment.nvim',
+	    opts = {},
+	    lazy = false,
 	},
 	{
 	  "nvim-treesitter/nvim-treesitter",

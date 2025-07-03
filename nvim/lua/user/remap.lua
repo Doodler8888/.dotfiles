@@ -282,10 +282,6 @@ vim.api.nvim_set_keymap('n', '<C-w>y', '<Cmd>wincmd t<Bar>wincmd l<CR>', { norem
 -- For sway
 -- vim.keymap.set('n', '<M-/>', '<Nop>', { noremap = true })
 
--- Require the module
-local tabs1 = require('user.tab_rename')
-vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
-
 local function paste_from_clipboard()
   local reg_backup = vim.fn.getreg('"') -- Save the current unnamed register
   local reg_type_backup = vim.fn.getregtype('"')
@@ -341,13 +337,23 @@ end, { noremap = true, silent = true })
 
 -- Add C-x C-s and s bindings
 -- vim.api.nvim_set_keymap('n', '<C-x><C-s>', ':w<CR>', {noremap = true, silent = true})
-vim.keymap.set('n', '<leader>ww', ':w<CR>', {noremap = true, silent = true})
+-- vim.keymap.set('n', '<leader>ww', ':w<CR>', {noremap = true, silent = true})
+
+vim.keymap.set('n', '<leader>ww', function()
+  local dir = vim.fn.expand('%:h')
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.fn.mkdir(dir, 'p')
+  end
+  vim.cmd('write')
+end, {noremap = true, silent = true})
+
+
 vim.keymap.set('n', '<leader>wa', ':wa<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>so', ':so<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>xc', ':wqa<CR>', {noremap = true, silent = true})
 
-vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
+-- vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 
 
 -- vim.keymap.set('n', '<C-x><C-f>', function()

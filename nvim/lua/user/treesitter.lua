@@ -1,6 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "terraform", "hcl", "vim", "vimdoc", "query", "go", "yaml", "gotmpl", "helm" },
+    ensure_installed = { "terraform", "hcl", "vim", "vimdoc", "query", "go", "yaml", "gotmpl" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -8,6 +8,8 @@ require 'nvim-treesitter.configs'.setup {
     -- Automatically install missing parsers when entering buffer
     -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
     auto_install = true, -- I disabled it, because it overcomplicates things.
+
+    ignore_install = { "helm", "gotmpl" },
 
     highlight = {
         enable = true,
@@ -101,13 +103,13 @@ vim.keymap.set({'n', 'v', 'o'}, '<C-M-e>', function()
 end, { noremap = true, silent = false, desc = "Jump to end of function" })
 
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "yaml",
-  callback = function(args)
-    local fname = vim.api.nvim_buf_get_name(args.buf)
-    if fname:match("templates") then
-      vim.bo[args.buf].filetype = "helm"
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "yaml",
+--   callback = function(args)
+--     local fname = vim.api.nvim_buf_get_name(args.buf)
+--     if fname:match("templates") then
+--       vim.bo[args.buf].filetype = "helm"
+--     end
+--   end,
+-- })
 

@@ -1,0 +1,2 @@
+Check installed collections:
+ansible-galaxy collection list

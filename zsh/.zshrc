@@ -1,10 +1,10 @@
 source /usr/local/bin
 source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
+source /home/wurfkreuz/.secret_dotfiles/zsh/environment
 export GOPATH=$HOME/go
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:$PATH"
 export FPATH="$HOME/.docker/completions:$FPATH"
-GTAGSOBJDIRPREFIX=~/.cache/gtags/
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
 export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
@@ -15,7 +15,7 @@ export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/k3s-config
 export MANPAGER='nvim +Man!'
-export VAULT_ADDR="http://192.168.100.13:30007"
+export POETRY_ACTIVE=0 # This is for avoiding incorrect displaying prompt, because i already have my own one.
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -178,9 +178,10 @@ alias charts="helm list --all-namespaces"
 alias grafana-password="kubectl get secret --namespace default <secret_name> -o jsonpath=\"{.data.admin-password}\" | base64 --decode ; echo"
 alias t="tree -a --gitignore -I '.git' -I '.gitignore'"
 alias last-commit="git log n -1"
-alias argocd-password="kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d"
-alias ipa="ip -o addr show | grep -E ' (eth|enp|ens|eno|wlan|wlp|wlx)[^ ]* .*inet ' | awk '{print \$2, \$4}'"
-alias launch-goland="sh /home/wurfkreuz/Downloads/archives/GoLand-252.19874.29/bin/goland.sh"
+alias pull-neovim="git pull https://github.com/neovim/neovim.git"
+alias pull-emacs="git pull git://git.savannah.gnu.org/emacs.git"
+alias clone-neovim="git clone https://github.com/neovim/neovim.git"
+alias clone-emacs="git clone git://git.savannah.gnu.org/emacs.git"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xe" _expand_alias
@@ -270,6 +271,7 @@ source <(helm completion zsh)
 # if i add this, i'll get errors
 # vault -autocomplete-install
 eval "$(direnv hook zsh)"
+# eval "$(atuin init zsh)"
 # eval "$(starship init zsh)"
 
 autoload -U +X bashcompinit && bashcompinit

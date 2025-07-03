@@ -4,8 +4,8 @@ kubectl config current-context
 Change context (then use 'kubectl get nodes' to check it):
 kubectl config use-context <context_name>
 
-Apply manifest:
-kubectl apply -f path/to/file -n <namespace>
+Delete CRD:
+kubectl delete crd <crd object name like 'appprojects.argoproj.io'>
 
 Describe/explain key:
 kubectl explain pod.spec.containers.imagePullPolicy

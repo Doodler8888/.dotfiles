@@ -91,3 +91,14 @@ vim.g.netrw_banner = 0
 
 -- I set it as auto-revert
 vim.o.autoread = true
+
+-- Disable autowrapping globally, because it's not selectively possible to
+-- disable it for tmp files.
+vim.opt.formatoptions:remove("t")
+
+-- Enable explicit buffer termination to avoid the netrw bug
+vim.o.hidden = false
+
+-- -- Enable new experimental 'messages' command window + it probably enables
+-- -- hightlighting in cmd
+-- require('vim._extui').enable({})

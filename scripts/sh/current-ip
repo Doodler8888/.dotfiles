@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+
+ip -o addr show | grep -E ' (eth|enp|ens|eno|wlan|wlp|wlx)[^ ]* .*inet ' | awk '{print $2, $4}'

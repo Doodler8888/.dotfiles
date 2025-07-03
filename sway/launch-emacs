@@ -31,7 +31,8 @@ swaymsg 'workspace 3'
 swaymsg 'exec emacs'
 sleep 2
 # swaymsg 'exec /opt/pycharm/bin/pycharm.sh'
-swaymsg 'exec /home/wurfkreuz/Downloads/archives/GoLand-252.19874.29/bin/goland'
+swaymsg 'exec /home/wurfkreuz/Downloads/archives/pycharm-252.21735.39/bin/pycharm'
+# swaymsg 'exec /home/wurfkreuz/Downloads/archives/GoLand-252.19874.29/bin/goland'
 # swaymsg 'exec foot tmux'
 sleep 4
 # Can't use this code with the sway tmux float. Otherwise the float will open with the main function instead of the one i specify.

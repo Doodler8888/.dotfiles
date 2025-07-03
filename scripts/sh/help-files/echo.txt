@@ -1,0 +1,5 @@
+Enable interpretation of escape symbols (like newlines):
+echo -e
+
+Remove the percent sign from an output:
+<command>; echo

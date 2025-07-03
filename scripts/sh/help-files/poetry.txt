@@ -1,0 +1,11 @@
+Initialize poetry for a project:
+poetry init
+
+Install a library:
+pip install <lib_name>
+
+Information about the current virtual environment:
+poetry env info
+
+Print a command YOU need to execute to activate a poetry venv:
+poetry env activate

@@ -53,7 +53,11 @@ require('telescope').setup({
 			 ["<C-k>"] = require('telescope.actions').cycle_history_prev,
 			 ["<C-v>"] = copy_telescope_selection(),
 			 -- ["<M-w>"] = copy_telescope_selection(),
+       ["<C-g>"] = actions.close,
 	     },
+       n = {
+         ["<C-g>"] = actions.close,
+       }
 	   },
   },
   pickers = {
@@ -322,7 +326,8 @@ local function telescope_zoxide()
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
         vim.cmd("cd " .. vim.fn.fnameescape(selection[1]))
-        vim.cmd("Dirvish " .. vim.fn.fnameescape(selection[1]))
+        -- vim.cmd("Dirvish " .. vim.fn.fnameescape(selection[1]))
+        vim.cmd("Oil " .. vim.fn.fnameescape(selection[1]))
       end)
       return true
     end,
@@ -568,24 +573,7 @@ end
 -- vim.api.nvim_set_keymap('n', '<M-CR>', ':InsertSelectionIntoCmdline<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('i', '<M-CR>', ':InsertSelectionIntoCmdline<CR>', { noremap = true, silent = true })
 
-require('telescope').setup{
-  defaults = {
-    mappings = vim.tbl_deep_extend('force', config.values.mappings, {
-      i = {
-        -- Your custom mappings in insert mode
-        -- ["<C-[>"] = insert_selection_into_cmdline,
-        -- ["<M-CR>"] = insert_selection_into_cmdline,
-        ["<C-g>"] = actions.close,
-      },
-      n = {
-        -- Your custom mappings in normal mode
-        -- ["<C-[>"] = insert_selection_into_cmdline,
-        -- ["<M-CR>"] = insert_selection_into_cmdline,
-        ["<C-g>"] = actions.close,
-      },
-    }),
-  },
-}
+
 
 
 -- Add this temporarily to see which register is used when pressing 'p'

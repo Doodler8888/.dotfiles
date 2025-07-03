@@ -28,3 +28,5 @@
 /home/wurfkreuz/.projects/gitlab-ci
 /home/wurfkreuz/.projects/vault
 /home/wurfkreuz/.projects/argocd-cluster
+/home/wurfkreuz/.projects/ansible/go_server
+/home/wurfkreuz/.projects/sonarqube_update_test

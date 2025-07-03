@@ -1,0 +1,2 @@
+Check commit history:
+git log (there is also 'git reflog')

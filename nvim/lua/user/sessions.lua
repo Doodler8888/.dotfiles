@@ -4,6 +4,7 @@ _G.current_session_name = nil
 
 local sessions_dir = vim.fn.stdpath('cache') .. '/sessions'
 local tab_rename = require('user.tab_rename_mksession')
+local oil_session = require('user.oil_session')
 
 if vim.fn.isdirectory(sessions_dir) == 0 then
     vim.fn.mkdir(sessions_dir, "p")
@@ -15,6 +16,10 @@ end
 
 local function get_tab_names_path(session_name)
     return get_session_path(session_name) .. '.tabnames'
+end
+
+local function get_oil_session_path(session_name)
+    return get_session_path(session_name) .. '.oil'
 end
 
 function _G.load_session(session_name)
@@ -44,6 +49,7 @@ function _G.save_session(session_name)
 
     local session_path = get_session_path(name_to_use)
     tab_rename.save_tab_names(session_path)
+    oil_session.save_oil_buffers(session_path)
     vim.cmd('mksession! ' .. vim.fn.fnameescape(session_path))
     print("Session saved: " .. session_path)
     _G.current_session_name = name_to_use
@@ -55,6 +61,8 @@ function _G.rename_session(old_name, new_name)
     local new_session_path = get_session_path(new_name)
     local old_tab_names_path = get_tab_names_path(old_name)
     local new_tab_names_path = get_tab_names_path(new_name)
+    local old_oil_session_path = get_oil_session_path(old_name)
+    local new_oil_session_path = get_oil_session_path(new_name)
 
     if vim.fn.filereadable(old_session_path) ~= 1 then
         print("Session not found: " .. old_session_path)
@@ -64,6 +72,9 @@ function _G.rename_session(old_name, new_name)
     if vim.fn.rename(old_session_path, new_session_path) == 0 then
         if vim.fn.filereadable(old_tab_names_path) == 1 then
             vim.fn.rename(old_tab_names_path, new_tab_names_path)
+        end
+        if vim.fn.filereadable(old_oil_session_path) == 1 then
+            vim.fn.rename(old_oil_session_path, new_oil_session_path)
         end
         print("Session renamed from " .. old_name .. " to " .. new_name)
         if _G.current_session_name == old_name then
@@ -77,6 +88,7 @@ end
 function _G.delete_session(session_name)
     local session_path = get_session_path(session_name)
     local tab_names_path = get_tab_names_path(session_name)
+    local oil_session_path = get_oil_session_path(session_name)
 
     if vim.fn.filereadable(session_path) ~= 1 then
         print("Session not found: " .. session_path)
@@ -86,6 +98,9 @@ function _G.delete_session(session_name)
     if vim.fn.delete(session_path) == 0 then
         if vim.fn.filereadable(tab_names_path) == 1 then
             vim.fn.delete(tab_names_path)
+        end
+        if vim.fn.filereadable(oil_session_path) == 1 then
+            vim.fn.delete(oil_session_path)
         end
         print("\nSession deleted: " .. session_name)
         if _G.current_session_name == session_name then
@@ -101,7 +116,7 @@ local function list_sessions()
     local session_files = vim.fn.split(vim.fn.globpath(sessions_dir, '*'), "\n")
     local sessions = {}
     for _, file in ipairs(session_files) do
-        if file and file ~= "" and not file:match('.tabnames$') then
+        if file and file ~= "" and not file:match('.tabnames$') and not file:match('.oil$') then
             table.insert(sessions, vim.fn.fnamemodify(file, ':t'))
         end
     end
@@ -168,6 +183,7 @@ vim.api.nvim_create_autocmd("SessionLoadPost", {
         local session_path = vim.v.this_session
         if session_path and session_path ~= "" then
             tab_rename.load_tab_names(session_path)
+            oil_session.load_oil_buffers(session_path)
             vim.cmd('redrawtabline')
         end
     end,
@@ -218,4 +234,3 @@ vim.keymap.set('n', '<leader>sl', function() _G.session_picker() end, { noremap 
 -- Require the module
 local tabs1 = require('user.tab_rename_mksession')
 vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
-

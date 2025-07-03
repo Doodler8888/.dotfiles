@@ -353,7 +353,7 @@ vim.keymap.set('n', '<leader>so', ':so<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>xc', ':wqa<CR>', {noremap = true, silent = true})
 
--- vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
+vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 
 
 -- vim.keymap.set('n', '<C-x><C-f>', function()

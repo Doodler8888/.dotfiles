@@ -27,6 +27,7 @@ local plugins = {
 	-- "nvim-tree/nvim-tree.lua",
 	-- "tpope/vim-fugitive",
 	'Doodler8888/resession.nvim',
+	-- 'tpope/vim-surround',
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features

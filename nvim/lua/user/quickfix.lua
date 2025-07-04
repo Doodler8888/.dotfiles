@@ -79,32 +79,32 @@ end
 M.compile_commands = {
     c = "gcc -Wall -Wextra -o %< %",
     sh = "shellcheck -f gcc %",
+    bash = "shellcheck -f gcc %",
     go = "go vet % && go build %",
     perl = "perl -c %",
     dockerfile = "hadolint -f gnu %",
     yaml = "ansible-lint %",
+    ansible = "ansible-lint %",
 }
-
-function M.setup_compile()
-    local ft = vim.bo.filetype
-    if M.compile_commands[ft] then
-        vim.o.makeprg = M.compile_commands[ft]
-    end
-end
 
 -- Modified compile function with window preservation
 function M.compile(original_win)
-    -- Store current window if not provided
     original_win = original_win or vim.api.nvim_get_current_win()
+    local ft = vim.bo.filetype
+    local command = M.compile_commands[ft]
 
+    if not command then
+        print("No linter configured for filetype: " .. ft)
+        return
+    end
+
+    vim.o.makeprg = command
     vim.cmd('write')
     vim.cmd('silent! make!')
 
     local qf_list = vim.fn.getqflist()
     if #qf_list > 0 then
-        -- Open quickfix without changing focus
         vim.cmd('botright copen')
-        -- Immediately return focus to original window
         vim.api.nvim_set_current_win(original_win)
     else
         print("Compilation successful")
@@ -149,14 +149,6 @@ vim.keymap.set({'n', 'i'}, '<M-l>', toggle_quickfix_diagnostics,
 vim.keymap.set({'n', 'i'}, '<M-y>', M.toggle_compile_qf, {
     silent = true,
     desc = "Toggle compilation quickfix"
-})
--- vim.keymap.set('n', '<M-y>', M.toggle_qf,
---     {silent = true, desc = "Toggle quickfix context"})
-
--- Autocommands
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"c", "cpp", "rust", "go", "sh", "perl", "dockerfile", "yaml" },
-    callback = M.setup_compile
 })
 
 return M

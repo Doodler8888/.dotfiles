@@ -23,54 +23,40 @@ local function calculate_git_branch()
     return ''
 end
 
--- Updates the status for the CURRENT window.
+-- Core update function that populates window-local variables.
+-- This function is made public on the module to be callable from an autocommand.
 function M.update_status()
     local bufnr = vim.fn.bufnr('%')
     vim.w.statusline_diagnostics = calculate_diagnostic_string(bufnr)
     vim.w.statusline_git = calculate_git_branch()
 end
 
--- Updates the status for ALL visible windows.
-function M.update_all_windows_status()
-    local git_str = calculate_git_branch()
-    for _, win_id in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        local bufnr = vim.api.nvim_win_get_buf(win_id)
-        if vim.api.nvim_buf_is_loaded(bufnr) then
-            vim.fn.setwinvar(win_id, 'statusline_diagnostics', calculate_diagnostic_string(bufnr))
-            vim.fn.setwinvar(win_id, 'statusline_git', git_str)
-        end
-    end
-    vim.cmd('redrawstatus')
-end
-
--- The single entry point that runs once after Neovim has fully loaded.
+-- The single entry point: this function runs only once, after Neovim has fully loaded.
 local function setup_statusline_once()
+    -- 1. Set the statusline option itself.
+    -- It's a simple string that reads window-local variables.
     vim.o.statusline = table.concat({
-        '%{winnr()}', ' ', '%f', ' ', '%{get(w:, "statusline_git", "")}',
-        '%=', '%{get(w:, "statusline_diagnostics", "")}', ' '
+        '%{winnr()}',
+        ' ',
+        '%f', -- Use the reliable path item.
+        ' ',
+        '%{get(w:, "statusline_git", "")}',
+        '%=', -- Right-align the rest.
+        '%{get(w:, "statusline_diagnostics", "")}',
+        ' '
     }, '')
 
+    -- 2. Create the autocommands that will keep the statusline fresh during use.
     vim.api.nvim_create_augroup('custom_statusline_updater', { clear = true })
-
-    -- Silent updates for the current window on buffer/window changes.
-    vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
+    vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'DiagnosticChanged' }, {
         group = 'custom_statusline_updater',
         pattern = '*',
+        -- This command calls the public update function from this module.
         command = 'lua require("user.statusline").update_status()',
     })
 
-    -- Use a robust callback for diagnostic changes.
-    vim.api.nvim_create_autocmd('DiagnosticChanged', {
-        group = 'custom_statusline_updater',
-        pattern = '*',
-        callback = function()
-            -- Schedule the update to prevent race conditions.
-            vim.schedule(M.update_all_windows_status)
-        end,
-    })
-
-    -- Initial update on startup.
-    vim.schedule(M.update_all_windows_status)
+    -- 3. Manually trigger an update for the initial window.
+    M.update_status()
 end
 
 -- The trigger: run the setup function once Neovim has fully entered.

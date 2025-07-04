@@ -71,8 +71,12 @@ end, { 'i', 's', 'c' }),
     ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered({
+      border = "single",
+    }),
+    documentation = cmp.config.window.bordered({
+      border = "single",
+    }),
   },
   completion = {
     autocomplete = false, -- Disable the default autocomplete behavior

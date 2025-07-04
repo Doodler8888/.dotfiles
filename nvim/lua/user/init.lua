@@ -30,4 +30,4 @@ require("user.oil")
 require("user.commenting_plugin")
 
 
--- require('user.statusline') -- the statusline code probably causes the cursor to dissappear
+require('user.statusline')

@@ -35,6 +35,7 @@ in
     k9s
     fluent-bit
     ventoy-full-gtk
+    helm-ls
     # keyd
     # obs-studio
     # unstablePkgs.emacs # Use unstable Emacs

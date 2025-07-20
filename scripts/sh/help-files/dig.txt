@@ -1,0 +1,3 @@
+Check if domain name correctly resolves (dns ip is found by using the resolvectl
+utility (h dns)):
+dig @dns_server_ip +short some_url.com

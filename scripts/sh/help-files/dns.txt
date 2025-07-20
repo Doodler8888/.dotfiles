@@ -1,0 +1,5 @@
+Show interface relative to their dns servers:
+resolvectl status
+
+Show to through what interface dns requests go:
+ip route get dns_ip

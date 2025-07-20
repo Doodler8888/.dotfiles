@@ -15,7 +15,7 @@ export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/k3s-config
 export MANPAGER='nvim +Man!'
-export POETRY_ACTIVE=0 # This is for avoiding incorrect displaying prompt, because i already have my own one.
+export VIRTUAL_ENV_DISABLE_PROMPT=1 # This is for avoiding incorrect displaying prompt, because i already have my own one.
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -175,7 +175,6 @@ alias k3s-install="curl -sfL https://get.k3s.io | sh -"
 alias k3s-install-metallb="curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable servicelb\" sh -s -"
 alias k3s-remove="sudo /usr/local/bin/k3s-uninstall.sh"
 alias charts="helm list --all-namespaces"
-alias grafana-password="kubectl get secret --namespace default <secret_name> -o jsonpath=\"{.data.admin-password}\" | base64 --decode ; echo"
 alias t="tree -a --gitignore -I '.git' -I '.gitignore'"
 alias last-commit="git log n -1"
 alias pull-neovim="git pull https://github.com/neovim/neovim.git"

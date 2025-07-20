@@ -1,6 +1,7 @@
 vim.cmd('command! Bsh lcd $HOME/.dotfiles/bash | edit .bashrc')
 vim.cmd('command! Inpt lcd $HOME/.dotfiles/bash | edit .inputrc')
 vim.cmd('command! Nvm lcd $HOME/.dotfiles/nvim | edit init.lua')
+vim.cmd('command! Nvim lcd $HOME/.dotfiles/nvim | edit init.lua')
 -- vim.cmd('command! Zsh lcd $HOME/.dotfiles/zsh | edit .zshrc')
 vim.cmd('command! Ssh lcd $HOME/.ssh | Oil ~/.ssh')
 vim.cmd('command! Zsh lcd $HOME/.dotfiles/zsh | edit .zshrc')

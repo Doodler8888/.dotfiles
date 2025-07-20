@@ -22,7 +22,7 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.signcolumn = "auto"
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 
 -- Disable 'scrolloff' when using 'H' and 'L'
 vim.opt.scrolloff = 8

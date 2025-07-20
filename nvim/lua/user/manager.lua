@@ -21,12 +21,13 @@ local plugins = {
 		-- dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	"rose-pine/neovim",
+	-- 'nvim-lualine/lualine.nvim',
 	-- 'dhruvasagar/vim-buffer-history',
 	-- "anuvyklack/hydra.nvim",
 	-- "stevearc/conform.nvim",
 	-- "nvim-tree/nvim-tree.lua",
-	-- "tpope/vim-fugitive",
-	'Doodler8888/resession.nvim',
+	"tpope/vim-fugitive",
+	-- 'Doodler8888/resession.nvim',
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -58,13 +59,14 @@ local plugins = {
 	  ---@type quicker.SetupOptions
 	  opts = {},
 	},
-{
-  "tadmccorkle/markdown.nvim",
-  -- ft = "markdown", -- or 'event = "VeryLazy"'
-  -- opts = {
-  --   -- configuration here or empty for defaults
-  -- },
-},
+	-- 'preservim/vim-markdown',
+-- {
+--   "tadmccorkle/markdown.nvim",
+--   -- ft = "markdown", -- or 'event = "VeryLazy"'
+--   -- opts = {
+--   --   -- configuration here or empty for defaults
+--   -- },
+-- },
 	{
 		'echasnovski/mini.nvim',
 		branch = 'main',

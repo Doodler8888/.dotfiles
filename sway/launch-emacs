@@ -19,7 +19,10 @@ swaymsg 'workspace 2'
 # swaymsg 'exec librewolf-wayland'
 # swaymsg 'exec librewolf'
 # swaymsg 'exec firefox'
-swaymsg 'exec vivaldi.vivaldi-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --use-cmd-decoder=validating'
+# swaymsg 'exec vivaldi.vivaldi-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --use-cmd-decoder=validating'
+swaymsg 'exec /usr/bin/vivaldi --ozone-platform=wayland --enable-features=UseOzonePlatform --use-cmd-decoder=validating'
+swaymsg 'exec /usr/bin/slack'
+swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
@@ -31,7 +34,7 @@ swaymsg 'workspace 3'
 swaymsg 'exec emacs'
 sleep 2
 # swaymsg 'exec /opt/pycharm/bin/pycharm.sh'
-swaymsg 'exec /home/wurfkreuz/Downloads/archives/pycharm-252.21735.39/bin/pycharm'
+swaymsg 'exec /home/wurfkreuz/Downloads/executables/pycharm-252.23892.194/bin/pycharm'
 # swaymsg 'exec /home/wurfkreuz/Downloads/archives/GoLand-252.19874.29/bin/goland'
 # swaymsg 'exec foot tmux'
 sleep 4
@@ -76,9 +79,15 @@ sleep 1
 
 
 swaymsg 'workspace 4'
-# swaymsg 'exec telegram-desktop'
-# swaymsg 'exec Telegram'
-swaymsg 'exec /snap/bin/telegram-desktop'
+swaymsg 'exec /home/wurfkreuz/Downloads/executables/tsetup.5.16.4/Telegram/Telegram'
+# swaymsg 'exec /snap/bin/telegram-desktop'
+
+
+sleep 1
+
+swaymsg 'workspace 5'
+swaymsg 'exec /usr/bin/pritunl-client-electron'
+
 
 sleep 1
 
@@ -88,7 +97,7 @@ sleep 1
 
 # sleep 5
 
-swaymsg 'workspace 3'
+# swaymsg 'workspace 3'
 
 
 # /home/wurfkreuz/.dotfiles/scripts/sh/clean-zellij >> /home/wurfkreuz/.var/log/zellij/zellij.log 2>&1

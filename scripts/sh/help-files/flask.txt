@@ -1,2 +1,2 @@
 Run a flask server:
-flask --app hello run
+flask --app <file_name_without_.py> run

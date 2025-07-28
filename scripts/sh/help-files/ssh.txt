@@ -3,3 +3,6 @@ ssh <user_name>@<ip_or_dns>
 
 Add a public key:
 ssh-copy-id -i ~/.ssh/your_public_key_file.pub username@your_server_ip
+
+Generate ssh keys:
+ssh-keygen -t ed25519

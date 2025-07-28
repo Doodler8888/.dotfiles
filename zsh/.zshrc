@@ -176,6 +176,7 @@ alias k3s-install-metallb="curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"ser
 alias k3s-remove="sudo /usr/local/bin/k3s-uninstall.sh"
 alias charts="helm list --all-namespaces"
 alias t="tree -a --gitignore -I '.git' -I '.gitignore'"
+alias tf="terraform"
 alias last-commit="git log n -1"
 alias pull-neovim="git pull https://github.com/neovim/neovim.git"
 alias pull-emacs="git pull git://git.savannah.gnu.org/emacs.git"

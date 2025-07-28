@@ -16,6 +16,8 @@ exec /home/wurfkreuz/.nix-profile/bin/swaync
 # Probably isn't used on systemd distros
 # exec --no-startup-id pipewire
 
+# exec cliphist store
+
 font NotoSansM Nerd Font Mono 8
 
 output HDMI-A-1 mode 1920x1080@144Hz
@@ -92,6 +94,7 @@ bindsym $mod+e exec emacs
 # bindsym $mod+e exec /home/wurfkreuz/.nix-profile/bin/emacs
 # bindsym $mod+t exec telegram-desktop
 # bindsym $mod+shift+t exec telegram
+bindsym $mod+c exec "cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
 # Workspace management
 bindsym $mod+1 workspace number 1
@@ -134,9 +137,14 @@ bindsym alt+semicolon+3 exec ~/.dotfiles/sway/switch_tab.sh 3
 bindsym alt+semicolon+4 exec ~/.dotfiles/sway/switch_tab.sh 4
 bindsym alt+semicolon+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+bindsym XF86AudioRaiseVolume exec ~/.local/bin/volume-control up
+bindsym XF86AudioLowerVolume exec ~/.local/bin/volume-control down
+bindsym XF86AudioMute exec ~/.local/bin/volume-control mute
+
 
 # exec_always ~/.dotfiles/sway/ssh-agent
 # exec_always ~/.dotfiles/sway/launch
@@ -173,3 +181,5 @@ exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY 
 # # exec --no-startup-id /snap/bin/ghostty --class=floatingframe -e tmux new-session -A -s popup
 # for_window [app_id="floatingframe"] floating enable, resize set 1200 720, move position center, move scratchpad
 # bindsym $mod+w scratchpad show, resize set 1200 800, move position center
+
+exec wl-paste --watch cliphist store

@@ -1,0 +1,2 @@
+Check what applications currently run through xwayland:
+xlsclients

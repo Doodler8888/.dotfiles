@@ -1,2 +1,5 @@
-Recursive:
+Change ownership recursively:
 sudo chown -R <new_owner>:<new_group> /path/to/directory
+
+Set the current user/user_group ownership:
+sudo chown $(id -u):$(id -g) <path>

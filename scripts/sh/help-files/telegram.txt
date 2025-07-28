@@ -1,0 +1,2 @@
+Run telegram through wayland:
+env QT_QPA_PLATFORM=wayland path/to/telegram/binary

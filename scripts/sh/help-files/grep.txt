@@ -3,3 +3,6 @@ grep "pattern" filename
 
 Grep with several patterns:
 grep -E 'WARNING|ERROR'
+
+Recursive grep:
+grep -r <pattern>

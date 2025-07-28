@@ -21,6 +21,7 @@ in
     lua-language-server
     ansible-lint
     ansible-language-server
+    terraform-ls
     pyright
     sqls
     kind

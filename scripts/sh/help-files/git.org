@@ -1,9 +1,0 @@
-If you are in a situation where pulling from master branch caused problem and
-you need to reverse the changes, do this:
-
-git reflog
-
-It's a powerful command that shows all you cloning, pulls and resets. Just find
-the commit hash for the cloning or previous pull or whatever and use:
-
-git reset --hard commit_hash

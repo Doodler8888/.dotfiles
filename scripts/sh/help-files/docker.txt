@@ -20,3 +20,6 @@ docker tag fast-api:1.0 wurfkreuz/fast-api:tagname
 
 Check to what registry you've logged in currently:
 cat ~/.docker/config.json
+
+Flag for launching container with the host's network namespace:
+--network host

@@ -2,6 +2,10 @@ local resession = require("resession")
 require("resession").setup({
   on_load = function()
     vim.cmd('redrawtabline')
+    -- Add a small delay and then equalize windows to fix sizing issues
+    vim.defer_fn(function()
+      vim.cmd('wincmd =')
+    end, 10)
   end,
   autosave = {
     enabled = false,
@@ -23,10 +27,10 @@ require("resession").setup({
     "winfixwidth",
   },
   extensions = {
-  --   oil_extension = {
-  --     enable_in_tab = true,
-  --     save_buffers = true,
-  --   },
+    oil_extension = {
+      enable_in_tab = true,
+      save_buffers = true,
+    },
   --   -- dirvish_extension = {
   --   --   enable_in_tab = true,
   --   --   save_buffers = true,
@@ -35,17 +39,16 @@ require("resession").setup({
   --   --   enable_in_tab = true,
   --   --   save_buffers = true,
   --   -- },
-  --   folds_extension = {
-  --     enable_in_tab = true,
-  --     save_buffers = true,
-  --   },
-  --   tabs_extension = {
-  --     enable_in_tab = true,
-  --     save_buffers = true,
-  --   },
+    -- folds_extension = {
+    --   enable_in_tab = true,
+    --   save_buffers = true,
+    -- },
+    tabs_extension = {
+      enable_in_tab = true,
+      save_buffers = true,
+    },
   },
 })
-
 
 local function rename_session()
     local current = resession.get_current()
@@ -53,7 +56,6 @@ local function rename_session()
         print("No session currently loaded")
         return
     end
-
     vim.ui.input({ prompt = 'New session name: ' }, function(new_name)
         if new_name and new_name ~= "" then
             resession.delete(current)
@@ -62,6 +64,16 @@ local function rename_session()
         end
     end)
 end
+
+-- Alternative fix: Add autocmd to equalize windows after session load
+vim.api.nvim_create_autocmd("User", {
+  pattern = "ResessionLoadPost",
+  callback = function()
+    vim.defer_fn(function()
+      vim.cmd('wincmd =')
+    end, 50)
+  end,
+})
 
 vim.keymap.set('n', '<leader>sr', rename_session, { desc = "Rename session" })
 vim.api.nvim_set_keymap('n', '<leader>sl', '<cmd>lua Select_and_load_session_telescope()<CR>', { noremap = true, silent = true })
@@ -77,13 +89,11 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
       end,
 })
 
-
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local conf = require('telescope.config').values
 local action_state = require('telescope.actions.state')
 local actions = require('telescope.actions')
-
 
 function Select_and_load_session_telescope(opts)
   opts = opts or {}
@@ -93,14 +103,13 @@ function Select_and_load_session_telescope(opts)
     return
   end
 
-  -- Properly structure telescope options
   local custom_opts = vim.tbl_extend("force", opts, {
     layout_strategy = "center",
     layout_config = {
       width = 0.5,
       height = 0.5,
       mirror = false,
-      prompt_position = "bottom" -- This places the prompt at the bottom
+      prompt_position = "bottom"
     }
   })
 
@@ -133,18 +142,3 @@ function Select_and_load_session_telescope(opts)
     end,
   }):find()
 end
-
-
-
--- vim.api.nvim_create_autocmd("VimLeavePre", {
---   callback = function()
---     require('resession').save()
---   end,
--- })
---
--- vim.api.nvim_create_autocmd("VimLeavePre", {
---   callback = function()
---     -- Always save a special session named "last"
---     resession.save("last")
---   end,
--- })

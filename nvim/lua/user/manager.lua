@@ -27,7 +27,11 @@ local plugins = {
 	-- "stevearc/conform.nvim",
 	-- "nvim-tree/nvim-tree.lua",
 	"tpope/vim-fugitive",
-	-- 'Doodler8888/resession.nvim',
+	'Doodler8888/resession.nvim',
+	-- {
+	--   'stevearc/resession.nvim',
+	--   branch = "master",
+	-- },
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features

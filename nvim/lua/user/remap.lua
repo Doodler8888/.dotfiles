@@ -340,6 +340,12 @@ end, { noremap = true, silent = true })
 -- vim.keymap.set('n', '<leader>ww', ':w<CR>', {noremap = true, silent = true})
 
 vim.keymap.set('n', '<leader>ww', function()
+  -- Check if current buffer is an oil buffer
+  if vim.bo.filetype == 'oil' then
+    vim.cmd('write')
+    return
+  end
+  -- Original logic for non-oil buffers
   local dir = vim.fn.expand('%:h')
   if vim.fn.isdirectory(dir) == 0 then
     vim.fn.mkdir(dir, 'p')
@@ -348,10 +354,9 @@ vim.keymap.set('n', '<leader>ww', function()
 end, {noremap = true, silent = true})
 
 
+vim.keymap.set('n', '<leader>qa', ':wqa<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>wa', ':wa<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>so', ':so<CR>', {noremap = true, silent = true})
--- vim.api.nvim_set_keymap('n', '<C-x>s', ':wa<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>xc', ':wqa<CR>', {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 

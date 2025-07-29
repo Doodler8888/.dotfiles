@@ -22,6 +22,11 @@ font NotoSansM Nerd Font Mono 8
 
 output HDMI-A-1 mode 1920x1080@144Hz
 
+
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME xdg-desktop-portal-wlr
+# exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway xdg-desktop-portal-wlr
+
 # Modifier key
 set $mod Mod4
 
@@ -162,8 +167,6 @@ output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 # # An attempt to enable polkit
 # exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
-
-exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway xdg-desktop-portal-wlr
 
 
 # put

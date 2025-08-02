@@ -15,5 +15,5 @@ require('nvim-surround').setup({
 
 -- Unmap the old bindings manually
 -- vim.api.nvim_del_keymap('i', '<C-g>')
-vim.api.nvim_del_keymap('i', '<C-g>s')
-vim.api.nvim_del_keymap('i', '<C-g>S')
+-- vim.api.nvim_del_keymap('i', '<C-g>s')
+-- vim.api.nvim_del_keymap('i', '<C-g>S')

@@ -29,6 +29,8 @@ require("user.oil")
 -- require("user.dirvish")
 -- require("user.commenting")
 require("user.commenting_plugin")
+require("user.mini")
+-- require("user.plugin_configs")
 
 
 require('user.statusline')

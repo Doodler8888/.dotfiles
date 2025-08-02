@@ -8,8 +8,10 @@ vim.filetype.add({
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "helm",
 --   callback = function()
---     vim.bo.commentstring = "{{/* %s */}}"
---   end
+--     vim.schedule(function()
+--       vim.bo.commentstring = '{{/* %s */}}'
+--     end)
+--   end,
 -- })
 
 
@@ -59,3 +61,4 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.foldexpr = ""
   end,
 })
+

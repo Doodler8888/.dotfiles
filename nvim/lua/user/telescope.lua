@@ -385,7 +385,7 @@ function Switch_git_branch()
 end
 
 -- Add this line to make the function globally accessible
-vim.api.nvim_set_keymap("n", "<leader>gbs", "<cmd>lua Switch_git_branch()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua Switch_git_branch()<CR>", {noremap = true, silent = true})
 
 
 -- Function to create a new git branch starting from a selected base branch

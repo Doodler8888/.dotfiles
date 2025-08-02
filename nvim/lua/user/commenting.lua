@@ -42,9 +42,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "helm",
---   callback = function()
---     vim.bo.commentstring = "{{/* %s */}}"
---   end
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "helm",
+  callback = function()
+    vim.bo.commentstring = "{{/* %s */}}"
+  end
+})

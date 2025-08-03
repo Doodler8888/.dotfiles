@@ -6,18 +6,15 @@ vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope.nvim",
 
-
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-  "https://github.com/numToStr/Comment.nvim",
 
-  -- File & Git Management
   "https://github.com/tpope/vim-fugitive",
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/Doodler8888/resession.nvim",
   "https://github.com/kylechui/nvim-surround",
+  { src = "https://github.com/nvim-lualine/lualine.nvim", version = "master" },
 
-  -- LSP, Completion & Snippets
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/hrsh7th/nvim-cmp",
   "https://github.com/hrsh7th/cmp-nvim-lsp",

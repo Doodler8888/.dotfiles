@@ -65,15 +65,15 @@ local function rename_session()
     end)
 end
 
--- Alternative fix: Add autocmd to equalize windows after session load
-vim.api.nvim_create_autocmd("User", {
-  pattern = "ResessionLoadPost",
-  callback = function()
-    vim.defer_fn(function()
-      vim.cmd('wincmd =')
-    end, 50)
-  end,
-})
+-- -- Alternative fix: Add autocmd to equalize windows after session load
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "ResessionLoadPost",
+--   callback = function()
+--     vim.defer_fn(function()
+--       vim.cmd('wincmd =')
+--     end, 50)
+--   end,
+-- })
 
 vim.keymap.set('n', '<leader>sr', rename_session, { desc = "Rename session" })
 vim.api.nvim_set_keymap('n', '<leader>sl', '<cmd>lua Select_and_load_session_telescope()<CR>', { noremap = true, silent = true })

@@ -182,6 +182,7 @@ alias pull-neovim="git pull https://github.com/neovim/neovim.git"
 alias pull-emacs="git pull git://git.savannah.gnu.org/emacs.git"
 alias clone-neovim="git clone https://github.com/neovim/neovim.git"
 alias clone-emacs="git clone git://git.savannah.gnu.org/emacs.git"
+alias pc-motherboard="sudo dmidecode -t baseboard"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xe" _expand_alias

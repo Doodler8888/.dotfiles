@@ -147,23 +147,23 @@ lspconfig.pyright.setup {
 --   filetypes = { "yaml", "ansible" },
 --   }
 
--- lspconfig.yamlls.setup {
--- 	-- filetypes = { "yaml", "yaml.kubernetes", "yaml.ansible" },
--- 	filetypes = { "yaml", "helm" },
--- 	settings = {
--- 	  yaml = {
--- 	    schemas = {
--- 	      ["https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json"] = "tasks/*.{yml,yaml}",
--- 	      kubernetes = {
--- 		"*/templates/*.yaml",
--- 		"*/kubernetes/*.yaml",
--- 		"*/templates/*.yml",
--- 	},
--- 	     },
--- 	   },
--- 	 },
--- }
---
+lspconfig.yamlls.setup {
+	-- filetypes = { "yaml", "yaml.kubernetes", "yaml.ansible" },
+	filetypes = { "yaml", "helm" },
+	settings = {
+	  yaml = {
+	    schemas = {
+	      ["https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json"] = "tasks/*.{yml,yaml}",
+	      kubernetes = {
+		"*/templates/*.yaml",
+		"*/kubernetes/*.yaml",
+		"*/templates/*.yml",
+	},
+	     },
+	   },
+	 },
+}
+
 -- lspconfig.helm_ls.setup {
 --   settings = {
 --     ['helm-ls'] = {
@@ -198,40 +198,23 @@ lspconfig.yamlls.setup {
   },
 }
 
+-- vim.filetype.add({
+--   pattern = {
+--     [".*/templates/.*%.yaml"] = "helm",
+--     [".*/templates/.*%.yml"] = "helm",
+--   },
+-- })
+
 lspconfig.helm_ls.setup {
-  filetypes = { "helm" },  -- make sure your ftplugin marks templates/*.yaml as "helm"
+  filetypes = { "yaml" },
+  root_dir = function(fname)
+    if string.match(fname, ".*/templates/.*%.ya?ml$") then
+      return lspconfig.util.root_pattern("Chart.yaml", "Chart.yml")(fname)
+    end
+    return nil
+  end,
   settings = {
     ["helm-ls"] = {
-      yamlls = {
-        enabled = true,
-        path    = "yaml-language-server",
-        -- only apply under your chart's templates/
-        enabledForFilesGlob = "templates/**",
-
-        -- DON'T completely turn off diagnostics—just ignore Go‑template tags:
-        config = {
-          yaml = {
-            -- load Kubernetes schema for anything under templates/
-            schemas = {
-              kubernetes = "templates/**/*.yaml",
-              -- you can add other schema URLs here too
-            },
-            -- tell YAML-LS to understand {{ ... }} and Sprig:
-            customTags = {
-              "{{", "}}", "!fn", "!include",
-            },
-            validate   = true,   -- keep validating against your schemas
-            completion = true,   -- keep schema‐based completion
-            hover      = true,   -- keep hover docs
-          },
-        },
-
-        -- then re‐silence ONLY the template‐parse errors:
-        diagnosticsLimit      = 0,      -- zero _template‐parse_ diagnostics
-        showDiagnosticsDirectly = false -- they still parse & complete, but don’t show errors
-      },
-
-      -- you probably still want Helm linting & values completion:
       helmLint = { enabled = true },
       valuesFiles = {
         mainValuesFile             = "values.yaml",

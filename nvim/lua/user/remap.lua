@@ -48,7 +48,8 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<C-t>', '<cmd>:qa!<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-t>', '<cmd>:qa!<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-t>', '<cmd>:wqa<CR>', { noremap = true, silent = true })
 
 vim.keymap.set('i', '<C-f>', '<Right>', {noremap = true})
 vim.keymap.set('i', '<C-n>', '<Down>', {noremap = true})
@@ -356,7 +357,23 @@ end, {noremap = true, silent = true})
 
 vim.keymap.set('n', '<leader>qa', ':wqa<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>wa', ':wa<CR>', {noremap = true, silent = true})
-vim.keymap.set('n', '<leader>so', ':so<CR>', {noremap = true, silent = true})
+-- vim.keymap.set('n', '<leader>so', ':so<CR>', {noremap = true, silent = true})
+
+vim.keymap.set('n', '<leader>so', function()
+  -- path to your main config; change if you're sourcing a different file
+  local cfg = vim.fn.stdpath('config') .. '/init.lua'
+
+  -- try to load it
+  local ok, err = pcall(dofile, cfg)
+  if ok then
+    -- success!
+    vim.notify('✨ Config reloaded!', vim.log.levels.INFO)
+  else
+    -- error!
+    vim.notify('❌ Error reloading config:\n' .. err, vim.log.levels.ERROR)
+  end
+end, { noremap = true, silent = true })
+
 
 vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 

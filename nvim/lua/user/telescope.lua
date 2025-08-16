@@ -343,7 +343,9 @@ vim.keymap.set("n", "gz", telescope_zoxide, { desc = "Zoxide navigate with Teles
 
 function Switch_git_branch()
   local function get_git_branches()
+    -- This function seems fine, no changes needed.
     local handle = io.popen("git branch --format='%(refname:short)'")
+    if not handle then return {} end
     local result = handle:read("*a")
     handle:close()
     local branches = {}
@@ -359,7 +361,10 @@ function Switch_git_branch()
     if selection then
       vim.fn.system("git checkout " .. selection[1])
       print("Switched to branch: " .. selection[1])
-      vim.cmd("e!") -- Refresh the current buffer
+
+      -- Note: vim.cmd("e!") is no longer strictly necessary for the statusline
+      -- update, but it's still good practice to reload the buffer from disk.
+      vim.cmd("e!")
     end
   end
 

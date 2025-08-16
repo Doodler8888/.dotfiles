@@ -1,6 +1,9 @@
 Show all files:
 tree -a
 
+Show all files except the ones in .git:
+tree -a -I '.git'
+
 Show files respecting gitignore (if you use with '-a' it will show everything in
 .git directory, so i created a separate alias 't'):
 tree --gitignore

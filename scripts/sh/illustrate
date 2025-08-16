@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+find . -path './.git' -prune -o -type f -print | while IFS= read -r file; do
+    echo -e "$file:\n"
+    cat "$file"
+    echo -e "\n"
+done
+

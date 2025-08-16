@@ -34,4 +34,5 @@ require("user.mini")
 
 
 -- require('user.statusline')
-require('user.lualine')
+-- require('user.statusline_simple')
+-- require('user.lualine')

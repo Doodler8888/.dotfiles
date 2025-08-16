@@ -1,14 +1,18 @@
 Example:
-
 find . -maxdepth 1 -name 'your_search_pattern*' -delete
 
-Negate:
-
+Negate files:
 find "$HOME"/.ssh -type f ! -name '*.pub' ! -name "config"
 
+Negate files in .git directory (да, эта команда должны быть такой сложной):
+find . -path './.git' -prune -o -type f -print
 
-Gotchas:
+Applying other commands:
+find . -type f -exec echo "This is {}" \;
 
-find doesn't follow symlinks, so if you try to use 'find . -type f ! -name
-"*.pub"' it wont work. Add '-L' flag.
-
+or:
+find . -type f | while IFS= read -r file; do
+    echo -e "$file:\n"
+    cat "$file"
+    echo -e "\n"
+done

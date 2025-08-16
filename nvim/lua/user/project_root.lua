@@ -27,7 +27,7 @@ local root_patterns = {
     '.git',
     'lazy-lock.json',
     '.zshrc',
-	'help-files',
+    'help-files',
 }
 
 -- Function to find project root
@@ -51,11 +51,56 @@ local function find_root(start_dir)
     return start_dir
 end
 
+
+-- -- Autocmd
+--
+-- local aug = vim.api.nvim_create_augroup('ProjectRootChanger', { clear = true })
+--
+-- vim.api.nvim_create_autocmd('BufEnter', {
+--   group = aug,
+--   pattern = '*', -- Run for all buffers
+--   callback = function()
+--     -- ============================ THE FIX ============================ --
+--     -- 1. First, check if the buffer is a "special" buffer (not a normal file).
+--     --    Normal file buffers have an empty 'buftype'. If it's not empty,
+--     --    it's a help page, terminal, quickfix list, etc. We should ignore it.
+--     if vim.bo.buftype ~= '' then
+--       return
+--     end
+--     -- ================================================================= --
+--
+--     local buf_path = vim.api.nvim_buf_get_name(0)
+--
+--     -- This check is still useful for new, unsaved buffers.
+--     if buf_path == '' then
+--       return
+--     end
+--
+--     local file_dir = vim.fn.fnamemodify(buf_path, ':h')
+--
+--     -- ============================ THE FIX ============================ --
+--     -- 2. Add a sanity check to ensure we're not dealing with a weird path
+--     --    like "health:" that isn't a real directory.
+--     if vim.fn.isdirectory(file_dir) == 0 then
+--       return
+--     end
+--     -- ================================================================= --
+--
+--     local project_root = find_root(file_dir)
+--     local current_lcd = vim.fn.getcwd(0)
+--
+--     if project_root and project_root ~= current_lcd then
+--       vim.cmd.lcd(project_root)
+--     end
+--   end,
+-- })
+
+
 -- Command to get and cd to root
 vim.api.nvim_create_user_command('Root', function()
     local current_dir = vim.fn.fnamemodify(get_real_path(), ':h')
     local root = find_root(current_dir)
-    vim.cmd('cd ' .. root)
+    vim.cmd('lcd ' .. root)
     print('Changed to root: ' .. root)
 end, {})
 

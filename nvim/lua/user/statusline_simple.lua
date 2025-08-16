@@ -1,34 +1,61 @@
--- Function to get Git branch using Vim-fugitive
-function GetGitBranch()
-    local branch = vim.fn.FugitiveHead()
-    if branch and #branch > 0 then
-        return '[' .. branch .. ']'
-    end
-    return ''
-end
-
--- function GetGitBranch()
---     local handle = io.popen("git branch --show-current 2>/dev/null")
---     if handle then
---         local branch = handle:read("*a"):gsub("\n", "")
---         handle:close()
---         if branch and #branch > 0 then
---             return '[' .. branch .. ']'
---         end
---     end
---     return ''
+-- -- ~/.config/nvim/init.lua (or source this from it)
+--
+-- -- 1) full-path helper
+-- function _G.get_full_path()
+--   local fp = vim.fn.expand("%:p")
+--   return fp ~= "" and fp or "[No Name]"
 -- end
-
--- Function to format the file path
-function FormatFilePath()
-  local full_path = vim.fn.expand('%:p')
-  local home_dir = vim.fn.expand('$HOME')
-
-  -- Replace home directory with ~
-  full_path = full_path:gsub('^' .. home_dir, '~')
-  return full_path
-end
-
-
--- Set the statusline
-vim.o.statusline = '%{winnr()} %{%v:lua.FormatFilePath()%} %{%v:lua.GetGitBranch()%}'
+--
+-- -- 2) git-branch helper
+-- function _G.get_git_branch()
+--   -- try gitsigns cache first
+--   local gs = vim.b.gitsigns_head
+--   if gs and gs ~= "" then
+--     return "[" .. gs .. "]"
+--   end
+--
+--   -- fallback to `git branch --show-current`
+--   local fp = vim.fn.expand("%:p")
+--   if fp == "" then return "" end
+--   local dir = vim.fn.fnamemodify(fp, ":h")
+--   local cmd = "cd " .. vim.fn.shellescape(dir) .. " && git branch --show-current 2>/dev/null"
+--   local handle = io.popen(cmd)
+--   if not handle then return "" end
+--   local branch = handle:read("*l") or ""
+--   handle:close()
+--   return branch ~= "" and "[" .. branch .. "]" or ""
+-- end
+--
+-- -- 3) LSP diagnostics helper
+-- function _G.get_lsp_diagnostics()
+--   if not vim.diagnostic then return "" end
+--   local bufnr = vim.api.nvim_get_current_buf()
+--   local diags = vim.diagnostic.get(bufnr)
+--   local e, w = 0, 0
+--   for _, d in ipairs(diags) do
+--     if d.severity == vim.diagnostic.severity.ERROR then
+--       e = e + 1
+--     elseif d.severity == vim.diagnostic.severity.WARN then
+--       w = w + 1
+--     end
+--   end
+--   local parts = {}
+--   if e > 0 then table.insert(parts, "E:" .. e) end
+--   if w > 0 then table.insert(parts, "W:" .. w) end
+--   return #parts > 0 and table.concat(parts, " ") or ""
+-- end
+--
+-- -- 4) statusline format
+-- vim.opt.statusline = table.concat {
+--   "%{winnr()}",                        -- window number
+--   " %{v:lua.get_full_path()}",        -- full path
+--   " %{v:lua.get_git_branch()}",       -- [branch] or empty
+--   "%=",                                -- separator (pushes the rest right)
+--   "%{v:lua.get_lsp_diagnostics()}",   -- E:# W:#
+-- }
+--
+-- -- 5) only redraw on diag or buffer enter (no CursorHold → no flicker)
+-- vim.api.nvim_create_autocmd(
+--   { "DiagnosticChanged", "BufEnter" },
+--   { callback = function() vim.cmd("redrawstatus") end }
+-- )

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+read -p "Enter your full name (the name can be arbitrary): " GIT_USER_NAME
+
+read -p "Enter your email address (email has to be correct): " GIT_USER_EMAIL
+
+git config --global user.name "$GIT_USER_NAME"
+git config --global user.email "$GIT_USER_EMAIL"
+
+echo "Git user.name and user.email have been set."

@@ -7,7 +7,7 @@ swaymsg 'workspace 1'
 # swaymsg 'exec opera --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec opera'
 # swaymsg 'exec firefox'
-swaymsg 'exec brave'
+swaymsg 'exec brave-browser'
 
 sleep 5
 
@@ -34,7 +34,7 @@ swaymsg 'workspace 3'
 swaymsg 'exec emacs'
 sleep 2
 # swaymsg 'exec /opt/pycharm/bin/pycharm.sh'
-swaymsg 'exec /home/wurfkreuz/Downloads/executables/pycharm-252.23892.194/bin/pycharm'
+# swaymsg 'exec /home/wurfkreuz/Downloads/executables/pycharm-252.23892.194/bin/pycharm'
 # swaymsg 'exec /home/wurfkreuz/Downloads/archives/GoLand-252.19874.29/bin/goland'
 # swaymsg 'exec foot tmux'
 sleep 4
@@ -79,7 +79,8 @@ sleep 1
 
 
 swaymsg 'workspace 4'
-swaymsg 'exec /home/wurfkreuz/Downloads/executables/tsetup.5.16.4/Telegram/Telegram'
+# swaymsg 'exec /home/wurfkreuz/Downloads/executables/tsetup.5.16.4/Telegram/Telegram'
+swaymsg 'exec /home/wurfkreuz/Downloads/Telegram/Telegram'
 # swaymsg 'exec /snap/bin/telegram-desktop'
 
 

@@ -1,0 +1,2 @@
+Set colemak:
+sudo localectl set-x11-keymap us pc105 colemak

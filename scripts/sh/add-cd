@@ -47,6 +47,8 @@ main() {
 		echo "This is the executed command: echo $1 >> $HOME/.dirs"
         echo "$1 is added."
     fi
+
+    clean_file
 }
 
 case "$(basename "$0")" in

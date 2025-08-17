@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# untar: extract tarballs of various formats, with optional destination
+
+set -euo pipefail
+
+if [[ $# -lt 1 ]]; then
+    echo "Usage: untar <archive>"
+    exit 1
+fi
+
+archive=$1
+
+if [[ ! -f "$archive" ]]; then
+    echo "Error: file '$archive' not found" >&2
+    exit 1
+fi
+
+# Ask for destination
+read -rp "Extract to a specific destination? [y/N] " answer
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+    read -rp "Enter destination directory: " dest
+    mkdir -p "$dest"
+else
+    dest="."
+fi
+
+# Pick tar options based on extension
+case "$archive" in
+    *.tar.gz|*.tgz)   opts="xvzf" ;;
+    *.tar.bz2|*.tbz2) opts="xvjf" ;;
+    *.tar.xz|*.txz)   opts="xvJf" ;;
+    *.tar.zst|*.tzst) opts="xv --zstd -f" ;; # requires tar w/ zstd
+    *.tar.lz4)        opts="xv --lz4 -f"  ;; # requires tar w/ lz4
+    *.tar)            opts="xvf" ;;
+    *)
+        echo "Error: unsupported archive format '$archive'" >&2
+        exit 1
+        ;;
+esac
+
+# Run extraction
+tar $opts "$archive" -C "$dest"
+
+echo "Extracted '$archive' into: $dest"

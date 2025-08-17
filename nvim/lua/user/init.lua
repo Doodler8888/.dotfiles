@@ -33,6 +33,6 @@ require("user.mini")
 -- require("user.plugin_configs")
 
 
--- require('user.statusline')
+require('user.statusline')
 -- require('user.statusline_simple')
 -- require('user.lualine')

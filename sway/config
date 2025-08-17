@@ -9,7 +9,7 @@
 # means i need this line even outside of the notification daemons context). On
 # systemd this process is managed automatically apparently.
 # exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
-exec /home/wurfkreuz/.nix-profile/bin/swaync
+exec /usr/bin/swaync
 # exec mako
 
 # Uncomment this line only after you've configured pipewire to work
@@ -35,8 +35,7 @@ set $mod Mod4
 # set $browser vivaldi-stable
 
 # Window management
-# bindsym $mod+w kill
-bindsym $mod+x kill
+bindsym $mod+w kill
 # bindsym $mod+v splitv
 # bindsym $mod+c splith # i use mode+c already for reloading a config file
 

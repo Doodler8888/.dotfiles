@@ -3,7 +3,7 @@ source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
 source /home/wurfkreuz/.secret_dotfiles/zsh/environment
 export GOPATH=$HOME/go
-export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:$PATH"
+export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:/usr/local/zig:$PATH"
 export FPATH="$HOME/.docker/completions:$FPATH"
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -117,6 +117,7 @@ alias scr="cd ~/.dotfiles/scripts/"
 alias off="poweroff"
 # alias off="loginctl poweroff"
 alias re="loginctl reboot"
+alias reboot="systemctl reboot"
 alias run="cargo run"
 alias build="cargo build"
 alias l="ln -s"
@@ -161,7 +162,6 @@ alias grr="git remote rm"
 alias cd-add="add-cd"
 alias a-c="add-cd"
 alias c-a="add-cd"
-alias untar="tar -xzf"
 alias k='kubectl'
 alias klogs="kubectl logs <pod_name> -n default --tail=1 | jq '.'"
 alias kps="kubectl port-forward services/"

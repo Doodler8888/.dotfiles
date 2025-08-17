@@ -1,4 +1,4 @@
-vim.lsp.set_log_level("debug")
+vim.lsp.log.set_level("debug")
 -- local capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
 
 do

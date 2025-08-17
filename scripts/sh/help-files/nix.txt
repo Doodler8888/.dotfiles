@@ -1,0 +1,2 @@
+Install a package:
+nix-env -iA nixpkgs.<package_name>

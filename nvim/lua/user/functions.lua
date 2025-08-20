@@ -16,9 +16,16 @@ function Copy_file_name()
     print('Copied file name: ' .. file_name)
 end
 
+function Copy_relative_path()
+    local rel_path = vim.fn.expand('%:.')
+    vim.fn.setreg('+', rel_path)
+    print('Copied relative path: ' .. rel_path)
+end
+
 -- Create commands
 vim.api.nvim_create_user_command('Cp', Copy_full_path, {})
 vim.api.nvim_create_user_command('Cpf', Copy_file_name, {})
+vim.api.nvim_create_user_command('Cpr', Copy_relative_path, {})
 
 
 function TrimWhitespace()
@@ -224,7 +231,7 @@ vim.api.nvim_set_keymap('n', '<leader>gi', ':GitInitCustomBranch<CR>', { noremap
 local function reload_file()
   -- Save cursor position and window state
   local view = vim.fn.winsaveview()
-  
+
   -- Check if buffer has been modified
   if vim.bo.modified then
     -- Force reload without saving local changes by using :edit!
@@ -233,7 +240,7 @@ local function reload_file()
     -- Normal reload if no local changes
     vim.cmd('edit')
   end
-  
+
   -- Restore cursor/window state
   vim.fn.winrestview(view)
   vim.notify('File reloaded from disk', vim.log.levels.INFO)

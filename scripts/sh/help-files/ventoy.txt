@@ -1,0 +1,2 @@
+Launch gui (use sudo, otherwise you'll get an error):
+sudo ventoy-web

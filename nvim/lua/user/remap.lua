@@ -224,6 +224,8 @@ vim.api.nvim_set_keymap('n', '<Leader>tx', ':tabclose<CR>', {noremap = true, sil
 
 
 vim.api.nvim_set_keymap('n', '<Leader>cc', ':Cp<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>cf', ':Cpf<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>cr', ':Cpr<CR>', {noremap = true, silent = true})
 
 -- Tables
 vim.api.nvim_set_keymap('n', '<Leader>te', ':TableModeToggleeCR>', {noremap = true, silent = true})

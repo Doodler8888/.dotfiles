@@ -1,4 +1,5 @@
 #!/bin/bash
+
 case $1 in
     up)
         current=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | sed 's/%//')

@@ -145,9 +145,9 @@ bindsym alt+semicolon+5 exec ~/.dotfiles/sway/switch_tab.sh 5
 # bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 # bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-bindsym XF86AudioRaiseVolume exec ~/.local/bin/volume-control up
-bindsym XF86AudioLowerVolume exec ~/.local/bin/volume-control down
-bindsym XF86AudioMute exec ~/.local/bin/volume-control mute
+bindsym XF86AudioRaiseVolume exec ~/.dotfiles/sway/volume-control up
+bindsym XF86AudioLowerVolume exec ~/.dotfiles/sway/volume-control down
+bindsym XF86AudioMute exec ~/.dotfiles/sway/volume-control mute
 
 
 # exec_always ~/.dotfiles/sway/ssh-agent

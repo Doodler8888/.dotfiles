@@ -3,3 +3,6 @@ git reset --soft HEAD~1
 
 Check commit history:
 git log (there is also 'git reflog')
+
+Rename branch:
+git branch -m <new_branch_name>

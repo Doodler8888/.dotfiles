@@ -3,3 +3,8 @@ resolvectl status
 
 Show to through what interface dns requests go:
 ip route get dns_ip
+
+To resolve dns you can use either dig or nslookup:
+dig @<dns_server_ip> +short <url>
+---
+nslookup <url>

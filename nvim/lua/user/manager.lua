@@ -1,7 +1,6 @@
 vim.pack.add({
-  -- Core & UI
-  "https://github.com/echasnovski/mini.nvim",
   "https://github.com/rose-pine/neovim",
+  "https://github.com/echasnovski/mini.nvim",
 
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope.nvim",
@@ -12,7 +11,6 @@ vim.pack.add({
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/Doodler8888/resession.nvim",
   "https://github.com/kylechui/nvim-surround",
-  -- { src = "https://github.com/nvim-lualine/lualine.nvim", version = "master" },
 
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/hrsh7th/nvim-cmp",

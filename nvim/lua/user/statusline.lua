@@ -1,26 +1,26 @@
-local function update_branch(bufnr)
-    local path = vim.api.nvim_buf_get_name(bufnr)
-    if path == "" then return end
-    local dir = vim.fn.fnamemodify(path, ":h")
-    local handle = io.popen("git -C " .. dir .. " rev-parse --abbrev-ref HEAD 2>/dev/null")
+local cached_branch = ""
+local function update_branch()
+    local handle = io.popen("git -C " .. vim.fn.expand('%:p:h') .. " rev-parse --abbrev-ref HEAD 2>/dev/null")
     if handle then
         local result = handle:read("*l")
         handle:close()
         if result and result ~= "" and result ~= "HEAD" then
-            vim.b[bufnr].git_branch = "[" .. result .. "]"
+            cached_branch = "[" .. result .. "]"
             return
         end
     end
-    vim.b[bufnr].git_branch = ""
+    cached_branch = ""
 end
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-    callback = function(args) update_branch(args.buf) end,
-})
-
+-- public function for statusline
 function _G.git_branch()
-    return vim.b.git_branch or ""
+    return cached_branch
 end
+
+-- update when entering a buffer or changing directory
+vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
+    callback = update_branch,
+})
 
 -- Define a very minimal statusline
 vim.o.statusline = table.concat({

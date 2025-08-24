@@ -1,8 +1,8 @@
-# font-family = NotoSansM Nerd Font Mono
-font-family = Jetbrains Mono Nerd Font
-font-style = medium
+# font-family = "Courier New"
 
-font-size = 12.3
+# font-style = medium
+
+font-size = 15
 
 theme = nord
 background = #1d1f21
@@ -11,3 +11,17 @@ keybind = alt+1=unbind
 keybind = alt+2=unbind
 keybind = alt+3=unbind
 keybind = alt+4=unbind
+keybind = alt+5=unbind
+keybind = alt+6=unbind
+keybind = alt+7=unbind
+keybind = alt+8=unbind
+
+keybind = command+1=unbind
+keybind = command+2=unbind
+keybind = command+3=unbind
+keybind = command+4=unbind
+keybind = command+5=unbind
+keybind = command+6=unbind
+keybind = command+7=unbind
+keybind = command+8=unbind
+keybind = command+9=unbind

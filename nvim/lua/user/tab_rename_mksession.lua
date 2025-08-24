@@ -83,9 +83,17 @@ function M.load_tab_names(session_path)
     local content = file:read("*a")
     file:close()
     if content and content ~= "" then
-        _G.custom_tab_names = vim.fn.json_decode(content)
+        local data = vim.fn.json_decode(content)
+        local tabs = vim.api.nvim_list_tabpages()
+        for _, tab in ipairs(tabs) do
+            local tabnr = vim.api.nvim_tabpage_get_number(tab)
+            if data[tabnr] and data[tabnr] ~= vim.NIL then
+                _G.custom_tab_names[tabnr] = data[tabnr]
+            end
+        end
         vim.cmd('redrawtabline')
     end
 end
+
 
 return M

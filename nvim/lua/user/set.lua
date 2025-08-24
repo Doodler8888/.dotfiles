@@ -12,10 +12,9 @@ vim.opt.swapfile = false
 vim.opt.backupdir = "/tmp/nvim-backup//"
 vim.opt.backup = true
 
--- vim.opt.undodir = "/tmp/nvim-undo//"
--- local home = os.getenv("HOME")
--- vim.opt.undodir = home .. "/.var/nvim-undo/"
-vim.opt.undodir = "/home/wurfkreuz/.var/nvim-undo/"
+local home = vim.fn.expand('~')
+vim.opt.undodir = home .. '/.var/nvim-undo/'
+-- vim.opt.undodir = "/home/wurfkreuz/.var/nvim-undo/"
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false

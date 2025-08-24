@@ -1,61 +1,19 @@
--- -- ~/.config/nvim/init.lua (or source this from it)
---
--- -- 1) full-path helper
--- function _G.get_full_path()
---   local fp = vim.fn.expand("%:p")
---   return fp ~= "" and fp or "[No Name]"
--- end
---
--- -- 2) git-branch helper
--- function _G.get_git_branch()
---   -- try gitsigns cache first
---   local gs = vim.b.gitsigns_head
---   if gs and gs ~= "" then
---     return "[" .. gs .. "]"
---   end
---
---   -- fallback to `git branch --show-current`
---   local fp = vim.fn.expand("%:p")
---   if fp == "" then return "" end
---   local dir = vim.fn.fnamemodify(fp, ":h")
---   local cmd = "cd " .. vim.fn.shellescape(dir) .. " && git branch --show-current 2>/dev/null"
---   local handle = io.popen(cmd)
---   if not handle then return "" end
---   local branch = handle:read("*l") or ""
---   handle:close()
---   return branch ~= "" and "[" .. branch .. "]" or ""
--- end
---
--- -- 3) LSP diagnostics helper
--- function _G.get_lsp_diagnostics()
---   if not vim.diagnostic then return "" end
---   local bufnr = vim.api.nvim_get_current_buf()
---   local diags = vim.diagnostic.get(bufnr)
---   local e, w = 0, 0
---   for _, d in ipairs(diags) do
---     if d.severity == vim.diagnostic.severity.ERROR then
---       e = e + 1
---     elseif d.severity == vim.diagnostic.severity.WARN then
---       w = w + 1
---     end
---   end
---   local parts = {}
---   if e > 0 then table.insert(parts, "E:" .. e) end
---   if w > 0 then table.insert(parts, "W:" .. w) end
---   return #parts > 0 and table.concat(parts, " ") or ""
--- end
---
--- -- 4) statusline format
--- vim.opt.statusline = table.concat {
---   "%{winnr()}",                        -- window number
---   " %{v:lua.get_full_path()}",        -- full path
---   " %{v:lua.get_git_branch()}",       -- [branch] or empty
---   "%=",                                -- separator (pushes the rest right)
---   "%{v:lua.get_lsp_diagnostics()}",   -- E:# W:#
--- }
---
--- -- 5) only redraw on diag or buffer enter (no CursorHold → no flicker)
--- vim.api.nvim_create_autocmd(
---   { "DiagnosticChanged", "BufEnter" },
---   { callback = function() vim.cmd("redrawstatus") end }
--- )
+-- Function to get current git branch, returns "[branch]" or "" if not in repo
+function _G.git_branch()
+  local handle = io.popen("git -C " .. vim.fn.expand('%:p:h') .. " rev-parse --abbrev-ref HEAD 2>/dev/null")
+  if handle then
+    local result = handle:read("*l")
+    handle:close()
+    if result and result ~= "" and result ~= "HEAD" then
+      return "[" .. result .. "]"
+    end
+  end
+  return ""
+end
+
+-- Define a very minimal statusline
+vim.o.statusline = table.concat({
+  "%<%f",        -- file path
+  " %m",         -- modified flag ("+" if unsaved, "-" if readonly)
+  " %{v:lua.git_branch()}" -- branch in [brackets]
+}, "")

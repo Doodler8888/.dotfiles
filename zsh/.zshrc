@@ -1,13 +1,12 @@
 source /usr/local/bin
 source $HOME/.dotfiles/zsh/bindings.sh
 source ~/.secret_dotfiles/zsh/.zshrc
-source /home/wurfkreuz/.secret_dotfiles/zsh/environment
+# source /home/wurfkreuz/.secret_dotfiles/zsh/environment
 export GOPATH=$HOME/go
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:/usr/local/zig:$PATH"
 export FPATH="$HOME/.docker/completions:$FPATH"
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
-export STARSHIP_CONFIG="/home/wurfkreuz/.dotfiles/starship/starship.toml"
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --exclude .snapshots --exclude opt --exclude lib --exclude lib64 --exclude mnt --exclude proc --exclude run --exclude sbin --exclude srv --exclude sys --exclude tmp --exclude /home/wurfkreuz/.config/vivaldi --exclude /home/wurfkreuz/snap'
 export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.9.0.1/bin"
 export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"

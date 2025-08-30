@@ -182,7 +182,7 @@ alias pull-emacs="git pull git://git.savannah.gnu.org/emacs.git"
 alias clone-neovim="git clone https://github.com/neovim/neovim.git"
 alias clone-emacs="git clone git://git.savannah.gnu.org/emacs.git"
 alias pc-motherboard="sudo dmidecode -t baseboard"
-alias tree-git="tree -a -I '.git'"
+alias tree-no-.git="tree -a -I '.git'"
 alias tree-gitignore="tree --gitignore"
 alias tree-all="tree -all"
 

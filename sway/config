@@ -1,22 +1,4 @@
-# I have 3 options to enable notifications. Dunst is the most straightforward
-# because i don't need to set this 'exec dbus-daemon --session
-# --address=unix:path=$XDG_RUNTIME_DIR/bus' and it's available as a package on
-# void. Mako is also available as a package, but it doesn't work with browser
-# extensions. Swaync isn't available as a package, you need to install it
-# throuhg nix, but it works (though you also need to use the dbus command).
-# I already should have dbus daemon running at this point, but it runs for root
-# only, not for my user. That's why i need to set it for the current user (which
-# means i need this line even outside of the notification daemons context). On
-# systemd this process is managed automatically apparently.
-# exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec /usr/bin/swaync
-# exec mako
-
-# Uncomment this line only after you've configured pipewire to work
-# Probably isn't used on systemd distros
-# exec --no-startup-id pipewire
-
-# exec cliphist store
 
 font NotoSansM Nerd Font Mono 8
 
@@ -25,38 +7,23 @@ output HDMI-A-1 mode 1920x1080@144Hz
 
 # exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 # exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME xdg-desktop-portal-wlr
-exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway xdg-desktop-portal-wlr
+# https://bbs.archlinux.org/viewtopic.php?id=287490 (check this if the problem still appears)
+exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 
 # Modifier key
 set $mod Mod4
-
-# Your preferred terminal emulator
-# set $term alacritty
-# set $browser vivaldi-stable
 
 # Window management
 bindsym $mod+w kill
 # bindsym $mod+v splitv
 # bindsym $mod+c splith # i use mode+c already for reloading a config file
 
-# Making this keybindings through Shift, Alt, Control doesn't work fsr
+# Making this keybindings through Shift, Alt, Control doesn't work.
 # Also i haven't found a way to make horizontal layout.
 # You have to use 'bindsym $mod+v layout toggle split' until it picks it
 bindsym $mod+v layout toggle split
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
-
-# bindsym $mod+Shift+h layout toggle
-# bindsym $mod+Shift+v layout toggle split
-# bindsym $mod+Shift+s layout toggle stacking
-# bindsym $mod+Shift+t layout toggle tabbed
-
-# bindsym $mod+Shift+t exec swaymsg workspace current layout tabbed
-# bindsym $mod+t layout toggle tabbed stacking split
-# bindsym $mod+t layout toggle split tabbed stacking splith splitv
-
-# bindsym $mod+t layout toggle all
-# bindsym $mod+Shift+t exec swaymsg workspace_layout tabbed
 
 bindsym $mod+Home exec wtype -k End # make sure you have wtype installed
 
@@ -163,25 +130,5 @@ output * bg ~/.dotfiles/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # here because by the time i wrote this line, i already applied the image, and
 # it looks like i don't have to reapply it.
 # exec_always --no-startup-id /home/wurfkreuz/.dotfiles/sway/swww.sh
-
-# # An attempt to enable polkit
-# exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
-
-
-# put
-
-# ```
-# Exec=env WLR_RENDERER=vulkan sway
-# ```
-
-# into /usr/share/wayland-sessions/sway.desktop
-
-
-
-# # exec --no-startup-id alacritty --class=floatingframe -e tmux new-session -A -s popup
-# exec --no-startup-id foot --app-id=floatingframe -e tmux new-session -A -s popup
-# # exec --no-startup-id /snap/bin/ghostty --class=floatingframe -e tmux new-session -A -s popup
-# for_window [app_id="floatingframe"] floating enable, resize set 1200 720, move position center, move scratchpad
-# bindsym $mod+w scratchpad show, resize set 1200 800, move position center
 
 exec wl-paste --watch cliphist store

@@ -1,2 +1,5 @@
 Set a default browser:
 xdg-settings set default-web-browser librewolf.desktop
+
+Open a file:
+file://<path_to_file>

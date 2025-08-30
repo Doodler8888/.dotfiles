@@ -6,3 +6,10 @@ git log (there is also 'git reflog')
 
 Rename branch:
 git branch -m <new_branch_name>
+
+Cancel uncommited changes in the current directory (modifications, delections,
+new files):
+git checkout -- .
+
+Remove remote branch:
+git push origin --delete <branch_name>

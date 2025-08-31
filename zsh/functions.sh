@@ -146,17 +146,19 @@ function fzf-recent() {
 }
 zle -N fzf-recent
 
-function fzf-zoxide() {
-    processed_lines=""
+fzf-zoxide() {
+    processed_lines=()
     while IFS= read -r line; do
-	if [ -d "$line" ]; then
-	    processed_lines=$(printf "%s\n%s" "$processed_lines" "$line")
-	else
-	    continue
-	fi
-    done < ~/.dirs # if i do 'cat ~/.dirs' instead, then it sets the $processed_lines in a subshell, which mean the code that is out of this scope don't get the variable.
-    dir=$(echo "$processed_lines" | fzf --height 40% --border) && cd "$dir"
-    zle reset-prompt
+        # заменяем /home/<username> на $HOME
+        line="${line/#\/home\/$USER/$HOME}"
+        processed_lines+=("$line")
+    done < ~/.dirs
+
+    dir=$(printf "%s\n" "${processed_lines[@]}" | fzf --height 40% --border)
+    if [ -n "$dir" ]; then
+        cd "$dir"
+        zle reset-prompt
+    fi
 }
 zle -N fzf-zoxide
 
@@ -304,9 +306,14 @@ zle -N Cp
 
 # Create a widget for pasting
 paste-from-clipboard() {
-    if [ -n "$WAYLAND_DISPLAY" ]; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        # macOS
+        LBUFFER+="$(pbpaste)"
+    elif [ -n "$WAYLAND_DISPLAY" ]; then
+        # Wayland
         LBUFFER+="$(wl-paste)"
     else
+        # X11
         LBUFFER+="$(xclip -selection clipboard -o)"
     fi
 }

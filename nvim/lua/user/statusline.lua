@@ -22,9 +22,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
     callback = update_branch,
 })
 
+-- check platform
+local is_macos = vim.loop.os_uname().sysname == "Darwin"
+
 -- Define a very minimal statusline
 vim.o.statusline = table.concat({
   "%<%f",        -- file path
-  " %m",         -- modified flag ("+" if unsaved, "-" if readonly)
-  " %{v:lua.git_branch()}" -- branch in [brackets]
+  " %m",         -- modified flag
+  (not is_macos) and " %{v:lua.git_branch()}" or "", -- only if not macOS
 }, "")

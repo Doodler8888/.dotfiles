@@ -61,6 +61,20 @@ require('telescope').setup({
 	   },
   },
   pickers = {
+    live_grep = {
+      -- This is the new configuration that overrides the default command
+      vimgrep_arguments = {
+        'rg',
+        '--line-number',
+        '--column',
+        '--smart-case',
+        '--color=never',
+        -- ADD THESE THREE FLAGS to search hidden files but ignore .git
+        '--hidden',
+        '--no-ignore',
+        '--glob=!.git'
+      }
+    },
     registers = {
       mappings = {
 	i = {
@@ -714,12 +728,11 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = tr
 
 -- Binding for finding directories
 vim.keymap.set('n', '<leader>fd', function()
-    builtin.find_files({
+    require('telescope.builtin').find_files({
         prompt_title = "Find Directories",
-        -- find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
-	find_command = { "find", ".", "-type", "d", "-not", "-path", "./.git/*" },
+        find_command = { "find", ".", "-path", "./.git", "-prune", "-o", "-type", "d", "-print" },
     })
-end, { noremap = true, silent = true, desc = "Find directories" })
+end, { noremap = true, silent = true, desc = "Find directories (Telescope)" })
 
 
 vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { noremap = true, silent = true, desc = "Find recent files" })

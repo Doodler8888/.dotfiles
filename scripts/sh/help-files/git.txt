@@ -11,5 +11,8 @@ Cancel uncommited changes in the current directory (modifications, delections,
 new files):
 git checkout -- .
 
-Remove remote branch:
+Remove remote branch (write branch without 'origin/'):
 git push origin --delete <branch_name>
+
+Push after commit reset/deletion:
+git push --force-with-lease

@@ -1,0 +1,5 @@
+Copy a file:
+scp <your_username>@<your_server_ip>:<path_on_the_server> <local_destination_path>
+
+Copy a file directory:
+scp -r <your_username>@<your_server_ip>:<path_on_the_server> <local_destination_path>

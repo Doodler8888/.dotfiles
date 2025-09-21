@@ -7,3 +7,6 @@ tree -a -I '.git'
 Show files respecting gitignore (if you use with '-a' it will show everything in
 .git directory, so i created a separate alias 't'):
 tree --gitignore
+
+Show only first level:
+tree -L 1

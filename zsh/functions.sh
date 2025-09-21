@@ -149,16 +149,14 @@ zle -N fzf-recent
 fzf-zoxide() {
     processed_lines=()
     while IFS= read -r line; do
-        # заменяем /home/<username> на $HOME
-        line="${line/#\/home\/$USER/$HOME}"
-        processed_lines+=("$line")
-    done < ~/.dirs
-
-    dir=$(printf "%s\n" "${processed_lines[@]}" | fzf --height 40% --border)
-    if [ -n "$dir" ]; then
-        cd "$dir"
-        zle reset-prompt
-    fi
+	if [ -d "$line" ]; then
+	    processed_lines=$(printf "%s\n%s" "$processed_lines" "$line")
+	else
+	    continue
+	fi
+    done < ~/.dirs # if i do 'cat ~/.dirs' instead, then it sets the $processed_lines in a subshell, which mean the code that is out of this scope don't get the variable.
+    dir=$(echo "$processed_lines" | fzf --height 40% --border) && cd "$dir"
+    zle reset-prompt
 }
 zle -N fzf-zoxide
 

@@ -1,0 +1,7 @@
+gui:
+  theme:
+    # фон выбранной строки/диапазона — вернуть к фону терминала
+    selectedLineBgColor: [default]
+    inactiveViewSelectedLineBgColor: [default]
+    # на старых релизах использовался отдельный ключ
+    selectedRangeBgColor: [default]

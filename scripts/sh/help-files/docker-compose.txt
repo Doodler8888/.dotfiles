@@ -4,8 +4,8 @@ docker compose up -d
 Recreate a container:
 docker compose up -d --force-recreate <container_name>
 
-Disable a cluster:
-docker compose down
+Disable a cluster and delete all volumes (useful when you need to reset a database):
+docker compose down -v
 
 Check status of containers:
 docker compose ps

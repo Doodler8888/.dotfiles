@@ -1,5 +1,5 @@
 Install without confirmation:
-apt install -y <package_name>
+sudo apt install -y <./package_name>
 
 Query packages:
 apt search <package_name>

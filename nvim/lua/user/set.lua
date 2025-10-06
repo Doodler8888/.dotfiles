@@ -32,8 +32,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.termguicolors = true
--- vim.opt.conceallevel = 0
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 2 -- don't set it to '1', otherwise there going to be empty spaces on concealed characters
 -- vim.opt.concealcursor = "nc"
 
 vim.opt.autowrite = true
@@ -101,3 +100,23 @@ vim.o.hidden = false
 -- -- Enable new experimental 'messages' command window + it probably enables
 -- -- hightlighting in cmd
 -- require('vim._extui').enable({})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- Set text width to 80 characters
+    vim.opt_local.textwidth = 80
+
+    -- Enable auto-wrapping
+    vim.opt_local.formatoptions:append("t")
+
+    -- Enable auto-wrapping comments using textwidth
+    vim.opt_local.formatoptions:append("c")
+
+    -- Remove comment leader when joining lines
+    vim.opt_local.formatoptions:append("j")
+
+    -- Don't break lines at single spaces that follow periods
+    vim.opt_local.formatoptions:append("q")
+  end
+})

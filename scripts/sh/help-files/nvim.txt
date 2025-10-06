@@ -1,15 +1,25 @@
 Launch bare nvim:
 nvim --clean
 
-Sequentially increment:
-g+C+a
+Launch neovim with a custom file:
+nvim -u <file_path>
+
+Show higlight group name under the cursor:
+:Inspect
+
+Show value of a color group:
+:highlight <hg_name>
+Example:
+:highlight @punctuation.delimiter
 
 Move between curly brackets:
 [/]+m
 
-Move to start of the next line:
-+
-
 Reload buffer:
 e! - "!" forces the reload, discarding any unsaved changes.
 
+Search in specific file patterns:
+:vimgrep /oldword/g file1.txt file2.txt src/**/*.lua
+
+Interactively replace found pattern in each file:
+:cfdo %s/oldword/newword/gc | update

@@ -1,11 +1,14 @@
-1. Create a desktop file:
-~/.local/share/applications/myapp.desktop
+Global desktop files:
+/usr/share/applications/
 
-2. Add this:
+Local desktop files:
+~/.local/share/applications/
+
+Example of a desktop file:
 [Desktop Entry]
 Name=MyApp
-Exec=/home/youruser/path/to/myapp
+Exec=/usr/bin/vivaldi-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --use-cmd-decoder=validating %U
 Type=Application
 
-3. Reload the desktop database (optional):
+Reload the desktop database:
 update-desktop-database ~/.local/share/applications

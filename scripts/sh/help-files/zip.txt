@@ -1,5 +1,2 @@
-To unzip into a directory:
-
+To unzip into a directory (-d flag creates a directory if it doesn't exist):
 unzip web-server-access-logs.zip -d web-server-archive
-
-(the -d flag creates the directory if it doesn't exist)

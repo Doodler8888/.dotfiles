@@ -15,6 +15,9 @@ export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/k3s-config
 export MANPAGER='nvim +Man!'
 export VIRTUAL_ENV_DISABLE_PROMPT=1 # This is for avoiding incorrect displaying prompt, because i already have my own one.
+export XKB_DEFAULT_LAYOUT=us,ru
+export XKB_DEFAULT_VARIANT=colemak  
+export XKB_DEFAULT_OPTIONS=caps:escape,grp:lshift_rshift_toggle,grp_led:scroll
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -264,6 +267,11 @@ PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
 ! { which werf | grep -qsE "^/home/wurfkreuz/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
+
+# if [ "$XDG_SESSION_DESKTOP" = "dwl" ]; then
+#     # sleep 3
+#     wlr-randr --output HDMI-A-1 --mode 1920x1080@143.981003 &
+# fi
 
 if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh

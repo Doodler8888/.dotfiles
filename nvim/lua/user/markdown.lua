@@ -1,45 +1,21 @@
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    -- Set text width to 80 characters
-    vim.opt_local.textwidth = 80
-
-    -- Enable auto-wrapping
-    vim.opt_local.formatoptions:append("t")
-
-    -- Enable auto-wrapping comments using textwidth
-    vim.opt_local.formatoptions:append("c")
-
-    -- Remove comment leader when joining lines
-    vim.opt_local.formatoptions:append("j")
-
-    -- Don't break lines at single spaces that follow periods
-    vim.opt_local.formatoptions:append("q")
-  end
-})
-
-
--- vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
---   pattern = {"*.md", "*.markdown"},
---   callback = function()
---     local lnum = vim.fn.line(".")
---     local col = vim.fn.col(".")
---     local concealed = vim.fn.synconcealed(lnum, col) ~= 0
---     if concealed and vim.wo.concealcursor ~= "" then
---       vim.wo.concealcursor = ""
---     elseif not concealed and vim.wo.concealcursor ~= "nc" then
---       vim.wo.concealcursor = "nc"
---     end
---   end,
--- })
-
-
 -- This plugin takes over the secondary 's' binding, it makes it impossible to
 -- use it with surrounding-plugings in markdown files. That's why i explicitely
 -- disabled them.
 require("markdown").setup({
   -- Disable all keymaps by setting mappings field to 'false'.
   -- Selectively disable keymaps by setting corresponding field to 'false'.
+    on_attach = function(bufnr)
+        local map = vim.keymap.set
+        -- The { buffer = bufnr } part is important. It makes the keymap
+        -- only apply to markdown files that this plugin is attached to.
+        local opts = { buffer = bufnr, silent = true }
+
+        -- 1. In NORMAL mode, press C-c C-c to toggle the task on the current line
+        map('n', '<C-c><C-c>', '<Cmd>MDTaskToggle<CR>', opts)
+
+        -- 2. In VISUAL mode, select lines and press C-c C-c to toggle all their tasks
+        map('x', '<C-c><C-c>', ':MDTaskToggle<CR>', opts)
+    end,
   mappings = {
     -- inline_surround_toggle = "gs", -- (string|boolean) toggle inline style
     inline_surround_toggle = false, -- (string|boolean) toggle inline style

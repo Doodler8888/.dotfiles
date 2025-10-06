@@ -8,6 +8,36 @@ local builtin = require('telescope.builtin')
 local previewers = require 'telescope.previewers'
 local config = require('telescope.config')
 
+local function move_cursor_to_col(col)
+  -- set cursor in the current window (row 1, byte-indexed col)
+  local win = vim.api.nvim_get_current_win()
+  -- clamp to >= 0
+  if col < 0 then col = 0 end
+  pcall(vim.api.nvim_win_set_cursor, win, {1, col})
+end
+
+local function col_after_prefix(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)  -- fixed
+  local prefix = (picker and picker.prompt_prefix) or ""
+  local line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
+  local prefix_char_count = #prefix
+  local ok, byte_col = pcall(vim.fn.byteidx, line, prefix_char_count)
+  if ok and type(byte_col) == "number" and byte_col >= 0 then
+    return byte_col
+  end
+  return prefix_char_count
+end
+
+local function col_end_of_line()
+  local line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
+  local ok, byte_col = pcall(vim.fn.byteidx, line, #line)
+  if ok and type(byte_col) == "number" and byte_col >= 0 then
+    return byte_col
+  end
+  return #line
+end
+
+
 local function copy_telescope_selection()
     return function(prompt_bufnr)
         local current_picker = action_state.get_current_picker(prompt_bufnr)
@@ -49,15 +79,22 @@ require('telescope').setup({
     },
 	 mappings = {
 	     i = {
-			 ["<C-j>"] = require('telescope.actions').cycle_history_next,
-			 ["<C-k>"] = require('telescope.actions').cycle_history_prev,
-			 ["<C-v>"] = copy_telescope_selection(),
+			 ["<M-n>"] = require('telescope.actions').cycle_history_next,
+			 ["<M-p>"] = require('telescope.actions').cycle_history_prev,
+			 -- ["<C-v>"] = copy_telescope_selection(),
 			 -- ["<M-w>"] = copy_telescope_selection(),
-       ["<C-g>"] = actions.close,
+        ["<C-f>"] = false,
+        ["<M-f>"] = false,
+        ["<C-a>"] = function(prompt_bufnr)
+          local col = col_after_prefix(prompt_bufnr)
+          move_cursor_to_col(col)
+        end,
+        ["<C-k>"] = false,
+         ["<C-g>"] = actions.close,
 	     },
        n = {
          ["<C-g>"] = actions.close,
-       }
+       },
 	   },
   },
   pickers = {
@@ -112,6 +149,13 @@ vim.api.nvim_set_keymap(
     "n",
     "<leader>ff",
     [[<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true, sort = true })<CR>]],
+    { noremap = true, silent = true }
+)
+
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>fc",
+    "<cmd>lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('%:p:h') })<CR>",
     { noremap = true, silent = true }
 )
 

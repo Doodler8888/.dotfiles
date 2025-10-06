@@ -1,0 +1,52 @@
+{
+    "description": "Map slash (/) to period (.)",
+    "manipulators": [
+        {
+            "conditions": [
+                {
+                    "input_sources": [{ "language": "ru" }],
+                    "type": "input_source_if"
+                }
+            ],
+            "from": {
+                "key_code": "slash",
+                "modifiers": { "optional": ["caps_lock"] }
+            },
+            "to": [
+                {
+                    "key_code": "7",
+                    "modifiers": ["shift"]
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+
+{
+    "description": "Map question mark (?) to comma (,)",
+    "manipulators": [
+        {
+            "conditions": [
+                {
+                    "input_sources": [{ "language": "ru" }],
+                    "type": "input_source_if"
+                }
+            ],
+            "from": {
+                "key_code": "slash",
+                "modifiers": {
+                    "mandatory": ["shift"],
+                    "optional": ["caps_lock"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "6",
+                    "modifiers": ["shift"]
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}

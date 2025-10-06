@@ -1,2 +1,5 @@
-Go into a shell as root (helpful in case you don't have a password set on root):
+Switch to root (helpful in case you don't have a password set on root):
 sudo -i
+
+Switch to a user:
+sudo -iu <user>

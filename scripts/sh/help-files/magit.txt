@@ -1,2 +1,5 @@
+Jump between hunks:
+M-n/p
+
 To do 'git rm --cached':
 magit-reset (or 'X') -> file -> HEAD

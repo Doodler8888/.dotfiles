@@ -174,6 +174,9 @@ function wait_for_ctrl_r_or_c {
   #   fd-lsearchh
   if [[ "$key" == $'\C-z' ]]; then
     fzf-zoxide
+  elif [[ "$key" == $'\C-a' ]]; then
+    sh "/home/wurfkreuz/.dotfiles/scripts/sh/add-cd"
+    zle reset-prompt
   elif [[ "$key" == $'\C-r' ]]; then
     fzf-recent
   # elif [[ "$key" == $'\C-e' ]]; then

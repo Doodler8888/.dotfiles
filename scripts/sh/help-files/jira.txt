@@ -1,0 +1,5 @@
+Search using JQL:
+Issues → Search for issues
+
+Tasks made by you:
+assignee = currentUser()

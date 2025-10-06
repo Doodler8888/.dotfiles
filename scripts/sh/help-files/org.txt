@@ -1,2 +1,5 @@
 Create a link in a word:
 [[file:/path/to/your/file][Your Link Text]]
+
+Create a checkbox (C-c C-c to check):
+- [ ] <text>

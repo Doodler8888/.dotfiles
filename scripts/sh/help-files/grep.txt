@@ -6,3 +6,6 @@ grep -E 'WARNING|ERROR'
 
 Recursive grep:
 grep -r <pattern>
+
+Look 5 lines ahead after search pattern line:
+grep -r -A 5 'cache:'

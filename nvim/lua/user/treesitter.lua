@@ -115,3 +115,20 @@ end, { noremap = true, silent = false, desc = "Jump to end of function" })
 --   end,
 -- })
 
+
+vim.filetype.add({
+  extension = {
+    conf = function(path, bufnr)
+      -- Check if it's in an nginx directory or has nginx-like content
+      if path:match("nginx") then
+        return "nginx"
+      end
+      return "conf"
+    end,
+  },
+  pattern = {
+    [".*/nginx/.*%.conf"] = "nginx",
+    [".*/sites-available/.*"] = "nginx",
+    [".*/sites-enabled/.*"] = "nginx",
+  },
+})

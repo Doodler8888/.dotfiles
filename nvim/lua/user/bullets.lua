@@ -13,3 +13,10 @@ vim.api.nvim_create_autocmd("FileType", {
     -- vim.keymap.set('i', '<C-CR>', '<Plug>(bullets-newline)', { buffer = true })
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text" },
+  callback = function()
+    vim.keymap.set({'n', 'v'}, '<C-c><C-c>', '<Plug>(bullets-toggle-checkbox)', { buffer = true })
+  end,
+})

@@ -47,6 +47,9 @@ vim.keymap.set('i', ctrl_modifier .. 'f>', '<Esc>Ea', {noremap = true})
 vim.keymap.set('i', ctrl_modifier .. 'b>', '<C-o>B', {noremap = true})
 vim.keymap.set('i', modifier .. 'b>', '<C-o>b', {noremap = true})
 vim.keymap.set('i', modifier .. 'm>', '<Esc>I', {noremap = true})
+vim.keymap.set('i', '<M-d>', '<C-o>dw', { desc = 'Delete word forward' })
+vim.keymap.set('i', '<M-)>', '<C-o>)', { desc = 'Move to next sentence' })
+vim.keymap.set('i', '<M-(>', '<C-o>(', { desc = 'Move to previous sentence' })
 
 -- Normal/Operator-Pending Mode Bindings
 vim.keymap.set({'n', 'o'}, modifier .. 'm>', '^')
@@ -270,3 +273,5 @@ vim.keymap.set("n", "g;", function()
     vim.cmd("normal! g;")
   end
 end, { noremap = true, silent = true })
+
+-- saosietn test aorisetn

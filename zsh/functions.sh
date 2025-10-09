@@ -189,8 +189,8 @@ function wait_for_ctrl_r_or_c {
     print_current_directory_inline
   # elif [[ "$key" == $'C-v' ]]; then
   #   fzf-copy-notify
-  # elif [[ "$key" == $'\C-b' ]]; then
-  #   switch_branch
+  elif [[ "$key" == $'\C-g' ]]; then
+    switch_branch
   elif [[ "$key" == $'\y' ]]; then
     Cp
   fi

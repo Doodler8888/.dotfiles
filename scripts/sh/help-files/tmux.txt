@@ -4,6 +4,9 @@ tmux-source /path/to/config/file
 Attach session:
 tmux attach-session -t <session_name>
 
+Kill session:
+tmux kill-session -t <session_name>
+
 Cmd line:
 <prefix> + :
 

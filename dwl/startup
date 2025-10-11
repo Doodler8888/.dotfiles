@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+#!/bin/sh
+# /home/wurfkreuz/.dotfiles/dwl/startup
+exec > /tmp/dwl-startup.log 2>&1
+set -x
+
+# Wait a bit for dwl to fully initialize
+sleep 1
+
+# Workspace 1 (tag 0)
+dwlmsg -s -t !0^
+dwlmsg -s -c   # Just ensures we’re targeting the current output
+/usr/bin/brave-browser &
+
+sleep 3
+
+# Workspace 2 (tag 1)
+dwlmsg -s -t !1^
+/usr/bin/vivaldi &
+
+sleep 3
+
+# Workspace 3 (tag 2)
+dwlmsg -s -t !2^
+/usr/bin/foot &
+
+sleep 3
+
+# Workspace 4 (tag 3)
+dwlmsg -s -t !3^
+/home/wurfkreuz/Downloads/Telegram/Telegram &

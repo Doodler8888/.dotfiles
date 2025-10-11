@@ -82,6 +82,7 @@ bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6; workspace number 6
 
 # Useless binding in my case
 # Config reload

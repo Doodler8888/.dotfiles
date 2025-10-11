@@ -255,13 +255,13 @@ vim.keymap.set('n', '<leader>wa', ':wa<CR>', {noremap = true, silent = true})
 
 vim.keymap.set('n', '<leader>so', function()
   local cfg = vim.fn.stdpath('config') .. '/init.lua'
-  local ok, err = pcall(dofile, cfg)
+  local ok, err = pcall(vim.cmd, 'source ' .. cfg)
   if ok then
     vim.notify('✨ Config reloaded!', vim.log.levels.INFO)
   else
-    vim.notify('❌ Error reloading config:\n' .. err, vim.log.levels.ERROR)
+    vim.notify('❌ Error reloading config:\n' .. tostring(err), vim.log.levels.ERROR)
   end
-end, { noremap = true, silent = true })
+end, { noremap = true, silent = true, desc = 'Reload config' })
 
 vim.api.nvim_set_keymap('c', '<C-g>', '<C-c>', { noremap = true })
 
@@ -274,4 +274,4 @@ vim.keymap.set("n", "g;", function()
   end
 end, { noremap = true, silent = true })
 
--- saosietn test aorisetn
+-- saosietn test123 aorisetn

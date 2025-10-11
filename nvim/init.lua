@@ -19,4 +19,4 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#17191a" })
 vim.api.nvim_set_hl(0, "DirvishSuffix", { fg = "#6e6a86" })
 
--- test aoisretn aorisetn
+-- test123 aoisretn aorisetn

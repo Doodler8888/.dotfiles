@@ -12,7 +12,8 @@ export PATH="$PATH:/home/wurfkreuz/.ghcup/hls/2.9.0.1/bin"
 export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 export VISUDO_EDITOR=/usr/local/bin/nvim
 export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
-export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/k3s-config
+# export KUBECONFIG=$HOME/.kube/k3s-config
+# export KUBECONFIG=$HOME/.kube/config
 export MANPAGER='nvim +Man!'
 export VIRTUAL_ENV_DISABLE_PROMPT=1 # This is for avoiding incorrect displaying prompt, because i already have my own one.
 export XKB_DEFAULT_LAYOUT=us,ru

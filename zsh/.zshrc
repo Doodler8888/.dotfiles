@@ -16,9 +16,6 @@ export CC=/usr/bin/gcc && export CXX=/usr/bin/gcc
 # export KUBECONFIG=$HOME/.kube/config
 export MANPAGER='nvim +Man!'
 export VIRTUAL_ENV_DISABLE_PROMPT=1 # This is for avoiding incorrect displaying prompt, because i already have my own one.
-export XKB_DEFAULT_LAYOUT=us,ru
-export XKB_DEFAULT_VARIANT=colemak  
-export XKB_DEFAULT_OPTIONS=caps:escape,grp:lshift_rshift_toggle,grp_led:scroll
 
 # zstyle ':completion:*' menu select
 # zstyle ':completion:*' special-dirs true
@@ -193,6 +190,7 @@ alias pc-motherboard="sudo dmidecode -t baseboard"
 alias tree-no-.git="tree -a -I '.git'"
 alias tree-gitignore="tree --gitignore"
 alias tree-all="tree -all"
+alias show-desktop="ls -la /usr/share/applications && ls -la ~/.local/share/applications"
 
 autoload -Uz compinit; compinit;
 bindkey "^Xe" _expand_alias
@@ -271,7 +269,7 @@ PERL_MB_OPT="--install_base \"/home/wurfkreuz/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/wurfkreuz/perl5"; export PERL_MM_OPT;
 
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
-! { which werf | grep -qsE "^/home/wurfkreuz/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
+# ! { which werf | grep -qsE "^/home/wurfkreuz/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
 
 # if [ "$XDG_SESSION_DESKTOP" = "dwl" ]; then
 #     # sleep 3

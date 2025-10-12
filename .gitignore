@@ -6,6 +6,8 @@
 .zcompdump
 quicklisp/
 
+nvim-pack-lock.json
+
 **/.lem/logs/language-client.log
 **/.lem/history/
 

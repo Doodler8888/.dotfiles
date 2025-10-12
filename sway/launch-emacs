@@ -80,7 +80,8 @@ sleep 1
 
 swaymsg 'workspace 4'
 # swaymsg 'exec /home/wurfkreuz/Downloads/executables/tsetup.5.16.4/Telegram/Telegram'
-swaymsg 'exec /home/wurfkreuz/Downloads/Telegram/Telegram'
+# swaymsg 'exec /home/wurfkreuz/Downloads/Telegram/Telegram'
+swaymsg 'exec /usr/bin/Telegram'
 # swaymsg 'exec /snap/bin/telegram-desktop'
 
 

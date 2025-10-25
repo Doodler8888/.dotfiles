@@ -407,27 +407,36 @@ sv-up() {
 # }
 
 
-autoload -U my_fzf_history_widget
 function my_fzf_history_widget() {
-    local selected
-    selected=$(fc -ln 0 | awk '!seen[$0]++' | grep -F "$BUFFER" | tac | fzf \
-                                                                      --scheme=history \
-        	                                                      --height "40%" \
-        	                                                      -n2..,.. \
-        	                                                      --tiebreak=index \
-            )
-    local ret=$?
-    if [ -n "$selected" ]; then
-        # Convert literal \n to actual newlines
-        selected=${selected//\\n/$'\n'}
-        BUFFER="${selected}"
-        CURSOR=$#BUFFER
-        zle vi-fetch-history -n $BUFFER
-    fi
-    zle reset-prompt
-    return $ret
+  # Сохраняем текущий ввод и очищаем
+  local orig_buffer=$BUFFER
+  BUFFER=
+  zle -I  # отключить инкрементальный поиск zle
+
+  local selected
+  selected=$(
+    fc -ln 0 |
+      awk '!seen[$0]++' |
+      tac |
+      fzf --scheme=history \
+          --height=40% \
+          --tiebreak=index \
+          --query="$orig_buffer" \
+          --no-sort
+  )
+
+  local ret=$?
+  if [[ -n $selected ]]; then
+    selected=${selected//\\n/$'\n'}
+    BUFFER=$selected
+    CURSOR=$#BUFFER
+  else
+    BUFFER=$orig_buffer
+  fi
+
+  zle reset-prompt
+  return $ret
 }
-autoload my_fzf_history_widget
 zle -N my_fzf_history_widget
 bindkey '^R' my_fzf_history_widget
 

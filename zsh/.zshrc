@@ -4,6 +4,7 @@ source ~/.secret_dotfiles/zsh/.zshrc
 # source /home/wurfkreuz/.secret_dotfiles/zsh/environment
 export GOPATH=$HOME/go
 export PATH="/var/lib/flatpak/exports/bin:$HOME/.local/share/flatpak/exports/bin:/usr/local/go/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.dotfiles:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.local/bin:/usr/lib:$HOME/perl5/bin:$HOME/.qlot/bin/:$HOME/common-lisp/lem:$HOME/.config/emacs/bin:/var/lib/snapd/snap/bin:$HOME/common-lisp/lem:$HOME/.source/zig/build/stage3/bin:$HOME/.dotfiles/scripts/sh/:$HOME/.dotfiles/scripts/sh/add-cd/:$HOME/.dotfiles/scripts/sh/nvim:$HOME/.dotfiles/scripts/perl/:$HOME/.dotfiles/scripts/python/:/usr/local/zig:$PATH"
+export LD_LIBRARY_PATH=/usr/local/lib64:$LD_LIBRARY_PATH
 export FPATH="$HOME/.docker/completions:$FPATH"
 export EDITOR=nvim
 export HISTFILE="$HOME/.zsh_history"
@@ -101,7 +102,8 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias nvm='cd ~/.dotfiles/nvim/ && nvim .'
-alias install='sudo apt install'
+# alias install='sudo apt install'
+alias install='sudo dnf upgrade --refresh && sudo dnf install'
 alias remove='sudo apt remove'
 alias search='sudo apt search'
 # alias install='sudo xbps-install -S'

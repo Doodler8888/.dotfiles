@@ -12,3 +12,6 @@ List all roles:
 
 List all databases:
 \l or \list (without semicolon)
+
+Create backup (example):
+sudo docker exec --user postgres sonarqube-db-1 pg_dump -p 25432 -d sonarqube_db2 -F c -b -v -f

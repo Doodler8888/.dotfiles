@@ -2,6 +2,8 @@ vim.o.clipboard = "unnamedplus"
 
 vim.o.cursorline = false
 
+vim.opt.fixendofline = true
+
 vim.opt.nu = true -- 'nu' is probably short for 'number'
 vim.opt.relativenumber = true
 

@@ -15,6 +15,8 @@
 /home/wurfkreuz/Downloads/packages
 /home/wurfkreuz/.emacs.d
 /home/wurfkreuz/.projects
+/home/wurfkreuz/.projects/affilers-admin-fe
+/home/wurfkreuz/.projects/affilers-back
 /home/wurfkreuz/.projects/airflow-cfd
 /home/wurfkreuz/.projects/airflow-monitoring
 /home/wurfkreuz/.projects/ansible
@@ -26,6 +28,7 @@
 /home/wurfkreuz/.projects/binpartner
 /home/wurfkreuz/.projects/binpartner-ruby
 /home/wurfkreuz/.projects/blacklist
+/home/wurfkreuz/.projects/cfd-influencers-crm-back
 /home/wurfkreuz/.projects/cfd-influencers-crm-fe
 /home/wurfkreuz/.projects/crm-interaction
 /home/wurfkreuz/.projects/dx-cfd-admin-fe
@@ -50,7 +53,9 @@
 /home/wurfkreuz/.projects/meridiana-back
 /home/wurfkreuz/.projects/meridiana-fe
 /home/wurfkreuz/.projects/mlflow
+/home/wurfkreuz/.projects/sentry
 /home/wurfkreuz/.projects/sentry_24.8.0
+/home/wurfkreuz/.projects/sentry/sentry_24.8.0
 /home/wurfkreuz/.projects/sonarqube_update_test
 /home/wurfkreuz/.projects/staging-tool
 /home/wurfkreuz/.projects/vault

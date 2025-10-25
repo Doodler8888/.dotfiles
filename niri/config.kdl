@@ -8,24 +8,23 @@ output "HDMI-A-1" {
     // turn off the output if needed
     // off
 
+    // available since next relis
+    // hot-corners {
+    //     off
+    // }
+
     // resolution and refresh rate
     mode "1920x1080@143.981"
 
-    // hot-corners {
-    //     // top-left
-    //     // top-right
-    //     // bottom-left
-    //     // bottom-right
-    // }
 }
 
 // Input device configuration.
-// Find the full list of options on the wiki:
+// Find the full list of options "caps:swapescape,grp:shifts_toggle"
 // https://yalter.github.io/niri/Configuration:-Input
 input {
     keyboard {
         xkb {
-            // You can set rules, model, layout, variant and options.
+            // You can set rules, model, layout, variant "colemak,"
             // For more information, see xkeyboard-config(7).
 
             // For example:
@@ -83,7 +82,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="0%"
 }
 
 // You can configure outputs by their name, which you can find
@@ -130,7 +129,7 @@ layout {
     // Set gaps around windows in logical pixels.
     gaps 0
 
-    // When to center a column when changing focus, options are:
+    // When to center a column when changing focus, options "caps:swapescape,grp:shifts_toggle"
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
     // - "always", the focused column will always be centered.
@@ -284,16 +283,21 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
-// spawn-at-startup "waybar"
-
 // Named workspaces — ensures they exist on startup
 workspace "1-browser"
 workspace "2-alt-browser"
 workspace "3-terminal"
 workspace "4-chat"
+workspace "5-vpn"
 
 spawn-at-startup "~/.config/niri/startup.sh"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "sh" "-c" "sleep 1 && swww img /home/wurfkreuz/Downloads/pictures/cool_gif.gif"
+
+environment {
+    XDG_CURRENT_DESKTOP "niri"
+}
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
@@ -301,7 +305,7 @@ spawn-at-startup "~/.config/niri/startup.sh"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    // skip-at-startup
+    skip-at-startup
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -365,6 +369,35 @@ window-rule {
 //     // open-maximized true
 // }
 
+window-rule {
+    match app-id="emacs"
+    open-fullscreen true
+    // open-maximized true
+}
+
+window-rule {
+    match app-id="vivaldi-stable"
+    // open-fullscreen true
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave-browser"
+    // open-fullscreen true
+    open-maximized true
+}
+
+window-rule {
+    match app-id="org.telegram.desktop"
+    open-fullscreen true
+    // open-maximized true
+}
+
+window-rule {
+    match app-id="Slack"
+    open-fullscreen true
+    // open-maximized true
+}
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -401,7 +434,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "/usr/local/bin/foot-fullscreen"; }
+    Mod+RETURN hotkey-overlay-title="Open a Terminal: foot" { spawn "/usr/local/bin/foot-fullscreen"; }
+    Mod+E hotkey-overlay-title="Run an Application: emacs" { spawn "emacs"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+R hotkey-overlay-title="Run an Application: wofi" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
@@ -628,15 +662,17 @@ binds {
 
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have
-    // a matching layout switch hotkey configured in xkb options above.
+    // a matching layout switch hotkey configured in xkb options "caps:swapescape,grp:shifts_toggle"
     // Having both at once on the same hotkey will break the switching,
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    // Print { screenshot; }
+    // Ctrl+Print { screenshot-screen; }
+    // Alt+Print { screenshot-window; }
+    Mod+F11 { screenshot; }
+    Mod+F12 { screenshot-screen; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

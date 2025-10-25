@@ -1,3 +1,13 @@
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local telescope = require('telescope')
+local builtin = require('telescope.builtin')
+local previewers = require 'telescope.previewers'
+local config = require('telescope.config')
+
 vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
 
 _G.current_session_name = nil
@@ -136,18 +146,57 @@ function _G.rename_session_interactive()
     end
 end
 
-function _G.choose_and_delete_session()
+function _G.choose_and_delete_session(opts)
+    opts = opts or {}
     local sessions = list_sessions()
     if #sessions == 0 then
         print("No sessions found.")
         return
     end
-    local choice = vim.fn.inputlist(sessions)
-    if choice > 0 and choice <= #sessions then
-        _G.delete_session(sessions[choice])
-    else
-        print("Invalid session choice.")
-    end
+
+    local layout_config = {
+        width = 0.5,
+        height = 0.5,
+        mirror = false,
+        prompt_position = "bottom",
+    }
+
+    pickers.new(opts, {
+        prompt_title = 'Delete Session',
+        finder = finders.new_table { results = sessions },
+        sorter = conf.generic_sorter(opts),
+        layout_strategy = "center",
+        layout_config = layout_config,
+        attach_mappings = function(prompt_bufnr, map)
+            -- delete on <CR>
+            actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                if selection and selection.value then
+                    local confirm = vim.fn.confirm(
+                        "Delete session '" .. selection.value .. "'?",
+                        "&Yes\n&No", 2
+                    )
+                    if confirm == 1 then
+                        _G.delete_session(selection.value)
+                    else
+                        print("Canceled.")
+                    end
+                end
+            end)
+
+            -- Optional: delete with <C-d> without confirmation
+            map('i', '<C-d>', function()
+                local selection = action_state.get_selected_entry()
+                if selection and selection.value then
+                    actions.close(prompt_bufnr)
+                    _G.delete_session(selection.value)
+                end
+            end, { noremap = true, silent = true })
+
+            return true
+        end,
+    }):find()
 end
 
 -- User Commands
@@ -162,12 +211,12 @@ vim.api.nvim_create_user_command('RenameSession', function(opts)
     _G.rename_session(args[1], args[2])
 end, { nargs = '*' })
 vim.api.nvim_create_user_command('RenameSessionInteractive', _G.rename_session_interactive, {})
-vim.api.nvim_create_user_command('DeleteSession', _G.choose_and_delete_session, {})
+vim.api.nvim_create_user_command('DeleteSession', function() _G.choose_and_delete_session() end, {})
 
 -- Keymaps
+vim.keymap.set('n', '<leader>sd', function() _G.choose_and_delete_session() end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>ss', function() _G.save_session() end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>sr', _G.rename_session_interactive, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>sd', _G.choose_and_delete_session, { noremap = true, silent = true })
 
 -- Autocmds
 vim.api.nvim_create_autocmd("VimLeavePre", {

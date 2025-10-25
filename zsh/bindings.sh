@@ -12,6 +12,7 @@ bindkey -M viins '^E' end-of-line          # C-e: Move to end of line
 bindkey -M viins '^K' kill-line            # C-k: Kill to end of line
 bindkey -M viins '^U' backward-kill-line   # C-u: Delete entire line
 bindkey -M viins '^W' backward-kill-word   # C-w: Delete previous word
+bindkey -M viins '^[d' kill-word   # M-d: delete forward word
 bindkey -M viins '^[f' forward-word        # M-f: Move forward one word
 bindkey -M viins '^[b' backward-word       # M-b: Move backward one word
 bindkey -M viins '^B' backward-char        # C-b: Move backward one char
@@ -23,6 +24,7 @@ bindkey -M vicmd '^E' end-of-line
 bindkey -M vicmd '^K' kill-line
 bindkey -M vicmd '^U' backward-kill-line
 bindkey -M vicmd '^W' backward-kill-word
+bindkey -M vicmd '^[d' kill-word
 bindkey -M vicmd '^[f' forward-word
 bindkey -M vicmd '^[b' backward-word
 bindkey -M vicmd '^B' backward-char

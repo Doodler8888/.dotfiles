@@ -1,6 +1,3 @@
-Example:
-
-echo "Write cluster names (whitespace as a delimiter)"
-read -r clusters
-
-echo "$clusters"
+Create a variable from a prompt:
+echo "Enter variable's value:"
+read -r <variable_name>

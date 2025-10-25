@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+# Function to display usage information
+usage() {
+    echo "Usage: download <URL>"
+    echo "       Downloads a file from the given URL."
+    echo ""
+    echo "       Prompts for filename and destination path, with intelligent defaults."
+    exit 1
+}
+
+# Check if a URL argument is provided
+if [ -z "$1" ]; then
+    usage
+fi
+
+DOWNLOAD_URL="$1"
+DEFAULT_FILENAME=""
+DEFAULT_PATH="./" # Default to current directory
+
+# --- Determine Default Filename ---
+# Use curl's -O --remote-name-all option in a "dry run" to get the suggested filename.
+# This is a bit tricky, as curl doesn't have a direct "just tell me the name" option
+# without actually downloading.
+# A common approach is to parse the Content-Disposition header or the URL.
+
+# Try to get filename from Content-Disposition header first
+# We'll use curl -sI (silent, head only) and grep for Content-Disposition
+CONTENT_DISPOSITION=$(curl -sI "$DOWNLOAD_URL" | grep -i 'content-disposition')
+
+if [[ "$CONTENT_DISPOSITION" =~ filename\*?=\"?([^\;]*)\"? ]]; then
+    # Extract filename from header (handles both filename and filename*)
+    DEFAULT_FILENAME=$(echo "${BASH_REMATCH[1]}" | sed 's/"//g')
+    # Decode URL-encoded characters if present (e.g., %20 for space)
+    DEFAULT_FILENAME=$(echo -e "$(sed 's/\\x/\\u00/g;s/+/ /g' <<< "$DEFAULT_FILENAME")")
+else
+    # If no Content-Disposition, derive from URL
+    # Get the basename (last part) of the URL path
+    DEFAULT_FILENAME=$(basename "$DOWNLOAD_URL")
+    # Clean up potential query parameters
+    DEFAULT_FILENAME=$(echo "$DEFAULT_FILENAME" | cut -d '?' -f 1)
+fi
+
+# If after all this, the filename is still empty or looks like just a domain,
+# give it a generic name, or assume a common index file if path ends with /
+if [ -z "$DEFAULT_FILENAME" ] || [[ "$DEFAULT_FILENAME" =~ ^[a-zA-Z0-9\-\.]+$ ]]; then
+    if [[ "$DOWNLOAD_URL" =~ /$ ]]; then # URL ends with a slash, assume index.html
+        DEFAULT_FILENAME="index.html"
+    else # Fallback if URL basename is empty or doesn't look like a file
+        DEFAULT_FILENAME="downloaded_file"
+    fi
+fi
+
+
+# --- Prompt for Filename ---
+read -rp "Enter filename [default: $DEFAULT_FILENAME]: " FILENAME_INPUT
+FILENAME="${FILENAME_INPUT:-$DEFAULT_FILENAME}" # Use input or default
+
+# --- Prompt for Path ---
+read -rp "Enter destination path [default: $DEFAULT_PATH]: " PATH_INPUT
+DEST_PATH="${PATH_INPUT:-$DEFAULT_PATH}" # Use input or default
+
+# Ensure destination path ends with a slash if it's a directory
+if [ ! -d "$DEST_PATH" ]; then
+    mkdir -p "$DEST_PATH" || { echo "Error: Could not create directory $DEST_PATH"; exit 1; }
+fi
+# Remove trailing slash if it's just '/' or already handled by joining path/filename
+DEST_PATH=$(echo "$DEST_PATH" | sed 's/\/*$//')
+
+
+FULL_DEST_PATH="${DEST_PATH}/${FILENAME}"
+
+echo ""
+echo "Attempting to download:"
+echo "  URL: $DOWNLOAD_URL"
+echo "  To:  $FULL_DEST_PATH"
+echo ""
+
+# --- Execute curl command ---
+# We use -L to follow redirects
+# We use -o to specify the output file
+curl -L -o "$FULL_DEST_PATH" "$DOWNLOAD_URL"
+
+# Check curl's exit status
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "Download completed successfully to '$FULL_DEST_PATH'"
+else
+    echo ""
+    echo "Error: Download failed!"
+fi

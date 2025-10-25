@@ -16,3 +16,6 @@ kubectl port-forward service/<service_name> <your_port>:<service_port>
 Debug container (the '--copy-to' flag create a copy of the target pod):
 kubectl debug -it -n <namespace> pod/<pod_name> --image=busybox
 --share-processes --copy-to=debug-pod
+
+Restart container ('1' at the end is pid):
+kubectl exec <pod_name> -c <container_name> -- kill 1

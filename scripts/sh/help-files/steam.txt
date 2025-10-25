@@ -1,0 +1,2 @@
+Set fps cap:
+DXVK_FRAME_RATE=<number> %command%

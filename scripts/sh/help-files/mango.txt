@@ -1,0 +1,8 @@
+Get message from mango:
+mmsg -g
+
+Reload config:
+mmsg -d reload_config
+
+Quit mango:
+mmsg -d quit

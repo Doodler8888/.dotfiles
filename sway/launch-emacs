@@ -21,13 +21,13 @@ swaymsg 'workspace 2'
 # swaymsg 'exec firefox'
 # swaymsg 'exec vivaldi.vivaldi-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --use-cmd-decoder=validating'
 swaymsg 'exec /usr/bin/vivaldi --ozone-platform=wayland --enable-features=UseOzonePlatform --use-cmd-decoder=validating'
+sleep 2
 swaymsg 'exec /usr/bin/slack'
 swaymsg 'layout tabbed'
 # swaymsg 'exec vivaldi --enable-features=UseOzonePlatform --ozone-platform=wayland'
 # swaymsg 'exec alacritty'
 
-sleep 7
-
+sleep 5
 
 swaymsg 'workspace 3'
 # swaymsg 'exec alacritty -e tmux'

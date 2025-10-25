@@ -22,10 +22,12 @@ vim.pack.add({
   "https://github.com/hrsh7th/cmp-path",
   "https://github.com/hrsh7th/cmp-cmdline",
   "https://github.com/saadparwaiz1/cmp_luasnip",
+  -- "https://github.com/simifalaye/minibuffer.nvim",
   {
     src = "https://github.com/L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
   },
 })
 
--- test123 aorsietn oaiesrtn oaeisrn
+vim.cmd"packadd nvim.undotree"
+-- vim.cmd"packadd nvim.difftool"

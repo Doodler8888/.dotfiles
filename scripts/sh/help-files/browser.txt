@@ -3,3 +3,6 @@ xdg-settings set default-web-browser librewolf.desktop
 
 Open a file:
 file://<path_to_file>
+
+Hard refresh:
+Ctrl+Shift+i

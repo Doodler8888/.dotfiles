@@ -1,2 +1,11 @@
 Show keybindings:
 Super + ?
+
+Show current apps:
+niri msg windows
+
+Show current outputs:
+niri msg outputs
+
+Move window:
+Mod+Ctrl+Up/Down/Left/Right

@@ -48,7 +48,7 @@ vim.cmd('command! Source lcd $HOME/.source | Oil ~/.source')
 vim.cmd('command! Mnt lcd /mnt | Oil /mnt')
 vim.cmd('command! Plan lcd $HOME/.secret_dotfiles/plan | Oil ~/.secret_dotfiles/plan')
 vim.cmd('command! Job lcd $HOME/job | Oil ~/job')
-vim.cmd('command! Tasks lcd $HOME/job/tasks | Oil ~/job/tasks')
+vim.cmd('command! Tasks lcd $HOME/.secret_dotfiles/job/tasks | Oil ~/.secret_dotfiles/job/tasks')
 
 vim.cmd([[
   command! StopAllLSP lua for _, client in ipairs(vim.lsp.get_active_clients()) do vim.lsp.stop_client(client) end
@@ -59,4 +59,3 @@ vim.cmd([[
 vim.api.nvim_create_user_command('FT', function()
     print(vim.bo.filetype)
 end, {})
-

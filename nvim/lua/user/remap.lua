@@ -247,6 +247,8 @@ vim.keymap.set('n', '<leader>ww', function()
   if vim.fn.isdirectory(dir) == 0 then
     vim.fn.mkdir(dir, 'p')
   end
+  vim.opt_local.fixendofline = true
+  vim.opt_local.eol = true
   vim.cmd('write')
 end, {noremap = true, silent = true})
 

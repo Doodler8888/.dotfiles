@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+
+echo "Enter archive's path (has to be zip):"
+read -r archive_path
+
+mkdir -p ~/.local/share/fonts
+unzip "$archive_path" -d ~/.local/share/fonts/
+fc-cache -fv

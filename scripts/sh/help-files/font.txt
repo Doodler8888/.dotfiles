@@ -3,3 +3,6 @@ fc-list
 
 Update font cache:
 fc-cache -fv
+
+Font directory:
+~/.local/share/fonts

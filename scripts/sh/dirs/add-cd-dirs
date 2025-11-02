@@ -19,6 +19,7 @@
 /home/wurfkreuz/.projects/affilers-back
 /home/wurfkreuz/.projects/airflow-cfd
 /home/wurfkreuz/.projects/airflow-monitoring
+/home/wurfkreuz/.projects/android_test
 /home/wurfkreuz/.projects/ansible
 /home/wurfkreuz/.projects/ansible/go_server
 /home/wurfkreuz/.projects/argocd-cluster
@@ -55,6 +56,7 @@
 /home/wurfkreuz/.projects/mlflow
 /home/wurfkreuz/.projects/sentry
 /home/wurfkreuz/.projects/sentry_24.8.0
+/home/wurfkreuz/.projects/sentry/sentry
 /home/wurfkreuz/.projects/sentry/sentry_24.8.0
 /home/wurfkreuz/.projects/sonarqube_update_test
 /home/wurfkreuz/.projects/staging-tool

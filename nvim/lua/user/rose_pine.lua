@@ -71,8 +71,6 @@ require('rose-pine').setup({
 		-- TroubleIndent = { fg = '#1d1f21', bg = 'none' },
 		-- QuickFixLine = { fg = '#e0def4', bg = 'subtle', blend = 18 },
 		QuickFixLine = { fg = 'none', bg = 'subtle', blend = 18 },
-		MiniFilesCursorLine = { fg = 'none', bg = '#1d1f21' },
-		-- MiniFilesCursorLine = { fg = 'none', bg = '#1d1f21', blend = 18 },
 
 		['@neorg.markup.italic.norg'] = { italic = true },
 		['@neorg.markup.bold.norg'] = { bold = true },

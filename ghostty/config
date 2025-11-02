@@ -7,6 +7,8 @@ font-size = 15
 theme = nord
 background = #1d1f21
 
+macos-option-as-alt = true
+
 keybind = alt+1=unbind
 keybind = alt+2=unbind
 keybind = alt+3=unbind
@@ -25,3 +27,18 @@ keybind = command+6=unbind
 keybind = command+7=unbind
 keybind = command+8=unbind
 keybind = command+9=unbind
+
+keybind = command+d=unbind
+keybind = cmd+d=unbind
+keybind = cmd+f=unbind
+
+keybind = super+1=unbind
+keybind = super+2=unbind
+keybind = super+3=unbind
+keybind = super+4=unbind
+keybind = super+5=unbind
+keybind = super+6=unbind
+keybind = super+7=unbind
+keybind = super+8=unbind
+keybind = super+9=unbind
+

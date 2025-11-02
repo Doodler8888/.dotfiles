@@ -1,0 +1,2 @@
+Fullscreen toggle:
+Ctrl+Cmd+f

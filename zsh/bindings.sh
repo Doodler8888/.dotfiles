@@ -32,21 +32,6 @@ bindkey -M vicmd '^F' forward-char
 
 WORDCHARS='*?_[]~=&;!#$%^(){}<>|'
 
-# # Modified functions for whole string movement
-# forward-whole-string() {
-#     local save_wordchars="$WORDCHARS"
-#     WORDCHARS='*?_-[]~=&;!#$%^(){}<>|'  # Include - and all other chars
-#     zle forward-word
-#     WORDCHARS="$save_wordchars"
-# }
-#
-# backward-whole-string() {
-#     local save_wordchars="$WORDCHARS"
-#     WORDCHARS='*?_-[]~=&;!#$%^(){}<>|'  # Include - and all other chars
-#     zle backward-word
-#     WORDCHARS="$save_wordchars"
-# }
-
 # Move forward to the beginning of the next word (non-space sequence)
 forward-whole-string() {
   local len=${#BUFFER}
@@ -103,3 +88,34 @@ if [[ -n "$TMUX" ]]; then
   bindkey -M vicmd '^[[27;7;102~' forward-whole-string
   bindkey -M vicmd '^[[27;7;98~' backward-whole-string
 fi
+
+# # Define helper to bind both Alt (Meta) and Cmd (Command) keys
+# bind_both() {
+#   local mode="$1" key="$2" cmd="$3"
+#   # Alt-based binding (^[)
+#   bindkey -M "$mode" "^[${key}" "$cmd"
+#   # Command-based binding (macOS sends \e[27;9;<code>~)
+#   # We'll handle common CMD+letter escape sequences via pattern
+#   case "$key" in
+#     [a-zA-Z])
+#       local code=$(printf "%d" "'$key'")
+#       bindkey -M "$mode" "^[[27;9;${code}~" "$cmd"
+#       ;;
+#   esac
+# }
+#
+# # Example usage (for both viins and vicmd maps)
+# for mode in viins vicmd; do
+#   bind_both "$mode" "f" forward-word
+#   bind_both "$mode" "b" backward-word
+#   bind_both "$mode" "d" kill-word
+# done
+#
+# # Now your custom word-motion bindings:
+# zle -N forward-whole-string
+# zle -N backward-whole-string
+#
+# for mode in viins vicmd; do
+#   bind_both "$mode" "^F" forward-whole-string
+#   bind_both "$mode" "^B" backward-whole-string
+# done

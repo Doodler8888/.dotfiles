@@ -2,12 +2,11 @@ require("mini.pairs").setup({
 })
 require("mini.git").setup({
 })
--- require("mini.diff").setup({
--- })
 require('mini.statusline').setup({
   content = {
     active = function()
       local git = MiniStatusline.section_git({ trunc_width = 0 })
+
       return MiniStatusline.combine_groups({
         { hl = 'MiniStatuslineFilename', strings = { '%f', '%m' } },
         '%=',
@@ -16,6 +15,7 @@ require('mini.statusline').setup({
     end,
     inactive = function()
       local git = MiniStatusline.section_git({ trunc_width = 0 })
+
       return MiniStatusline.combine_groups({
         { hl = 'MiniStatuslineInactive', strings = { '%f', '%m' } },
         '%=',

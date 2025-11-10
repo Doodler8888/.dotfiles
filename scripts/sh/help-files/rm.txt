@@ -1,0 +1,2 @@
+Delete with globbing using sudo:
+sudo bash -c 'rm -rf /some/path/*'

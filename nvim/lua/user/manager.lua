@@ -11,9 +11,6 @@ vim.pack.add({
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/Doodler8888/resession.nvim",
   "https://github.com/kylechui/nvim-surround",
-  "https://github.com/bullets-vim/bullets.vim",
-  -- "https://github.com/tadmccorkle/markdown.nvim",
-  -- "https://github.com/MeanderingProgrammer/render-markdown.nvim",
 
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/hrsh7th/nvim-cmp",
@@ -23,6 +20,11 @@ vim.pack.add({
   "https://github.com/hrsh7th/cmp-cmdline",
   "https://github.com/saadparwaiz1/cmp_luasnip",
   -- "https://github.com/simifalaye/minibuffer.nvim",
+
+  "https://github.com/bullets-vim/bullets.vim",
+  -- "https://github.com/tadmccorkle/markdown.nvim",
+  -- "https://github.com/yousefhadder/markdown-plus.nvim",
+  -- "https://github.com/MeanderingProgrammer/render-markdown.nvim",
   {
     src = "https://github.com/L3MON4D3/LuaSnip",
     build = "make install_jsregexp",

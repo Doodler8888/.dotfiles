@@ -17,7 +17,21 @@ function Copy_file_name()
 end
 
 function Copy_relative_path()
-    local rel_path = vim.fn.expand('%:.')
+    local rel_path
+
+    if vim.bo.filetype == 'oil' then
+        -- For Oil buffers, get the actual directory path
+        local oil = require('oil')
+        local dir = oil.get_current_dir()
+        if dir then
+            rel_path = vim.fn.fnamemodify(dir, ':.')
+        else
+            rel_path = vim.fn.expand('%:.'):gsub('^oil://', '')
+        end
+    else
+        rel_path = vim.fn.expand('%:.')
+    end
+
     vim.fn.setreg('+', rel_path)
     print('Copied relative path: ' .. rel_path)
 end

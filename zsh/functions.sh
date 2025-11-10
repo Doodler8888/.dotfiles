@@ -407,22 +407,43 @@ sv-up() {
 # }
 
 
-function my_fzf_history_widget() {
-  # Сохраняем текущий ввод и очищаем
-  local orig_buffer=$BUFFER
-  BUFFER=
-  zle -I  # отключить инкрементальный поиск zle
+# function my_fzf_history_widget() {
+#   # Сохраняем текущий ввод и очищаем
+#   local orig_buffer=$BUFFER
+#   BUFFER=
+#   zle -I  # отключить инкрементальный поиск zle
+#
+#   local selected
+#   selected=$(
+#     fc -ln 0 |
+#       awk '!seen[$0]++' |
+#       tac |
+#       fzf --scheme=history \
+#           --height=40% \
+#           --tiebreak=index \
+#           --query="$orig_buffer" \
+#           --no-sort
+#   )
+#
+#   local ret=$?
+#   if [[ -n $selected ]]; then
+#     selected=${selected//\\n/$'\n'}
+#     BUFFER=$selected
+#     CURSOR=$#BUFFER
+#   else
+#     BUFFER=$orig_buffer
+#   fi
+#
+#   zle reset-prompt
+#   return $ret
+# }
+# zle -N my_fzf_history_widget
+# bindkey '^R' my_fzf_history_widget
 
+function my_simple_fzf_widget() {
   local selected
   selected=$(
-    fc -ln 0 |
-      awk '!seen[$0]++' |
-      tac |
-      fzf --scheme=history \
-          --height=40% \
-          --tiebreak=index \
-          --query="$orig_buffer" \
-          --no-sort
+    fc -ln 0 | tac | fzf --height=40%
   )
 
   local ret=$?
@@ -430,16 +451,13 @@ function my_fzf_history_widget() {
     selected=${selected//\\n/$'\n'}
     BUFFER=$selected
     CURSOR=$#BUFFER
-  else
-    BUFFER=$orig_buffer
   fi
 
   zle reset-prompt
   return $ret
 }
-zle -N my_fzf_history_widget
-bindkey '^R' my_fzf_history_widget
-
+zle -N my_simple_fzf_widget
+bindkey '^R' my_simple_fzf_widget
 
 delete_word_backward() {
     local CURSOR_BEFORE=$CURSOR

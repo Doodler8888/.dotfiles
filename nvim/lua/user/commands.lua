@@ -47,7 +47,7 @@ vim.cmd('command! Mc lcd $HOME/.dotfiles/mc/ | Oil ~/.dotfiles/mc/')
 vim.cmd('command! Source lcd $HOME/.source | Oil ~/.source')
 vim.cmd('command! Mnt lcd /mnt | Oil /mnt')
 vim.cmd('command! Plan lcd $HOME/.secret_dotfiles/plan | Oil ~/.secret_dotfiles/plan')
-vim.cmd('command! Job lcd $HOME/job | Oil ~/job')
+vim.cmd('command! Job lcd $HOME/.secret_dotfiles/job | Oil ~/.secret_dotfiles/job')
 vim.cmd('command! Tasks lcd $HOME/.secret_dotfiles/job/tasks | Oil ~/.secret_dotfiles/job/tasks')
 
 vim.cmd([[

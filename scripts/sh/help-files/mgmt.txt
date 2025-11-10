@@ -1,0 +1,16 @@
+In order to pull the image you have to be logged in into the corporate registry
+using 'docker login registry.***.com:5000'. Use a generated PAT for a password
+or look for it in the password manager. Also, there are might be some
+permissions issues and a couple of other small problems that are easy to fix.
+I added '--network host' to use vpn interface. I have no idea why this flags
+isn't in the instruction.
+
+Launch mgmt container:
+docker run \
+  --network host \
+  --cap-add ALL \
+  --pull=always --rm --interactive --tty \
+  --volume $HOME:/app \
+  --volume $HOME/.mgmt:/home/mgmt/.mgmt \
+  --volume $HOME/.ssh:/home/mgmt/.ssh \
+  registry.<b***>.com:5000/sysadm/mgmt:master

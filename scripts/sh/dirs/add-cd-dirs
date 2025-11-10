@@ -19,13 +19,16 @@
 /home/wurfkreuz/.projects/affilers-back
 /home/wurfkreuz/.projects/airflow-cfd
 /home/wurfkreuz/.projects/airflow-monitoring
+/home/wurfkreuz/.projects/android
 /home/wurfkreuz/.projects/android_test
 /home/wurfkreuz/.projects/ansible
 /home/wurfkreuz/.projects/ansible/go_server
 /home/wurfkreuz/.projects/argocd-cluster
 /home/wurfkreuz/.projects/auditd
 /home/wurfkreuz/.projects/base-image
+/home/wurfkreuz/.projects/binomo-android
 /home/wurfkreuz/.projects/binomo-app
+/home/wurfkreuz/.projects/binomo-ios
 /home/wurfkreuz/.projects/binpartner
 /home/wurfkreuz/.projects/binpartner-ruby
 /home/wurfkreuz/.projects/blacklist
@@ -54,6 +57,7 @@
 /home/wurfkreuz/.projects/meridiana-back
 /home/wurfkreuz/.projects/meridiana-fe
 /home/wurfkreuz/.projects/mlflow
+/home/wurfkreuz/.projects/nps-router
 /home/wurfkreuz/.projects/sentry
 /home/wurfkreuz/.projects/sentry_24.8.0
 /home/wurfkreuz/.projects/sentry/sentry

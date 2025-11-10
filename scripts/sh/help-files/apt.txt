@@ -6,3 +6,9 @@ apt search <package_name>
 
 List all installed packages:
 apt list --installed
+
+List all held packages:
+apt-mark showhold
+
+Hold/unhold a package:
+sudo apt-mark (un)hold <package-name>

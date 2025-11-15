@@ -5,55 +5,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Switch Language with Left Shift + Right Shift",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "left_shift",
-                                    "modifiers": { "mandatory": ["right_shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["left_control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "right_shift",
-                                    "modifiers": { "mandatory": ["left_shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["left_control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Swap Left Control and Left Fn",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "left_control" },
-                                "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
-                                "to": [{ "key_code": "left_control" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Open/Switch to Readest with Option+1",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -70,7 +22,8 @@
                         ]
                     },
                     {
-                        "description": "Swap Command and Option keys (except essential command combinations)",
+                        "description": "Swap Command and Option keys (except C/V for copy/paste)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -119,32 +72,6 @@
                                 "to": [
                                     {
                                         "key_code": "q",
-                                        "modifiers": ["command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "w",
-                                    "modifiers": { "mandatory": ["option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "w",
-                                        "modifiers": ["command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "z",
-                                    "modifiers": { "mandatory": ["option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "z",
                                         "modifiers": ["command"]
                                     }
                                 ],
@@ -244,6 +171,7 @@
                     },
                     {
                         "description": "Map Cmd+f/b/d to Option+f/b/d in Ghostty for shell bindings",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -390,6 +318,7 @@
                     },
                     {
                         "description": "Open/Switch to Readest with Command+1",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -406,6 +335,7 @@
                     },
                     {
                         "description": "Open/Switch to Telegram with Command+4",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -422,6 +352,7 @@
                     },
                     {
                         "description": "Open/Switch to Ghostty with Command+3",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -438,6 +369,7 @@
                     },
                     {
                         "description": "Open/Switch to Vivaldi with Command+2",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -563,6 +495,10 @@
             "selected": true,
             "simple_modifications": [
                 {
+                    "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                    "to": [{ "key_code": "left_control" }]
+                },
+                {
                     "from": { "key_code": "caps_lock" },
                     "to": [{ "key_code": "escape" }]
                 },
@@ -573,10 +509,6 @@
                 {
                     "from": { "key_code": "left_control" },
                     "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
-                },
-                {
-                    "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
-                    "to": [{ "key_code": "left_control" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }

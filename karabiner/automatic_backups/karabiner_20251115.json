@@ -37,7 +37,6 @@
                     },
                     {
                         "description": "Swap Left Control and Left Fn",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "left_control" },
@@ -569,14 +568,6 @@
                 {
                     "from": { "key_code": "escape" },
                     "to": [{ "key_code": "caps_lock" }]
-                },
-                {
-                    "from": { "key_code": "left_control" },
-                    "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
-                },
-                {
-                    "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
-                    "to": [{ "key_code": "left_control" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }

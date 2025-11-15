@@ -1,7 +1,12 @@
 #!/bin/sh
 
 dirs_path=""
-dir_file="$HOME/.dotfiles/scripts/sh/dirs/add-cd-dirs"
+# dir_file="$HOME/.dotfiles/scripts/sh/dirs/add-cd-dirs"
+if [ "$(uname)" = "Darwin" ]; then
+    dir_file="$HOME/.dotfiles/scripts/sh/dirs/add-cd-dirs-mac"
+else
+    dir_file="$HOME/.dotfiles/scripts/sh/dirs/add-cd-dirs"
+fi
 
 clean_file() {
     temp_file=$(mktemp) || exit 1

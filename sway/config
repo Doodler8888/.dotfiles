@@ -9,6 +9,9 @@ output DP-1 mode 1920x1080@144Hz
 # exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 # exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME xdg-desktop-portal-wlr
 # https://bbs.archlinux.org/viewtopic.php?id=287490 (check this if the problem still appears)
+
+# if screen capturing doesn't work, that's probably because you have other
+# portals installed and xdg-desktop-portal uses one of them instead of wlr.
 exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 
 # Modifier key

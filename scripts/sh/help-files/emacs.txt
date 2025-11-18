@@ -1,2 +1,8 @@
 Lauch bare emacs:
 emacs -Q
+
+Launch org:
+emacs -Q --eval "(add-to-list 'load-path (expand-file-name \"~/.source/org-mode/lisp\"))" --eval "(require 'org)"
+
+Build org:
+make

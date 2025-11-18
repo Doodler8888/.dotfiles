@@ -1,1 +1,7 @@
+Show release:
 cat /etc/os-release
+
+Show a number of cores:
+nproc
+<or>
+grep -c ^processor /proc/cpuinfo

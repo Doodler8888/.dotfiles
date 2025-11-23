@@ -1,2 +1,7 @@
+Example (tags optional):
+ansible-playbook -i <path/to/inventory> <playbook_file_name> -t <tags> -l <host_name>
+
 Check installed collections:
 ansible-galaxy collection list
+
+

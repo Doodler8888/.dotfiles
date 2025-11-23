@@ -1,0 +1,4 @@
+Example:
+rsync -avh --progress --exclude='*.img' --exclude='*.qcow2'
+admin@c1057-macmini1.internal:/Users/gitlab-runner/.android/avd/android-5554.avd/
+~/macmini1-archive/android-5554.avd/

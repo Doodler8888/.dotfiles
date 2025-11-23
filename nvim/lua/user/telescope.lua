@@ -54,6 +54,8 @@ end
 require('telescope').setup({
   defaults = {
   -- find_command = { "fd", "--hidden", "--exclude=.git", "--exclude=node_modules", "--exclude=.clj-kondo" },
+  -- path_display = { "filename_first" },
+  path_display = { "truncate" },
   file_ignore_patterns = { -- ignoring files make the search slower?
   --     "node_modules",
       -- "%.git",

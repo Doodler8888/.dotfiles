@@ -43,13 +43,21 @@ vim.keymap.set('i', '<C-M-f>', '<Esc>Ea', {noremap = true})
 vim.keymap.set('i', '<C-M-b>', '<C-o>B', {noremap = true})
 vim.keymap.set('i', '<M-b>', '<C-o>b', {noremap = true})
 vim.keymap.set('i', '<M-m>', '<Esc>I', {noremap = true})
-vim.keymap.set('i', '<M-d>', '<C-o>dw', { desc = 'Delete word forward' })
+vim.keymap.set('i', '<M-d>', '<C-o>de', { desc = 'Delete word forward' })
 vim.keymap.set('i', '<M-)>', '<C-o>)', { desc = 'Move to next sentence' })
 vim.keymap.set('i', '<M-(>', '<C-o>(', { desc = 'Move to previous sentence' })
 
 -- Normal/Operator-Pending Mode Bindings
 vim.keymap.set({'n', 'o'}, '<M-m>', '^')
-vim.keymap.set('n', '<CR>', 'i<CR><Esc>', { noremap = true })
+vim.keymap.set('n', '<CR>', function()
+  -- If we are at the start of the line (column 1)
+  if vim.fn.col('.') == 1 then
+    return 'i<CR><Esc>'
+  else
+    -- Anywhere else, compensate for the Esc back-step
+    return 'i<CR><Esc>l'
+  end
+end, { expr = true, noremap = true })
 
 -- Cmd line bindings
 vim.keymap.set('c', '<C-f>', '<Right>')

@@ -1,2 +1,5 @@
 Redirect stderr and stdout:
 yourcommand &> filename
+
+Execute from stdin:
+bash -

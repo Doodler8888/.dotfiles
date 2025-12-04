@@ -104,8 +104,9 @@ alias .4='cd ../../../..'
 alias nvm='cd ~/.dotfiles/nvim/ && nvim .'
 # alias install='sudo apt install'
 alias install='sudo dnf upgrade --refresh && sudo dnf install'
-alias remove='sudo apt remove'
-alias search='sudo apt search'
+alias remove='sudo dnf remove'
+# alias remove='sudo apt remove'
+# alias search='sudo apt search'
 # alias install='sudo xbps-install -S'
 # alias update='sudo xbps-install -Syu'
 # alias remove='sudo xbps-remove -R' # '-R' for recursive removal of dependencies
@@ -193,6 +194,8 @@ alias tree-no-git-dir="tree -a -I '.git'"
 alias tree-gitignore="tree --gitignore"
 alias tree-all="tree -all"
 alias show-desktop="ls -la /usr/share/applications && ls -la ~/.local/share/applications"
+alias compose='docker compose'
+alias clear-shader-cache='rm -rf ~/.cache/mesa_shader_cache/* && rm -rf ~/.cache/share/vulkan/pipeline_cache/*'
 
 autoload -Uz compinit; compinit;
 bindkey "^Xe" _expand_alias

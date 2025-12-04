@@ -1,2 +1,5 @@
 Tasks made by you:
+reporter = currentUser()
+
+Tasks assigned to you:
 assignee = currentUser()

@@ -3,3 +3,6 @@ pip install -r requirements.txt
 
 Populate requirements.txt:
 pip freeze > requirements.txt
+
+Make a post request:
+python3 -c "import requests; print(requests.get('https://jira.karuna.group').status_code)"

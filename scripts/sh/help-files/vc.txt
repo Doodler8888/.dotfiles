@@ -1,0 +1,14 @@
+Hide all up-to-date files:
+x
+
+Revert buffer:
+g
+
+Commit:
+v
+
+Add:
+m
+
+Push:
+P

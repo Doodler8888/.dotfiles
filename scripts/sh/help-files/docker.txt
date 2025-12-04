@@ -22,7 +22,13 @@ Check to what registry you've logged in currently:
 cat ~/.docker/config.json
 
 Flag for launching container with the host's network namespace:
---network host
+--network=host
 
 Copying from container to a host:
 sudo docker cp <container_name>:/path/in/container /path/in/host
+
+Check memory of containers (i usually use it with docker compose):
+docker stats --no-stream --format "table {{.Name}}\t{{.MemUsage}}\t{{.MemPerc}}" | sort -k 2 -h -r
+
+Flags for showing only certain number of last raws of logs:
+--tail=<number>

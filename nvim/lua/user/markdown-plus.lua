@@ -1,2 +1,0 @@
-require("markdown-plus").setup({
-})

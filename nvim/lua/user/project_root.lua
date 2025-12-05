@@ -104,6 +104,8 @@ vim.api.nvim_create_user_command('Root', function()
     print('Changed to root: ' .. root)
 end, {})
 
+vim.keymap.set('n', '<leader>ro', ':Root<CR>', {noremap = true, silent = true})
+
 -- Function to search files from root with Telescope
 local function telescope_from_root()
     local current_dir = vim.fn.fnamemodify(get_real_path(), ':h')

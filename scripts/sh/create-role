@@ -51,4 +51,3 @@ create_file "defaults/main.yml"
 create_file "handlers/main.yml"
 create_file "tasks/main.yml"
 create_file "vars/main.yml"
-

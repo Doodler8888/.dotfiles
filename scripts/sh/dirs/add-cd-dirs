@@ -27,6 +27,7 @@
 /home/wurfkreuz/.projects/argocd-cluster
 /home/wurfkreuz/.projects/auditd
 /home/wurfkreuz/.projects/base-image
+/home/wurfkreuz/.projects/binomo
 /home/wurfkreuz/.projects/binomo-android
 /home/wurfkreuz/.projects/binomo-app
 /home/wurfkreuz/.projects/binomo-ios
@@ -69,6 +70,7 @@
 /home/wurfkreuz/.projects/staging-tool
 /home/wurfkreuz/.projects/vault
 /home/wurfkreuz/.secret_dotfiles
+/home/wurfkreuz/.secret_dotfiles/job/tasks
 /home/wurfkreuz/.secret_dotfiles/markdown
 /home/wurfkreuz/.secret_dotfiles/markdown/linux
 /home/wurfkreuz/.secret_dotfiles/org

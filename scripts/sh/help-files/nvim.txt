@@ -21,5 +21,7 @@ e! - "!" forces the reload, discarding any unsaved changes.
 Search in specific file patterns:
 :vimgrep /oldword/g file1.txt file2.txt src/**/*.lua
 
-Interactively replace found pattern in each file:
+Interactively replace found pattern in each file (you don't have to use vimgrep
+before, you just need to fill quickfix list in any way, like using C-q in
+telescope):
 :cfdo %s/oldword/newword/gc | update

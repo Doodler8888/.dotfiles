@@ -13,6 +13,14 @@ vim.keymap.set('n', '<M-CR>', ':cc<CR>', { noremap = true, silent = true, desc =
 vim.keymap.set('n', '<C-M-n>', ':cnext<CR>', { noremap = true, silent = true, desc = "Next quickfix item" })
 vim.keymap.set('n', '<C-M-p>', ':cprev<CR>', { noremap = true, silent = true, desc = "Previous quickfix item" })
 
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    -- This pattern matches any command ending in 'grep' (vimgrep, grep, rgrep)
+    pattern = "*grep*",
+    callback = function()
+        vim.cmd("cwindow")
+    end,
+})
+
 local M = {}
 
 -- Keep separate quickfix lists using context markers

@@ -6,6 +6,8 @@ import os
 home_dir = os.getenv("HOME")
 script_dir = os.getcwd()
 
+# make the function to ask whether i want to create a directory if it doesn't
+# exist o algo
 def get_path(path, tail):
     dir_path = path + tail
     if os.path.isdir(dir_path):

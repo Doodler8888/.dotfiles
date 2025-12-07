@@ -17,7 +17,7 @@ clean_file() {
 }
 
 main() {
-	# The -h flag is for cheking symlinks (the man page says about the -l flag also, but it doesn't work)
+    # The -h flag is for cheking symlinks (the man page says about the -l flag also, but it doesn't work)
     if [ -e "$HOME"/.dirs ] && [ ! -h "$HOME"/.dirs ]; then
 		echo "Can't symlink the \"$dir_file\". You already have a file or directory with the name '.dirs'."; exit 1;
     elif [ ! -e "$HOME"/.dirs ]; then

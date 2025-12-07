@@ -1,2 +1,5 @@
 Fullscreen toggle:
 Ctrl+Cmd+f
+
+Search for an application name:
+ls /Applications | grep -i <pattern>

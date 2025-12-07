@@ -1,0 +1,12 @@
+#!/bin/python
+
+import os
+
+
+home_dir = os.getenv("HOME")
+script_dir = os.getcwd()
+
+unsure_dir
+learned_dir
+not_learned_dir
+session_dir

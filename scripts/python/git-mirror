@@ -86,12 +86,3 @@ with open(log_file_path, "a") as f:
 for entry in repos_dictionary:
     check_remote_commit(entry)
 
-
-
-# for repo in repos:
-#     master_hash = subprocess.check_output(f"cd {repo} && git ls-remote origin master", shell=True, text=True).split()[0]
-#     print(f"This is the master hash {master_hash}")
-#     gitlab_hash = subprocess.check_output(f"cd {repo} && git ls-remote gitlab master", shell=True, text=True).split()[0]
-#     print(f"This is the gitlab hash {gitlab_hash}")
-#     if master_hash != gitlab_hash:
-#         subprocess.run(f"cd {repo} && git push gitlab master:main", shell=True, check=True, capture_output=True)

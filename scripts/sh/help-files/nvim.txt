@@ -1,7 +1,7 @@
 Launch bare nvim:
 nvim --clean
 
-Launch neovim with a custom file:
+Launch neovim with a custom file (it's not a clean launch with a specific file, try to add '--no-plugin'):
 nvim -u <file_path>
 
 Show higlight group name under the cursor:
@@ -25,3 +25,9 @@ Interactively replace found pattern in each file (you don't have to use vimgrep
 before, you just need to fill quickfix list in any way, like using C-q in
 telescope):
 :cfdo %s/oldword/newword/gc | update
+
+Update plugins (to confirm update run ':write' in the output window):
+lua vim.pack.update()
+
+Update a plugin (to confirm update run ':write' in the output window):
+lua vim.pack.update({"<plugin_name>.nvim"})

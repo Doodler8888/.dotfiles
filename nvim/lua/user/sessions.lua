@@ -277,9 +277,9 @@ _G.session_picker = function(opts)
     }):find()
 end
 
-vim.api.nvim_create_user_command('LoadSessionPicker', function() _G.session_picker() end, {})
-vim.keymap.set('n', '<leader>sl', function() _G.session_picker() end, { noremap = true, silent = true })
-
--- Require the module
-local tabs1 = require('user.tab_rename_mksession')
-vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })
+-- vim.api.nvim_create_user_command('LoadSessionPicker', function() _G.session_picker() end, {})
+-- vim.keymap.set('n', '<leader>sl', function() _G.session_picker() end, { noremap = true, silent = true })
+--
+-- -- Require the module
+-- local tabs1 = require('user.tab_rename_mksession')
+-- vim.keymap.set('n', '<leader>tr', tabs1.set_tabname, { desc = "Rename tab" })

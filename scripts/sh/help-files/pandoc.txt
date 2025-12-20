@@ -1,5 +1,2 @@
-If you convert markdown to org, use markdown-auto_identifiers instead of just
-markdown. Otherwise there will be lots of garbage.
-
-pandoc -f <input_format_name> -t <output_format_name> input_file_name >
-output_file_name
+Convert markdown to org:
+pandoc -f markdown -t org-auto_identifiers <markdown_filename> > <org_filename>

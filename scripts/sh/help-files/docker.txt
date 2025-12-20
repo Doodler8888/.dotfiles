@@ -1,3 +1,6 @@
+--network=container:<container_name> (=host, =<compose_container_name>)
+--tail=<number> - used for the 'logs' command.
+
 Build image (the last dot is for the build context):
 docker buildx build -t <name>:<tag> .
 
@@ -7,11 +10,8 @@ docker run -d -p 8081:8081 -p 5000:5000 --name <name> -v \
 or
 docker run -it --name <name> <image> <command>
 
-Execute command on a running container:
-docker exec -it <container_name> bash
-
-Set entrypoint:
-docker run -it --rm --entrypoint bash <image_name:tag>
+Set entrypoint (bash arguments are at the end, otherwise docker will interpreta the -c flag as its own):
+docker run --rm --entrypoint bash cybertec/pgwatch2-daemon:v1.8.5 -c 'which curl && apt list --installed | grep certificates'
 
 Add new image reference:
 docker tag <existing_image_reference> <new_reference>
@@ -21,14 +21,11 @@ docker tag fast-api:1.0 wurfkreuz/fast-api:tagname
 Check to what registry you've logged in currently:
 cat ~/.docker/config.json
 
-Flag for launching container with the host's network namespace:
---network=host
-
 Copying from container to a host:
 sudo docker cp <container_name>:/path/in/container /path/in/host
 
 Check memory of containers (i usually use it with docker compose):
 docker stats --no-stream --format "table {{.Name}}\t{{.MemUsage}}\t{{.MemPerc}}" | sort -k 2 -h -r
 
-Flags for showing only certain number of last raws of logs:
---tail=<number>
+Check available tags:
+curl -L -s 'https://registry.hub.docker.com/v2/repositories/<repository_name>/<image_name>/tags?page_size=50' | grep -o '"name": *"[^"]*"' | cut -d '"' -f 4

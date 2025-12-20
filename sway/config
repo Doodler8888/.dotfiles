@@ -18,7 +18,7 @@ exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY 
 set $mod Mod4
 
 # Window management
-bindsym $mod+w kill
+bindsym --to-code $mod+w kill
 # bindsym $mod+v splitv
 # bindsym $mod+c splith # i use mode+c already for reloading a config file
 
@@ -33,8 +33,10 @@ bindsym $mod+tab focus next
 
 bindsym $mod+Home exec wtype -k End # make sure you have wtype installed
 
-bindsym $mod+h focus left
-bindsym $mod+l focus right
+bindsym --to-code $mod+h focus left
+bindsym --to-code $mod+l focus right
+# bindsym $mod+h focus left
+# bindsym $mod+l focus right
 bindsym $mod+k focus up
 bindsym $mod+j focus down
 

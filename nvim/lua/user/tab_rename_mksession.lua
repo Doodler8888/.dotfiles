@@ -7,7 +7,8 @@ function M.set_tabname()
     local tabnr = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage())
     vim.ui.input({ prompt = 'Tab name: ' }, function(name)
         if name then
-            _G.custom_tab_names[tabnr] = name
+            -- FIX: Convert tabnr to string to ensure consistent key usage
+            _G.custom_tab_names[tostring(tabnr)] = name
             vim.cmd('redrawtabline')
         end
     end)
@@ -15,7 +16,8 @@ end
 
 function M.get_tabname(tab)
     local tabnr = type(tab) == "number" and tab or vim.api.nvim_tabpage_get_number(tab)
-    return _G.custom_tab_names[tabnr]
+    -- FIX: Retrieve using string key
+    return _G.custom_tab_names[tostring(tabnr)]
 end
 
 function M.custom_tabline()
@@ -24,18 +26,24 @@ function M.custom_tabline()
     local tabs = vim.api.nvim_list_tabpages()
 
     for _, tab in ipairs(tabs) do
+        -- Highlight selection
         if tab == current_tab then
             tabline = tabline .. '%#TabLineSel#'
         else
             tabline = tabline .. '%#TabLine#'
         end
 
-        tabline = tabline .. ' '..vim.api.nvim_tabpage_get_number(tab)..' '
+        local tabnr = vim.api.nvim_tabpage_get_number(tab)
+
+        -- Add Tab number
+        tabline = tabline .. ' ' .. tabnr .. ' '
 
         local custom_name = M.get_tabname(tab)
-        if custom_name then
-            tabline = tabline .. tostring(custom_name)
+
+        if custom_name and custom_name ~= "" then
+            tabline = tabline .. custom_name
         else
+            -- Fallback to buffer name
             local wins = vim.api.nvim_tabpage_list_wins(tab)
             if #wins > 0 then
                 local buf = vim.api.nvim_win_get_buf(wins[1])
@@ -56,12 +64,10 @@ vim.o.tabline = '%!v:lua.custom_tabline()'
 
 vim.keymap.set('n', '<leader>tr', M.set_tabname, { desc = "Rename tab" })
 
--- Function to get the path for the tab names file
 local function get_tab_names_path(session_path)
     return session_path .. '.tabnames'
 end
 
--- Save tab names to a file
 function M.save_tab_names(session_path)
     local tab_names_path = get_tab_names_path(session_path)
     local file = io.open(tab_names_path, "w")
@@ -69,31 +75,35 @@ function M.save_tab_names(session_path)
         print("Error: Could not open file for writing: " .. tab_names_path)
         return
     end
+    -- This now saves {"1": "Name", "2": "Name"} which is unambiguous in JSON
     file:write(vim.fn.json_encode(_G.custom_tab_names))
     file:close()
 end
 
--- Load tab names from a file
 function M.load_tab_names(session_path)
     local tab_names_path = get_tab_names_path(session_path)
     local file = io.open(tab_names_path, "r")
-    if not file then
-        return -- File may not exist, which is fine
-    end
+    if not file then return end
+
     local content = file:read("*a")
     file:close()
+
     if content and content ~= "" then
-        local data = vim.fn.json_decode(content)
-        local tabs = vim.api.nvim_list_tabpages()
-        for _, tab in ipairs(tabs) do
-            local tabnr = vim.api.nvim_tabpage_get_number(tab)
-            if data[tabnr] and data[tabnr] ~= vim.NIL then
-                _G.custom_tab_names[tabnr] = data[tabnr]
+        local status, data = pcall(vim.fn.json_decode, content)
+        if not status or not data then return end
+
+        -- Clear current names to prevent ghosting
+        _G.custom_tab_names = {}
+
+        -- FIX: Iterate pairs and force keys to strings
+        -- JSON decode might return keys as strings ("1") or numbers (1) depending on format
+        for k, v in pairs(data) do
+            if v and v ~= vim.NIL then
+                _G.custom_tab_names[tostring(k)] = v
             end
         end
         vim.cmd('redrawtabline')
     end
 end
-
 
 return M

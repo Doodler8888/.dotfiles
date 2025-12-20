@@ -1,3 +1,6 @@
+Open vc:
+vc-dir (<C-x v d>)
+
 Hide all up-to-date files:
 x
 
@@ -12,3 +15,6 @@ m
 
 Push:
 P
+
+See changes:
+=

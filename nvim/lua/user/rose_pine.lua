@@ -71,6 +71,9 @@ require('rose-pine').setup({
 		-- TroubleIndent = { fg = '#1d1f21', bg = 'none' },
 		-- QuickFixLine = { fg = '#e0def4', bg = 'subtle', blend = 18 },
 		QuickFixLine = { fg = 'none', bg = 'subtle', blend = 18 },
+		ArtioSel = { fg = '#e0def4', bg = 'subtle', blend = 18 },
+		ArtioMatch = { fg = '#e0def4', bg = 'muted'},
+		ArtioPointer = { fg = 'iris'},
 
 		['@neorg.markup.italic.norg'] = { italic = true },
 		['@neorg.markup.bold.norg'] = { bold = true },

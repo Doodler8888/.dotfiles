@@ -27,3 +27,6 @@ Cycle between splits:
 
 Rename tab:
 <prefix> ,
+
+Move tabs (starts with 0):
+move-window -t <number>

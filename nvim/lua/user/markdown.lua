@@ -1,25 +1,22 @@
--- vim.g.bullets_set_mappings = 0  -- Disable default mappings
---
--- -- Then set up your own mappings
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "markdown", "text" },
---   callback = function()
---     -- Normal Enter: just new line (like M-RET in org-mode)
---     vim.keymap.set('i', '<CR>', '<CR>', { buffer = true })
---
---     -- Alt-Enter or Ctrl-Enter: create new bullet
---     vim.keymap.set('i', '<M-CR>', '<Plug>(bullets-newline)', { buffer = true })
---     -- Or use Ctrl-Enter if you prefer:
---     -- vim.keymap.set('i', '<C-CR>', '<Plug>(bullets-newline)', { buffer = true })
---   end,
--- })
---
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "markdown", "text" },
---   callback = function()
---     vim.keymap.set({'n', 'v'}, '<C-c><C-c>', '<Plug>(bullets-toggle-checkbox)', { buffer = true })
---   end,
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- Set text width to 80 characters
+    vim.opt_local.textwidth = 80
+
+    -- Enable auto-wrapping
+    vim.opt_local.formatoptions:append("t")
+
+    -- Enable auto-wrapping comments using textwidth
+    vim.opt_local.formatoptions:append("c")
+
+    -- Remove comment leader when joining lines
+    vim.opt_local.formatoptions:append("j")
+
+    -- Don't break lines at single spaces that follow periods
+    vim.opt_local.formatoptions:append("q")
+  end
+})
 
 local group = vim.api.nvim_create_augroup("MarkdownSmartEnter", { clear = true })
 

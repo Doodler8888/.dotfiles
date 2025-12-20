@@ -136,3 +136,51 @@ local function delete_session_picker()
 end
 
 vim.keymap.set("n", "<leader>sd", delete_session_picker)
+
+local function oldfiles_picker()
+  local raw_oldfiles = vim.v.oldfiles
+  local valid_oldfiles = {}
+
+  for _, file in ipairs(raw_oldfiles) do
+    -- Filter conditions:
+    -- 1. File must still exist (filereadable)
+    -- 2. File must NOT start with /tmp/ (excludes temp files)
+    -- 3. File must NOT be a git commit message (optional, but usually desired)
+    local is_readable = vim.fn.filereadable(file) == 1
+    local is_tmp = string.match(file, "^/tmp/")
+    local is_git_commit = string.match(file, "COMMIT_EDITMSG$")
+
+    if is_readable and not is_tmp and not is_git_commit then
+      table.insert(valid_oldfiles, file)
+    end
+  end
+
+  if #valid_oldfiles == 0 then
+    vim.notify("No recent files found", vim.log.levels.INFO)
+    return
+  end
+
+  artio.generic(valid_oldfiles, {
+    prompt = "Recent Files",
+    win = {
+      preview_opts = maximize_preview
+    },
+    preview_item = function(path)
+      return vim.fn.bufadd(path)
+    end,
+    hl_item = function(item)
+      if item.text == vim.api.nvim_buf_get_name(0) then
+        return { { { 0, #item.text }, "DiagnosticInfo" } }
+      end
+    end,
+    on_close = function(path)
+      if not path then return end
+      vim.schedule(function()
+        vim.cmd("edit " .. vim.fn.fnameescape(path))
+      end)
+    end,
+  })
+end
+
+-- Keymap for Oldfiles
+vim.keymap.set("n", "<leader>fr", oldfiles_picker)

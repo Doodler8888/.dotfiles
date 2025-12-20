@@ -65,10 +65,6 @@ vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatop
 vim.o.timeoutlen = 1000
 vim.o.ttimeoutlen = 0
 
-vim.cmd([[ set wildmode=longest:full ]])
--- vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
-vim.opt.completeopt = { "menuone", "noselect", "popup", "fuzzy" }
-
 vim.diagnostic.config({
   signs = false,
   underline = false,
@@ -103,22 +99,13 @@ vim.o.hidden = false
 -- -- hightlighting in cmd
 -- require('vim._extui').enable({})
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    -- Set text width to 80 characters
-    vim.opt_local.textwidth = 80
+vim.opt.langmap = table.concat({
+  "фa", "кr", "ыs", "вt", "аd",
+  "пh", "рn", "оe", "дi", "шu",
+  "йq", "цw", "уf", "гl", "рh",
+  "яz", "чx", "сc", "мv", "иb",
+  "тk", "нj",
 
-    -- Enable auto-wrapping
-    vim.opt_local.formatoptions:append("t")
-
-    -- Enable auto-wrapping comments using textwidth
-    vim.opt_local.formatoptions:append("c")
-
-    -- Remove comment leader when joining lines
-    vim.opt_local.formatoptions:append("j")
-
-    -- Don't break lines at single spaces that follow periods
-    vim.opt_local.formatoptions:append("q")
-  end
-})
+  "ФA", "КR", "ЫS", "ВT", "АD",
+  "ПH", "РN", "ОE", "ЛI", "ДO",
+}, ",")

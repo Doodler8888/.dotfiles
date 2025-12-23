@@ -289,6 +289,7 @@ fi
 
 source <(kubectl completion zsh)
 source <(helm completion zsh)
+complete -C '/usr/bin/aws_completer' aws
 # if i add this, i'll get errors
 # vault -autocomplete-install
 eval "$(direnv hook zsh)"

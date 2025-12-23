@@ -1,5 +1,22 @@
-Redirect stderr and stdout:
-yourcommand &> filename
-
 Execute from stdin:
 bash -
+
+Return value in a function:
+<function_name>() {
+  echo <return_value>
+}
+
+Flags parsing:
+function1() {
+}
+function2() {
+}
+main() {
+	case "$1" in
+		<flag>) shift # Otherwise $1 in function1 equals to the flag
+				function1 "$@";;
+		*) function2 "$@";; # No flags, should be at the very bottom
+}
+case "$(basename "$0")" in
+    <file_name>) main "$@";;
+esac

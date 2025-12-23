@@ -1,5 +1,7 @@
 kill uses SIGTERM (it's called TERM in the man page) as a default signal.
 
-Example of usage:
-
+You can search for processes without using 'ps aux | grep <name>:
 kill -9 $(pgrep -o steam)
+
+If running application has many processes you can close it by using:
+pkill <application_name>

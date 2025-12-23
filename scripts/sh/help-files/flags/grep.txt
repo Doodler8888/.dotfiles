@@ -1,0 +1,5 @@
+-E - grep with several patterns
+-r - recursive search
+-A - grep with printing line <n> number of lines ahead
+-i - case insensitive grep
+-l - show only filenames

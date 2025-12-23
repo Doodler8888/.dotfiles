@@ -9,10 +9,12 @@ find . -path './.git' -prune -o -type f -print
 
 Applying other commands:
 find . -type f -exec echo "This is {}" \;
-
-or:
+=OR=:
 find . -type f | while IFS= read -r file; do
     echo -e "$file:\n"
     cat "$file"
     echo -e "\n"
 done
+
+Use more then one search target:
+find . -name "<pattern>" -o -name "<pattern>"

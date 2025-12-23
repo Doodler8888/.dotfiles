@@ -1,0 +1,2 @@
+-E - makes utility to return non-zero if a file isn't found (by default it will
+	 return 0). But it will output to stdout, not to stderr.

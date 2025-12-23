@@ -1,0 +1,5 @@
+Download project dependencies (that you don't have):
+./gradlew dependencies
+
+Download all dependencies:
+./gradlew dependencies --refresh-dependencies

@@ -8,3 +8,6 @@ curl -k <url>
 Check only headers (useful for testing, where the address that you use isn't
 meant as a test endpoint):
 curl -I <url>
+
+Authentication test:
+curl -u "<login>:<password>" -I "<url>"

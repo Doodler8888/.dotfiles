@@ -1,2 +1,6 @@
-Redirect stdout and stderr (bash only):
-$>
+> - stdin
+1> - stdout
+2> - stderr
+
+Redirect stderr and stdout:
+<command> &> <path>

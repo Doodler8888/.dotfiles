@@ -1,2 +1,2 @@
 Convert markdown to org:
-pandoc -f markdown -t org-auto_identifiers <markdown_filename> > <org_filename>
+pandoc -f markdown-auto_identifiers -t org <name>.md > <name>.org

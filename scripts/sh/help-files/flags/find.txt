@@ -1,0 +1,2 @@
+-name <value> - target name
+-o - allows to use several targets

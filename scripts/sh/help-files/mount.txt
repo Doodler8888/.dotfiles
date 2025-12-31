@@ -1,1 +1,7 @@
-sudo mount /dev/sda1 /any/directory
+Mount:
+sudo mount /dev/<device_with_number> /mnt/<existing_dir>
+
+Unmount:
+sudo umount /dev/<device_with_number>
+=OR=
+sudo umount /mnt/<mount_dir>

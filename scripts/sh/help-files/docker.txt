@@ -1,8 +1,10 @@
---network=container:<container_name> (=host, =<compose_container_name>)
+--network container:<container_name> (=host, =<compose_container_name>)
 --tail=<number> - used for the 'logs' command.
+--volume <volume|file_path>:<mount_path>
+--env <VARIABLE>=<value>
 
 Build image (the last dot is for the build context):
-docker buildx build -t <name>:<tag> .
+docker buildx build -t <name>:<tag> |-f <filepath>| .
 
 Run container
 docker run -d -p 8081:8081 -p 5000:5000 --name <name> -v \

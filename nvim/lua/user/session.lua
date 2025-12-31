@@ -69,6 +69,8 @@ function M.save(name)
 
   vim.g.current_session_name = name
   vim.g.session_loaded = true
+
+  vim.notify("Session saved: " .. name, vim.log.levels.INFO)
 end
 
 -- delete

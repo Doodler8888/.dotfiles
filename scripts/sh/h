@@ -5,7 +5,7 @@ FLAGS_DIR=$HELP_DIR/flags
 
 search() {
     file_path="$TARGET_DIR/$1.txt"
-	echo "This is file path: $file_path"
+	# echo "This is file path: $file_path"
 	# Try the original file -E
 	if ! cat "$file_path" 2> /dev/null; then
 		# Try adding 's'

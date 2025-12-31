@@ -112,6 +112,7 @@ require('rose-pine').setup({
 		['@keyword.directive.bash'] = { fg = 'muted' },
 		['@number.bash'] = { fg = '#908caa' },
 		['@constant.bash'] = { fg = 'foam' },
+		['@variable.parameter.bash'] = { fg = '#e0def4' },
 
 		['zshNumber'] = { fg = '#908caa' },
 

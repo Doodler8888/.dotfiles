@@ -1,0 +1,4 @@
+Authorization token for codeartifact:
+export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
+--domain <storage_group> --domain-owner <user_id> --region <region> --query \
+authorizationToken --output text)

@@ -20,3 +20,13 @@ main() {
 case "$(basename "$0")" in
     <file_name>) main "$@";;
 esac
+
+Looping through a list:
+ITEMS=(
+  item1
+  item2
+  item3
+)
+for item in "{$ITEMS[@]}"; do
+	echo "This is the current item: $item"
+done

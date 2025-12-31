@@ -1,5 +1,22 @@
-Download project dependencies (that you don't have):
+Download project dependencies that you don't have (without plugins):
 ./gradlew dependencies
 
-Download all dependencies:
+Download all dependencies (without plugins):
 ./gradlew dependencies --refresh-dependencies
+
+Download all dependencies and build application (with plugins):
+./gradlew assembleRelease --refresh-dependencies
+
+Download all dependencies without building:
+./gradlew assembleRelease --refresh-dependencies --dry-run
+
+Download all plugins without building:
+./gradlew buildEnvironment --dry-run
+
+Check all releases and other info:
+./gradlew :app:signingReport
+=OR=
+./gradlew :app:resolvableConfigurations | grep "RuntimeClasspath"
+
+Download dependencies of a certain release:
+./gradlew :app:dependencies --configuration <release_name>RuntimeClasspath --refresh-dependencies

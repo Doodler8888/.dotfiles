@@ -147,12 +147,12 @@ require('telescope').setup({
 })
 
 
--- vim.api.nvim_set_keymap(
---     "n",
---     "<leader>ff",
---     [[<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true, sort = true })<CR>]],
---     { noremap = true, silent = true }
--- )
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>ff",
+    [[<cmd>lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true, sort = true })<CR>]],
+    { noremap = true, silent = true }
+)
 
 vim.api.nvim_set_keymap(
     "n",
@@ -875,3 +875,7 @@ end
 -- Create a mapping or command
 vim.api.nvim_create_user_command('TelescopeTabGrep', grep_current_tab_files, {})
 vim.keymap.set('n', '<C-s><C-s>', grep_current_tab_files, { desc = "Search in current tab files" })
+
+vim.keymap.set("n", "<leader>sl", function()
+  require("user.session-telescope").list_sessions()
+end, { desc = "Telescope Session Picker" })

@@ -30,3 +30,6 @@ Rename tab:
 
 Move tabs (starts with 0):
 move-window -t <number>
+
+Rename a session:
+<prefix>$

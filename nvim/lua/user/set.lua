@@ -99,13 +99,15 @@ vim.o.hidden = false
 -- -- hightlighting in cmd
 -- require('vim._extui').enable({})
 
-vim.opt.langmap = table.concat({
-  "фa", "кr", "ыs", "вt", "аd",
-  "пh", "рn", "оe", "дi", "шu",
-  "йq", "цw", "уf", "гl", "рh",
-  "яz", "чx", "сc", "мv", "иb",
-  "тk", "нj",
+-- vim.opt.langmap = table.concat({
+--   "фa", "кr", "ыs", "вt", "аd",
+--   "пh", "рn", "оe", "дi", "шu",
+--   "йq", "цw", "уf", "гl", "рh",
+--   "яz", "чx", "сc", "мv", "иb",
+--   "тk", "нj",
+--
+--   "ФA", "КR", "ЫS", "ВT", "АD",
+--   "ПH", "РN", "ОE", "ЛI", "ДO",
+-- }, ",")
 
-  "ФA", "КR", "ЫS", "ВT", "АD",
-  "ПH", "РN", "ОE", "ЛI", "ДO",
-}, ",")
+vim.opt.inccommand = "split"

@@ -389,7 +389,7 @@
                         ]
                     },
                     {
-                        "description": "Open/Switch to Brave with Command+1",
+                        "description": "Open/Switch to Readest with Command+1",
                         "manipulators": [
                             {
                                 "from": {

@@ -252,6 +252,14 @@ bindkey -s '^S' 'clear-ls-all\n'
 # zle -N clear-ls-all
 # bindkey '^S' clear-ls-all
 
+# Copy current command to clipboard
+copy-command() {
+    echo -n $BUFFER | pbcopy
+    zle -M "Copied to clipboard"
+}
+
+zle -N copy-command
+bindkey '^X^Y' copy-command
 
 freeze() {
   # Check if VIRTUAL_ENV is set, indicating a virtual environment is active
@@ -300,7 +308,8 @@ Cp() {
 
   # Notify the user that the path has been copied
   # echo "Copied current directory path to clipboard: $current_dir"
-  notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
+  zle -M "Copied to clipboard $(echo "$current_dir" | fold -w 50)"
+  # notify-send "Copied to clipboard" "$(echo "$current_dir" | fold -w 50)"
     # zle reset-prompt
 }
 zle -N Cp

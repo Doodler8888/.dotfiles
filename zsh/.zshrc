@@ -196,6 +196,7 @@ alias tree-all="tree -all"
 alias show-desktop="ls -la /usr/share/applications && ls -la ~/.local/share/applications"
 alias compose='docker compose'
 alias clear-shader-cache='rm -rf ~/.cache/mesa_shader_cache/* && rm -rf ~/.cache/share/vulkan/pipeline_cache/*'
+alias -g C='| pbcopy'
 
 autoload -Uz compinit; compinit;
 bindkey "^Xe" _expand_alias
@@ -287,6 +288,8 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# this one enables 'complete'
+autoload -U +X bashcompinit && bashcompinit
 source <(kubectl completion zsh)
 source <(helm completion zsh)
 complete -C '/usr/bin/aws_completer' aws
@@ -296,7 +299,6 @@ eval "$(direnv hook zsh)"
 # eval "$(atuin init zsh)"
 # eval "$(starship init zsh)"
 
-autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /snap/opentofu/156/tofu tofu
 
 complete -o nospace -C /usr/bin/vault vault
